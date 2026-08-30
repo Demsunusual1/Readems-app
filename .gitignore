@@ -1,0 +1,23 @@
+# dependencies and builds
+node_modules/
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+
+# environment and local data
+.env
+.env.local
+.env.*.local
+!.env.example
+*.db
+
+# generated Prisma client files (generated during install/CI)
+src/generated/prisma/
+
+# editor and operating system files
+.DS_Store
+*.swp
+
+*.tsbuildinfo
