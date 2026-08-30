@@ -10,8 +10,13 @@ test('opens signup and validates account details', async ({ page }) => {
     page.getByRole('heading', { name: 'Your next chapter starts here.' }),
   ).toBeVisible();
   await page.getByRole('button', { name: /Create my account/ }).click();
+  await page.getByLabel('Full name').fill('Kemi Adebayo');
+  await page.getByLabel('Username').fill('kemi_reads');
+  await page.getByLabel('Email address').fill('kemi@example.com');
+  await page.getByLabel('Password', { exact: true }).fill('Short9A');
+  await page.getByLabel('Confirm password').fill('Short9A');
   await page.getByRole('button', { name: /Continue/ }).click();
   await expect(page.getByRole('alert')).toContainText(
-    'Complete every account field',
+    'Password must be at least 12 characters',
   );
 });
