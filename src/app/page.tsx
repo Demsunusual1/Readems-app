@@ -1,18 +1,35 @@
+import Link from 'next/link';
+
 export default function HomePage() {
   return (
-    <main className="mx-auto flex min-h-screen max-w-3xl items-center px-6 py-16">
-      <section aria-labelledby="page-title">
-        <p className="text-sm font-medium text-slate-600">Foundation ready</p>
-        <h1
-          id="page-title"
-          className="mt-2 text-4xl font-semibold tracking-tight text-slate-950"
-        >
-          Readems
-        </h1>
-        <p className="mt-4 max-w-prose text-base leading-7 text-slate-700">
-          The application foundation is in place. Product functionality will be
-          added in a future iteration.
-        </p>
+    <main className="landing">
+      <nav className="brand">
+        <span className="brand-mark">R</span>
+        <b>Readems</b>
+        <Link href="/signup" className="small-button">
+          Sign up
+        </Link>
+      </nav>
+      <section className="hero">
+        <div>
+          <p className="eyebrow">Stories belong to everyone</p>
+          <h1>
+            Stories That
+            <br />
+            Move the World
+          </h1>
+          <p>
+            Read captivating stories. Share your voice. Build community. Earn as
+            a creator.
+          </p>
+          <Link href="/signup" className="primary-button">
+            Start your story
+          </Link>
+        </div>
+        <div className="hero-art" aria-hidden="true">
+          <span>“</span>
+          <p>Words have the power to heal, inspire, and change everything.</p>
+        </div>
       </section>
     </main>
   );
