@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Readems',
-  description: 'Readems application foundation.',
+  title: 'Readems — Stories that move the world',
+  description: 'Discover unforgettable stories and share your voice.',
 };
 
 export default function RootLayout({
