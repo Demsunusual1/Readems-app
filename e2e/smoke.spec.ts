@@ -16,7 +16,7 @@ test('opens signup and validates account details', async ({ page }) => {
   await page.getByLabel('Password', { exact: true }).fill('Short9A');
   await page.getByLabel('Confirm password').fill('Short9A');
   await page.getByRole('button', { name: /Continue/ }).click();
-  await expect(page.getByRole('alert')).toContainText(
-    'Password must be at least 12 characters',
-  );
+  await expect(
+    page.getByText('Password must be at least 12 characters', { exact: true }),
+  ).toBeVisible();
 });
