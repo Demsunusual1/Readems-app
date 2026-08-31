@@ -2,26 +2,23 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { ReademsLogo } from './readems-logo';
 
 export function LandingHeader({ dashboardHref }: { dashboardHref?: string }) {
   const [open, setOpen] = useState(false);
   return (
     <header className="site-header" id="top">
-      <div className="section header-inner">
-        <Link className="logo" href="/" aria-label="Readems home">
-          <span aria-hidden="true">▱</span>Readems
-        </Link>
+      <div className="landing-shell header-inner">
+        <ReademsLogo />
         <nav
           className={open ? 'header-nav open' : 'header-nav'}
           aria-label="Primary navigation"
         >
-          {dashboardHref ? (
-            <Link href={dashboardHref}>Dashboard</Link>
-          ) : (
-            <Link href="/login">Log In</Link>
-          )}
+          <Link href={dashboardHref ?? '/login'}>
+            {dashboardHref ? 'Dashboard' : 'Log In'}
+          </Link>
           <Link
-            className="button button-primary join-button"
+            className="button button-primary"
             href={dashboardHref ?? '/signup'}
           >
             {dashboardHref ? 'My Readems' : 'Join Readems'}
@@ -32,7 +29,7 @@ export function LandingHeader({ dashboardHref }: { dashboardHref?: string }) {
           type="button"
           aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => setOpen((value) => !value)}
         >
           <span />
           <span />

@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Literata:opsz,wght@7..72,400;7..72,600&family=Manrope:wght@400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 :root {
+  --font-manrope: 'Manrope';
+  --font-fraunces: 'Fraunces';
+  --font-literata: 'Literata';
   --navy: #0f1f3d;
   --blue: #2563eb;
   --pale: #eaf4ff;
@@ -1715,4 +1719,476 @@ label small {
     scroll-behavior: auto !important;
     transition: none !important;
   }
+}
+
+/* Landing page */
+.landing-page {
+  overflow: clip;
+  background: #fafaf7;
+  color: #0f1f3d;
+}
+.landing-shell {
+  width: min(1180px, calc(100% - 48px));
+  margin-inline: auto;
+}
+.landing-page h1,
+.landing-page h2 {
+  font-family: var(--font-fraunces), serif;
+}
+.site-header {
+  position: relative;
+  z-index: 20;
+  background: rgba(250, 250, 247, 0.96);
+}
+.header-inner {
+  min-height: 78px;
+  display: flex;
+  align-items: center;
+}
+.readems-logo {
+  gap: 10px;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 28px;
+  letter-spacing: -0.04em;
+}
+.readems-logo img {
+  width: 42px;
+  height: 42px;
+  border-radius: 7px;
+  object-fit: contain;
+}
+.header-nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 15px;
+}
+.header-nav a {
+  color: #0f1f3d;
+}
+.header-nav .button {
+  color: #fff;
+}
+.menu-button {
+  display: block;
+  margin-left: 28px;
+}
+.hero {
+  min-height: 500px;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 20px;
+  padding-block: 20px 8px;
+}
+.hero h1 {
+  font-size: clamp(42px, 5vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  margin: 14px 0 14px;
+}
+.hero-copy {
+  max-width: 450px;
+}
+.eyebrow {
+  margin: 0;
+  color: #2563eb;
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.hero-lede {
+  max-width: 430px;
+  margin: 0 0 20px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #52647f;
+}
+.hero-actions {
+  display: grid;
+  width: 260px;
+  gap: 12px;
+}
+.hero-actions .button {
+  width: 100%;
+  min-height: 48px;
+}
+.hero-image {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+  object-position: left center;
+}
+.stories-band {
+  padding: 20px 0 22px;
+  border-radius: 20px;
+  background: #eaf4ff;
+}
+.section-heading h2,
+.benefits > h2,
+.genres > h2 {
+  margin: 0 0 16px;
+  font-size: 28px;
+  line-height: 1.15;
+}
+.section-heading a {
+  margin-bottom: 16px;
+}
+.story-grid {
+  gap: 20px;
+}
+.story-card > img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2/2.5;
+  object-fit: cover;
+}
+.story-info {
+  padding: 12px 12px 11px;
+}
+.story-info h3 {
+  display: -webkit-box;
+  min-height: 41px;
+  margin: 0 0 8px;
+  overflow: hidden;
+  font-size: 15px;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.story-info > div {
+  gap: 6px;
+}
+.reads {
+  white-space: nowrap;
+}
+.benefits {
+  padding-top: 26px;
+}
+.benefit-grid {
+  gap: 24px;
+}
+.benefit-grid article {
+  padding: 18px;
+  border-radius: 14px;
+}
+.benefit-grid svg,
+.genre-card svg {
+  width: 50px;
+  height: 50px;
+  fill: none;
+  stroke: #1560e8;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.benefit-grid h3 {
+  font-size: 16px;
+}
+.benefit-grid p {
+  font-size: 14px;
+}
+.genres {
+  padding-top: 24px;
+  padding-bottom: 22px;
+}
+.genre-grid {
+  gap: 16px;
+}
+.genre-card {
+  min-height: 116px;
+  padding: 10px;
+  border-radius: 14px;
+  font-size: 14px;
+}
+.genre-card svg {
+  width: 42px;
+  height: 44px;
+  margin-bottom: 7px;
+}
+.community {
+  min-height: 196px;
+  grid-template-columns: 360px 1fr;
+  gap: 18px;
+  padding: 0 30px;
+  margin-block: 20px 14px;
+  border-radius: 24px;
+  background: #f0ebff;
+  overflow: hidden;
+}
+.community > img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+}
+.community blockquote {
+  margin: 0;
+}
+.community blockquote > div {
+  display: flex;
+  gap: 14px;
+}
+.community h2 {
+  margin: 12px 0 7px;
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 21px;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+.quote {
+  color: #8b5cf6;
+  font-family: Georgia, serif;
+  font-size: 58px;
+  line-height: 1;
+}
+.community footer {
+  padding-left: 50px;
+  font-size: 15px;
+}
+.creator-cta {
+  position: relative;
+  min-height: 190px;
+  grid-template-columns: 360px 1fr;
+  gap: 16px;
+  padding: 0 38px 0 0;
+  border-radius: 24px 24px 0 0;
+  overflow: hidden;
+}
+.creator-cta > img {
+  align-self: end;
+  width: 360px;
+  height: 190px;
+  object-fit: cover;
+  mix-blend-mode: screen;
+}
+.creator-cta h2 {
+  font-size: 27px;
+}
+.creator-cta p {
+  margin: 8px 0 14px;
+  font-size: 15px;
+}
+.creator-cta .button {
+  min-height: 46px;
+}
+.cta-quill {
+  color: #e9bf66;
+  font-size: 46px;
+}
+.footer-inner {
+  min-height: 64px;
+  grid-template-columns: auto 1fr auto;
+  padding-block: 0;
+}
+.footer-inner .readems-logo {
+  color: #fff;
+  font-size: 20px;
+}
+.footer-inner .readems-logo img {
+  width: 32px;
+  height: 32px;
+}
+.footer-inner nav {
+  gap: 34px;
+}
+@media (max-width: 800px) {
+  .landing-shell {
+    width: min(100% - 32px, 680px);
+  }
+  .header-inner {
+    min-height: 68px;
+  }
+  .readems-logo {
+    font-size: 23px;
+  }
+  .readems-logo img {
+    width: 36px;
+    height: 36px;
+  }
+  .header-nav {
+    top: 64px;
+  }
+  .menu-button {
+    margin-left: 12px;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 30px;
+  }
+  .hero-copy {
+    text-align: left;
+    margin: 0;
+  }
+  .hero h1 {
+    font-size: 42px;
+  }
+  .hero-actions {
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+  }
+  .hero-image {
+    max-height: none;
+  }
+  .story-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .community,
+  .creator-cta {
+    grid-template-columns: 1fr;
+    text-align: left;
+    padding: 20px;
+  }
+  .community > img {
+    width: min(360px, 100%);
+    margin: auto;
+  }
+  .community footer {
+    padding-left: 0;
+  }
+  .creator-cta > img {
+    display: none;
+  }
+  .creator-cta {
+    min-height: 250px;
+  }
+  .cta-quill {
+    position: absolute;
+    right: 30px;
+    bottom: 20px;
+  }
+  .footer-inner {
+    grid-template-columns: 1fr;
+    padding-block: 25px;
+  }
+  .footer-logo {
+    justify-content: center;
+  }
+}
+@media (max-width: 480px) {
+  .landing-shell {
+    width: calc(100% - 24px);
+  }
+  .header-nav {
+    left: 12px;
+    right: 12px;
+  }
+  .header-nav.open {
+    display: flex;
+  }
+  .header-nav:not(.open) {
+    display: none;
+  }
+  .hero {
+    gap: 14px;
+    padding-top: 24px;
+  }
+  .hero h1 {
+    font-size: 38px;
+  }
+  .hero-lede {
+    font-size: 15px;
+  }
+  .hero-actions {
+    grid-template-columns: 1fr;
+  }
+  .hero-image {
+    width: calc(100% + 24px);
+    margin-left: -12px;
+  }
+  .section-heading h2,
+  .benefits > h2,
+  .genres > h2 {
+    font-size: 24px;
+  }
+  .section-heading a {
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .story-grid {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    margin-right: -12px;
+    padding: 0 12px 12px 0;
+    scrollbar-width: none;
+  }
+  .story-card {
+    flex: 0 0 72%;
+  }
+  .story-info {
+    padding: 10px;
+  }
+  .story-card > img {
+    aspect-ratio: 2/2.5;
+  }
+  .benefit-grid {
+    gap: 12px;
+  }
+  .benefit-grid article {
+    padding: 16px;
+  }
+  .genre-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .genre-card {
+    min-height: 108px;
+  }
+  .community {
+    padding: 16px;
+  }
+  .community h2 {
+    font-size: 19px;
+  }
+  .community > img {
+    height: auto;
+  }
+  .quote {
+    font-size: 44px;
+  }
+  .creator-cta {
+    padding: 26px 20px;
+  }
+  .creator-cta h2 {
+    font-size: 25px;
+  }
+  .creator-cta .button {
+    font-size: 14px;
+    padding-inline: 14px;
+  }
+  .footer-inner nav {
+    gap: 14px 20px;
+  }
+}
+
+/* The shared repository logo mark is retained on the landing page. */
+.landing-page .readems-logo > span {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+}
+.story-card > img,
+.hero-image,
+.community > img,
+.creator-cta > img {
+  background: linear-gradient(135deg, #eaf4ff, #eeeaff);
+}
+.remote-image-fallback {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #64748b;
+  background: linear-gradient(135deg, #eaf4ff, #eeeaff);
+  font-size: 13px;
+  text-align: center;
+}
+.remote-image-fallback > span {
+  max-width: 18ch;
+  padding: 12px;
+}
+.story-card > .remote-image-fallback {
+  width: 100%;
+  aspect-ratio: 2 / 2.5;
 }
