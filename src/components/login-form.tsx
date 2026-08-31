@@ -3,7 +3,9 @@
 import Link from 'next/link';
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { EnvelopeSimple } from '@phosphor-icons/react';
 import { PasswordField } from './password-field';
+import { Input } from './ui/input';
 
 export function LoginForm() {
   const [error, setError] = useState('');
@@ -41,17 +43,13 @@ export function LoginForm() {
     <form className="auth-form" onSubmit={submit} noValidate>
       <label>
         Email address
-        <span className="input-wrap">
-          <span className="field-icon" aria-hidden="true">
-            ✉
-          </span>
-          <input
-            name="email"
-            type="email"
-            autoComplete="email"
-            placeholder="name@example.com"
-          />
-        </span>
+        <Input
+          name="email"
+          type="email"
+          autoComplete="email"
+          placeholder="name@example.com"
+          leadingIcon={<EnvelopeSimple size={21} />}
+        />
       </label>
       <label>
         Password

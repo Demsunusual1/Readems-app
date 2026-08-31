@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { BookOpenText, Sparkle } from '@phosphor-icons/react/dist/ssr';
 import { LoginForm } from '@/components/login-form';
 import { ReademsLogo } from '@/components/readems-logo';
 import { dashboardForRole, getCurrentUser } from '@/lib/auth';
@@ -40,7 +41,11 @@ export default async function LoginPage() {
           chapter is waiting.
         </h2>
         <div aria-hidden="true">
-          ✦<span>▱</span>✧
+          <Sparkle weight="fill" />
+          <span>
+            <BookOpenText weight="fill" />
+          </span>
+          <Sparkle />
         </div>
       </aside>
       <nav className="auth-footer" aria-label="Legal and support">

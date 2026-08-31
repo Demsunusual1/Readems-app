@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { PlusCircle } from '@phosphor-icons/react/dist/ssr';
 import { DashboardShell } from './dashboard-shell';
 
 const creatorStories = [
@@ -40,7 +41,7 @@ export function CreatorDashboard({
           <p>✹ Verified Creator</p>
         </div>
         <Link className="create-story" href="#my-stories">
-          ⊕ Create New Story
+          <PlusCircle aria-hidden="true" /> Create New Story
         </Link>
       </section>
       <section className="stat-grid" aria-label="Creator statistics">
@@ -98,7 +99,9 @@ export function CreatorDashboard({
             <span>›</span>
           </div>
         ))}
-        <button className="add-chapter">＋ Add New Chapter</button>
+        <button className="add-chapter">
+          <PlusCircle aria-hidden="true" /> Add New Chapter
+        </button>
       </section>
       <div className="analytics-grid">
         <section className="creator-card">

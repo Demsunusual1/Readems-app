@@ -1,6 +1,20 @@
 import Link from 'next/link';
 import { cookies } from 'next/headers';
+import {
+  BookOpen,
+  CastleTurret,
+  Eye,
+  Heart,
+  MagnifyingGlass,
+  MaskHappy,
+  Mountains,
+  PenNib,
+  Planet,
+  Sparkle,
+  UsersThree,
+} from '@phosphor-icons/react/dist/ssr';
 import { LandingHeader } from '@/components/landing-header';
+import { Logo } from '@/components/ui/logo';
 
 const stories = [
   {
@@ -31,29 +45,29 @@ const stories = [
 
 const benefits = [
   {
-    icon: 'book',
+    icon: BookOpen,
     title: 'Discover Stories',
     copy: 'Find books made for your interests.',
   },
   {
-    icon: 'pen',
+    icon: PenNib,
     title: 'Share Your Voice',
     copy: 'Publish chapter by chapter.',
   },
   {
-    icon: 'people',
+    icon: UsersThree,
     title: 'Grow Together',
     copy: 'Connect with readers and creators.',
   },
 ] as const;
 
 const genres = [
-  ['mask', 'African Folktales'],
-  ['heart', 'Romance'],
-  ['castle', 'Fantasy'],
-  ['search', 'Mystery'],
-  ['planet', 'Sci-Fi'],
-  ['mountain', 'Motivational'],
+  [MaskHappy, 'African Folktales'],
+  [Heart, 'Romance'],
+  [CastleTurret, 'Fantasy'],
+  [MagnifyingGlass, 'Mystery'],
+  [Planet, 'Sci-Fi'],
+  [Mountains, 'Motivational'],
 ] as const;
 
 export default async function HomePage() {
@@ -96,8 +110,12 @@ export default async function HomePage() {
             role="img"
             aria-label="A joyful community discovering and sharing stories together"
           >
-            <span className="spark spark-one">✦</span>
-            <span className="spark spark-two">✧</span>
+            <Sparkle
+              className="spark spark-one"
+              weight="fill"
+              aria-hidden="true"
+            />
+            <Sparkle className="spark spark-two" aria-hidden="true" />
             <div className="people-art">
               <span>●</span>
               <span>●</span>
@@ -136,14 +154,16 @@ export default async function HomePage() {
                 <article className="story-card" key={story.title}>
                   <div className={`story-cover ${story.cover}`}>
                     <span>{story.title}</span>
-                    <i aria-hidden="true">✦</i>
+                    <i aria-hidden="true">
+                      <Sparkle weight="fill" />
+                    </i>
                   </div>
                   <div className="story-info">
                     <h3>{story.title}</h3>
                     <div>
                       <span className="tag">{story.genre}</span>
                       <span aria-label={`${story.readers} readers`}>
-                        ◉ {story.readers}
+                        <Eye aria-hidden="true" /> {story.readers}
                       </span>
                     </div>
                   </div>
@@ -158,7 +178,7 @@ export default async function HomePage() {
           <div className="benefit-grid">
             {benefits.map((item) => (
               <article key={item.title}>
-                <span className={`line-icon ${item.icon}`} aria-hidden="true" />
+                <item.icon className="line-icon" aria-hidden="true" />
                 <h3>{item.title}</h3>
                 <p>{item.copy}</p>
               </article>
@@ -173,9 +193,9 @@ export default async function HomePage() {
         >
           <h2 id="genres-title">Find Your Next Obsession</h2>
           <div className="genre-grid">
-            {genres.map(([icon, title]) => (
+            {genres.map(([Icon, title]) => (
               <a href="/signup" className="genre-card" key={title}>
-                <span className={`genre-icon ${icon}`} aria-hidden="true" />
+                <Icon className="genre-icon" aria-hidden="true" />
                 <b>{title}</b>
               </a>
             ))}
@@ -208,7 +228,10 @@ export default async function HomePage() {
           aria-labelledby="creator-title"
         >
           <div className="creator-art" aria-hidden="true">
-            ✦<span>✎</span>
+            <Sparkle weight="fill" />
+            <span>
+              <PenNib weight="fill" />
+            </span>
           </div>
           <div>
             <h2 id="creator-title">Your Story Deserves to Be Read.</h2>
@@ -227,9 +250,7 @@ export default async function HomePage() {
       </main>
       <footer className="site-footer">
         <div className="section footer-inner">
-          <a className="logo footer-logo" href="#top">
-            <span aria-hidden="true">▱</span>Readems
-          </a>
+          <Logo className="footer-logo" />
           <nav aria-label="Footer navigation">
             {[
               'About',
