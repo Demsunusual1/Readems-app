@@ -3,6 +3,16 @@
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import {
+  ArrowLeft,
+  ArrowRight,
+  BookOpen,
+  Check,
+  CheckCircle,
+  Infinity,
+  PenNib,
+  Sparkle,
+} from '@phosphor-icons/react';
 import { interests, type SignupInput } from '@/lib/signup';
 import { PasswordField } from './password-field';
 
@@ -125,7 +135,9 @@ export function SignupWizard() {
       <section className="signup-card" aria-live="polite">
         {step === 0 && (
           <>
-            <div className="welcome-icon">✦</div>
+            <div className="welcome-icon">
+              <Sparkle weight="fill" aria-hidden="true" />
+            </div>
             <p className="eyebrow">Welcome to Readems</p>
             <h1>Your next chapter starts here.</h1>
             <p>
@@ -133,7 +145,7 @@ export function SignupWizard() {
               stories and creators bring new worlds to life.
             </p>
             <button onClick={next}>
-              Create my account <span>→</span>
+              Create my account <ArrowRight aria-hidden="true" />
             </button>
             <small>Free to join. Your stories, your community.</small>
           </>
@@ -204,7 +216,13 @@ export function SignupWizard() {
                   onClick={() => update('role', value)}
                 >
                   <span>
-                    {value === 'READER' ? '◉' : value === 'CREATOR' ? '✎' : '∞'}
+                    {value === 'READER' ? (
+                      <BookOpen aria-hidden="true" />
+                    ) : value === 'CREATOR' ? (
+                      <PenNib aria-hidden="true" />
+                    ) : (
+                      <Infinity aria-hidden="true" />
+                    )}
                   </span>
                   <b>{title}</b>
                   <small>{copy}</small>
@@ -239,7 +257,7 @@ export function SignupWizard() {
                       )
                     }
                   >
-                    {active ? '✓ ' : ''}
+                    {active && <Check weight="bold" aria-hidden="true" />}
                     {item}
                   </button>
                 );
@@ -273,12 +291,14 @@ export function SignupWizard() {
         )}
         {step === 5 && (
           <>
-            <div className="welcome-icon">✓</div>
+            <div className="welcome-icon">
+              <CheckCircle weight="fill" aria-hidden="true" />
+            </div>
             <p className="eyebrow">You’re all set</p>
             <h1>Welcome to Readems, {data.fullName.split(' ')[0]}!</h1>
             <p>Your profile is ready and your recommendations are waiting.</p>
             <button onClick={() => router.push(destination)}>
-              Go to my dashboard <span>→</span>
+              Go to my dashboard <ArrowRight aria-hidden="true" />
             </button>
           </>
         )}
@@ -306,14 +326,14 @@ function Nav({
   return (
     <div className="nav-buttons">
       <button type="button" className="secondary" onClick={back}>
-        ← Back
+        <ArrowLeft aria-hidden="true" /> Back
       </button>
       <button
         type={onNext ? 'button' : 'submit'}
         onClick={onNext}
         disabled={disabled}
       >
-        {label} →
+        {label} <ArrowRight aria-hidden="true" />
       </button>
     </div>
   );

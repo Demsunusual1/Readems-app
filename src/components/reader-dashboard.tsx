@@ -1,4 +1,5 @@
 import { DashboardShell } from './dashboard-shell';
+import { Eye, HandWaving } from '@phosphor-icons/react/dist/ssr';
 
 const stories = [
   ['The Boy Who Painted Silence', 'Ana Ndlovu', 75, 'cover-blue'],
@@ -25,7 +26,7 @@ export function ReaderDashboard({
       <section className="dash-welcome">
         <h1>
           Good morning, {user.fullName.split(' ')[0]}!{' '}
-          <span aria-hidden="true">👋</span>
+          <HandWaving weight="fill" aria-hidden="true" />
         </h1>
         <p>What story will you fall in love with today?</p>
       </section>
@@ -81,7 +82,8 @@ export function ReaderDashboard({
                 <h3>{title}</h3>
                 <p>by {author}</p>
                 <small>
-                  {genre} · ◎ {(9.1 - index * 1.4).toFixed(1)}K reads
+                  {genre} · <Eye aria-hidden="true" />{' '}
+                  {(9.1 - index * 1.4).toFixed(1)}K reads
                 </small>
               </div>
             </article>

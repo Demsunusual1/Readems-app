@@ -4,11 +4,12 @@ import { Button } from './button';
 
 describe('Button', () => {
   it('renders an accessible button', () => {
-    render(<Button>Continue</Button>);
+    render(<Button variant="secondary">Continue</Button>);
 
     expect(screen.getByRole('button', { name: 'Continue' })).toHaveAttribute(
       'type',
       'button',
     );
+    expect(screen.getByRole('button')).toHaveClass('border');
   });
 });

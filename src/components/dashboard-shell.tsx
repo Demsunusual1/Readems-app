@@ -1,5 +1,24 @@
 import Link from 'next/link';
+import {
+  Bell,
+  BookOpen,
+  Books,
+  ChartLineUp,
+  ChatCircle,
+  Compass,
+  CurrencyDollar,
+  Gear,
+  House,
+  ListBullets,
+  MagnifyingGlass,
+  PenNib,
+  Users,
+  UserCircle,
+} from '@phosphor-icons/react/dist/ssr';
 import { ReademsLogo } from './readems-logo';
+import { BottomNavigation } from './ui/bottom-navigation';
+import { Input } from './ui/input';
+import { Sidebar, type NavigationItem } from './ui/sidebar';
 
 const readerNav = [
   'Home',
@@ -22,6 +41,27 @@ const creatorNav = [
   'Settings',
 ];
 
+const readerIcons = [
+  House,
+  Compass,
+  Books,
+  ListBullets,
+  Users,
+  Bell,
+  ChatCircle,
+  Gear,
+];
+const creatorIcons = [
+  House,
+  BookOpen,
+  PenNib,
+  ChartLineUp,
+  CurrencyDollar,
+  Users,
+  ChatCircle,
+  Gear,
+];
+
 export function DashboardShell({
   kind,
   name,
@@ -34,6 +74,18 @@ export function DashboardShell({
   children: React.ReactNode;
 }) {
   const navigation = kind === 'reader' ? readerNav : creatorNav;
+  const icons = kind === 'reader' ? readerIcons : creatorIcons;
+  const navigationItems: NavigationItem[] = navigation.map((item, index) => {
+    const Icon = icons[index];
+    return {
+      label: item,
+      href:
+        index === 0
+          ? `/${kind}/dashboard`
+          : `#${item.toLowerCase().replaceAll(' ', '-')}`,
+      icon: <Icon weight={index === 0 ? 'fill' : 'regular'} />,
+    };
+  });
   return (
     <main className={`dashboard-shell ${kind}`}>
       <header className="dash-header">
@@ -41,12 +93,17 @@ export function DashboardShell({
         {kind === 'reader' && (
           <label className="dash-search">
             <span className="sr-only">Search stories</span>
-            <input type="search" placeholder="Search stories…" />
+            <Input
+              type="search"
+              placeholder="Search stories…"
+              leadingIcon={<MagnifyingGlass size={20} />}
+            />
           </label>
         )}
         <div className="dash-account">
           <Link href="#notifications" aria-label="Notifications">
-            ♢<i />
+            <Bell aria-hidden="true" />
+            <i />
           </Link>
           <span
             className="avatar"
@@ -58,24 +115,23 @@ export function DashboardShell({
           </span>
         </div>
       </header>
-      <div className="dash-body">{children}</div>
-      <nav className="dash-nav" aria-label={`${kind} dashboard navigation`}>
-        {navigation.map((item, index) => (
-          <Link
-            className={index === 0 ? 'active' : ''}
-            key={item}
-            href={`#${item.toLowerCase().replaceAll(' ', '-')}`}
-          >
-            <span aria-hidden="true">
-              {['⌂', '◇', '▱', '☷', '♙', '♢', '□', '⚙'][index]}
-            </span>
-            {item}
-          </Link>
-        ))}
-      </nav>
+      <div className="dashboard-layout">
+        <Sidebar
+          items={navigationItems}
+          activeHref={`/${kind}/dashboard`}
+          label={`${kind} dashboard navigation`}
+        />
+        <div className="dash-body">{children}</div>
+      </div>
+      <BottomNavigation
+        items={navigationItems}
+        activeHref={`/${kind}/dashboard`}
+        label={`${kind} dashboard navigation`}
+      />
       {kind === 'creator' && (
         <Link className="support-link" href="/help">
-          ◎ Help &amp; Support <span>›</span>
+          <UserCircle aria-hidden="true" /> Help &amp; Support{' '}
+          <span aria-hidden="true">›</span>
         </Link>
       )}
     </main>
