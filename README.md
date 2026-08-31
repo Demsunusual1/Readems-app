@@ -14,7 +14,6 @@ Production-ready technical foundation for Readems. Product features and authenti
 cp .env.example .env
 docker compose up -d
 npm install
-npm run db:generate
 npm run db:migrate
 npm run dev
 ```
@@ -38,6 +37,8 @@ Open [http://localhost:3000](http://localhost:3000). The database is local-only 
 | `npm run db:generate` | Generate Prisma Client.                   |
 | `npm run db:migrate`  | Create and apply a development migration. |
 | `npm run db:deploy`   | Apply committed migrations.               |
+
+`npm install` generates Prisma Client through the `postinstall` script, so deployment environments include the query engine for their runtime. `npm run db:generate` remains available when regeneration is needed explicitly.
 
 ## Quality and CI
 
