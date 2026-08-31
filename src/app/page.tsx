@@ -2,67 +2,43 @@ import Link from 'next/link';
 import { cookies } from 'next/headers';
 import {
   BookOpen,
+  BookOpenText,
+  Buildings,
+  CaretRight,
   CastleTurret,
   Eye,
+  Feather,
   Heart,
   MagnifyingGlass,
   MaskHappy,
+  MoonStars,
   Mountains,
   PenNib,
   Planet,
   Sparkle,
+  Train,
+  Tree,
+  UserCircle,
   UsersThree,
 } from '@phosphor-icons/react/dist/ssr';
 import { LandingHeader } from '@/components/landing-header';
 import { Logo } from '@/components/ui/logo';
 
 const stories = [
-  {
-    title: 'The Boy Who Painted Silence',
-    genre: 'Contemporary',
-    readers: '125K',
-    cover: 'cover-blue',
-  },
-  {
-    title: 'Beneath the Baobab Tree',
-    genre: 'Drama',
-    readers: '98K',
-    cover: 'cover-gold',
-  },
-  {
-    title: 'The Last Train to Makoko',
-    genre: 'Thriller',
-    readers: '87K',
-    cover: 'cover-teal',
-  },
-  {
-    title: 'Letters to My Younger Self',
-    genre: 'Personal Growth',
-    readers: '112K',
-    cover: 'cover-amber',
-  },
+  ['Beneath the Baobab Tree', 'Historical fiction', '98K', Tree, 'baobab'],
+  ['The Archivist of Salt', 'Mystery', '87K', MoonStars, 'archivist'],
+  ['Shadows of the Drum', 'Drama', '125K', Train, 'drum'],
+  ['Letters to My Younger Self', 'Personal growth', '112K', Feather, 'letters'],
 ] as const;
 
 const benefits = [
-  {
-    icon: BookOpen,
-    title: 'Discover Stories',
-    copy: 'Find books made for your interests.',
-  },
-  {
-    icon: PenNib,
-    title: 'Share Your Voice',
-    copy: 'Publish chapter by chapter.',
-  },
-  {
-    icon: UsersThree,
-    title: 'Grow Together',
-    copy: 'Connect with readers and creators.',
-  },
+  [BookOpen, 'Discover Stories', 'Find unforgettable reads made for you.'],
+  [PenNib, 'Share Your Voice', 'Publish your story, one chapter at a time.'],
+  [UsersThree, 'Grow Together', 'Meet readers and creators who get it.'],
 ] as const;
 
-const genres = [
-  [MaskHappy, 'African Folktales'],
+const categories = [
+  [MaskHappy, 'African Stories'],
   [Heart, 'Romance'],
   [CastleTurret, 'Fantasy'],
   [MagnifyingGlass, 'Mystery'],
@@ -78,94 +54,76 @@ export default async function HomePage() {
   const dashboard = user
     ? `/${user.role === 'CREATOR' ? 'creator' : 'reader'}/dashboard`
     : undefined;
+  const readingHref = dashboard ?? '/signup';
+  const writingHref = dashboard ?? '/signup?role=creator';
+
   return (
-    <>
+    <div className="landing-page">
       <LandingHeader dashboardHref={dashboard} />
       <main>
-        <section className="hero section" aria-labelledby="hero-title">
-          <div className="hero-copy">
-            <p className="eyebrow">Welcome to Readems</p>
-            <h1 id="hero-title">Where Every Story Finds Its People</h1>
-            <p className="hero-lede">
-              Discover stories you’ll love, share the worlds inside you, and
-              connect with readers and writers everywhere.
-            </p>
-            <div className="hero-actions">
-              <Link
-                className="button button-primary"
-                href={dashboard ?? '/signup'}
-              >
-                {user ? 'Go to dashboard' : 'Start Reading'}
-              </Link>
-              <Link
-                className="button button-secondary"
-                href={dashboard ?? '/signup'}
-              >
-                Start Writing
-              </Link>
+        <section className="landing-hero" aria-labelledby="hero-title">
+          <div className="landing-shell landing-hero-inner">
+            <div className="landing-hero-copy">
+              <p className="landing-kicker">Welcome to Readems</p>
+              <h1 id="hero-title">
+                Stories that stay <span>with you</span>
+              </h1>
+              <div className="gold-rule" aria-hidden="true" />
+              <p>
+                Read unforgettable stories, share your voice, and connect with
+                readers and writers around the world.
+              </p>
+              <div className="landing-actions">
+                <Link className="button button-primary" href={readingHref}>
+                  {user ? 'Go to dashboard' : 'Start Reading'}
+                </Link>
+                <Link className="button landing-outline" href={writingHref}>
+                  <PenNib aria-hidden="true" /> Start Writing
+                </Link>
+              </div>
             </div>
-          </div>
-          <div
-            className="hero-visual"
-            role="img"
-            aria-label="A joyful community discovering and sharing stories together"
-          >
-            <Sparkle
-              className="spark spark-one"
-              weight="fill"
-              aria-hidden="true"
-            />
-            <Sparkle className="spark spark-two" aria-hidden="true" />
-            <div className="people-art">
-              <span>●</span>
-              <span>●</span>
-              <span>●</span>
-              <span>●</span>
-            </div>
-            <div className="hero-book book-left">
-              <b>
-                WHISPERS OF
-                <br />
-                THE LAGOON
-              </b>
-              <i>☾</i>
-            </div>
-            <div className="hero-book book-right">
-              <b>
-                SHADOWS OF
-                <br />
-                THE DRUM
-              </b>
-              <i>♪</i>
+            <div
+              className="landing-hero-art"
+              role="img"
+              aria-label="An open book revealing a sunset city and a thoughtful reader"
+            >
+              <Sparkle className="hero-star hero-star-one" weight="fill" />
+              <Sparkle className="hero-star hero-star-two" weight="fill" />
+              <div className="hero-sun" />
+              <Buildings className="hero-city" weight="fill" />
+              <UserCircle className="hero-reader" weight="fill" />
+              <BookOpenText className="hero-open-book" weight="fill" />
             </div>
           </div>
         </section>
 
-        <section className="stories-band" aria-labelledby="stories-title">
-          <div className="section">
-            <div className="section-heading">
+        <section className="landing-stories" aria-labelledby="stories-title">
+          <div className="landing-shell">
+            <div className="landing-heading-row">
               <h2 id="stories-title">Stories Everyone Is Reading</h2>
-              <a href="#genres">
-                View all <span aria-hidden="true">›</span>
+              <a href="#categories">
+                View all <CaretRight aria-hidden="true" />
               </a>
             </div>
-            <div className="story-grid">
-              {stories.map((story) => (
-                <article className="story-card" key={story.title}>
-                  <div className={`story-cover ${story.cover}`}>
-                    <span>{story.title}</span>
-                    <i aria-hidden="true">
-                      <Sparkle weight="fill" />
-                    </i>
+            <div className="landing-story-row" aria-label="Popular stories">
+              {stories.map(([title, genre, readers, CoverIcon, cover]) => (
+                <article className="landing-story-card" key={title}>
+                  <div
+                    className={`landing-story-cover cover-${cover}`}
+                    role="img"
+                    aria-label={`Cover artwork for ${title}`}
+                  >
+                    <span>{title}</span>
+                    <CoverIcon weight="duotone" aria-hidden="true" />
                   </div>
-                  <div className="story-info">
-                    <h3>{story.title}</h3>
-                    <div>
-                      <span className="tag">{story.genre}</span>
-                      <span aria-label={`${story.readers} readers`}>
-                        <Eye aria-hidden="true" /> {story.readers}
-                      </span>
-                    </div>
+                  <div className="landing-story-info">
+                    <h3>{title}</h3>
+                    <p>
+                      <span>{genre}</span>
+                      <small>
+                        <Eye aria-hidden="true" /> {readers}
+                      </small>
+                    </p>
                   </div>
                 </article>
               ))}
@@ -173,101 +131,122 @@ export default async function HomePage() {
           </div>
         </section>
 
-        <section className="section benefits" aria-labelledby="benefits-title">
+        <section
+          className="landing-shell landing-benefits"
+          aria-labelledby="benefits-title"
+        >
+          <p className="landing-kicker">A place for every story</p>
           <h2 id="benefits-title">Read. Write. Belong.</h2>
-          <div className="benefit-grid">
-            {benefits.map((item) => (
-              <article key={item.title}>
-                <item.icon className="line-icon" aria-hidden="true" />
-                <h3>{item.title}</h3>
-                <p>{item.copy}</p>
+          <div className="landing-benefit-grid">
+            {benefits.map(([Icon, title, copy]) => (
+              <article key={title}>
+                <span>
+                  <Icon aria-hidden="true" />
+                </span>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                </div>
               </article>
             ))}
           </div>
         </section>
 
         <section
-          className="section genres"
-          id="genres"
-          aria-labelledby="genres-title"
+          className="landing-categories"
+          id="categories"
+          aria-labelledby="categories-title"
         >
-          <h2 id="genres-title">Find Your Next Obsession</h2>
-          <div className="genre-grid">
-            {genres.map(([Icon, title]) => (
-              <a href="/signup" className="genre-card" key={title}>
-                <Icon className="genre-icon" aria-hidden="true" />
-                <b>{title}</b>
-              </a>
-            ))}
+          <div className="landing-shell">
+            <p className="landing-kicker">Explore your way</p>
+            <h2 id="categories-title">Find Your Next Obsession</h2>
+            <div className="landing-category-grid">
+              {categories.map(([Icon, title]) => (
+                <Link
+                  href="/signup"
+                  className="landing-category-card"
+                  key={title}
+                >
+                  <Icon aria-hidden="true" />
+                  <span>{title}</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
         <section
-          className="section community"
+          className="landing-shell landing-community"
           aria-labelledby="community-title"
         >
-          <div className="avatar-cluster" aria-hidden="true">
-            <span>W</span>
-            <span>R</span>
-            <span>C</span>
+          <div
+            className="landing-creator-portrait"
+            role="img"
+            aria-label="Chinelo Okoye, a creator in the Readems community"
+          >
+            <UserCircle weight="fill" aria-hidden="true" />
           </div>
           <blockquote>
-            <p className="pill">Creator community</p>
+            <p className="landing-kicker">Creator community</p>
             <h2 id="community-title">
-              “ Readems helped me find readers who truly connect with my
-              stories.
+              “Readems helped me find readers who truly connect with my
+              stories.”
             </h2>
             <footer>
-              Join our growing community of readers and storytellers.
+              <strong>Chinelo Okoye</strong>
+              <span>Author of Whispers of the Lagoon</span>
             </footer>
           </blockquote>
         </section>
 
         <section
-          className="section creator-cta"
+          className="landing-shell landing-creator"
           aria-labelledby="creator-title"
         >
-          <div className="creator-art" aria-hidden="true">
-            <Sparkle weight="fill" />
-            <span>
-              <PenNib weight="fill" />
-            </span>
-          </div>
           <div>
-            <h2 id="creator-title">Your Story Deserves to Be Read.</h2>
-            <p>
-              Publish chapter by chapter, grow your audience, and earn from your
-              work.
-            </p>
-            <Link
-              className="button button-primary"
-              href={dashboard ?? '/signup'}
-            >
-              {user ? 'Open your dashboard' : 'Create Your First Story'}
+            <p className="landing-kicker">For writers</p>
+            <h2 id="creator-title">Your story deserves to be read.</h2>
+            <p>Publish. Grow your audience. Earn from your work.</p>
+            <Link className="button button-primary" href={writingHref}>
+              {user ? 'Open your dashboard' : 'Become a Creator'}
             </Link>
+          </div>
+          <div
+            className="landing-creator-art"
+            role="img"
+            aria-label="A blue quill, ink pot, and handwritten story on an open book"
+          >
+            <BookOpenText
+              className="creator-book"
+              weight="fill"
+              aria-hidden="true"
+            />
+            <Feather
+              className="creator-feather"
+              weight="fill"
+              aria-hidden="true"
+            />
+            <Sparkle
+              className="creator-spark"
+              weight="fill"
+              aria-hidden="true"
+            />
           </div>
         </section>
       </main>
-      <footer className="site-footer">
-        <div className="section footer-inner">
-          <Logo className="footer-logo" />
+
+      <footer className="landing-footer">
+        <div className="landing-shell">
+          <Logo className="landing-footer-logo" />
           <nav aria-label="Footer navigation">
-            {[
-              'About',
-              'Community',
-              'For Brands',
-              'Safety',
-              'Contact',
-              'Terms',
-            ].map((x) => (
-              <a href="#" key={x}>
-                {x}
-              </a>
-            ))}
+            <a href="#stories-title">Stories</a>
+            <a href="#categories">Categories</a>
+            <a href="#community-title">Community</a>
+            <Link href="/login">Log in</Link>
           </nav>
-          <small>© 2026 Readems. All rights reserved.</small>
+          <small>© 2026 Readems. Stories live here.</small>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

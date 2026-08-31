@@ -23,7 +23,7 @@ for (const viewport of viewports) {
     expect(layoutWidth.scrollWidth).toBe(layoutWidth.clientWidth);
 
     if (viewport.width <= 390) {
-      const cards = page.locator('.story-card');
+      const cards = page.locator('.landing-story-card');
       const first = await cards.nth(0).boundingBox();
       const second = await cards.nth(1).boundingBox();
 

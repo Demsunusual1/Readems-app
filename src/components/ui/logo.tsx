@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BookOpenText } from '@phosphor-icons/react/dist/ssr';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 export function Logo({
@@ -16,8 +16,7 @@ export function Logo({
       aria-label="Readems home"
     >
       <span className="ui-logo-mark" aria-hidden="true">
-        <span>R</span>
-        <BookOpenText weight="fill" />
+        <Image src="/readems/logo.png" width={40} height={40} alt="" />
       </span>
       {!compact && <span className="ui-logo-word">Readems</span>}
     </Link>
