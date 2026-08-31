@@ -2,43 +2,35 @@ import Link from 'next/link';
 import { cookies } from 'next/headers';
 import {
   BookOpen,
-  BookOpenText,
-  Buildings,
   CaretRight,
   CastleTurret,
   Eye,
-  Feather,
   Heart,
   MagnifyingGlass,
   MaskHappy,
-  MoonStars,
   Mountains,
   PenNib,
   Planet,
-  Sparkle,
-  Train,
-  Tree,
-  UserCircle,
   UsersThree,
 } from '@phosphor-icons/react/dist/ssr';
 import { LandingHeader } from '@/components/landing-header';
 import { Logo } from '@/components/ui/logo';
 
 const stories = [
-  ['Beneath the Baobab Tree', 'Historical fiction', '98K', Tree, 'baobab'],
-  ['The Archivist of Salt', 'Mystery', '87K', MoonStars, 'archivist'],
-  ['Shadows of the Drum', 'Drama', '125K', Train, 'drum'],
-  ['Letters to My Younger Self', 'Personal growth', '112K', Feather, 'letters'],
+  ['The Boy Who Painted Silence', 'Contemporary', '125K'],
+  ['Beneath the Baobab Tree', 'Drama', '98K'],
+  ['The Last Train to Makoko', 'Thriller', '87K'],
+  ['Letters to My Younger Self', 'Personal Growth', '112K'],
 ] as const;
 
 const benefits = [
-  [BookOpen, 'Discover Stories', 'Find unforgettable reads made for you.'],
-  [PenNib, 'Share Your Voice', 'Publish your story, one chapter at a time.'],
-  [UsersThree, 'Grow Together', 'Meet readers and creators who get it.'],
+  [BookOpen, 'Discover Stories', 'Find books made for your interests.'],
+  [PenNib, 'Share Your Voice', 'Publish chapter by chapter.'],
+  [UsersThree, 'Grow Together', 'Connect with readers and creators.'],
 ] as const;
 
-const categories = [
-  [MaskHappy, 'African Stories'],
+const genres = [
+  [MaskHappy, 'African Folktales'],
   [Heart, 'Romance'],
   [CastleTurret, 'Fantasy'],
   [MagnifyingGlass, 'Mystery'],
@@ -58,65 +50,59 @@ export default async function HomePage() {
   const writingHref = dashboard ?? '/signup?role=creator';
 
   return (
-    <div className="landing-page">
+    <div className="official-landing">
       <LandingHeader dashboardHref={dashboard} />
       <main>
-        <section className="landing-hero" aria-labelledby="hero-title">
-          <div className="landing-shell landing-hero-inner">
-            <div className="landing-hero-copy">
-              <p className="landing-kicker">Welcome to Readems</p>
-              <h1 id="hero-title">
-                Stories that stay <span>with you</span>
-              </h1>
-              <div className="gold-rule" aria-hidden="true" />
-              <p>
-                Read unforgettable stories, share your voice, and connect with
-                readers and writers around the world.
-              </p>
-              <div className="landing-actions">
-                <Link className="button button-primary" href={readingHref}>
-                  {user ? 'Go to dashboard' : 'Start Reading'}
-                </Link>
-                <Link className="button landing-outline" href={writingHref}>
-                  <PenNib aria-hidden="true" /> Start Writing
-                </Link>
-              </div>
+        <section
+          className="official-hero landing-container"
+          aria-labelledby="hero-title"
+        >
+          <div className="official-hero-copy">
+            <p className="official-eyebrow">Welcome to Readems</p>
+            <h1 id="hero-title">Where Every Story Finds Its People</h1>
+            <p>
+              Discover stories you’ll love, share the worlds inside you, and
+              connect with readers and writers everywhere.
+            </p>
+            <div className="official-actions">
+              <Link className="button button-primary" href={readingHref}>
+                {user ? 'Go to dashboard' : 'Start Reading'}
+              </Link>
+              <Link className="button button-secondary" href={writingHref}>
+                <PenNib aria-hidden="true" /> Start Writing
+              </Link>
             </div>
-            <div
-              className="landing-hero-art"
-              role="img"
-              aria-label="An open book revealing a sunset city and a thoughtful reader"
-            >
-              <Sparkle className="hero-star hero-star-one" weight="fill" />
-              <Sparkle className="hero-star hero-star-two" weight="fill" />
-              <div className="hero-sun" />
-              <Buildings className="hero-city" weight="fill" />
-              <UserCircle className="hero-reader" weight="fill" />
-              <BookOpenText className="hero-open-book" weight="fill" />
-            </div>
+          </div>
+          <div
+            className="asset-placeholder hero-asset-placeholder"
+            role="img"
+            aria-label="Official Readems hero illustration unavailable"
+          >
+            <BookOpen aria-hidden="true" />
+            <span>Official hero illustration</span>
           </div>
         </section>
 
-        <section className="landing-stories" aria-labelledby="stories-title">
-          <div className="landing-shell">
-            <div className="landing-heading-row">
+        <section className="official-stories" aria-labelledby="stories-title">
+          <div className="landing-container">
+            <div className="official-section-heading">
               <h2 id="stories-title">Stories Everyone Is Reading</h2>
               <a href="#categories">
                 View all <CaretRight aria-hidden="true" />
               </a>
             </div>
-            <div className="landing-story-row" aria-label="Popular stories">
-              {stories.map(([title, genre, readers, CoverIcon, cover]) => (
-                <article className="landing-story-card" key={title}>
+            <div className="official-story-row" aria-label="Popular stories">
+              {stories.map(([title, genre, readers]) => (
+                <article className="official-story-card" key={title}>
                   <div
-                    className={`landing-story-cover cover-${cover}`}
+                    className="asset-placeholder story-cover-placeholder"
                     role="img"
-                    aria-label={`Cover artwork for ${title}`}
+                    aria-label={`Cover for ${title} unavailable`}
                   >
-                    <span>{title}</span>
-                    <CoverIcon weight="duotone" aria-hidden="true" />
+                    <BookOpen aria-hidden="true" />
+                    <span>Cover unavailable</span>
                   </div>
-                  <div className="landing-story-info">
+                  <div className="official-story-info">
                     <h3>{title}</h3>
                     <p>
                       <span>{genre}</span>
@@ -132,17 +118,14 @@ export default async function HomePage() {
         </section>
 
         <section
-          className="landing-shell landing-benefits"
+          className="landing-container official-benefits"
           aria-labelledby="benefits-title"
         >
-          <p className="landing-kicker">A place for every story</p>
           <h2 id="benefits-title">Read. Write. Belong.</h2>
-          <div className="landing-benefit-grid">
+          <div className="official-benefit-grid">
             {benefits.map(([Icon, title, copy]) => (
               <article key={title}>
-                <span>
-                  <Icon aria-hidden="true" />
-                </span>
+                <Icon aria-hidden="true" />
                 <div>
                   <h3>{title}</h3>
                   <p>{copy}</p>
@@ -153,18 +136,17 @@ export default async function HomePage() {
         </section>
 
         <section
-          className="landing-categories"
+          className="official-categories"
           id="categories"
           aria-labelledby="categories-title"
         >
-          <div className="landing-shell">
-            <p className="landing-kicker">Explore your way</p>
+          <div className="landing-container">
             <h2 id="categories-title">Find Your Next Obsession</h2>
-            <div className="landing-category-grid">
-              {categories.map(([Icon, title]) => (
+            <div className="official-category-grid">
+              {genres.map(([Icon, title]) => (
                 <Link
                   href="/signup"
-                  className="landing-category-card"
+                  className="official-category-card"
                   key={title}
                 >
                   <Icon aria-hidden="true" />
@@ -176,75 +158,65 @@ export default async function HomePage() {
         </section>
 
         <section
-          className="landing-shell landing-community"
+          className="landing-container official-community"
           aria-labelledby="community-title"
         >
           <div
-            className="landing-creator-portrait"
+            className="asset-placeholder community-asset-placeholder"
             role="img"
-            aria-label="Chinelo Okoye, a creator in the Readems community"
+            aria-label="Readems creator community portrait unavailable"
           >
-            <UserCircle weight="fill" aria-hidden="true" />
+            <UsersThree aria-hidden="true" />
+            <span>Creator portrait</span>
           </div>
           <blockquote>
-            <p className="landing-kicker">Creator community</p>
+            <p className="official-eyebrow">Creator community</p>
             <h2 id="community-title">
               “Readems helped me find readers who truly connect with my
               stories.”
             </h2>
             <footer>
-              <strong>Chinelo Okoye</strong>
-              <span>Author of Whispers of the Lagoon</span>
+              Join our growing community of readers and storytellers.
             </footer>
           </blockquote>
         </section>
 
         <section
-          className="landing-shell landing-creator"
+          className="landing-container official-creator"
           aria-labelledby="creator-title"
         >
           <div>
-            <p className="landing-kicker">For writers</p>
-            <h2 id="creator-title">Your story deserves to be read.</h2>
-            <p>Publish. Grow your audience. Earn from your work.</p>
+            <p className="official-eyebrow">For writers</p>
+            <h2 id="creator-title">Your Story Deserves to Be Read.</h2>
+            <p>
+              Publish chapter by chapter, grow your audience, and earn from your
+              work.
+            </p>
             <Link className="button button-primary" href={writingHref}>
-              {user ? 'Open your dashboard' : 'Become a Creator'}
+              {user ? 'Open your dashboard' : 'Create Your First Story'}
             </Link>
           </div>
           <div
-            className="landing-creator-art"
+            className="asset-placeholder creator-asset-placeholder"
             role="img"
-            aria-label="A blue quill, ink pot, and handwritten story on an open book"
+            aria-label="Readems creator call-to-action illustration unavailable"
           >
-            <BookOpenText
-              className="creator-book"
-              weight="fill"
-              aria-hidden="true"
-            />
-            <Feather
-              className="creator-feather"
-              weight="fill"
-              aria-hidden="true"
-            />
-            <Sparkle
-              className="creator-spark"
-              weight="fill"
-              aria-hidden="true"
-            />
+            <PenNib aria-hidden="true" />
+            <span>Creator illustration</span>
           </div>
         </section>
       </main>
 
-      <footer className="landing-footer">
-        <div className="landing-shell">
-          <Logo className="landing-footer-logo" />
+      <footer className="official-footer">
+        <div className="landing-container official-footer-inner">
+          <Logo className="official-footer-logo" />
           <nav aria-label="Footer navigation">
-            <a href="#stories-title">Stories</a>
-            <a href="#categories">Categories</a>
+            <a href="#top">About</a>
             <a href="#community-title">Community</a>
-            <Link href="/login">Log in</Link>
+            <a href="#creator-title">For Creators</a>
+            <Link href="/login">Log In</Link>
           </nav>
-          <small>© 2026 Readems. Stories live here.</small>
+          <small>© 2026 Readems. All rights reserved.</small>
         </div>
       </footer>
     </div>
