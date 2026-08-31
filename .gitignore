@@ -13,6 +13,9 @@ test-results/
 !.env.example
 *.db
 
+# legacy generated Prisma client files
+src/generated/prisma/
+
 # editor and operating system files
 .DS_Store
 *.swp
