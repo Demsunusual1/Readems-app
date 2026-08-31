@@ -151,7 +151,7 @@ export function SignupWizard() {
               {field('Full name', 'fullName', 'text', 'name')}
               {field('Username', 'username', 'text', 'username')}
               {field('Email address', 'email', 'email', 'email')}
-              {field('Password', 'password', 'password', 'new-password')}
+              {field('Create password', 'password', 'password', 'new-password')}
               {field(
                 'Confirm password',
                 'confirmPassword',
