@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('a reader can complete signup from the landing page', async ({ page }) => {
-  const uniqueId = Date.now().toString();
+  const uniqueId = crypto.randomUUID().replaceAll('-', '').slice(0, 12);
 
   await page.goto('/');
   await expect(
@@ -28,7 +28,11 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
   await expect(
     page.getByRole('heading', { name: 'How will you use Readems?' }),
   ).toBeVisible();
-  await page.getByRole('button', { name: /^Reader/ }).click();
+  await page
+    .getByRole('button', {
+      name: /Reader.*Discover stories and build your library/,
+    })
+    .click();
   await page.getByRole('button', { name: /Continue/ }).click();
 
   await expect(
