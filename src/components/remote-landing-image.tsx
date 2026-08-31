@@ -9,16 +9,22 @@ type RemoteLandingImageProps = Omit<ImageProps, 'onError'>;
 export function RemoteLandingImage({
   alt,
   className,
+  width,
+  height,
+  style,
   ...props
 }: RemoteLandingImageProps) {
   const [failed, setFailed] = useState(false);
 
   if (failed) {
+    const aspectRatio = width && height ? `${width} / ${height}` : undefined;
+
     return (
       <span
         className={`${className ?? ''} remote-image-fallback`}
         role="img"
         aria-label={alt}
+        style={{ ...style, aspectRatio }}
       >
         <span>Artwork temporarily unavailable</span>
       </span>
@@ -28,6 +34,9 @@ export function RemoteLandingImage({
   return (
     <Image
       {...props}
+      width={width}
+      height={height}
+      style={style}
       className={className}
       alt={alt}
       onError={() => setFailed(true)}

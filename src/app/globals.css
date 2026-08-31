@@ -2192,3 +2192,8 @@ label small {
   width: 100%;
   aspect-ratio: 2 / 2.5;
 }
+.remote-image-fallback.hero-image,
+.community > .remote-image-fallback,
+.creator-cta > .remote-image-fallback {
+  width: 100%;
+}
