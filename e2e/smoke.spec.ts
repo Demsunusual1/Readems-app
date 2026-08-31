@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 
-test('renders the landing page and opens signup', async ({ page }) => {
+test('a reader can complete signup from the landing page', async ({ page }) => {
+  const uniqueId = crypto.randomUUID().replaceAll('-', '').slice(0, 12);
+
   await page.goto('/');
   await expect(
     page.getByRole('heading', { name: 'Where Every Story Finds Its People' }),
@@ -14,15 +16,45 @@ test('renders the landing page and opens signup', async ({ page }) => {
   ).toBeVisible();
   await page.getByRole('button', { name: /Create my account/ }).click();
   await page.getByLabel('Full name').fill('Kemi Adebayo');
-  await page.getByLabel('Username').fill('kemi_reads');
-  await page.getByLabel('Email address').fill('kemi@example.com');
-  await page.getByLabel('Password', { exact: true }).fill('Short9A');
-  await page.getByLabel('Confirm password').fill('Short9A');
+  await page.getByLabel('Username').fill(`kemi_${uniqueId}`);
+  await page.getByLabel('Email address').fill(`kemi_${uniqueId}@example.com`);
+  await page.getByLabel('Create password').fill('LongEnough9A');
+  await page.getByLabel('Confirm password').fill('LongEnough9A');
+  await page
+    .getByRole('checkbox', { name: /I agree to the Terms of Service/ })
+    .check();
   await page.getByRole('button', { name: /Continue/ }).click();
+
   await expect(
-    page
-      .locator('.signup-card')
-      .getByText('Password must be at least 12 characters.', { exact: true }),
+    page.getByRole('heading', { name: 'How will you use Readems?' }),
+  ).toBeVisible();
+  await page
+    .getByRole('button', {
+      name: /Reader.*Discover stories and build your library/,
+    })
+    .click();
+  await page.getByRole('button', { name: /Continue/ }).click();
+
+  await expect(
+    page.getByRole('heading', { name: 'What stories move you?' }),
+  ).toBeVisible();
+  await page.getByRole('button', { name: 'Romance', exact: true }).click();
+  await page.getByRole('button', { name: 'Fantasy', exact: true }).click();
+  await page.getByRole('button', { name: 'Mystery', exact: true }).click();
+  await page.getByRole('button', { name: /Continue/ }).click();
+
+  await expect(
+    page.getByRole('heading', { name: 'Set up your profile' }),
+  ).toBeVisible();
+  await page.getByRole('button', { name: /Finish signup/ }).click();
+
+  await expect(
+    page.getByRole('heading', { name: 'Welcome to Readems, Kemi!' }),
+  ).toBeVisible();
+  await page.getByRole('button', { name: /Go to my dashboard/ }).click();
+  await expect(page).toHaveURL('/reader/dashboard');
+  await expect(
+    page.getByRole('heading', { name: /Good morning, Kemi!/ }),
   ).toBeVisible();
 });
 

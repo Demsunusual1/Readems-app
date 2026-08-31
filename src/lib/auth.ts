@@ -10,6 +10,8 @@ import { prisma } from './prisma';
 
 const scrypt = promisify(scryptCallback);
 const SESSION_COOKIE = 'readems_session';
+export const dashboardForRole = (role: 'READER' | 'CREATOR' | 'BOTH') =>
+  role === 'CREATOR' ? '/creator/dashboard' : '/reader/dashboard';
 
 export async function hashPassword(password: string) {
   const salt = randomBytes(16).toString('hex');
@@ -58,4 +60,12 @@ export async function getCurrentUser() {
     include: { user: true },
   });
   return session && session.expiresAt > new Date() ? session.user : null;
+}
+
+export async function deleteSession() {
+  const store = await cookies();
+  const token = store.get(SESSION_COOKIE)?.value;
+  if (token)
+    await prisma.session.deleteMany({ where: { tokenHash: digest(token) } });
+  store.delete(SESSION_COOKIE);
 }
