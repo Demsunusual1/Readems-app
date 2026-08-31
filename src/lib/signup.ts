@@ -26,7 +26,7 @@ export const signupSchema = z.object({
   email: z.email().trim().toLowerCase(),
   password: z
     .string()
-    .min(12, 'Use at least 12 characters.')
+    .min(8, 'Use at least 8 characters.')
     .max(128)
     .regex(/[a-z]/, 'Add a lowercase letter.')
     .regex(/[A-Z]/, 'Add an uppercase letter.')

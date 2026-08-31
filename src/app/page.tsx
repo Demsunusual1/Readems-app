@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { cookies } from 'next/headers';
+import { ReademsLogo } from '@/components/readems-logo';
 import { LandingHeader } from '@/components/landing-header';
 
 const stories = [
@@ -123,7 +124,11 @@ export default async function HomePage() {
           </div>
         </section>
 
-        <section className="stories-band" aria-labelledby="stories-title">
+        <section
+          id="stories"
+          className="stories-band"
+          aria-labelledby="stories-title"
+        >
           <div className="section">
             <div className="section-heading">
               <h2 id="stories-title">Stories Everyone Is Reading</h2>
@@ -153,7 +158,11 @@ export default async function HomePage() {
           </div>
         </section>
 
-        <section className="section benefits" aria-labelledby="benefits-title">
+        <section
+          id="belong"
+          className="section benefits"
+          aria-labelledby="benefits-title"
+        >
           <h2 id="benefits-title">Read. Write. Belong.</h2>
           <div className="benefit-grid">
             {benefits.map((item) => (
@@ -227,9 +236,7 @@ export default async function HomePage() {
       </main>
       <footer className="site-footer">
         <div className="section footer-inner">
-          <a className="logo footer-logo" href="#top">
-            <span aria-hidden="true">▱</span>Readems
-          </a>
+          <ReademsLogo />
           <nav aria-label="Footer navigation">
             {[
               'About',

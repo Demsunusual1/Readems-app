@@ -12,18 +12,15 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
   ).toBeVisible();
   await page.getByRole('link', { name: 'Start Reading' }).click();
   await expect(
-    page.getByRole('heading', { name: 'Your next chapter starts here.' }),
+    page.getByRole('heading', { name: 'Join the Readems community' }),
   ).toBeVisible();
-  await page.getByRole('button', { name: /Create my account/ }).click();
   await page.getByLabel('Full name').fill('Kemi Adebayo');
-  await page.getByLabel('Username').fill(`kemi_${uniqueId}`);
   await page.getByLabel('Email address').fill(`kemi_${uniqueId}@example.com`);
   await page.getByLabel('Create password').fill('LongEnough9A');
-  await page.getByLabel('Confirm password').fill('LongEnough9A');
   await page
     .getByRole('checkbox', { name: /I agree to the Terms of Service/ })
     .check();
-  await page.getByRole('button', { name: /Continue/ }).click();
+  await page.getByRole('button', { name: /Create account/ }).click();
 
   await expect(
     page.getByRole('heading', { name: 'How will you use Readems?' }),

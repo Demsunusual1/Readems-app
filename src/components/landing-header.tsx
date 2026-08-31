@@ -1,20 +1,20 @@
 'use client';
-
 import Link from 'next/link';
 import { useState } from 'react';
-
+import { ReademsLogo } from './readems-logo';
 export function LandingHeader({ dashboardHref }: { dashboardHref?: string }) {
   const [open, setOpen] = useState(false);
   return (
     <header className="site-header" id="top">
       <div className="section header-inner">
-        <Link className="logo" href="/" aria-label="Readems home">
-          <span aria-hidden="true">▱</span>Readems
-        </Link>
+        <ReademsLogo />
         <nav
-          className={open ? 'header-nav open' : 'header-nav'}
+          className={`header-nav ${open ? 'open' : ''}`}
           aria-label="Primary navigation"
         >
+          <a href="#stories">Discover</a>
+          <a href="#belong">Community</a>
+          <a href="#genres">Genres</a>
           {dashboardHref ? (
             <Link href={dashboardHref}>Dashboard</Link>
           ) : (

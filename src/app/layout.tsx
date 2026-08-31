@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   title: 'Readems — Where Every Story Finds Its People',
   description:
     'Discover stories you’ll love, share your voice, and belong to a global community of readers and storytellers.',
+  icons: { icon: '/readems-logo.svg', apple: '/readems-logo.svg' },
   openGraph: {
     title: 'Readems — Where Every Story Finds Its People',
     description:
