@@ -1,11 +1,14 @@
 import { expect, test } from '@playwright/test';
 
-test('opens signup and validates account details', async ({ page }) => {
+test('renders the landing page and opens signup', async ({ page }) => {
   await page.goto('/');
   await expect(
-    page.getByRole('heading', { name: /Stories That/i }),
+    page.getByRole('heading', { name: 'Where Every Story Finds Its People' }),
   ).toBeVisible();
-  await page.getByRole('link', { name: 'Start your story' }).click();
+  await expect(
+    page.getByRole('heading', { name: 'Stories Everyone Is Reading' }),
+  ).toBeVisible();
+  await page.getByRole('link', { name: 'Start Reading' }).click();
   await expect(
     page.getByRole('heading', { name: 'Your next chapter starts here.' }),
   ).toBeVisible();
@@ -21,4 +24,16 @@ test('opens signup and validates account details', async ({ page }) => {
       .locator('.signup-card')
       .getByText('Password must be at least 12 characters.', { exact: true }),
   ).toBeVisible();
+});
+
+test('mobile navigation is keyboard accessible', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  const menu = page.getByRole('button', { name: 'Open navigation menu' });
+  await menu.focus();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('link', { name: 'Log In' })).toBeVisible();
+  await expect(
+    page.getByRole('link', { name: 'Join Readems' }),
+  ).toHaveAttribute('href', '/signup');
 });
