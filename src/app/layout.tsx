@@ -1,5 +1,10 @@
 import type { Metadata } from 'next';
+import { Fraunces, Literata, Manrope } from 'next/font/google';
 import './globals.css';
+
+const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope' });
+const literata = Literata({ subsets: ['latin'], variable: '--font-literata' });
+const fraunces = Fraunces({ subsets: ['latin'], variable: '--font-fraunces' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://readems.com'),
@@ -20,7 +25,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body
+        className={`${manrope.variable} ${literata.variable} ${fraunces.variable}`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

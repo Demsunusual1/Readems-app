@@ -62,7 +62,7 @@ export default async function HomePage() {
     ? await import('@/lib/auth').then(({ getCurrentUser }) => getCurrentUser())
     : null;
   const dashboard = user
-    ? `/dashboard/${user.role === 'CREATOR' ? 'creator' : 'reader'}`
+    ? `/${user.role === 'CREATOR' ? 'creator' : 'reader'}/dashboard`
     : undefined;
   return (
     <>

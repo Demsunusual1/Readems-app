@@ -4,6 +4,7 @@ import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { interests, type SignupInput } from '@/lib/signup';
+import { PasswordField } from './password-field';
 
 type Draft = SignupInput & { confirmPassword: string };
 const initial: Draft = {
@@ -31,7 +32,8 @@ export function SignupWizard() {
   const [data, setData] = useState(initial);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [destination, setDestination] = useState('/dashboard/reader');
+  const [destination, setDestination] = useState('/reader/dashboard');
+  const [agreed, setAgreed] = useState(false);
   const router = useRouter();
   const update = (field: keyof Draft, value: string | string[]) =>
     setData((current) => ({ ...current, [field]: value }));
@@ -44,6 +46,8 @@ export function SignupWizard() {
         return setError('Password must be at least 12 characters.');
       if (data.password !== data.confirmPassword)
         return setError('Passwords do not match.');
+      if (!agreed)
+        return setError('Agree to the Terms and Privacy Policy to continue.');
     }
     if (step === 3 && data.interests.length < 3)
       return setError('Choose at least 3 interests.');
@@ -86,14 +90,24 @@ export function SignupWizard() {
   ) => (
     <label>
       {label}
-      <input
-        name={name}
-        type={type}
-        autoComplete={autoComplete}
-        required={required}
-        value={String(data[name])}
-        onChange={(e) => update(name, e.target.value)}
-      />
+      {type === 'password' ? (
+        <PasswordField
+          name={name}
+          autoComplete={autoComplete}
+          required={required}
+          value={String(data[name])}
+          onChange={(e) => update(name, e.target.value)}
+        />
+      ) : (
+        <input
+          name={name}
+          type={type}
+          autoComplete={autoComplete}
+          required={required}
+          value={String(data[name])}
+          onChange={(e) => update(name, e.target.value)}
+        />
+      )}
     </label>
   );
   return (
@@ -148,6 +162,17 @@ export function SignupWizard() {
             <p className="hint">
               Use 12+ characters with uppercase, lowercase, and a number.
             </p>
+            <label className="agreement">
+              <input
+                type="checkbox"
+                checked={agreed}
+                onChange={(event) => setAgreed(event.target.checked)}
+              />{' '}
+              <span>
+                I agree to the <Link href="/terms">Terms of Service</Link> and{' '}
+                <Link href="/privacy">Privacy Policy</Link>.
+              </span>
+            </label>
             <Nav back={() => setStep(0)} />
           </form>
         )}

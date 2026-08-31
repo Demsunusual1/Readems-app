@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { Prisma } from '@prisma/client';
-import { createSession, hashPassword } from '@/lib/auth';
+import { createSession, dashboardForRole, hashPassword } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { signupSchema } from '@/lib/signup';
 
@@ -27,8 +27,7 @@ export async function POST(request: Request) {
     });
     return NextResponse.json(
       {
-        dashboard:
-          user.role === 'CREATOR' ? '/dashboard/creator' : '/dashboard/reader',
+        dashboard: dashboardForRole(user.role),
       },
       { status: 201 },
     );
