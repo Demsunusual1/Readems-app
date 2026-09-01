@@ -5,13 +5,10 @@
   box-shadow: none;
   border-radius: 0;
 }
-.ui-logo[data-tone='dark'] .ui-logo-mark img {
-  filter: grayscale(1) invert(1) contrast(10);
-  mix-blend-mode: multiply;
-}
-.ui-logo[data-tone='light'] .ui-logo-mark img {
-  filter: grayscale(1) contrast(10);
-  mix-blend-mode: screen;
+.ui-logo[data-tone] .ui-logo-mark > svg {
+  position: static;
+  width: 40px;
+  height: 40px;
 }
 .ui-logo[data-tone='dark'] .ui-logo-word {
   color: #0f1f3d;
