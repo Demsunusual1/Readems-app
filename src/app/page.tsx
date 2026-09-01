@@ -122,6 +122,14 @@ export default async function HomePage() {
             />
           </div>
         </section>
+        <svg
+          className="hero-wave"
+          viewBox="0 0 1440 92"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path d="M0 54C238-24 451 43 696 51c270 9 510 11 744-51v92H0Z" />
+        </svg>
       </div>
 
       <main className="landing-main">
@@ -272,8 +280,8 @@ export default async function HomePage() {
           </div>
           <div className="spotlight-image">
             <Image
-              src="/readems/creator-chinelo-okoye.png"
-              alt="Featured creator Chinelo Okoye"
+              src="/readems/community-zara.png"
+              alt="Chinelo Okoye, creator spotlight"
               fill
               sizes="320px"
             />

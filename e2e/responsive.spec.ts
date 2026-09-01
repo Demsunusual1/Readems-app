@@ -24,7 +24,7 @@ for (const viewport of viewports) {
     }));
     expect(layoutWidth.scrollWidth).toBe(layoutWidth.clientWidth);
 
-    if (viewport.width >= 360 && viewport.width <= 430) {
+    if (viewport.width <= 767) {
       const mobileNavigation = page.getByRole('navigation', {
         name: 'Mobile navigation',
       });
