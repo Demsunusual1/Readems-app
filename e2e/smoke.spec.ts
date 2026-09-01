@@ -5,11 +5,13 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
 
   await page.goto('/');
   await expect(
-    page.getByRole('heading', { name: 'Where Every Story Finds Its People' }),
+    page.getByRole('heading', { name: 'Stories that stay with you' }),
   ).toBeVisible();
   await expect(
-    page.getByRole('heading', { name: 'Stories Everyone Is Reading' }),
+    page.getByRole('heading', { name: 'Featured Serial' }),
   ).toBeVisible();
+  await expect(page.locator('.testimonial')).toHaveCount(0);
+  await expect(page.locator('.official-footer')).toHaveCount(0);
   await page.getByRole('link', { name: 'Start Reading' }).click();
   await expect(
     page.getByRole('heading', { name: 'Your next chapter starts here.' }),
@@ -64,8 +66,13 @@ test('mobile navigation is keyboard accessible', async ({ page }) => {
   const menu = page.getByRole('button', { name: 'Open navigation menu' });
   await menu.focus();
   await page.keyboard.press('Enter');
-  await expect(page.getByRole('link', { name: 'Log In' })).toBeVisible();
+  const mobileNavigation = page.getByRole('navigation', {
+    name: 'Primary navigation',
+  });
   await expect(
-    page.getByRole('link', { name: 'Join Readems' }),
+    mobileNavigation.getByRole('link', { name: 'Log In' }),
+  ).toBeVisible();
+  await expect(
+    mobileNavigation.getByRole('link', { name: 'Join Readems' }),
   ).toHaveAttribute('href', '/signup');
 });

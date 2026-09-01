@@ -27,6 +27,15 @@ export function Header({ dashboardHref }: { dashboardHref?: string }) {
           className={open ? 'ui-header-nav is-open' : 'ui-header-nav'}
           aria-label="Primary navigation"
         >
+          <Link href="/#stories-title" onClick={() => closeMenu()}>
+            Discover
+          </Link>
+          <Link href="/#categories" onClick={() => closeMenu()}>
+            Categories
+          </Link>
+          <Link href="/#community-title" onClick={() => closeMenu()}>
+            Community
+          </Link>
           <Link
             ref={firstLink}
             href={dashboardHref ?? '/login'}
