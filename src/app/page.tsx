@@ -128,7 +128,7 @@ export default async function HomePage() {
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          <path d="M0 54C238-24 451 43 696 51c270 9 510 11 744-51v92H0Z" />
+          <path d="M0 55C252 10 459 48 708 57c278 10 522 8 732-23v58H0Z" />
         </svg>
       </div>
 

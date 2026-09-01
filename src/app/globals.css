@@ -2697,7 +2697,7 @@ canvas {
   bottom: -1px;
   left: 0;
   width: 100%;
-  height: 76px;
+  height: 42px;
   display: block;
   fill: #fff;
 }
@@ -3128,15 +3128,34 @@ canvas {
   .official-landing .ui-logo-word {
     font-size: 1.3rem;
   }
+  .official-landing .ui-header-nav {
+    top: calc(100% + 0.35rem);
+    right: 0.625rem;
+    left: auto;
+    width: min(15rem, calc(100% - 1.25rem));
+    gap: 0.2rem;
+    padding: 0.55rem;
+    border-color: #d9e1ee;
+    border-radius: 14px;
+    background: #fff;
+  }
+  .official-landing .ui-header-nav a {
+    min-height: 2.6rem;
+    color: #061333;
+    font-size: 0.78rem;
+  }
+  .official-landing .ui-header-nav .ui-header-cta {
+    color: #fff;
+  }
   .official-hero {
-    min-height: 465px;
-    grid-template-columns: minmax(0, 1.05fr) minmax(105px, 0.95fr);
+    min-height: 398px;
+    grid-template-columns: minmax(0, 1.04fr) minmax(118px, 0.96fr);
     gap: 0;
-    padding: 1.2rem 0 4.2rem;
+    padding: 0.7rem 0 2.8rem;
   }
   .official-hero-copy {
     align-self: start;
-    padding-top: 0.8rem;
+    padding-top: 0.35rem;
   }
   .official-eyebrow {
     margin-bottom: 0.4rem;
@@ -3167,8 +3186,10 @@ canvas {
     white-space: nowrap;
   }
   .hero-asset {
-    min-height: 330px;
+    width: 150%;
+    min-height: 285px;
     align-self: end;
+    margin-left: -36%;
   }
   .hero-asset::after {
     background:
@@ -3188,7 +3209,7 @@ canvas {
       );
   }
   .hero-wave {
-    height: 48px;
+    height: 22px;
   }
   .continue-section {
     padding-top: 0.1rem;
@@ -3215,7 +3236,7 @@ canvas {
     scrollbar-width: none;
   }
   .continue-card {
-    flex: 0 0 min(58vw, 210px);
+    flex: 0 0 min(49vw, 180px);
   }
   .continue-card img {
     width: 48px;
@@ -3244,8 +3265,8 @@ canvas {
     margin-bottom: 0.55rem;
   }
   .featured-card {
-    min-height: 170px;
-    flex: 0 0 min(61vw, 225px);
+    min-height: 148px;
+    flex: 0 0 min(53vw, 195px);
     scroll-snap-align: start;
   }
   .featured-card > div {
@@ -3276,21 +3297,21 @@ canvas {
     font-size: 0.58rem;
   }
   .activity-row {
-    grid-template-columns: 1fr;
-    gap: 0.45rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.35rem;
   }
   .activity-row img {
-    width: 38px;
-    height: 38px;
+    width: 32px;
+    height: 32px;
   }
   .activity-row p {
-    font-size: 0.65rem;
+    font-size: 0.56rem;
   }
   .creator-spotlight {
-    min-height: 132px;
-    grid-template-columns: minmax(0, 1.1fr) 66px minmax(68px, 0.62fr) 20px;
-    gap: 0.3rem;
-    padding: 0.65rem;
+    min-height: 116px;
+    grid-template-columns: minmax(0, 1.2fr) 60px minmax(80px, 0.72fr) 18px;
+    gap: 0.25rem;
+    padding: 0.55rem 0.65rem;
   }
   .spotlight-copy p {
     font-size: 0.54rem;
@@ -3310,7 +3331,7 @@ canvas {
     line-height: 1.2;
   }
   .spotlight-image {
-    width: 62px;
+    width: 56px;
   }
   .creator-spotlight dl {
     gap: 0.2rem;
@@ -3327,8 +3348,8 @@ canvas {
     line-height: 1.2;
   }
   .creator-spotlight > a {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
   .genre-grid a {
     min-height: 44px;
@@ -3341,13 +3362,13 @@ canvas {
     height: 19px;
   }
   .official-creator {
-    min-height: 178px;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    gap: 0.2rem;
-    padding: 0.8rem;
+    min-height: 150px;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+    gap: 0.1rem;
+    padding: 0.7rem 0.8rem;
   }
   .official-creator h2 {
-    font-size: 1.22rem;
+    font-size: 1.1rem;
   }
   .official-creator > div > p:not(.official-eyebrow) {
     margin-bottom: 0.5rem;
@@ -3369,7 +3390,9 @@ canvas {
     font-size: 0.52rem;
   }
   .creator-asset {
-    min-height: 154px;
+    width: 125%;
+    min-height: 132px;
+    margin-left: -25%;
   }
   .landing-bottom-nav {
     position: fixed;
