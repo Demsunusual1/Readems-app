@@ -174,7 +174,7 @@ export function Discover({
           {stories.length ? (
             <div className="discover-grid">
               {stories.map((story) => (
-                <article className="discover-card" key={story.id}>
+                <article className="discover-story-card" key={story.id}>
                   <div className="discover-cover">
                     <Image
                       src={story.cover}
@@ -184,7 +184,7 @@ export function Discover({
                     />
                     <span>{story.category}</span>
                   </div>
-                  <div className="discover-card-copy">
+                  <div className="discover-story-card-copy">
                     <h3>{story.title}</h3>
                     <p className="discover-author">{story.author}</p>
                     <p className="discover-description">{story.description}</p>

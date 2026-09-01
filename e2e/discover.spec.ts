@@ -4,7 +4,7 @@ test('Discover search, categories and accessible preview work', async ({
 }) => {
   await page.goto('/discover');
   await page.getByLabel('Search stories or authors').fill('salt');
-  await expect(page.locator('.discover-card')).toHaveCount(1);
+  await expect(page.locator('.discover-story-card')).toHaveCount(1);
   await page
     .getByRole('button', { name: 'Preview The Archivist of Salt' })
     .click();
@@ -18,11 +18,11 @@ test('Discover search, categories and accessible preview work', async ({
   await page
     .getByRole('button', { name: 'African Folktales', exact: true })
     .click();
-  await expect(page.locator('.discover-card')).toHaveCount(2);
+  await expect(page.locator('.discover-story-card')).toHaveCount(2);
   await page.getByRole('button', { name: 'Sci-Fi', exact: true }).click();
   await expect(page.getByText('No matching previews yet')).toBeVisible();
   await page.getByRole('button', { name: 'Show all previews' }).click();
-  await expect(page.locator('.discover-card')).toHaveCount(6);
+  await expect(page.locator('.discover-story-card')).toHaveCount(6);
 });
 for (const width of [320, 390, 768, 1440]) {
   test(`Discover fits ${width}px with themed logo`, async ({ page }) => {
@@ -34,5 +34,7 @@ for (const width of [320, 390, 768, 1440]) {
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBe(width);
+    const cover = page.locator('.discover-cover').first();
+    expect((await cover.boundingBox())?.width).toBeGreaterThan(100);
   });
 }

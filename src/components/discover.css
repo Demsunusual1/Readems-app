@@ -165,7 +165,8 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
 }
-.discover-card {
+.discover-story-card {
+  display: block;
   background: #fff;
   border: 1px solid #e1e5f0;
   border-radius: 18px;
@@ -191,10 +192,10 @@
   border-radius: 6px;
   font-size: 0.75rem;
 }
-.discover-card-copy {
+.discover-story-card-copy {
   padding: 20px;
 }
-.discover-card h3 {
+.discover-story-card h3 {
   font: 600 1.35rem/1.3 var(--font-literary);
   margin: 0 0 8px;
 }
@@ -211,7 +212,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.discover-card button {
+.discover-story-card button {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -334,16 +335,16 @@
     padding: 4px 6px;
     font-size: 0.75rem;
   }
-  .discover-card-copy {
+  .discover-story-card-copy {
     padding: 14px 10px;
   }
-  .discover-card h3 {
+  .discover-story-card h3 {
     font-size: 1.0625rem;
   }
   .discover-description {
     display: none;
   }
-  .discover-card button {
+  .discover-story-card button {
     font-size: 0.875rem;
   }
   .discover-writer {
