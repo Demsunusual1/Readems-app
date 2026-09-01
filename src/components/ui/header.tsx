@@ -22,15 +22,15 @@ export function Header({ dashboardHref }: { dashboardHref?: string }) {
   return (
     <header className="ui-header" id="top">
       <div className="ui-header-inner">
-        <Logo />
+        <Logo tone="light" />
         <nav
           className={open ? 'ui-header-nav is-open' : 'ui-header-nav'}
           aria-label="Primary navigation"
         >
-          <Link href="/#stories-title" onClick={() => closeMenu()}>
+          <Link href="/discover" onClick={() => closeMenu()}>
             Discover
           </Link>
-          <Link href="/#categories" onClick={() => closeMenu()}>
+          <Link href="/discover#genre-heading" onClick={() => closeMenu()}>
             Categories
           </Link>
           <Link href="/#community-title" onClick={() => closeMenu()}>

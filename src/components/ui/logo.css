@@ -1,0 +1,21 @@
+/* Render the existing official mark in a monochrome treatment appropriate
+   to its surface, without changing the source asset or letterform. */
+.ui-logo[data-tone] .ui-logo-mark {
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+.ui-logo[data-tone='dark'] .ui-logo-mark img {
+  filter: grayscale(1) invert(1) contrast(10);
+  mix-blend-mode: multiply;
+}
+.ui-logo[data-tone='light'] .ui-logo-mark img {
+  filter: grayscale(1) contrast(10);
+  mix-blend-mode: screen;
+}
+.ui-logo[data-tone='dark'] .ui-logo-word {
+  color: #0f1f3d;
+}
+.ui-logo[data-tone='light'] .ui-logo-word {
+  color: #fff;
+}

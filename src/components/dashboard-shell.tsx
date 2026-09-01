@@ -82,7 +82,9 @@ export function DashboardShell({
       href:
         index === 0
           ? `/${kind}/dashboard`
-          : `#${item.toLowerCase().replaceAll(' ', '-')}`,
+          : kind === 'reader' && item === 'Explore'
+            ? '/discover'
+            : `#${item.toLowerCase().replaceAll(' ', '-')}`,
       icon: <Icon weight={index === 0 ? 'fill' : 'regular'} />,
     };
   });
