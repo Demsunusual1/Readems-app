@@ -83,8 +83,7 @@ export function LandingHero({
             <h1 id="hero-title">
               {active === 0 ? (
                 <>
-                  Stories that{' '}
-                  <br />
+                  Stories that <br />
                   stay <em>with you</em>
                 </>
               ) : (
