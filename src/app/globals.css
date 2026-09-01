@@ -3682,3 +3682,323 @@ canvas {
     height: 27px;
   }
 }
+
+/* Final reference corrections: seamless artwork and genuinely contained mobile layout. */
+.official-landing {
+  overflow: visible;
+}
+.hero-asset {
+  inset: -2rem -1rem -2rem 34%;
+  background: var(--landing-navy);
+}
+.hero-asset::before,
+.hero-asset::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: -2px;
+  pointer-events: none;
+}
+.hero-asset::before {
+  background: radial-gradient(
+    ellipse at 58% 52%,
+    transparent 44%,
+    rgba(2, 14, 39, 0.18) 62%,
+    var(--landing-navy) 93%
+  );
+}
+.hero-asset::after {
+  background:
+    linear-gradient(
+      90deg,
+      var(--landing-navy),
+      transparent 22%,
+      transparent 82%,
+      var(--landing-navy)
+    ),
+    linear-gradient(
+      180deg,
+      var(--landing-navy),
+      transparent 16%,
+      transparent 80%,
+      var(--landing-navy)
+    );
+}
+.hero-asset img {
+  object-fit: contain;
+  object-position: center right;
+}
+
+@media (min-width: 360px) and (max-width: 430px) {
+  html,
+  body,
+  .official-landing {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: visible;
+  }
+  .official-landing {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom));
+  }
+  .official-landing > *,
+  .landing-hero-shell,
+  .landing-main {
+    max-width: 100%;
+  }
+  .landing-container,
+  .official-landing .ui-header-inner {
+    width: calc(100% - 1.5rem);
+    max-width: none;
+  }
+  .official-hero {
+    min-height: 485px;
+  }
+  .official-hero-copy {
+    width: 100%;
+    max-width: 100%;
+    padding-top: 1.5rem;
+  }
+  .official-hero h1 {
+    max-width: 100%;
+    font-size: clamp(2.35rem, 10.8vw, 2.9rem);
+  }
+  .official-hero-copy > p:not(.official-eyebrow) {
+    max-width: min(100%, 19rem);
+  }
+  .official-actions {
+    width: 100%;
+    max-width: 20rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+  .official-actions .button {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding-inline: 0.45rem;
+    white-space: nowrap;
+  }
+  .hero-asset {
+    inset: 12.5rem -0.25rem -1.5rem 2.5rem;
+    overflow: visible;
+  }
+  .hero-asset::before {
+    background: radial-gradient(
+      ellipse at 57% 55%,
+      transparent 38%,
+      rgba(2, 14, 39, 0.22) 63%,
+      var(--landing-navy) 94%
+    );
+  }
+  .hero-asset::after {
+    inset: -3px;
+    background:
+      linear-gradient(
+        90deg,
+        var(--landing-navy),
+        transparent 17%,
+        transparent 82%,
+        var(--landing-navy)
+      ),
+      linear-gradient(
+        180deg,
+        var(--landing-navy),
+        transparent 14%,
+        transparent 80%,
+        var(--landing-navy)
+      );
+  }
+  .hero-asset img {
+    object-fit: contain;
+    object-position: center bottom;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .landing-main {
+    width: 100%;
+  }
+  .continue-row,
+  .featured-row,
+  .genre-grid {
+    width: 100%;
+    max-width: 100%;
+    margin-right: 0;
+    padding-right: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .continue-card {
+    flex-basis: min(60vw, 220px);
+    min-height: 74px;
+  }
+  .continue-card img {
+    width: 50px;
+    height: 69px;
+  }
+  .continue-card h3 {
+    margin-bottom: 0.25rem;
+    font-size: 0.68rem;
+  }
+  .continue-card p {
+    margin-bottom: 0.3rem;
+    font-size: 0.6rem;
+  }
+  .discover-card {
+    flex-basis: 92px;
+    font-size: 0.68rem;
+  }
+  .discover-card > svg:first-child {
+    width: 25px;
+    height: 25px;
+  }
+  .featured-card {
+    flex-basis: min(63vw, 238px);
+    min-height: 182px;
+  }
+  .featured-card > div {
+    padding: 0.75rem;
+  }
+  .featured-card h3 {
+    max-width: 9rem;
+    margin: 0.5rem 0 0.3rem;
+    font-size: 1.05rem;
+  }
+  .featured-card p {
+    max-width: 9rem;
+    font-size: 0.66rem;
+  }
+  .feature-label,
+  .featured-card footer {
+    font-size: 0.56rem;
+  }
+  .community-live {
+    padding: 0.7rem;
+  }
+  .activity-row {
+    gap: 0.5rem;
+  }
+  .activity-row img {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
+  }
+  .activity-row p {
+    font-size: 0.66rem;
+    line-height: 1.35;
+  }
+  .creator-spotlight {
+    min-height: 156px;
+    display: grid;
+    grid-template-columns:
+      minmax(0, 1.1fr) minmax(72px, 0.65fr) minmax(75px, 0.65fr)
+      22px;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem;
+  }
+  .creator-spotlight::after {
+    background: linear-gradient(
+      90deg,
+      #020e2a 4%,
+      rgba(2, 14, 42, 0.62) 56%,
+      transparent
+    );
+  }
+  .spotlight-copy,
+  .creator-spotlight dl {
+    width: auto;
+  }
+  .spotlight-copy {
+    align-self: center;
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .spotlight-copy p {
+    margin-bottom: 0.15rem;
+    font-size: 0.58rem;
+  }
+  .spotlight-copy h2 {
+    margin-bottom: 0.15rem;
+    font-size: 0.9rem;
+    line-height: 1.05;
+  }
+  .spotlight-copy h2 svg {
+    width: 14px;
+  }
+  .spotlight-copy strong {
+    font-size: 0.59rem;
+    line-height: 1.25;
+  }
+  .spotlight-copy span {
+    margin-top: 0.28rem;
+    font-size: 0.54rem;
+    line-height: 1.25;
+  }
+  .spotlight-image {
+    position: relative;
+    z-index: 1;
+    inset: auto;
+    align-self: stretch;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .spotlight-image img {
+    object-position: 50% 20%;
+  }
+  .creator-spotlight dl {
+    align-self: center;
+    grid-column: 3;
+    grid-row: 1;
+    margin: 0;
+    gap: 0.25rem;
+  }
+  .creator-spotlight dl div {
+    display: block;
+  }
+  .creator-spotlight dt {
+    font-size: 0.73rem;
+    line-height: 1.1;
+  }
+  .creator-spotlight dd {
+    font-size: 0.49rem;
+    line-height: 1.2;
+  }
+  .creator-spotlight > a {
+    width: 22px;
+    height: 22px;
+    display: grid;
+    grid-column: 4;
+    grid-row: 1;
+  }
+  .creator-spotlight > a svg {
+    width: 11px;
+  }
+  .genre-grid a {
+    min-height: 48px;
+    flex-basis: 98px;
+    gap: 0.4rem;
+    font-size: 0.62rem;
+  }
+  .genre-grid svg {
+    width: 20px;
+    height: 20px;
+  }
+  .official-creator {
+    min-height: 272px;
+    padding: 1rem;
+  }
+  .official-creator h2 {
+    font-size: 1.45rem;
+  }
+  .official-creator > div > p:not(.official-eyebrow) {
+    margin-bottom: 0.7rem;
+    font-size: 0.72rem;
+  }
+  .creator-asset {
+    inset: 44% 0 0 7%;
+  }
+  .official-footer {
+    display: none;
+  }
+}

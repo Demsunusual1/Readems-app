@@ -31,6 +31,7 @@ for (const viewport of viewports) {
       await expect(mobileNavigation).toBeVisible();
       await expect(mobileNavigation).toHaveCSS('position', 'fixed');
       await expect(mobileNavigation).toHaveCSS('bottom', '0px');
+      await expect(page.locator('.official-footer')).toBeHidden();
     }
 
     if (viewport.width <= 390) {
