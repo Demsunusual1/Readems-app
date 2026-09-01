@@ -52,7 +52,9 @@ export function SignupWizard({
   const [data, setData] = useState({ ...initial, role: initialRole });
   const panel = useRef<HTMLElement>(null);
   useEffect(() => {
-    panel.current?.querySelector<HTMLElement>('h2')?.focus();
+    panel.current
+      ?.querySelector<HTMLElement>('h2')
+      ?.focus({ preventScroll: step === 1 });
   }, [step]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);

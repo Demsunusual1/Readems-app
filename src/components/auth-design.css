@@ -109,6 +109,16 @@
   display: grid;
   place-items: center;
 }
+.readems-auth .signup-card .password-toggle {
+  min-width: 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #64748b;
+  font-size: 1.4rem;
+}
 .readems-auth .forgot {
   margin: -8px 0 20px;
   font-size: 0.875rem;
@@ -216,7 +226,7 @@
 .readems-auth .auth-steps li:not(:last-child)::after {
   content: '';
   position: absolute;
-  top: 45px;
+  top: 85px;
   bottom: 0;
   left: 50%;
   width: 1px;
