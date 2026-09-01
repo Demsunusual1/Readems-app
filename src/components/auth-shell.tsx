@@ -16,7 +16,7 @@ export function AuthShell({
     <main className={`readems-auth readems-auth-${mode}`}>
       <header className="auth-banner">
         <div className="auth-banner-inner">
-          <Logo />
+          <Logo tone="light" />
           <div className="auth-banner-copy">
             <h1>
               {signup ? (

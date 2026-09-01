@@ -1,0 +1,18 @@
+/* Render the existing official mark in a monochrome treatment appropriate
+   to its surface, without changing the source asset or letterform. */
+.ui-logo[data-tone] .ui-logo-mark {
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+.ui-logo[data-tone] .ui-logo-mark > svg {
+  position: static;
+  width: 40px;
+  height: 40px;
+}
+.ui-logo[data-tone='dark'] .ui-logo-word {
+  color: #0f1f3d;
+}
+.ui-logo[data-tone='light'] .ui-logo-word {
+  color: #fff;
+}
