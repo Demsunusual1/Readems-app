@@ -2621,7 +2621,7 @@ canvas {
 .official-hero h1 {
   margin: 0;
   font-family: var(--font-literary);
-  font-size: clamp(3.5rem, 5.6vw, 5.2rem);
+  font-size: clamp(2.5rem, 5.6vw, 5.2rem);
   line-height: 1.02;
   letter-spacing: -0.045em;
 }
@@ -2649,7 +2649,9 @@ canvas {
   margin-top: 1.5rem;
 }
 .official-actions .button {
-  min-width: 150px;
+  min-width: clamp(120px, 12vw, 150px);
+  padding-inline: clamp(0.5rem, 1.3vw, 1.45rem);
+  white-space: nowrap;
   gap: 0.45rem;
 }
 .official-actions .button-secondary {
@@ -3081,6 +3083,10 @@ canvas {
   position: relative;
   z-index: 2;
   min-width: 0;
+}
+.official-creator .button {
+  padding-inline: clamp(0.5rem, 1.3vw, 1.45rem);
+  white-space: nowrap;
 }
 .official-creator h2 {
   margin: 0 0 0.45rem;
