@@ -4002,3 +4002,203 @@ canvas {
     display: none;
   }
 }
+
+/* Reference-locked landing composition. */
+.landing-main {
+  margin-top: -42px;
+  padding-top: 2.25rem;
+  border-radius: 50% 50% 0 0 / 42px 42px 0 0;
+}
+.continue-section {
+  position: relative;
+  z-index: 2;
+}
+.hero-asset::after {
+  background:
+    linear-gradient(
+      90deg,
+      var(--landing-navy) 0,
+      var(--landing-navy) 10%,
+      transparent 34%,
+      transparent 80%,
+      var(--landing-navy) 100%
+    ),
+    linear-gradient(
+      180deg,
+      var(--landing-navy) 0,
+      transparent 18%,
+      transparent 78%,
+      var(--landing-navy) 100%
+    );
+}
+.spotlight-image::before,
+.spotlight-image::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+}
+.spotlight-image::before {
+  background: linear-gradient(
+    90deg,
+    #020e2a,
+    transparent 25%,
+    transparent 75%,
+    #020e2a
+  );
+}
+.spotlight-image::after {
+  background: linear-gradient(
+    180deg,
+    #020e2a,
+    transparent 18%,
+    transparent 82%,
+    #020e2a
+  );
+}
+
+@media (min-width: 360px) and (max-width: 430px) {
+  .official-hero {
+    min-height: 470px;
+  }
+  .hero-asset {
+    inset: 11.75rem 0 -0.5rem 39%;
+  }
+  .hero-asset::after {
+    background:
+      linear-gradient(
+        90deg,
+        var(--landing-navy) 0,
+        transparent 28%,
+        transparent 78%,
+        var(--landing-navy) 100%
+      ),
+      linear-gradient(
+        180deg,
+        var(--landing-navy) 0,
+        transparent 18%,
+        transparent 78%,
+        var(--landing-navy) 100%
+      );
+  }
+  .landing-main {
+    margin-top: -32px;
+    padding-top: 1.35rem;
+    border-radius: 50% 50% 0 0 / 30px 30px 0 0;
+  }
+  .continue-heading {
+    margin-bottom: 0;
+  }
+  .continue-row {
+    margin-top: 0.75rem;
+  }
+  .featured-section,
+  .community-live,
+  .creator-spotlight,
+  .genre-section,
+  .official-creator {
+    margin-top: 1.15rem;
+  }
+  .section-title {
+    margin-bottom: 0.65rem;
+  }
+  .continue-card {
+    flex-basis: min(56vw, 205px);
+  }
+  .featured-card {
+    flex-basis: min(59vw, 220px);
+    min-height: 172px;
+  }
+  .community-live {
+    padding: 0.6rem;
+  }
+  .creator-spotlight {
+    min-height: 138px;
+    grid-template-columns:
+      minmax(0, 1.15fr) minmax(64px, 0.65fr) minmax(69px, 0.62fr)
+      20px;
+    padding: 0.65rem;
+  }
+  .spotlight-copy span {
+    margin-top: 0.2rem;
+  }
+  .spotlight-image {
+    min-width: 0;
+  }
+  .spotlight-image::before {
+    background: linear-gradient(
+      90deg,
+      #020e2a,
+      transparent 32%,
+      transparent 70%,
+      #020e2a
+    );
+  }
+  .creator-spotlight dl {
+    min-width: 0;
+  }
+  .creator-spotlight > a {
+    width: 20px;
+    height: 20px;
+  }
+  .genre-grid a {
+    min-height: 44px;
+    flex-basis: 92px;
+  }
+  .official-creator {
+    min-height: 190px;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: center;
+    padding: 0.85rem 1rem;
+  }
+  .official-creator > div:first-child {
+    width: 100%;
+    min-width: 0;
+  }
+  .official-creator h2 {
+    font-size: 1.32rem;
+  }
+  .official-creator > div > p:not(.official-eyebrow) {
+    margin-bottom: 0.55rem;
+    font-size: 0.65rem;
+    line-height: 1.4;
+  }
+  .official-creator > div > div {
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+  .official-creator .button {
+    min-height: 36px;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.64rem;
+    white-space: nowrap;
+  }
+  .official-creator > div > div span {
+    font-size: 0.57rem;
+  }
+  .creator-asset {
+    position: absolute;
+    inset: 0 0 0 43%;
+    min-height: 0;
+    border-radius: 0;
+  }
+  .creator-asset::before {
+    background:
+      linear-gradient(90deg, var(--landing-navy), transparent 26%),
+      linear-gradient(
+        180deg,
+        var(--landing-navy),
+        transparent 20%,
+        transparent 80%,
+        var(--landing-navy)
+      );
+  }
+  .creator-asset img {
+    object-fit: contain;
+    object-position: center right;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}

@@ -17,7 +17,6 @@ import {
   UserCircle,
 } from '@phosphor-icons/react/dist/ssr';
 import { LandingHeader } from '@/components/landing-header';
-import { Logo } from '@/components/ui/logo';
 
 const readingList = [
   [
@@ -351,52 +350,7 @@ export default async function HomePage() {
             />
           </div>
         </section>
-
-        <section
-          className="landing-container testimonial"
-          aria-labelledby="testimonial-title"
-        >
-          <p className="official-eyebrow">Loved by storytellers</p>
-          <h2 id="testimonial-title">
-            A home for stories and the people who love them.
-          </h2>
-          <blockquote>
-            “Readems helped me find readers who truly connect with my stories.
-            It feels like a community, not just a platform.”
-            <footer>
-              <Image
-                src="/readems/community-zara.png"
-                alt=""
-                width={54}
-                height={54}
-              />
-              <span>
-                <strong>Zara K.</strong>Writer and community member
-              </span>
-              <span className="stars" aria-label="5 out of 5 stars">
-                ★★★★★
-              </span>
-            </footer>
-          </blockquote>
-        </section>
       </main>
-
-      <footer className="official-footer">
-        <div className="landing-container official-footer-inner">
-          <div>
-            <Logo className="official-footer-logo" />
-            <p>Stories that stay with you.</p>
-          </div>
-          <nav aria-label="Footer navigation">
-            <a href="#stories-title">Discover</a>
-            <a href="#categories">Genres</a>
-            <a href="#community-title">Community</a>
-            <a href="#creator-title">For Writers</a>
-            <Link href="/login">Log In</Link>
-          </nav>
-          <small>© 2026 Readems. All rights reserved.</small>
-        </div>
-      </footer>
       <nav className="landing-bottom-nav" aria-label="Mobile navigation">
         <Link className="is-active" href="/" aria-current="page">
           <House aria-hidden="true" />

@@ -10,6 +10,8 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
   await expect(
     page.getByRole('heading', { name: 'Featured Serial' }),
   ).toBeVisible();
+  await expect(page.locator('.testimonial')).toHaveCount(0);
+  await expect(page.locator('.official-footer')).toHaveCount(0);
   await page.getByRole('link', { name: 'Start Reading' }).click();
   await expect(
     page.getByRole('heading', { name: 'Your next chapter starts here.' }),
