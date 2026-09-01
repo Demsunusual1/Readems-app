@@ -3,8 +3,10 @@ import Link from 'next/link';
 import { cookies } from 'next/headers';
 import {
   BookOpen,
+  Books,
   CaretRight,
   Heart,
+  House,
   MagnifyingGlass,
   MaskHappy,
   PenNib,
@@ -12,6 +14,7 @@ import {
   SealCheck,
   Sparkle,
   UsersThree,
+  UserCircle,
 } from '@phosphor-icons/react/dist/ssr';
 import { LandingHeader } from '@/components/landing-header';
 import { Logo } from '@/components/ui/logo';
@@ -394,6 +397,28 @@ export default async function HomePage() {
           <small>© 2026 Readems. All rights reserved.</small>
         </div>
       </footer>
+      <nav className="landing-bottom-nav" aria-label="Mobile navigation">
+        <Link className="is-active" href="/" aria-current="page">
+          <House aria-hidden="true" />
+          <span>Home</span>
+        </Link>
+        <Link href={readingHref}>
+          <Books aria-hidden="true" />
+          <span>Library</span>
+        </Link>
+        <Link className="landing-create-link" href={writingHref}>
+          <PenNib aria-hidden="true" />
+          <span className="sr-only">Start writing</span>
+        </Link>
+        <Link href="/#community-title">
+          <UsersThree aria-hidden="true" />
+          <span>Community</span>
+        </Link>
+        <Link href={dashboard ?? '/login'}>
+          <UserCircle aria-hidden="true" />
+          <span>Profile</span>
+        </Link>
+      </nav>
     </div>
   );
 }

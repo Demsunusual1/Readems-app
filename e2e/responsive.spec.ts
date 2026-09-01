@@ -2,8 +2,10 @@ import { expect, test } from '@playwright/test';
 
 const viewports = [
   { width: 320, height: 800 },
+  { width: 360, height: 800 },
   { width: 375, height: 812 },
   { width: 390, height: 844 },
+  { width: 430, height: 932 },
   { width: 768, height: 1024 },
   { width: 1024, height: 900 },
   { width: 1440, height: 1000 },
@@ -21,6 +23,15 @@ for (const viewport of viewports) {
       scrollWidth: document.documentElement.scrollWidth,
     }));
     expect(layoutWidth.scrollWidth).toBe(layoutWidth.clientWidth);
+
+    if (viewport.width >= 360 && viewport.width <= 430) {
+      const mobileNavigation = page.getByRole('navigation', {
+        name: 'Mobile navigation',
+      });
+      await expect(mobileNavigation).toBeVisible();
+      await expect(mobileNavigation).toHaveCSS('position', 'fixed');
+      await expect(mobileNavigation).toHaveCSS('bottom', '0px');
+    }
 
     if (viewport.width <= 390) {
       const cards = page.locator('.continue-card');
