@@ -1,62 +1,73 @@
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { cookies } from 'next/headers';
 import {
   BookOpen,
   CaretRight,
-  CastleTurret,
-  Eye,
   Heart,
   MagnifyingGlass,
   MaskHappy,
-  Mountains,
   PenNib,
   Planet,
+  SealCheck,
+  Sparkle,
   UsersThree,
 } from '@phosphor-icons/react/dist/ssr';
 import { LandingHeader } from '@/components/landing-header';
 import { Logo } from '@/components/ui/logo';
 
-const stories = [
+const readingList = [
   [
-    'The Boy Who Painted Silence',
-    'Contemporary',
-    '125K',
+    'Shadows of the Drum',
+    'Chapter 12 · 24m left',
     '/readems/cover-shadows-of-the-drum.png',
   ],
   [
-    'Beneath the Baobab Tree',
-    'Drama',
-    '98K',
-    '/readems/featured-beneath-the-baobab-tree.png',
+    'Letters to My Younger Self',
+    'Chapter 8 · 10m left',
+    '/readems/cover-letters-to-my-younger-self.png',
   ],
   [
     'The Last Train to Makoko',
-    'Thriller',
-    '87K',
+    'Chapter 5 · 18m left',
     '/readems/cover-last-train-to-makoko.png',
-  ],
-  [
-    'Letters to My Younger Self',
-    'Personal Growth',
-    '112K',
-    '/readems/cover-letters-to-my-younger-self.png',
   ],
 ] as const;
 
-const benefits = [
-  [BookOpen, 'Discover Stories', 'Find books made for your interests.'],
-  [PenNib, 'Share Your Voice', 'Publish chapter by chapter.'],
-  [UsersThree, 'Grow Together', 'Connect with readers and creators.'],
+const featured = [
+  [
+    'Trending',
+    'Beneath the Baobab Tree',
+    'A family. A secret. A legacy that refuses to be buried.',
+    'Historical Fiction',
+    '23.4K readers',
+    '/readems/featured-beneath-the-baobab-tree.png',
+  ],
+  [
+    'New Episode',
+    'The Archivist of Salt',
+    'Some archives remember what people try to forget.',
+    'Mystery',
+    '15.7K readers',
+    '/readems/featured-archivist-of-salt.png',
+  ],
+  [
+    "Editor's Pick",
+    'When Stars Learn to Bloom',
+    'Love finds its way in the unlikeliest places.',
+    'Romance',
+    '19.2K readers',
+    '/readems/featured-when-stars-learn-to-bloom.png',
+  ],
 ] as const;
 
 const genres = [
-  [MaskHappy, 'African Folktales'],
+  [MaskHappy, 'African Stories'],
   [Heart, 'Romance'],
-  [CastleTurret, 'Fantasy'],
+  [Sparkle, 'Fantasy'],
   [MagnifyingGlass, 'Mystery'],
   [Planet, 'Sci-Fi'],
-  [Mountains, 'Motivational'],
+  [BookOpen, 'Non-Fiction'],
 ] as const;
 
 export default async function HomePage() {
@@ -72,18 +83,23 @@ export default async function HomePage() {
 
   return (
     <div className="official-landing">
-      <LandingHeader dashboardHref={dashboard} />
-      <main>
+      <div className="landing-hero-shell">
+        <LandingHeader dashboardHref={dashboard} />
         <section
           className="official-hero landing-container"
           aria-labelledby="hero-title"
         >
           <div className="official-hero-copy">
             <p className="official-eyebrow">Welcome to Readems</p>
-            <h1 id="hero-title">Where Every Story Finds Its People</h1>
+            <h1 id="hero-title">
+              Stories that
+              <br />
+              stay <em>with you</em>
+            </h1>
+            <span className="hero-rule" aria-hidden="true" />
             <p>
-              Discover stories you’ll love, share the worlds inside you, and
-              connect with readers and writers everywhere.
+              Read unforgettable stories, share your voice, and connect with
+              readers and writers around the world.
             </p>
             <div className="official-actions">
               <Link className="button button-primary" href={readingHref}>
@@ -97,60 +113,88 @@ export default async function HomePage() {
           <div className="hero-asset">
             <Image
               src="/readems/hero-storyteller.png"
-              alt="A storyteller emerging from the pages of an illuminated book"
+              alt="A storyteller emerging from an illuminated open book"
               fill
               priority
-              sizes="(max-width: 767px) calc(100vw - 2rem), 55vw"
+              sizes="(max-width: 767px) 100vw, 55vw"
             />
           </div>
         </section>
+      </div>
 
-        <section className="official-stories" aria-labelledby="stories-title">
-          <div className="landing-container">
-            <div className="official-section-heading">
-              <h2 id="stories-title">Stories Everyone Is Reading</h2>
-              <a href="#categories">
-                View all <CaretRight aria-hidden="true" />
-              </a>
+      <main className="landing-main">
+        <section
+          className="landing-container continue-section"
+          aria-labelledby="continue-title"
+        >
+          <div className="continue-heading">
+            <div>
+              <h2 id="continue-title">
+                Good morning{user ? `, ${user.fullName.split(' ')[0]}` : ''}{' '}
+                <Sparkle aria-hidden="true" />
+              </h2>
+              <p>Pick up where you left off</p>
             </div>
-            <div className="official-story-row" aria-label="Popular stories">
-              {stories.map(([title, genre, readers, cover]) => (
-                <article className="official-story-card" key={title}>
-                  <div className="official-story-cover">
-                    <Image
-                      src={cover}
-                      alt={`Cover artwork for ${title}`}
-                      fill
-                      sizes="(max-width: 767px) 165px, 18rem"
-                    />
-                  </div>
-                  <div className="official-story-info">
-                    <h3>{title}</h3>
-                    <p>
-                      <span>{genre}</span>
-                      <small>
-                        <Eye aria-hidden="true" /> {readers}
-                      </small>
-                    </p>
-                  </div>
-                </article>
-              ))}
+            <div className="reading-goal">
+              <span>Reading goal</span>
+              <strong>4 / 6 chapters</strong>
+              <b>67%</b>
             </div>
+          </div>
+          <div className="continue-row">
+            {readingList.map(([title, progress, image], index) => (
+              <article key={title} className="continue-card">
+                <Image src={image} alt="" width={78} height={104} />
+                <div>
+                  <h3>{title}</h3>
+                  <p>{progress}</p>
+                  <span>
+                    <i style={{ width: `${74 - index * 12}%` }} />
+                  </span>
+                </div>
+              </article>
+            ))}
+            <Link href={readingHref} className="discover-card">
+              <BookOpen aria-hidden="true" />
+              <span>
+                Discover more
+                <br />
+                stories
+              </span>
+              <CaretRight aria-hidden="true" />
+            </Link>
           </div>
         </section>
 
         <section
-          className="landing-container official-benefits"
-          aria-labelledby="benefits-title"
+          className="landing-container featured-section"
+          aria-labelledby="stories-title"
         >
-          <h2 id="benefits-title">Read. Write. Belong.</h2>
-          <div className="official-benefit-grid">
-            {benefits.map(([Icon, title, copy]) => (
-              <article key={title}>
-                <Icon aria-hidden="true" />
+          <div className="section-title">
+            <h2 id="stories-title">Featured Serial</h2>
+            <Link href={readingHref}>
+              View all <CaretRight />
+            </Link>
+          </div>
+          <div className="featured-row">
+            {featured.map(([label, title, copy, genre, readers, image]) => (
+              <article className="featured-card" key={title}>
+                <Image
+                  src={image}
+                  alt=""
+                  fill
+                  sizes="(max-width: 767px) 80vw, 370px"
+                />
                 <div>
+                  <span className="feature-label">{label}</span>
                   <h3>{title}</h3>
                   <p>{copy}</p>
+                  <footer>
+                    <small>{genre}</small>
+                    <span>
+                      <UsersThree /> {readers}
+                    </span>
+                  </footer>
                 </div>
               </article>
             ))}
@@ -158,49 +202,118 @@ export default async function HomePage() {
         </section>
 
         <section
-          className="official-categories"
-          id="categories"
-          aria-labelledby="categories-title"
+          className="landing-container community-live"
+          aria-labelledby="community-title"
         >
-          <div className="landing-container">
-            <h2 id="categories-title">Find Your Next Obsession</h2>
-            <div className="official-category-grid">
-              {genres.map(([Icon, title]) => (
-                <Link
-                  href="/signup"
-                  className="official-category-card"
-                  key={title}
-                >
-                  <Icon aria-hidden="true" />
-                  <span>{title}</span>
-                </Link>
-              ))}
-            </div>
+          <div className="section-title">
+            <h2 id="community-title">
+              Live in the Community <small>● 1,248 online now</small>
+            </h2>
+            <Link href="/signup">
+              See all activity <CaretRight />
+            </Link>
+          </div>
+          <div className="activity-row">
+            <article>
+              <Image
+                src="/readems/community-daniel.png"
+                alt="Daniel E."
+                width={58}
+                height={58}
+              />
+              <p>
+                <strong>Daniel E.</strong> published Chapter 9
+                <small>2m ago</small>
+              </p>
+            </article>
+            <article>
+              <Image
+                src="/readems/community-zara.png"
+                alt="Zara K."
+                width={58}
+                height={58}
+              />
+              <p>
+                <strong>Zara K.</strong> left a review on The Drum
+                <small>5m ago</small>
+              </p>
+            </article>
+            <article>
+              <Image
+                src="/readems/community-daniel.png"
+                alt="Tunde A."
+                width={58}
+                height={58}
+              />
+              <p>
+                <strong>Tunde A.</strong> started reading Makoko
+                <small>8m ago</small>
+              </p>
+            </article>
           </div>
         </section>
 
         <section
-          className="landing-container official-community"
-          aria-labelledby="community-title"
+          className="landing-container creator-spotlight"
+          aria-labelledby="spotlight-title"
         >
-          <div className="community-asset">
+          <div className="spotlight-copy">
+            <p>Creator Spotlight</p>
+            <h2 id="spotlight-title">
+              Chinelo Okoye <SealCheck />
+            </h2>
+            <strong>Author of Whispers of the Lagoon</strong>
+            <span>
+              Crafting stories that celebrate culture, resilience, and the human
+              spirit.
+            </span>
+          </div>
+          <div className="spotlight-image">
             <Image
-              src="/readems/community-zara.png"
-              alt="Zara, a member of the Readems creator community"
+              src="/readems/creator-chinelo-okoye.png"
+              alt="Featured creator Chinelo Okoye"
               fill
-              sizes="(max-width: 767px) 84px, 210px"
+              sizes="320px"
             />
           </div>
-          <blockquote>
-            <p className="official-eyebrow">Creator community</p>
-            <h2 id="community-title">
-              “Readems helped me find readers who truly connect with my
-              stories.”
-            </h2>
-            <footer>
-              Join our growing community of readers and storytellers.
-            </footer>
-          </blockquote>
+          <dl>
+            <div>
+              <dt>12.8K</dt>
+              <dd>Followers</dd>
+            </div>
+            <div>
+              <dt>3</dt>
+              <dd>Published Works</dd>
+            </div>
+            <div>
+              <dt>4.9</dt>
+              <dd>Community Rating</dd>
+            </div>
+          </dl>
+          <Link href="/signup" aria-label="See Chinelo Okoye's profile">
+            <CaretRight />
+          </Link>
+        </section>
+
+        <section
+          className="landing-container genre-section"
+          id="categories"
+          aria-labelledby="categories-title"
+        >
+          <div className="section-title">
+            <h2 id="categories-title">Explore by Genre</h2>
+            <Link href="/signup">
+              Browse all <CaretRight />
+            </Link>
+          </div>
+          <div className="genre-grid">
+            {genres.map(([Icon, title]) => (
+              <Link href="/signup" key={title}>
+                <Icon />
+                <span>{title}</span>
+              </Link>
+            ))}
+          </div>
         </section>
 
         <section
@@ -209,33 +322,73 @@ export default async function HomePage() {
         >
           <div>
             <p className="official-eyebrow">For writers</p>
-            <h2 id="creator-title">Your Story Deserves to Be Read.</h2>
+            <h2 id="creator-title">
+              Your story deserves
+              <br />
+              to be read.
+            </h2>
             <p>
-              Publish chapter by chapter, grow your audience, and earn from your
-              work.
+              Publish. Grow your audience.
+              <br />
+              Earn from your work.
             </p>
-            <Link className="button button-primary" href={writingHref}>
-              {user ? 'Open your dashboard' : 'Create Your First Story'}
-            </Link>
+            <div>
+              <Link className="button button-primary" href={writingHref}>
+                {user ? 'Open your dashboard' : 'Become a Creator'}
+              </Link>
+              <span>It’s free to get started</span>
+            </div>
           </div>
           <div className="creator-asset">
             <Image
               src="/readems/writer-cta-quill-book.png"
-              alt="A purple quill resting on an open book"
+              alt="A purple quill and ink beside an open book"
               fill
-              sizes="(max-width: 767px) calc(100vw - 4.5rem), 29rem"
+              sizes="(max-width: 767px) 100vw, 50vw"
             />
           </div>
+        </section>
+
+        <section
+          className="landing-container testimonial"
+          aria-labelledby="testimonial-title"
+        >
+          <p className="official-eyebrow">Loved by storytellers</p>
+          <h2 id="testimonial-title">
+            A home for stories and the people who love them.
+          </h2>
+          <blockquote>
+            “Readems helped me find readers who truly connect with my stories.
+            It feels like a community, not just a platform.”
+            <footer>
+              <Image
+                src="/readems/community-zara.png"
+                alt=""
+                width={54}
+                height={54}
+              />
+              <span>
+                <strong>Zara K.</strong>Writer and community member
+              </span>
+              <span className="stars" aria-label="5 out of 5 stars">
+                ★★★★★
+              </span>
+            </footer>
+          </blockquote>
         </section>
       </main>
 
       <footer className="official-footer">
         <div className="landing-container official-footer-inner">
-          <Logo className="official-footer-logo" />
+          <div>
+            <Logo className="official-footer-logo" />
+            <p>Stories that stay with you.</p>
+          </div>
           <nav aria-label="Footer navigation">
-            <a href="#top">About</a>
+            <a href="#stories-title">Discover</a>
+            <a href="#categories">Genres</a>
             <a href="#community-title">Community</a>
-            <a href="#creator-title">For Creators</a>
+            <a href="#creator-title">For Writers</a>
             <Link href="/login">Log In</Link>
           </nav>
           <small>© 2026 Readems. All rights reserved.</small>

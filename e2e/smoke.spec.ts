@@ -5,10 +5,10 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
 
   await page.goto('/');
   await expect(
-    page.getByRole('heading', { name: 'Where Every Story Finds Its People' }),
+    page.getByRole('heading', { name: 'Stories that stay with you' }),
   ).toBeVisible();
   await expect(
-    page.getByRole('heading', { name: 'Stories Everyone Is Reading' }),
+    page.getByRole('heading', { name: 'Featured Serial' }),
   ).toBeVisible();
   await page.getByRole('link', { name: 'Start Reading' }).click();
   await expect(
