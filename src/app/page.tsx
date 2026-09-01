@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { cookies } from 'next/headers';
+import Image from "next/image";
+import Link from "next/link";
+import { cookies } from "next/headers";
 import {
   BookOpen,
   Books,
@@ -15,73 +15,73 @@ import {
   Sparkle,
   UsersThree,
   UserCircle,
-} from '@phosphor-icons/react/dist/ssr';
-import { LandingHeader } from '@/components/landing-header';
+} from "@phosphor-icons/react/dist/ssr";
+import { LandingHeader } from "@/components/landing-header";
 
 const readingList = [
   [
-    'Shadows of the Drum',
-    'Chapter 12 · 24m left',
-    '/readems/cover-shadows-of-the-drum.png',
+    "Shadows of the Drum",
+    "Chapter 12 · 24m left",
+    "/readems/cover-shadows-of-the-drum.png",
   ],
   [
-    'Letters to My Younger Self',
-    'Chapter 8 · 10m left',
-    '/readems/cover-letters-to-my-younger-self.png',
+    "Letters to My Younger Self",
+    "Chapter 8 · 10m left",
+    "/readems/cover-letters-to-my-younger-self.png",
   ],
   [
-    'The Last Train to Makoko',
-    'Chapter 5 · 18m left',
-    '/readems/cover-last-train-to-makoko.png',
+    "The Last Train to Makoko",
+    "Chapter 5 · 18m left",
+    "/readems/cover-last-train-to-makoko.png",
   ],
 ] as const;
 
 const featured = [
   [
-    'Trending',
-    'Beneath the Baobab Tree',
-    'A family. A secret. A legacy that refuses to be buried.',
-    'Historical Fiction',
-    '23.4K readers',
-    '/readems/featured-beneath-the-baobab-tree.png',
+    "Trending",
+    "Beneath the Baobab Tree",
+    "A family. A secret. A legacy that refuses to be buried.",
+    "Historical Fiction",
+    "23.4K readers",
+    "/readems/featured-beneath-the-baobab-tree.png",
   ],
   [
-    'New Episode',
-    'The Archivist of Salt',
-    'Some archives remember what people try to forget.',
-    'Mystery',
-    '15.7K readers',
-    '/readems/featured-archivist-of-salt.png',
+    "New Episode",
+    "The Archivist of Salt",
+    "Some archives remember what people try to forget.",
+    "Mystery",
+    "15.7K readers",
+    "/readems/featured-archivist-of-salt.png",
   ],
   [
     "Editor's Pick",
-    'When Stars Learn to Bloom',
-    'Love finds its way in the unlikeliest places.',
-    'Romance',
-    '19.2K readers',
-    '/readems/featured-when-stars-learn-to-bloom.png',
+    "When Stars Learn to Bloom",
+    "Love finds its way in the unlikeliest places.",
+    "Romance",
+    "19.2K readers",
+    "/readems/featured-when-stars-learn-to-bloom.png",
   ],
 ] as const;
 
 const genres = [
-  [MaskHappy, 'African Stories'],
-  [Heart, 'Romance'],
-  [Sparkle, 'Fantasy'],
-  [MagnifyingGlass, 'Mystery'],
-  [Planet, 'Sci-Fi'],
-  [BookOpen, 'Non-Fiction'],
+  [MaskHappy, "African Stories"],
+  [Heart, "Romance"],
+  [Sparkle, "Fantasy"],
+  [MagnifyingGlass, "Mystery"],
+  [Planet, "Sci-Fi"],
+  [BookOpen, "Non-Fiction"],
 ] as const;
 
 export default async function HomePage() {
-  const hasSession = (await cookies()).has('readems_session');
+  const hasSession = (await cookies()).has("readems_session");
   const user = hasSession
-    ? await import('@/lib/auth').then(({ getCurrentUser }) => getCurrentUser())
+    ? await import("@/lib/auth").then(({ getCurrentUser }) => getCurrentUser())
     : null;
   const dashboard = user
-    ? `/${user.role === 'CREATOR' ? 'creator' : 'reader'}/dashboard`
+    ? `/${user.role === "CREATOR" ? "creator" : "reader"}/dashboard`
     : undefined;
-  const readingHref = dashboard ?? '/signup';
-  const writingHref = dashboard ?? '/signup?role=creator';
+  const readingHref = dashboard ?? "/signup";
+  const writingHref = dashboard ?? "/signup?role=creator";
 
   return (
     <div className="official-landing">
@@ -105,7 +105,7 @@ export default async function HomePage() {
             </p>
             <div className="official-actions">
               <Link className="button button-primary" href={readingHref}>
-                {user ? 'Go to dashboard' : 'Start Reading'}
+                {user ? "Go to dashboard" : "Start Reading"}
               </Link>
               <Link className="button button-secondary" href={writingHref}>
                 <PenNib aria-hidden="true" /> Start Writing
@@ -128,7 +128,7 @@ export default async function HomePage() {
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          <path d="M0 48C220 8 410 42 690 50c292 9 537 6 750-22v64H0Z" />
+          <path d="M0 72C100 8 270 34 470 48C840 84 1190 72 1440 0V92H0Z" />
         </svg>
       </div>
 
@@ -140,7 +140,7 @@ export default async function HomePage() {
           <div className="continue-heading">
             <div>
               <h2 id="continue-title">
-                Good morning{user ? `, ${user.fullName.split(' ')[0]}` : ''}{' '}
+                Good morning{user ? `, ${user.fullName.split(" ")[0]}` : ""}{" "}
                 <Sparkle aria-hidden="true" />
               </h2>
               <p>Pick up where you left off</p>
@@ -151,7 +151,12 @@ export default async function HomePage() {
               <b>67%</b>
             </div>
           </div>
-          <div className="continue-row">
+          <div
+            className="continue-row"
+            tabIndex={0}
+            role="region"
+            aria-label="Continue reading"
+          >
             {readingList.map(([title, progress, image], index) => (
               <article key={title} className="continue-card">
                 <Image src={image} alt="" width={78} height={104} />
@@ -186,7 +191,12 @@ export default async function HomePage() {
               View all <CaretRight />
             </Link>
           </div>
-          <div className="featured-row">
+          <div
+            className="featured-row"
+            tabIndex={0}
+            role="region"
+            aria-label="Featured stories"
+          >
             {featured.map(([label, title, copy, genre, readers, image]) => (
               <article className="featured-card" key={title}>
                 <Image
@@ -223,7 +233,12 @@ export default async function HomePage() {
               See all activity <CaretRight />
             </Link>
           </div>
-          <div className="activity-row">
+          <div
+            className="activity-row"
+            tabIndex={0}
+            role="region"
+            aria-label="Community activity"
+          >
             <article>
               <Image
                 src="/readems/community-daniel.png"
@@ -344,7 +359,7 @@ export default async function HomePage() {
             </p>
             <div>
               <Link className="button button-primary" href={writingHref}>
-                {user ? 'Open your dashboard' : 'Become a Creator'}
+                {user ? "Open your dashboard" : "Become a Creator"}
               </Link>
               <span>It’s free to get started</span>
             </div>
@@ -376,7 +391,7 @@ export default async function HomePage() {
           <UsersThree aria-hidden="true" />
           <span>Community</span>
         </Link>
-        <Link href={dashboard ?? '/login'}>
+        <Link href={dashboard ?? "/login"}>
           <UserCircle aria-hidden="true" />
           <span>Profile</span>
         </Link>
