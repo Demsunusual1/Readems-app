@@ -3209,20 +3209,18 @@ canvas {
     align-self: center;
     margin-left: -30%;
   }
+  .hero-asset img {
+    object-fit: cover;
+    object-position: right center;
+  }
   .hero-asset::after {
     background:
-      linear-gradient(
-        90deg,
-        var(--landing-navy),
-        transparent 30%,
-        transparent 82%,
-        var(--landing-navy)
-      ),
+      linear-gradient(90deg, var(--landing-navy), transparent 18%),
       linear-gradient(
         180deg,
         var(--landing-navy),
-        transparent 15%,
-        transparent 82%,
+        transparent 8%,
+        transparent 92%,
         var(--landing-navy)
       );
   }

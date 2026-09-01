@@ -78,5 +78,27 @@ for (const viewport of viewports) {
       );
       expect(second?.x).toBeLessThan(viewport.width);
     }
+    if (viewport.width <= 767) {
+      await page.screenshot({
+        path: testInfo.outputPath(`top-${viewport.width}.png`),
+      });
+      await page.getByRole('button', { name: 'Open navigation menu' }).click();
+      await expect(
+        page.getByRole('navigation', { name: 'Primary navigation' }),
+      ).toBeVisible();
+      await page.screenshot({
+        path: testInfo.outputPath(`menu-${viewport.width}.png`),
+      });
+      await page.getByRole('button', { name: 'Close navigation menu' }).click();
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      const writerButton = page.locator('.official-creator .button');
+      await expect(writerButton).toBeInViewport();
+      const buttonBox = await writerButton.boundingBox();
+      const navBox = await page.locator('.landing-bottom-nav').boundingBox();
+      expect(buttonBox!.y + buttonBox!.height).toBeLessThanOrEqual(navBox!.y);
+      await page.screenshot({
+        path: testInfo.outputPath(`bottom-${viewport.width}.png`),
+      });
+    }
   });
 }
