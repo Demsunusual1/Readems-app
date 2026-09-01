@@ -26,6 +26,19 @@ model User {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   sessions     Session[]
+  readingProgress ReadingProgress[]
+}
+
+model ReadingProgress {
+  userId String
+  storyId String
+  chapter Int
+  paragraph Int
+  completed Boolean @default(false)
+  updatedAt DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, storyId])
 }
 
 model Session {
