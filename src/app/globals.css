@@ -2636,7 +2636,7 @@ canvas {
   margin: 1.35rem 0;
   background: #eab253;
 }
-.official-hero-copy > p:not(.official-eyebrow) {
+.official-hero-copy .hero-description {
   max-width: 30rem;
   margin: 0;
   color: #e3e7f0;
@@ -2706,9 +2706,47 @@ canvas {
   bottom: -1px;
   left: 0;
   width: 100%;
-  height: clamp(48px, 7vw, 78px);
+  height: clamp(42px, 6vw, 70px);
   display: block;
   fill: #fff;
+  pointer-events: none;
+}
+.landing-carousel {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+.hero-pagination {
+  position: absolute;
+  z-index: 5;
+  bottom: 1.1rem;
+  left: 50%;
+  display: flex;
+  transform: translateX(-50%);
+}
+.hero-pagination button {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+.hero-pagination span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8590aa;
+}
+.hero-pagination [aria-current='true'] span {
+  background: var(--landing-purple);
+}
+.hero-featured-asset img {
+  object-fit: cover;
+  object-position: center;
 }
 .landing-main {
   padding: 0 0 2rem;
@@ -2963,13 +3001,16 @@ canvas {
 .creator-spotlight {
   min-height: 154px;
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) 136px minmax(150px, 0.7fr) 44px;
+  grid-template-columns:
+    minmax(0, 1.25fr) minmax(136px, 0.8fr) minmax(150px, 0.8fr)
+    44px;
   align-items: center;
   gap: 1rem;
   padding: 1rem 1.4rem;
   border-radius: 15px;
   color: #fff;
   background: radial-gradient(circle at 50%, #10265c, #020e2a 70%);
+  overflow: hidden;
 }
 .spotlight-copy {
   min-width: 0;
@@ -3005,16 +3046,22 @@ canvas {
 }
 .spotlight-image {
   position: relative;
-  width: 112px;
-  aspect-ratio: 1;
+  width: 100%;
+  min-height: 154px;
+  height: calc(100% + 2rem);
   justify-self: center;
   overflow: hidden;
-  border: 2px solid rgba(234, 178, 83, 0.55);
-  border-radius: 50%;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 15%,
+    #000 90%,
+    transparent
+  );
 }
 .spotlight-image img {
   object-fit: cover;
-  object-position: center 18%;
+  object-position: 72% center;
 }
 .creator-spotlight dl {
   display: grid;
@@ -3023,7 +3070,20 @@ canvas {
 }
 .creator-spotlight dl div {
   display: grid;
-  grid-template-columns: 48px 1fr;
+  grid-template-columns: 22px 1fr;
+  column-gap: 0.55rem;
+}
+.creator-spotlight dl svg {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  align-self: start;
+  width: 20px;
+  height: 20px;
+  color: #eab253;
+}
+.creator-spotlight dt,
+.creator-spotlight dd {
+  grid-column: 2;
 }
 .creator-spotlight dt {
   font-size: 1rem;
@@ -3097,6 +3157,10 @@ canvas {
 .official-creator > div > p:not(.official-eyebrow) {
   margin: 0 0 0.85rem;
   color: #d7deec;
+}
+.writer-description span {
+  display: block;
+  line-height: 1.5;
 }
 .official-creator > div > div {
   display: flex;
@@ -3189,7 +3253,7 @@ canvas {
   .hero-rule {
     margin: 0.8rem 0;
   }
-  .official-hero-copy > p:not(.official-eyebrow) {
+  .official-hero-copy .hero-description {
     font-size: 0.73rem;
     line-height: 1.45;
   }
@@ -3231,7 +3295,7 @@ canvas {
       );
   }
   .hero-wave {
-    height: clamp(44px, 9vw, 64px);
+    height: clamp(36px, 9vw, 58px);
   }
   .continue-section {
     padding-top: 0.1rem;
@@ -3352,7 +3416,9 @@ canvas {
   }
   .creator-spotlight {
     min-height: 0;
-    grid-template-columns: minmax(0, 1.12fr) 60px minmax(86px, 0.8fr) 18px;
+    grid-template-columns:
+      minmax(0, 1.2fr) minmax(64px, 0.7fr) minmax(88px, 0.85fr)
+      18px;
     gap: 0.25rem;
     padding: 0.55rem 0.65rem;
   }
@@ -3377,7 +3443,9 @@ canvas {
     line-height: 1.2;
   }
   .spotlight-image {
-    width: 56px;
+    width: 100%;
+    min-height: 100px;
+    height: calc(100% + 1.1rem);
     align-self: center;
     justify-self: center;
   }
@@ -3385,7 +3453,13 @@ canvas {
     gap: 0.2rem;
   }
   .creator-spotlight dl div {
-    display: block;
+    display: grid;
+    grid-template-columns: 13px 1fr;
+    column-gap: 0.3rem;
+  }
+  .creator-spotlight dl svg {
+    width: 13px;
+    height: 13px;
   }
   .creator-spotlight dt {
     font-size: 0.68rem;
@@ -3505,11 +3579,11 @@ canvas {
     font-size: 0.58rem;
   }
   .creator-spotlight {
-    grid-template-columns: minmax(0, 1fr) 54px 72px 16px;
+    grid-template-columns: minmax(0, 1fr) 54px 80px 16px;
     padding-inline: 0.5rem;
   }
   .spotlight-image {
-    width: 54px;
+    width: 100%;
   }
 }
 @media (prefers-reduced-motion: reduce) {

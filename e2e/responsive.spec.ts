@@ -38,6 +38,24 @@ for (const viewport of viewports) {
     }));
     expect(layoutWidth.scrollWidth).toBe(layoutWidth.clientWidth);
 
+    const dots = page.getByRole('button', { name: /Show slide/ });
+    await expect(dots).toHaveCount(4);
+    for (let index = 0; index < 4; index++) {
+      await dots.nth(index).click();
+      await expect(dots.nth(index)).toHaveAttribute('aria-current', 'true');
+      const width = await page.evaluate(() => ({
+        client: document.documentElement.clientWidth,
+        scroll: document.documentElement.scrollWidth,
+      }));
+      expect(width.scroll).toBe(width.client);
+    }
+    await dots.first().click();
+    await expect(page.locator('.spotlight-image img')).toHaveAttribute(
+      'src',
+      /creator-chinelo-okoye/,
+    );
+    await expect(page.locator('.creator-spotlight dl svg')).toHaveCount(3);
+
     if (viewport.width <= 767) {
       const hero = await page.locator('.official-hero').boundingBox();
       expect(hero).not.toBeNull();

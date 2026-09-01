@@ -3,20 +3,24 @@ import Link from 'next/link';
 import { cookies } from 'next/headers';
 import {
   BookOpen,
-  Books,
+  BookOpenText,
   CaretRight,
   Heart,
   House,
   MagnifyingGlass,
   MaskHappy,
-  PenNib,
+  Feather,
   Planet,
   SealCheck,
   Sparkle,
   UsersThree,
-  UserCircle,
+  User,
+  Users,
+  BookBookmark,
+  Star,
 } from '@phosphor-icons/react/dist/ssr';
 import { LandingHeader } from '@/components/landing-header';
+import { LandingHero } from '@/components/landing-hero';
 
 const readingList = [
   [
@@ -87,48 +91,18 @@ export default async function HomePage() {
     <div className="official-landing">
       <div className="landing-hero-shell">
         <LandingHeader dashboardHref={dashboard} />
-        <section
-          className="official-hero landing-container"
-          aria-labelledby="hero-title"
-        >
-          <div className="official-hero-copy">
-            <p className="official-eyebrow">Welcome to Readems</p>
-            <h1 id="hero-title">
-              Stories that
-              <br />
-              stay <em>with you</em>
-            </h1>
-            <span className="hero-rule" aria-hidden="true" />
-            <p>
-              Read unforgettable stories, share your voice, and connect with
-              readers and writers around the world.
-            </p>
-            <div className="official-actions">
-              <Link className="button button-primary" href={readingHref}>
-                {user ? 'Go to dashboard' : 'Start Reading'}
-              </Link>
-              <Link className="button button-secondary" href={writingHref}>
-                <PenNib aria-hidden="true" /> Start Writing
-              </Link>
-            </div>
-          </div>
-          <div className="hero-asset">
-            <Image
-              src="/readems/hero-storyteller.png"
-              alt="A storyteller emerging from an illuminated open book"
-              fill
-              priority
-              sizes="(max-width: 767px) 100vw, 55vw"
-            />
-          </div>
-        </section>
+        <LandingHero
+          readingHref={readingHref}
+          writingHref={writingHref}
+          signedIn={Boolean(user)}
+        />
         <svg
           className="hero-wave"
           viewBox="0 0 1440 92"
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          <path d="M0 72C100 8 270 34 470 48C840 84 1190 72 1440 0V92H0Z" />
+          <path d="M0 82C105 15 260 48 540 65C930 98 1250 78 1440 0V92H0Z" />
         </svg>
       </div>
 
@@ -295,7 +269,7 @@ export default async function HomePage() {
           </div>
           <div className="spotlight-image">
             <Image
-              src="/readems/community-zara.png"
+              src="/readems/creator-chinelo-okoye.png"
               alt="Chinelo Okoye, creator spotlight"
               fill
               sizes="320px"
@@ -303,14 +277,17 @@ export default async function HomePage() {
           </div>
           <dl>
             <div>
+              <Users aria-hidden="true" />
               <dt>12.8K</dt>
               <dd>Followers</dd>
             </div>
             <div>
+              <BookBookmark aria-hidden="true" />
               <dt>3</dt>
               <dd>Published Works</dd>
             </div>
             <div>
+              <Star aria-hidden="true" />
               <dt>4.9</dt>
               <dd>Community Rating</dd>
             </div>
@@ -352,10 +329,9 @@ export default async function HomePage() {
               <br />
               to be read.
             </h2>
-            <p>
-              Publish. Grow your audience.
-              <br />
-              Earn from your work.
+            <p className="writer-description">
+              <span>Publish. Grow your audience.</span>
+              <span>Earn from your work.</span>
             </p>
             <div>
               <Link className="button button-primary" href={writingHref}>
@@ -380,11 +356,11 @@ export default async function HomePage() {
           <span>Home</span>
         </Link>
         <Link href={readingHref}>
-          <Books aria-hidden="true" />
+          <BookOpenText aria-hidden="true" />
           <span>Library</span>
         </Link>
         <Link className="landing-create-link" href={writingHref}>
-          <PenNib aria-hidden="true" />
+          <Feather aria-hidden="true" />
           <span className="sr-only">Start writing</span>
         </Link>
         <Link href="/#community-title">
@@ -392,7 +368,7 @@ export default async function HomePage() {
           <span>Community</span>
         </Link>
         <Link href={dashboard ?? '/login'}>
-          <UserCircle aria-hidden="true" />
+          <User aria-hidden="true" />
           <span>Profile</span>
         </Link>
       </nav>
