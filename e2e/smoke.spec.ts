@@ -24,7 +24,7 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
   await page
     .getByRole('checkbox', { name: /I agree to the Terms of Service/ })
     .check();
-  await page.getByRole('button', { name: /Continue/ }).click();
+  await page.getByRole('button', { name: 'Continue', exact: true }).click();
 
   await expect(
     page.getByRole('heading', { name: 'How will you use Readems?' }),

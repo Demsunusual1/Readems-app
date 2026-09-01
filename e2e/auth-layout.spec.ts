@@ -36,7 +36,9 @@ test('signup checks password rules before personalization and preserves creator 
   await page.getByLabel('Confirm password').fill('onlylowercasepassword');
   await page.getByRole('checkbox').check();
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
-  await expect(page.getByRole('alert')).toContainText('uppercase');
+  await expect(page.locator('.signup-card').getByRole('alert')).toContainText(
+    'uppercase',
+  );
   await page
     .getByLabel('Create password', { exact: true })
     .fill('StrongPassword9');
