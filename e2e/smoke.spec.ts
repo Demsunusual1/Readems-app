@@ -14,9 +14,8 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
   await expect(page.locator('.official-footer')).toHaveCount(0);
   await page.getByRole('link', { name: 'Start Reading' }).click();
   await expect(
-    page.getByRole('heading', { name: 'Your next chapter starts here.' }),
+    page.getByRole('heading', { name: 'Create your Readems account' }),
   ).toBeVisible();
-  await page.getByRole('button', { name: /Create my account/ }).click();
   await page.getByLabel('Full name').fill('Kemi Adebayo');
   await page.getByLabel('Username').fill(`kemi_${uniqueId}`);
   await page.getByLabel('Email address').fill(`kemi_${uniqueId}@example.com`);
@@ -58,6 +57,12 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
   await expect(
     page.getByRole('heading', { name: /Good morning, Kemi!/ }),
   ).toBeVisible();
+  await page.context().clearCookies();
+  await page.goto('/login');
+  await page.getByLabel('Email address').fill(`kemi_${uniqueId}@example.com`);
+  await page.getByLabel('Password', { exact: true }).fill('LongEnough9A');
+  await page.getByRole('button', { name: 'Log in', exact: true }).click();
+  await expect(page).toHaveURL('/reader/dashboard');
 });
 
 test('mobile navigation is keyboard accessible', async ({ page }) => {

@@ -40,12 +40,13 @@ export function LoginForm() {
     }
   }
   return (
-    <form className="auth-form" onSubmit={submit} noValidate>
+    <form className="auth-form" onSubmit={submit} aria-busy={loading}>
       <label>
         Email address
         <Input
           name="email"
           type="email"
+          required
           autoComplete="email"
           placeholder="name@example.com"
           leadingIcon={<EnvelopeSimple size={21} />}
@@ -55,6 +56,7 @@ export function LoginForm() {
         Password
         <PasswordField
           name="password"
+          required
           autoComplete="current-password"
           placeholder="Enter your password"
         />
