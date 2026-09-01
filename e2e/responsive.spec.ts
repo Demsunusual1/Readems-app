@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from '@playwright/test';
 
 const viewports = [
   { width: 320, height: 800 },
@@ -16,12 +16,12 @@ for (const viewport of viewports) {
     page,
   }, testInfo) => {
     await page.setViewportSize(viewport);
-    await page.goto("/");
+    await page.goto('/');
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.locator(".hero-asset img")).toBeVisible();
+    await expect(page.locator('.hero-asset img')).toBeVisible();
     await expect
       .poll(() =>
-        page.locator(".hero-asset img").evaluate((image) => {
+        page.locator('.hero-asset img').evaluate((image) => {
           const element = image as HTMLImageElement;
           return element.complete && element.naturalWidth > 0;
         }),
@@ -39,34 +39,34 @@ for (const viewport of viewports) {
     expect(layoutWidth.scrollWidth).toBe(layoutWidth.clientWidth);
 
     if (viewport.width <= 767) {
-      const hero = await page.locator(".official-hero").boundingBox();
+      const hero = await page.locator('.official-hero').boundingBox();
       expect(hero).not.toBeNull();
       expect(hero!.height).toBeLessThan(450);
-      const art = await page.locator(".hero-asset").boundingBox();
-      const copy = await page.locator(".official-hero-copy").boundingBox();
+      const art = await page.locator('.hero-asset').boundingBox();
+      const copy = await page.locator('.official-hero-copy').boundingBox();
       expect(art).not.toBeNull();
       expect(copy).not.toBeNull();
       expect(
         Math.abs(art!.y + art!.height / 2 - copy!.y - copy!.height / 2),
       ).toBeLessThan(45);
-      await expect(page.locator(".reading-goal")).toBeVisible();
-      for (const button of await page.locator(".official-actions a").all()) {
+      await expect(page.locator('.reading-goal')).toBeVisible();
+      for (const button of await page.locator('.official-actions a').all()) {
         await expect(button).toBeVisible();
         const box = await button.boundingBox();
         expect(box!.x).toBeGreaterThanOrEqual(0);
         expect(box!.x + box!.width).toBeLessThanOrEqual(viewport.width);
       }
-      const mobileNavigation = page.getByRole("navigation", {
-        name: "Mobile navigation",
+      const mobileNavigation = page.getByRole('navigation', {
+        name: 'Mobile navigation',
       });
       await expect(mobileNavigation).toBeVisible();
-      await expect(mobileNavigation).toHaveCSS("position", "fixed");
-      await expect(mobileNavigation).toHaveCSS("bottom", "0px");
-      await expect(page.locator(".official-footer")).toHaveCount(0);
+      await expect(mobileNavigation).toHaveCSS('position', 'fixed');
+      await expect(mobileNavigation).toHaveCSS('bottom', '0px');
+      await expect(page.locator('.official-footer')).toHaveCount(0);
     }
 
     if (viewport.width <= 390) {
-      const cards = page.locator(".continue-card");
+      const cards = page.locator('.continue-card');
       const first = await cards.nth(0).boundingBox();
       const second = await cards.nth(1).boundingBox();
 
