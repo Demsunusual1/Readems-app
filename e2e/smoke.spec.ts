@@ -64,8 +64,13 @@ test('mobile navigation is keyboard accessible', async ({ page }) => {
   const menu = page.getByRole('button', { name: 'Open navigation menu' });
   await menu.focus();
   await page.keyboard.press('Enter');
-  await expect(page.getByRole('link', { name: 'Log In' })).toBeVisible();
+  const mobileNavigation = page.getByRole('navigation', {
+    name: 'Primary navigation',
+  });
   await expect(
-    page.getByRole('link', { name: 'Join Readems' }),
+    mobileNavigation.getByRole('link', { name: 'Log In' }),
+  ).toBeVisible();
+  await expect(
+    mobileNavigation.getByRole('link', { name: 'Join Readems' }),
   ).toHaveAttribute('href', '/signup');
 });
