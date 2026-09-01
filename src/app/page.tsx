@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { cookies } from 'next/headers';
 import {
   BookOpen,
@@ -17,10 +18,30 @@ import { LandingHeader } from '@/components/landing-header';
 import { Logo } from '@/components/ui/logo';
 
 const stories = [
-  ['The Boy Who Painted Silence', 'Contemporary', '125K'],
-  ['Beneath the Baobab Tree', 'Drama', '98K'],
-  ['The Last Train to Makoko', 'Thriller', '87K'],
-  ['Letters to My Younger Self', 'Personal Growth', '112K'],
+  [
+    'The Boy Who Painted Silence',
+    'Contemporary',
+    '125K',
+    '/readems/cover-shadows-of-the-drum.png',
+  ],
+  [
+    'Beneath the Baobab Tree',
+    'Drama',
+    '98K',
+    '/readems/featured-beneath-the-baobab-tree.png',
+  ],
+  [
+    'The Last Train to Makoko',
+    'Thriller',
+    '87K',
+    '/readems/cover-last-train-to-makoko.png',
+  ],
+  [
+    'Letters to My Younger Self',
+    'Personal Growth',
+    '112K',
+    '/readems/cover-letters-to-my-younger-self.png',
+  ],
 ] as const;
 
 const benefits = [
@@ -73,13 +94,14 @@ export default async function HomePage() {
               </Link>
             </div>
           </div>
-          <div
-            className="asset-placeholder hero-asset-placeholder"
-            role="img"
-            aria-label="Official Readems hero illustration unavailable"
-          >
-            <BookOpen aria-hidden="true" />
-            <span>Official hero illustration</span>
+          <div className="hero-asset">
+            <Image
+              src="/readems/hero-storyteller.png"
+              alt="A storyteller emerging from the pages of an illuminated book"
+              fill
+              priority
+              sizes="(max-width: 767px) calc(100vw - 2rem), 55vw"
+            />
           </div>
         </section>
 
@@ -92,15 +114,15 @@ export default async function HomePage() {
               </a>
             </div>
             <div className="official-story-row" aria-label="Popular stories">
-              {stories.map(([title, genre, readers]) => (
+              {stories.map(([title, genre, readers, cover]) => (
                 <article className="official-story-card" key={title}>
-                  <div
-                    className="asset-placeholder story-cover-placeholder"
-                    role="img"
-                    aria-label={`Cover for ${title} unavailable`}
-                  >
-                    <BookOpen aria-hidden="true" />
-                    <span>Cover unavailable</span>
+                  <div className="official-story-cover">
+                    <Image
+                      src={cover}
+                      alt={`Cover artwork for ${title}`}
+                      fill
+                      sizes="(max-width: 767px) 165px, 18rem"
+                    />
                   </div>
                   <div className="official-story-info">
                     <h3>{title}</h3>
@@ -161,13 +183,13 @@ export default async function HomePage() {
           className="landing-container official-community"
           aria-labelledby="community-title"
         >
-          <div
-            className="asset-placeholder community-asset-placeholder"
-            role="img"
-            aria-label="Readems creator community portrait unavailable"
-          >
-            <UsersThree aria-hidden="true" />
-            <span>Creator portrait</span>
+          <div className="community-asset">
+            <Image
+              src="/readems/community-zara.png"
+              alt="Zara, a member of the Readems creator community"
+              fill
+              sizes="(max-width: 767px) 84px, 210px"
+            />
           </div>
           <blockquote>
             <p className="official-eyebrow">Creator community</p>
@@ -196,13 +218,13 @@ export default async function HomePage() {
               {user ? 'Open your dashboard' : 'Create Your First Story'}
             </Link>
           </div>
-          <div
-            className="asset-placeholder creator-asset-placeholder"
-            role="img"
-            aria-label="Readems creator call-to-action illustration unavailable"
-          >
-            <PenNib aria-hidden="true" />
-            <span>Creator illustration</span>
+          <div className="creator-asset">
+            <Image
+              src="/readems/writer-cta-quill-book.png"
+              alt="A purple quill resting on an open book"
+              fill
+              sizes="(max-width: 767px) calc(100vw - 4.5rem), 29rem"
+            />
           </div>
         </section>
       </main>

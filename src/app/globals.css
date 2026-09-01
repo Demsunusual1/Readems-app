@@ -2611,29 +2611,16 @@ canvas {
   width: 1.2rem;
   height: 1.2rem;
 }
-.asset-placeholder {
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 0.6rem;
-  border: 1px dashed #aebbd1;
-  color: #687791;
-  background: #f7f9fd;
-  text-align: center;
-}
-.asset-placeholder span {
-  font-size: 0.72rem;
-  font-weight: 700;
-}
-.hero-asset-placeholder {
+.hero-asset {
+  position: relative;
+  overflow: hidden;
   min-height: 470px;
   border-radius: 44% 44% 18% 44%;
-  background: linear-gradient(145deg, #f1eaff, #eaf4ff);
 }
-.hero-asset-placeholder svg {
-  width: 92px;
-  height: 92px;
-  color: var(--color-purple);
+.hero-asset img,
+.official-story-cover img,
+.creator-asset img {
+  object-fit: cover;
 }
 .official-stories {
   padding-block: 3rem;
@@ -2675,17 +2662,10 @@ canvas {
   background: #fff;
   box-shadow: var(--shadow-card);
 }
-.story-cover-placeholder {
+.official-story-cover {
+  position: relative;
   width: 100%;
   aspect-ratio: 2 / 3;
-  border: 0;
-  border-radius: 0;
-  color: #fff;
-  background: linear-gradient(155deg, #172b52, #6e56cf);
-}
-.story-cover-placeholder svg {
-  width: 42px;
-  height: 42px;
 }
 .official-story-info {
   padding: 0.9rem;
@@ -2795,15 +2775,15 @@ canvas {
   border-radius: 24px;
   background: linear-gradient(115deg, #eeeaff, #faf8ff);
 }
-.community-asset-placeholder {
+.community-asset {
+  position: relative;
+  overflow: hidden;
   width: 210px;
   aspect-ratio: 1;
   border-radius: 50%;
 }
-.community-asset-placeholder svg {
-  width: 58px;
-  height: 58px;
-  color: var(--color-purple);
+.community-asset img {
+  object-fit: cover;
 }
 .official-community blockquote {
   margin: 0;
@@ -2837,16 +2817,11 @@ canvas {
   margin: 0 0 1.3rem;
   color: #d4deed;
 }
-.creator-asset-placeholder {
+.creator-asset {
+  position: relative;
+  overflow: hidden;
   min-height: 210px;
-  border-color: #667694;
   border-radius: 18px;
-  color: #d6c6ff;
-  background: #0d244b;
-}
-.creator-asset-placeholder svg {
-  width: 70px;
-  height: 70px;
 }
 .official-footer {
   padding-block: 2rem;
@@ -2907,7 +2882,7 @@ canvas {
     padding-inline: 0.6rem;
     font-size: 0.82rem;
   }
-  .hero-asset-placeholder {
+  .hero-asset {
     min-height: 245px;
     border-radius: 24px;
   }
@@ -2978,12 +2953,8 @@ canvas {
     margin-block: 3rem;
     padding: 1.1rem;
   }
-  .community-asset-placeholder {
+  .community-asset {
     width: 84px;
-  }
-  .community-asset-placeholder svg {
-    width: 32px;
-    height: 32px;
   }
   .official-community h2 {
     font-size: 1.1rem;
@@ -3000,12 +2971,8 @@ canvas {
   .official-creator h2 {
     font-size: 2rem;
   }
-  .creator-asset-placeholder {
+  .creator-asset {
     min-height: 125px;
-  }
-  .creator-asset-placeholder svg {
-    width: 48px;
-    height: 48px;
   }
   .official-footer-inner {
     grid-template-columns: 1fr;
