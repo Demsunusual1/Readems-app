@@ -1,0 +1,18 @@
+.discover-story-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 44px;
+  color: #1b53ca;
+  border-top: 1px solid #edf0f7;
+  padding-top: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.discover-story-link:focus-visible {
+  outline: 3px solid #8b5cf6;
+  outline-offset: 4px;
+  border-radius: 6px;
+}
