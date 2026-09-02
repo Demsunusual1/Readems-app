@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import {
   Compass,
   House,
@@ -9,7 +9,6 @@ import {
   UsersThree,
   UserCircle,
   MagnifyingGlass,
-  X,
   ArrowUpRight,
   Sparkle,
   Heart,
@@ -20,7 +19,7 @@ import {
 } from '@phosphor-icons/react';
 import { Logo } from './ui/logo';
 import { Input } from './ui/input';
-import { categories, selectStories, type Story } from '@/lib/discover';
+import { categories, selectStories } from '@/lib/discover';
 import './discover.css';
 
 const collections = [
@@ -52,20 +51,14 @@ export function Discover({
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState<string>('All stories');
   const [collection, setCollection] = useState('featured');
-  const [selected, setSelected] = useState<Story | null>(null);
-  const dialog = useRef<HTMLDialogElement>(null);
-  const opener = useRef<HTMLButtonElement | null>(null);
   const stories = selectStories(query, category, collection, interests);
-  function preview(story: Story, button: HTMLButtonElement) {
-    opener.current = button;
-    setSelected(story);
-    dialog.current?.showModal();
-  }
+
   function clear() {
     setQuery('');
     setCategory('All stories');
     setCollection('trending');
   }
+
   return (
     <div className="discover-page">
       <header className="discover-header">
@@ -164,7 +157,7 @@ export function Discover({
                 : signedIn
                   ? 'Choose interests during account setup to personalise your recommendations. Showing editorial picks for now.'
                   : 'Sign in to see matches for your selected interests. Showing editorial picks for now.'
-              : 'Explore editorial story previews. Chapters and live popularity rankings are not available yet.'}
+              : 'Explore editorial story previews and open any title to start reading.'}
           </p>
           <p className="discover-results" role="status">
             {stories.length} {stories.length === 1 ? 'story' : 'stories'}
@@ -188,12 +181,13 @@ export function Discover({
                     <h3>{story.title}</h3>
                     <p className="discover-author">{story.author}</p>
                     <p className="discover-description">{story.description}</p>
-                    <button
-                      onClick={(event) => preview(story, event.currentTarget)}
-                      aria-label={`Preview ${story.title}`}
+                    <Link
+                      className="discover-story-link"
+                      href={`/story/${story.id}`}
+                      aria-label={`Open ${story.title}`}
                     >
-                      Preview story <ArrowUpRight aria-hidden="true" />
-                    </button>
+                      View story <ArrowUpRight aria-hidden="true" />
+                    </Link>
                   </div>
                 </article>
               ))}
@@ -244,33 +238,6 @@ export function Discover({
           <span>Profile</span>
         </Link>
       </nav>
-      <dialog
-        ref={dialog}
-        className="discover-dialog"
-        aria-labelledby="preview-title"
-        onClose={() => opener.current?.focus()}
-      >
-        <button
-          className="discover-close"
-          aria-label="Close story preview"
-          onClick={() => dialog.current?.close()}
-        >
-          <X size={24} />
-        </button>
-        {selected && (
-          <>
-            <p className="discover-eyebrow">
-              EDITORIAL PREVIEW · {selected.category}
-            </p>
-            <h2 id="preview-title">{selected.title}</h2>
-            <p>{selected.description}</p>
-            <p className="discover-note">
-              This is a sample story concept. Published chapters and reading
-              progress will be added in the reading experience.
-            </p>
-          </>
-        )}
-      </dialog>
     </div>
   );
 }
