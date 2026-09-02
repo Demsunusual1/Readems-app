@@ -6,10 +6,12 @@ import {
   ArrowLeft,
   BookOpen,
   CaretRight,
-  BookmarkSimple,
 } from '@phosphor-icons/react/dist/ssr';
+import { LibraryButton } from '@/components/library-button';
 import { Logo } from '@/components/ui/logo';
+import { getCurrentUser } from '@/lib/auth';
 import { getReadingStory, readingStories } from '@/lib/reading';
+import { getStoryReadingState } from '@/lib/reading-state';
 import '@/components/story-reading.css';
 
 export function generateStaticParams() {
@@ -36,10 +38,16 @@ export default async function StoryPage({
 }) {
   const { id } = await params;
   const story = getReadingStory(id);
-
   if (!story) notFound();
 
-  const firstChapter = story.chapters[0];
+  const user = await getCurrentUser();
+  const state = user
+    ? await getStoryReadingState(user.id, story.id)
+    : { progress: null, saved: false };
+  const resumeChapter =
+    story.chapters.find(
+      (chapter) => chapter.number === state.progress?.chapterNumber,
+    ) ?? story.chapters[0];
 
   return (
     <div className="story-page">
@@ -54,7 +62,7 @@ export default async function StoryPage({
         <Link href="/discover" className="chapter-breadcrumb">
           <ArrowLeft /> Back to Discover
         </Link>
-        <section className="story-hero" style={{ marginTop: 30 }}>
+        <section className="story-hero">
           <div className="story-cover">
             <Image
               src={story.cover}
@@ -80,14 +88,23 @@ export default async function StoryPage({
             <div className="story-actions">
               <Link
                 className="story-primary"
-                href={`/story/${story.id}/chapter/${firstChapter.number}`}
+                href={`/story/${story.id}/chapter/${resumeChapter.number}`}
               >
-                <BookOpen /> Start reading
+                <BookOpen />
+                {state.progress ? 'Continue reading' : 'Start reading'}
               </Link>
-              <Link className="story-secondary" href="/signup">
-                <BookmarkSimple /> Save to library
-              </Link>
+              <LibraryButton
+                storyId={story.id}
+                signedIn={Boolean(user)}
+                initialSaved={state.saved}
+              />
             </div>
+            {state.progress && (
+              <p className="story-resume-note">
+                Saved at chapter {state.progress.chapterNumber} ·{' '}
+                {state.progress.progressPercent}% through the page
+              </p>
+            )}
             <div className="story-facts">
               <span>
                 <strong>{story.chapters.length}</strong>Preview chapters
@@ -114,6 +131,11 @@ export default async function StoryPage({
               className="chapter-row"
               href={`/story/${story.id}/chapter/${chapter.number}`}
               key={chapter.number}
+              aria-current={
+                state.progress?.chapterNumber === chapter.number
+                  ? 'location'
+                  : undefined
+              }
             >
               <span className="chapter-number">{chapter.number}</span>
               <div>
