@@ -1,20 +1,16 @@
 import { test, expect } from '@playwright/test';
-test('Discover search, categories and accessible preview work', async ({
-  page,
-}) => {
+
+test('Discover search, categories and story navigation work', async ({ page }) => {
   await page.goto('/discover');
   await page.getByLabel('Search stories or authors').fill('salt');
   await expect(page.locator('.discover-story-card')).toHaveCount(1);
-  await page
-    .getByRole('button', { name: 'Preview The Archivist of Salt' })
-    .click();
-  await expect(page.getByRole('dialog')).toBeVisible();
-  await page.keyboard.press('Escape');
-  await expect(page.getByRole('dialog')).not.toBeVisible();
+  await page.getByRole('link', { name: 'Open The Archivist of Salt' }).click();
+  await expect(page).toHaveURL('/story/archivist');
   await expect(
-    page.getByRole('button', { name: 'Preview The Archivist of Salt' }),
-  ).toBeFocused();
-  await page.getByLabel('Search stories or authors').fill('');
+    page.getByRole('heading', { name: 'The Archivist of Salt' }),
+  ).toBeVisible();
+
+  await page.goto('/discover');
   await page
     .getByRole('button', { name: 'African Folktales', exact: true })
     .click();
@@ -24,6 +20,7 @@ test('Discover search, categories and accessible preview work', async ({
   await page.getByRole('button', { name: 'Show all previews' }).click();
   await expect(page.locator('.discover-story-card')).toHaveCount(6);
 });
+
 for (const width of [320, 390, 768, 1440]) {
   test(`Discover fits ${width}px with themed logo`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
