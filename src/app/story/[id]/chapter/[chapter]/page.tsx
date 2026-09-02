@@ -7,6 +7,7 @@ import { ReadingToolbar } from '@/components/reading-toolbar';
 import { Logo } from '@/components/ui/logo';
 import { getCurrentUser } from '@/lib/auth';
 import { getChapter, getReadingStory, readingStories } from '@/lib/reading';
+import { markChapterOpened } from '@/lib/reading-state';
 import '@/components/story-reading.css';
 
 export function generateStaticParams() {
@@ -45,6 +46,10 @@ export default async function ChapterPage({
   if (!chapter) notFound();
 
   const user = await getCurrentUser();
+  if (user) {
+    await markChapterOpened(user.id, story.id, chapter.number);
+  }
+
   const index = story.chapters.findIndex(
     (item) => item.number === chapter.number,
   );
