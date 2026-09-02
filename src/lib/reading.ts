@@ -53,23 +53,11 @@ const sampleChapters: Chapter[] = [
 ];
 
 const chapterTitles = [
-  [
-    'The Story the Tree Kept',
-    'A Name in the Dust',
-    'When the Drums Changed',
-  ],
-  [
-    'The Missing Ledger',
-    'Salt on the Windows',
-    'The Room Without a Record',
-  ],
+  ['The Story the Tree Kept', 'A Name in the Dust', 'When the Drums Changed'],
+  ['The Missing Ledger', 'Salt on the Windows', 'The Room Without a Record'],
   ['A Sky Holding Its Breath', 'The Flower Between Us', 'Orbit'],
   ['The Evening Drum', 'A Warning in Rhythm', 'The Listener'],
-  [
-    'Dear Me, Before Everything',
-    'The Things We Carried',
-    'Beginning Again',
-  ],
+  ['Dear Me, Before Everything', 'The Things We Carried', 'Beginning Again'],
   ['The Final Departure', 'The Unexpected Passenger', 'Across the Lagoon'],
 ];
 
