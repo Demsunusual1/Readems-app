@@ -6,7 +6,11 @@ import { ReadingProgressTracker } from '@/components/reading-progress-tracker';
 import { ReadingToolbar } from '@/components/reading-toolbar';
 import { Logo } from '@/components/ui/logo';
 import { getCurrentUser } from '@/lib/auth';
-import { getChapter, getReadingStory, readingStories } from '@/lib/reading';
+import {
+  getChapter,
+  getReadingStory,
+  readingStories,
+} from '@/lib/reading';
 import '@/components/story-reading.css';
 
 export function generateStaticParams() {
