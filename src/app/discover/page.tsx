@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { Discover } from '@/components/discover';
+import '@/components/discover-reading-link.css';
 
 export const metadata: Metadata = {
   title: 'Discover stories | Readems',
