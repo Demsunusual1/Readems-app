@@ -1,6 +1,6 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
-async function createReader(page: import('@playwright/test').Page) {
+async function createReader(page: Page) {
   const uniqueId = crypto.randomUUID().replaceAll('-', '').slice(0, 12);
   await page.goto('/signup');
   await page.getByLabel('Full name').fill('Reader Test');
@@ -50,23 +50,26 @@ test('signed-in readers save progress and library state', async ({ page }) => {
     page.getByRole('button', { name: 'Saved to library' }),
   ).toBeVisible();
 
-  await page.getByRole('link', { name: /Start reading/ }).click();
-  await page.waitForResponse(
-    (response) =>
-      response.url().endsWith('/api/reading-progress') &&
-      response.request().method() === 'POST' &&
-      response.ok(),
-  );
-  await page.getByRole('link', { name: 'Next chapter →' }).click();
-  await page.waitForResponse(
-    (response) =>
-      response.url().endsWith('/api/reading-progress') && response.ok(),
-  );
+  await Promise.all([
+    page.waitForResponse(
+      (response) =>
+        response.url().endsWith('/api/reading-progress') &&
+        response.request().method() === 'POST' &&
+        response.ok(),
+    ),
+    page.getByRole('link', { name: /Start reading/ }).click(),
+  ]);
+  await Promise.all([
+    page.waitForResponse(
+      (response) =>
+        response.url().endsWith('/api/reading-progress') && response.ok(),
+    ),
+    page.getByRole('link', { name: 'Next chapter →' }).click(),
+  ]);
   await page.goto('/story/baobab');
-  await expect(page.getByRole('link', { name: /Continue reading/ })).toHaveAttribute(
-    'href',
-    '/story/baobab/chapter/2',
-  );
+  await expect(
+    page.getByRole('link', { name: /Continue reading/ }),
+  ).toHaveAttribute('href', '/story/baobab/chapter/2');
   await expect(
     page.getByRole('button', { name: 'Saved to library' }),
   ).toBeVisible();
