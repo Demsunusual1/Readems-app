@@ -6,7 +6,9 @@ import { getReadingStory } from '@/lib/reading';
 
 export async function POST(request: Request) {
   const user = await getCurrentUser();
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
 
   const body = (await request.json()) as {
     storyId?: string;
@@ -14,9 +16,14 @@ export async function POST(request: Request) {
     progressPercent?: number;
   };
   const story = body.storyId ? getReadingStory(body.storyId) : undefined;
-  const chapter = story?.chapters.find((item) => item.number === body.chapterNumber);
+  const chapter = story?.chapters.find(
+    (item) => item.number === body.chapterNumber,
+  );
   if (!story || !chapter || !catalogue.some((item) => item.id === story.id)) {
-    return NextResponse.json({ error: 'Invalid story progress' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Invalid story progress' },
+      { status: 400 },
+    );
   }
 
   const progressPercent = Math.max(
