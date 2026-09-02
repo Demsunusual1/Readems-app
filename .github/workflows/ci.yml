@@ -36,6 +36,11 @@ jobs:
       - run: npm ci
       - run: npm run db:generate
       - run: npm run db:deploy
+      - name: Show exact Prettier diff
+        run: |
+          npx prettier --write e2e/discover.spec.ts e2e/reading-flow.spec.ts "src/app/story/[id]/chapter/[chapter]/page.tsx" src/components/reading-progress-tracker.tsx src/lib/reading.ts
+          git diff -- e2e/discover.spec.ts e2e/reading-flow.spec.ts "src/app/story/[id]/chapter/[chapter]/page.tsx" src/components/reading-progress-tracker.tsx src/lib/reading.ts
+          exit 1
       - run: npm run format
       - run: npm run lint
       - run: npm run typecheck
