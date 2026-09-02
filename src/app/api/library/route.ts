@@ -5,12 +5,20 @@ import { prisma } from '@/lib/prisma';
 
 export async function POST(request: Request) {
   const user = await getCurrentUser();
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
 
-  const body = (await request.json()) as { storyId?: string; saved?: boolean };
+  const body = (await request.json()) as {
+    storyId?: string;
+    saved?: boolean;
+  };
   const story = catalogue.find((item) => item.id === body.storyId);
   if (!story || typeof body.saved !== 'boolean') {
-    return NextResponse.json({ error: 'Invalid library request' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Invalid library request' },
+      { status: 400 },
+    );
   }
 
   if (body.saved) {
