@@ -26,57 +26,53 @@ async function createReader(page: Page) {
   await page.getByRole('button', { name: /Go to my dashboard/ }).click();
 }
 
-test(
-  'story details, chapters and navigation work for guests',
-  async ({ page }) => {
-    await page.goto('/story/baobab');
-    await expect(
-      page.getByRole('heading', { name: 'Beneath the Baobab Tree' }),
-    ).toBeVisible();
-    await page.getByRole('link', { name: /Start reading/ }).click();
-    await expect(page).toHaveURL('/story/baobab/chapter/1');
-    await expect(
-      page.getByRole('heading', { name: 'The Story the Tree Kept' }),
-    ).toBeVisible();
-    await page.getByRole('link', { name: 'Next chapter →' }).click();
-    await expect(page).toHaveURL('/story/baobab/chapter/2');
-    await page.getByRole('link', { name: '← Previous chapter' }).click();
-    await expect(page).toHaveURL('/story/baobab/chapter/1');
-  },
-);
+test('story details, chapters and navigation work for guests', async ({
+  page,
+}) => {
+  await page.goto('/story/baobab');
+  await expect(
+    page.getByRole('heading', { name: 'Beneath the Baobab Tree' }),
+  ).toBeVisible();
+  await page.getByRole('link', { name: /Start reading/ }).click();
+  await expect(page).toHaveURL('/story/baobab/chapter/1');
+  await expect(
+    page.getByRole('heading', { name: 'The Story the Tree Kept' }),
+  ).toBeVisible();
+  await page.getByRole('link', { name: 'Next chapter →' }).click();
+  await expect(page).toHaveURL('/story/baobab/chapter/2');
+  await page.getByRole('link', { name: '← Previous chapter' }).click();
+  await expect(page).toHaveURL('/story/baobab/chapter/1');
+});
 
-test(
-  'signed-in readers save progress and library state',
-  async ({ page }) => {
-    await createReader(page);
-    await page.goto('/story/baobab');
-    await page.getByRole('button', { name: 'Save to library' }).click();
-    await expect(
-      page.getByRole('button', { name: 'Saved to library' }),
-    ).toBeVisible();
+test('signed-in readers save progress and library state', async ({ page }) => {
+  await createReader(page);
+  await page.goto('/story/baobab');
+  await page.getByRole('button', { name: 'Save to library' }).click();
+  await expect(
+    page.getByRole('button', { name: 'Saved to library' }),
+  ).toBeVisible();
 
-    await Promise.all([
-      page.waitForResponse(
-        (response) =>
-          response.url().endsWith('/api/reading-progress') &&
-          response.request().method() === 'POST' &&
-          response.ok(),
-      ),
-      page.getByRole('link', { name: /Start reading/ }).click(),
-    ]);
-    await Promise.all([
-      page.waitForResponse(
-        (response) =>
-          response.url().endsWith('/api/reading-progress') && response.ok(),
-      ),
-      page.getByRole('link', { name: 'Next chapter →' }).click(),
-    ]);
-    await page.goto('/story/baobab');
-    await expect(
-      page.getByRole('link', { name: /Continue reading/ }),
-    ).toHaveAttribute('href', '/story/baobab/chapter/2');
-    await expect(
-      page.getByRole('button', { name: 'Saved to library' }),
-    ).toBeVisible();
-  },
-);
+  await Promise.all([
+    page.waitForResponse(
+      (response) =>
+        response.url().endsWith('/api/reading-progress') &&
+        response.request().method() === 'POST' &&
+        response.ok(),
+    ),
+    page.getByRole('link', { name: /Start reading/ }).click(),
+  ]);
+  await Promise.all([
+    page.waitForResponse(
+      (response) =>
+        response.url().endsWith('/api/reading-progress') && response.ok(),
+    ),
+    page.getByRole('link', { name: 'Next chapter →' }).click(),
+  ]);
+  await page.goto('/story/baobab');
+  await expect(
+    page.getByRole('link', { name: /Continue reading/ }),
+  ).toHaveAttribute('href', '/story/baobab/chapter/2');
+  await expect(
+    page.getByRole('button', { name: 'Saved to library' }),
+  ).toBeVisible();
+});
