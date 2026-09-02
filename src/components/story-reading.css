@@ -4,7 +4,6 @@
   background: #fafaf7;
   color: #0f1f3d;
 }
-
 .story-topbar,
 .chapter-topbar {
   height: 72px;
@@ -15,34 +14,30 @@
   border-bottom: 1px solid #dbe7f5;
   background: #fff;
 }
-
 .story-topbar nav,
 .chapter-topbar nav {
   display: flex;
   gap: 24px;
   align-items: center;
 }
-
 .story-topbar a,
 .chapter-topbar a {
   color: #334155;
   text-decoration: none;
   font-weight: 700;
 }
-
 .story-main {
   width: min(1120px, calc(100% - 40px));
   margin: 0 auto;
   padding: 56px 0 80px;
 }
-
 .story-hero {
   display: grid;
   grid-template-columns: 250px 1fr;
   gap: 48px;
   align-items: start;
+  margin-top: 30px;
 }
-
 .story-cover {
   position: relative;
   aspect-ratio: 3/4;
@@ -50,15 +45,12 @@
   overflow: hidden;
   box-shadow: 0 20px 48px #0f1f3d24;
 }
-
 .story-cover img {
   object-fit: cover;
 }
-
 .story-copy {
   padding-top: 8px;
 }
-
 .story-eyebrow {
   margin: 0 0 14px;
   color: #2563eb;
@@ -66,14 +58,12 @@
   font-weight: 900;
   letter-spacing: 0.12em;
 }
-
 .story-copy h1 {
   margin: 0;
   font-size: clamp(2.3rem, 5vw, 4.4rem);
   line-height: 0.98;
   letter-spacing: -0.05em;
 }
-
 .story-subtitle {
   max-width: 680px;
   margin: 20px 0 12px;
@@ -81,18 +71,15 @@
   font-size: 1.12rem;
   line-height: 1.7;
 }
-
 .story-author {
   font-weight: 800;
 }
-
 .story-tags {
   display: flex;
   gap: 9px;
   flex-wrap: wrap;
   margin: 24px 0;
 }
-
 .story-tags span {
   padding: 8px 12px;
   border-radius: 999px;
@@ -101,13 +88,11 @@
   font-size: 0.82rem;
   font-weight: 800;
 }
-
 .story-actions {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
-
 .story-primary,
 .story-secondary {
   min-height: 48px;
@@ -117,20 +102,29 @@
   align-items: center;
   gap: 9px;
   text-decoration: none;
+  font: inherit;
   font-weight: 900;
 }
-
 .story-primary {
   background: #2563eb;
   color: #fff;
 }
-
 .story-secondary {
   border: 1px solid #cbd5e1;
   color: #0f1f3d;
   background: #fff;
+  cursor: pointer;
 }
-
+.story-secondary:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+.story-resume-note {
+  margin: 14px 0 0;
+  color: #64748b;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
 .story-facts {
   display: flex;
   gap: 26px;
@@ -138,17 +132,14 @@
   margin-top: 30px;
   color: #64748b;
 }
-
 .story-facts strong {
   display: block;
   color: #0f1f3d;
   font-size: 1rem;
 }
-
 .chapter-list {
   margin-top: 64px;
 }
-
 .chapter-list-header {
   display: flex;
   justify-content: space-between;
@@ -157,17 +148,14 @@
   padding-bottom: 18px;
   border-bottom: 1px solid #dbe7f5;
 }
-
 .chapter-list h2 {
   margin: 0;
   font-size: 1.7rem;
 }
-
 .chapter-list-header p {
   margin: 0;
   color: #64748b;
 }
-
 .chapter-row {
   display: grid;
   grid-template-columns: 52px 1fr auto;
@@ -178,7 +166,12 @@
   text-decoration: none;
   color: inherit;
 }
-
+.chapter-row[aria-current='location'] {
+  margin-inline: -12px;
+  padding-inline: 12px;
+  border-radius: 14px;
+  background: #eaf4ff;
+}
 .chapter-number {
   width: 42px;
   height: 42px;
@@ -189,28 +182,23 @@
   color: #2563eb;
   font-weight: 900;
 }
-
 .chapter-row h3 {
   margin: 0 0 5px;
   font-size: 1rem;
 }
-
 .chapter-row p {
   margin: 0;
   color: #64748b;
   font-size: 0.86rem;
 }
-
 .chapter-row svg {
   color: #2563eb;
 }
-
 .chapter-shell {
   width: min(820px, calc(100% - 40px));
   margin: 0 auto;
   padding: 48px 0 96px;
 }
-
 .chapter-breadcrumb {
   display: inline-flex;
   align-items: center;
@@ -220,13 +208,11 @@
   font-weight: 800;
   font-size: 0.9rem;
 }
-
 .chapter-heading {
   text-align: center;
   padding: 42px 0 32px;
   border-bottom: 1px solid #dbe7f5;
 }
-
 .chapter-heading p {
   margin: 0 0 10px;
   color: #2563eb;
@@ -234,19 +220,16 @@
   font-weight: 900;
   letter-spacing: 0.1em;
 }
-
 .chapter-heading h1 {
   margin: 0;
   font-size: clamp(2rem, 5vw, 3.4rem);
   letter-spacing: -0.04em;
 }
-
 .chapter-heading span {
   display: block;
   margin-top: 14px;
   color: #64748b;
 }
-
 .reading-toolbar {
   position: sticky;
   top: 12px;
@@ -264,14 +247,12 @@
   box-shadow: 0 8px 30px #0f1f3d12;
   backdrop-filter: blur(10px);
 }
-
 .reading-toolbar span {
   padding: 0 8px;
   color: #64748b;
   font-size: 0.82rem;
   font-weight: 800;
 }
-
 .reading-toolbar button {
   width: 36px;
   height: 36px;
@@ -283,7 +264,6 @@
   font-weight: 900;
   cursor: pointer;
 }
-
 .chapter-body {
   max-width: 680px;
   margin: 0 auto;
@@ -292,11 +272,9 @@
   line-height: 1.95;
   color: #26364e;
 }
-
 .chapter-body p {
   margin: 0 0 1.7em;
 }
-
 .chapter-nav {
   max-width: 680px;
   margin: 60px auto 0;
@@ -306,20 +284,17 @@
   justify-content: space-between;
   gap: 12px;
 }
-
 .chapter-nav a {
   padding: 12px 16px;
   border-radius: 12px;
   text-decoration: none;
   font-weight: 900;
 }
-
 .chapter-nav .next {
   margin-left: auto;
   background: #2563eb;
   color: #fff;
 }
-
 .chapter-nav .previous {
   background: #eaf4ff;
   color: #1d4ed8;
@@ -331,82 +306,64 @@
     height: 62px;
     padding: 0 18px;
   }
-
   .story-topbar nav a:not(:last-child),
   .chapter-topbar nav a:not(:last-child) {
     display: none;
   }
-
   .story-main {
     width: min(100% - 28px, 560px);
     padding-top: 28px;
   }
-
   .story-hero {
     grid-template-columns: 112px 1fr;
     gap: 20px;
   }
-
   .story-cover {
     border-radius: 14px;
   }
-
   .story-copy {
     padding: 0;
   }
-
   .story-copy h1 {
     font-size: clamp(1.75rem, 8vw, 2.5rem);
   }
-
   .story-subtitle {
     grid-column: 1/-1;
   }
-
   .story-actions,
   .story-facts {
     grid-column: 1/-1;
   }
-
   .chapter-list {
     margin-top: 42px;
   }
-
   .chapter-list-header {
     align-items: start;
     flex-direction: column;
   }
-
   .chapter-row {
     grid-template-columns: 44px 1fr auto;
   }
-
   .chapter-shell {
     width: min(100% - 30px, 680px);
     padding-top: 28px;
   }
-
   .chapter-heading {
     padding-top: 30px;
   }
-
   .chapter-body {
     font-size: 1.08rem;
     line-height: 1.85;
   }
-
   .reading-toolbar {
     top: 8px;
   }
-
   .chapter-nav {
     flex-direction: column;
   }
-
   .chapter-nav a {
     text-align: center;
   }
-
   .chapter-nav .next {
     margin-left: 0;
   }
