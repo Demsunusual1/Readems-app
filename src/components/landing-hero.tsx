@@ -45,6 +45,12 @@ export function LandingHero({
   const touch = useRef<{ x: number; y: number } | null>(null);
   const slide = slides[active];
   const primaryHref = signedIn ? readingHref : '/signup';
+  const primaryLabel = signedIn
+    ? readingHref.includes('/dashboard')
+      ? 'Go to dashboard'
+      : 'Discover stories'
+    : 'Start Reading';
+
   return (
     <section
       className="landing-carousel"
@@ -96,7 +102,7 @@ export function LandingHero({
           </div>
           <div className="official-actions">
             <Link className="button button-primary" href={primaryHref}>
-              {signedIn ? 'Discover stories' : 'Start Reading'}
+              {primaryLabel}
             </Link>
             <Link className="button button-secondary" href={writingHref}>
               <Feather aria-hidden="true" /> Start Writing
