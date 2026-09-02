@@ -15,14 +15,22 @@ export function ReadingProgressTracker({
     let timer: ReturnType<typeof setTimeout> | undefined;
 
     const persist = () => {
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      const percent = scrollable > 0 ? Math.round((window.scrollY / scrollable) * 100) : 100;
+      const scrollable =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const percent =
+        scrollable > 0
+          ? Math.round((window.scrollY / scrollable) * 100)
+          : 100;
       if (Math.abs(percent - lastSent.current) < 5 && percent !== 100) return;
       lastSent.current = percent;
       void fetch('/api/reading-progress', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ storyId, chapterNumber, progressPercent: percent }),
+        body: JSON.stringify({
+          storyId,
+          chapterNumber,
+          progressPercent: percent,
+        }),
         keepalive: true,
       });
     };
