@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from '@phosphor-icons/react/dist/ssr';
-import { Logo } from '@/components/ui/logo';
+import { ReadingProgressTracker } from '@/components/reading-progress-tracker';
 import { ReadingToolbar } from '@/components/reading-toolbar';
+import { Logo } from '@/components/ui/logo';
+import { getCurrentUser } from '@/lib/auth';
 import { getChapter, getReadingStory, readingStories } from '@/lib/reading';
 import '@/components/story-reading.css';
 
@@ -39,12 +41,12 @@ export default async function ChapterPage({
 }) {
   const { id, chapter: chapterParam } = await params;
   const story = getReadingStory(id);
-
   if (!story) notFound();
 
   const chapter = getChapter(story, Number(chapterParam));
   if (!chapter) notFound();
 
+  const user = await getCurrentUser();
   const index = story.chapters.findIndex(
     (item) => item.number === chapter.number,
   );
@@ -53,6 +55,12 @@ export default async function ChapterPage({
 
   return (
     <div className="chapter-page">
+      {user && (
+        <ReadingProgressTracker
+          storyId={story.id}
+          chapterNumber={chapter.number}
+        />
+      )}
       <header className="chapter-topbar">
         <Logo tone="dark" />
         <nav aria-label="Reader navigation">
