@@ -52,22 +52,11 @@ test('signed-in readers save progress and library state', async ({ page }) => {
     page.getByRole('button', { name: 'Saved to library' }),
   ).toBeVisible();
 
-  await Promise.all([
-    page.waitForResponse(
-      (response) =>
-        response.url().endsWith('/api/reading-progress') &&
-        response.request().method() === 'POST' &&
-        response.ok(),
-    ),
-    page.getByRole('link', { name: /Start reading/ }).click(),
-  ]);
-  await Promise.all([
-    page.waitForResponse(
-      (response) =>
-        response.url().endsWith('/api/reading-progress') && response.ok(),
-    ),
-    page.getByRole('link', { name: 'Next chapter →' }).click(),
-  ]);
+  await page.getByRole('link', { name: /Start reading/ }).click();
+  await expect(page).toHaveURL('/story/baobab/chapter/1');
+  await page.getByRole('link', { name: 'Next chapter →' }).click();
+  await expect(page).toHaveURL('/story/baobab/chapter/2');
+
   await page.goto('/story/baobab');
   await expect(
     page.getByRole('link', { name: /Continue reading/ }),
