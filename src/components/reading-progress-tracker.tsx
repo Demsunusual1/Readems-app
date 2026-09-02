@@ -18,9 +18,7 @@ export function ReadingProgressTracker({
       const scrollable =
         document.documentElement.scrollHeight - window.innerHeight;
       const percent =
-        scrollable > 0
-          ? Math.round((window.scrollY / scrollable) * 100)
-          : 100;
+        scrollable > 0 ? Math.round((window.scrollY / scrollable) * 100) : 100;
       if (Math.abs(percent - lastSent.current) < 5 && percent !== 100) return;
       lastSent.current = percent;
       void fetch('/api/reading-progress', {
