@@ -21,24 +21,40 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingHero } from '@/components/landing-hero';
+import { getReadingStory } from '@/lib/reading';
+import { getRecentReadingProgress } from '@/lib/reading-state';
 
-const readingList = [
-  [
-    'Shadows of the Drum',
-    'Chapter 12 · 24m left',
-    '/readems/cover-shadows-of-the-drum.png',
-  ],
-  [
-    'Letters to My Younger Self',
-    'Chapter 8 · 10m left',
-    '/readems/cover-letters-to-my-younger-self.png',
-  ],
-  [
-    'The Last Train to Makoko',
-    'Chapter 5 · 18m left',
-    '/readems/cover-last-train-to-makoko.png',
-  ],
-] as const;
+type ReadingCard = {
+  title: string;
+  progress: string;
+  image: string;
+  href: string;
+  percent: number;
+};
+
+const fallbackReadingList: ReadingCard[] = [
+  {
+    title: 'Shadows of the Drum',
+    progress: 'Start the preview',
+    image: '/readems/cover-shadows-of-the-drum.png',
+    href: '/story/drum',
+    percent: 0,
+  },
+  {
+    title: 'Letters to My Younger Self',
+    progress: 'Start the preview',
+    image: '/readems/cover-letters-to-my-younger-self.png',
+    href: '/story/letters',
+    percent: 0,
+  },
+  {
+    title: 'The Last Train to Makoko',
+    progress: 'Start the preview',
+    image: '/readems/cover-last-train-to-makoko.png',
+    href: '/story/makoko',
+    percent: 0,
+  },
+];
 
 const featured = [
   [
@@ -84,8 +100,29 @@ export default async function HomePage() {
   const dashboard = user
     ? `/${user.role === 'CREATOR' ? 'creator' : 'reader'}/dashboard`
     : undefined;
-  const readingHref = dashboard ?? '/signup';
+  const readingHref = '/discover';
   const writingHref = dashboard ?? '/signup?role=creator';
+
+  const recentProgress = user ? await getRecentReadingProgress(user.id, 3) : [];
+  const savedReadingList = recentProgress.flatMap((progress): ReadingCard[] => {
+    const story = getReadingStory(progress.storyId);
+    if (!story) return [];
+    const chapter = story.chapters.find(
+      (item) => item.number === progress.chapterNumber,
+    );
+    return [
+      {
+        title: story.title,
+        progress: `Chapter ${progress.chapterNumber}${chapter ? ` · ${chapter.readTime}` : ''}`,
+        image: story.cover,
+        href: `/story/${story.id}/chapter/${progress.chapterNumber}`,
+        percent: progress.progressPercent,
+      },
+    ];
+  });
+  const readingList = savedReadingList.length
+    ? savedReadingList
+    : fallbackReadingList;
 
   return (
     <div className="official-landing">
@@ -131,17 +168,17 @@ export default async function HomePage() {
             role="region"
             aria-label="Continue reading"
           >
-            {readingList.map(([title, progress, image], index) => (
-              <article key={title} className="continue-card">
-                <Image src={image} alt="" width={78} height={104} />
+            {readingList.map((item) => (
+              <Link href={item.href} key={item.title} className="continue-card">
+                <Image src={item.image} alt="" width={78} height={104} />
                 <div>
-                  <h3>{title}</h3>
-                  <p>{progress}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.progress}</p>
                   <span>
-                    <i style={{ width: `${74 - index * 12}%` }} />
+                    <i style={{ width: `${item.percent}%` }} />
                   </span>
                 </div>
-              </article>
+              </Link>
             ))}
             <Link href={readingHref} className="discover-card">
               <BookOpen aria-hidden="true" />
