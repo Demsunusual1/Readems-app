@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 import { LandingHeader } from './landing-header';
 
@@ -17,13 +17,15 @@ describe('LandingHeader', () => {
     );
   });
 
-  it('toggles its accessible mobile menu', () => {
+  it('exposes the official mobile shortcuts', () => {
     render(<LandingHeader />);
-    const menu = screen.getByRole('button', { name: 'Open navigation menu' });
-    fireEvent.click(menu);
-    expect(menu).toHaveAttribute('aria-expanded', 'true');
     expect(
-      screen.getByRole('button', { name: 'Close navigation menu' }),
-    ).toBeInTheDocument();
+      screen.getByRole('link', { name: 'Search stories' }),
+    ).toHaveAttribute('href', '/discover');
+    expect(screen.getByRole('link', { name: 'Notifications' })).toHaveAttribute(
+      'href',
+      '/login',
+    );
+    expect(screen.getByLabelText('3 notifications')).toBeInTheDocument();
   });
 });
