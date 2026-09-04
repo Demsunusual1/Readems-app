@@ -9,7 +9,7 @@ export const interests = [
   'Poetry',
   'Non-Fiction',
   'Young Adult',
-  'African Literature',
+  'African Folktales',
   'Personal Growth',
 ] as const;
 

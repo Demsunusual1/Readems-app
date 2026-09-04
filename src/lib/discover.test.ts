@@ -16,7 +16,7 @@ describe('Discover catalogue', () => {
   });
   it('matches stored onboarding interests', () => {
     const stories = selectStories('', 'All stories', 'for-you', [
-      'African Literature',
+      'African Folktales',
     ]);
     expect(stories.map((story) => story.id)).toEqual([
       'baobab',

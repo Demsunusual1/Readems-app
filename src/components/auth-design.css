@@ -381,3 +381,317 @@
     padding-inline: 20px;
   }
 }
+
+/* Official onboarding experience */
+.readems-auth-signup:has(.auth-onboarding-step-2) .auth-banner,
+.readems-auth-signup:has(.auth-onboarding-step-3) .auth-banner,
+.readems-auth-signup:has(.auth-onboarding-step-4) .auth-banner,
+.readems-auth-signup:has(.auth-onboarding-step-2) .auth-legal,
+.readems-auth-signup:has(.auth-onboarding-step-3) .auth-legal,
+.readems-auth-signup:has(.auth-onboarding-step-4) .auth-legal {
+  display: none;
+}
+.readems-auth-signup:has(.auth-onboarding-step-2) .auth-surface,
+.readems-auth-signup:has(.auth-onboarding-step-3) .auth-surface,
+.readems-auth-signup:has(.auth-onboarding-step-4) .auth-surface {
+  max-width: none;
+  padding: 0;
+}
+.auth-onboarding-step-2,
+.auth-onboarding-step-3,
+.auth-onboarding-step-4 {
+  position: relative;
+  display: block !important;
+  width: min(100%, 853px);
+  min-height: 100vh;
+  margin: auto;
+  overflow: hidden;
+  background: #fff;
+}
+.auth-onboarding-step-2 .auth-steps,
+.auth-onboarding-step-3 .auth-steps,
+.auth-onboarding-step-4 .auth-steps {
+  display: none;
+}
+.onboarding-topbar {
+  min-height: 205px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 38px 54px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 80% 30%, #eab253 0 2px, transparent 3px),
+    radial-gradient(circle at 68% 58%, #8d64e8 0 2px, transparent 3px), #020f2c;
+}
+.onboarding-topbar .ui-logo-word {
+  color: #fff;
+  font-family: var(--font-literary);
+  font-size: 1.75rem;
+}
+.onboarding-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.onboarding-progress > span {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #7c87a0;
+  border-radius: 50%;
+}
+.onboarding-progress > span.is-active {
+  border-color: #1263f3;
+  background: #1263f3;
+}
+.onboarding-progress small {
+  margin-left: 8px;
+}
+.readems-auth .signup-card.signup-step-2,
+.readems-auth .signup-card.signup-step-3,
+.readems-auth .signup-card.signup-step-4 {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  margin: -38px 0 0;
+  padding: 56px 54px 48px;
+  border-radius: 52% 52% 0 0 / 44px 44px 0 0;
+  background: #fff;
+}
+.readems-auth .signup-card.signup-step-2 h2,
+.readems-auth .signup-card.signup-step-3 h2,
+.readems-auth .signup-card.signup-step-4 h2 {
+  margin: 0 0 16px;
+  font: 500 clamp(2.5rem, 7vw, 4rem)/1.05 var(--font-literary);
+  letter-spacing: -0.035em;
+}
+.readems-auth .signup-card.signup-step-2 > p:not(.eyebrow),
+.readems-auth .signup-card.signup-step-3 > p:not(.eyebrow),
+.readems-auth .signup-card.signup-step-4 > p:not(.eyebrow) {
+  max-width: 620px;
+  color: #445170;
+  font-size: 1.2rem;
+}
+.readems-auth .signup-card.signup-step-2 .eyebrow,
+.readems-auth .signup-card.signup-step-3 .eyebrow,
+.readems-auth .signup-card.signup-step-4 .eyebrow {
+  color: #9270ea;
+  font-size: 1rem;
+}
+.readems-auth .signup-step-2 .choice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 44px;
+}
+.readems-auth .signup-step-2 .choice {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px 18px;
+  border: 1px solid #e0e4ec;
+  border-radius: 24px;
+  color: #071636;
+  background: #fff;
+  text-align: center;
+}
+.readems-auth .signup-step-2 .choice.selected {
+  border: 2px solid #1263f3;
+  background: linear-gradient(145deg, #fff, #f0eaff);
+  box-shadow: 0 18px 40px rgb(70 50 135 / 13%);
+}
+.readems-auth .signup-step-2 .choice > span svg {
+  width: 70px;
+  height: 70px;
+  color: #7150d7;
+}
+.readems-auth .signup-step-2 .choice b {
+  font: 500 2rem/1 var(--font-literary);
+}
+.readems-auth .signup-step-2 .choice small {
+  color: #536181;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.onboarding-note {
+  display: grid;
+  gap: 4px;
+  margin-top: 36px;
+  padding: 24px 30px 24px 110px;
+  border: 1px solid #e6dffb;
+  border-radius: 18px;
+  background: linear-gradient(100deg, #f3edff, #fff);
+}
+.onboarding-note strong {
+  font-size: 1.05rem;
+}
+.onboarding-note span {
+  color: #536181;
+}
+.readems-auth .signup-step-3 .interest-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 42px;
+}
+.readems-auth .signup-step-3 .interest-grid button {
+  min-height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border: 1px solid #d9deea;
+  border-radius: 18px;
+  color: #091735;
+  background: #fff;
+  font-size: 1rem;
+  font-weight: 650;
+}
+.readems-auth .signup-step-3 .interest-grid button.selected {
+  border: 2px solid #1263f3;
+  color: #075be8;
+  background: #f8faff;
+}
+.readems-auth .signup-step-3 .interest-grid button svg {
+  order: 2;
+  padding: 4px;
+  border-radius: 50%;
+  color: #fff;
+  background: #1263f3;
+}
+.onboarding-profile-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 34px 0 28px;
+}
+.onboarding-profile-photo img {
+  width: 170px;
+  height: 170px;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px #dfe4ef;
+}
+.onboarding-profile-photo strong {
+  margin-top: 14px;
+  font-size: 1.1rem;
+}
+.onboarding-profile-photo span {
+  color: #64748b;
+}
+.readems-auth .signup-step-4 textarea {
+  min-height: 120px;
+  padding: 14px;
+}
+.readems-auth .signup-step-2 .nav-buttons,
+.readems-auth .signup-step-3 .nav-buttons,
+.readems-auth .signup-step-4 .nav-buttons {
+  display: grid;
+  grid-template-columns: 145px 1fr;
+  gap: 28px;
+  margin-top: 38px;
+}
+.readems-auth .signup-step-2 .nav-buttons button,
+.readems-auth .signup-step-3 .nav-buttons button,
+.readems-auth .signup-step-4 .nav-buttons button {
+  min-height: 62px;
+  border: 0;
+  border-radius: 18px;
+  color: #fff;
+  background: #075be8;
+  font-weight: 700;
+}
+.readems-auth .signup-step-2 .nav-buttons .secondary,
+.readems-auth .signup-step-3 .nav-buttons .secondary,
+.readems-auth .signup-step-4 .nav-buttons .secondary {
+  border: 1px solid #d9deea;
+  color: #172443;
+  background: #fff;
+}
+@media (max-width: 600px) {
+  .onboarding-topbar {
+    min-height: 118px;
+    padding: 20px;
+  }
+  .onboarding-topbar .ui-logo-word {
+    font-size: 1.15rem;
+  }
+  .onboarding-progress {
+    gap: 5px;
+  }
+  .onboarding-progress > span {
+    width: 26px;
+    height: 26px;
+    font-size: 0.7rem;
+  }
+  .onboarding-progress small {
+    display: none;
+  }
+  .readems-auth .signup-card.signup-step-2,
+  .readems-auth .signup-card.signup-step-3,
+  .readems-auth .signup-card.signup-step-4 {
+    margin-top: -24px;
+    padding: 36px 20px 32px;
+    border-radius: 50% 50% 0 0 / 28px 28px 0 0;
+  }
+  .readems-auth .signup-card.signup-step-2 h2,
+  .readems-auth .signup-card.signup-step-3 h2,
+  .readems-auth .signup-card.signup-step-4 h2 {
+    font-size: 2rem;
+  }
+  .readems-auth .signup-card.signup-step-2 > p:not(.eyebrow),
+  .readems-auth .signup-card.signup-step-3 > p:not(.eyebrow),
+  .readems-auth .signup-card.signup-step-4 > p:not(.eyebrow) {
+    font-size: 0.9rem;
+  }
+  .readems-auth .signup-step-2 .choice-grid {
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .readems-auth .signup-step-2 .choice {
+    min-height: 230px;
+    gap: 10px;
+    padding: 14px 8px;
+    border-radius: 16px;
+  }
+  .readems-auth .signup-step-2 .choice > span svg {
+    width: 42px;
+    height: 42px;
+  }
+  .readems-auth .signup-step-2 .choice b {
+    font-size: 1.25rem;
+  }
+  .readems-auth .signup-step-2 .choice small {
+    font-size: 0.68rem;
+  }
+  .onboarding-note {
+    margin-top: 22px;
+    padding: 18px;
+  }
+  .readems-auth .signup-step-3 .interest-grid {
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .readems-auth .signup-step-3 .interest-grid button {
+    min-height: 58px;
+    padding: 12px;
+    border-radius: 14px;
+    font-size: 0.75rem;
+  }
+  .onboarding-profile-photo img {
+    width: 130px;
+    height: 130px;
+  }
+  .readems-auth .signup-step-2 .nav-buttons,
+  .readems-auth .signup-step-3 .nav-buttons,
+  .readems-auth .signup-step-4 .nav-buttons {
+    grid-template-columns: 92px 1fr;
+    gap: 12px;
+  }
+}

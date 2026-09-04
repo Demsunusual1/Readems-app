@@ -28,7 +28,7 @@ export const catalogue: Story[] = [
     title: 'Beneath the Baobab Tree',
     author: 'Readems Editorial',
     category: 'African Folktales',
-    tags: ['African Literature', 'Drama'],
+    tags: ['African Folktales', 'Drama'],
     description:
       'A family. A secret. A legacy that refuses to be buried. Beneath an ancient baobab, the past has a story of its own.',
     cover: '/readems/featured-beneath-the-baobab-tree.png',
@@ -67,7 +67,7 @@ export const catalogue: Story[] = [
     title: 'Shadows of the Drum',
     author: 'Readems Editorial',
     category: 'African Folktales',
-    tags: ['African Literature', 'Fantasy'],
+    tags: ['African Folktales', 'Fantasy'],
     description:
       'An evening drumbeat carries a warning through the village. One young listener must decide which stories to believe.',
     cover: '/readems/cover-shadows-of-the-drum.png',
@@ -93,7 +93,7 @@ export const catalogue: Story[] = [
     title: 'The Last Train to Makoko',
     author: 'Readems Editorial',
     category: 'Mystery',
-    tags: ['Drama', 'African Literature'],
+    tags: ['Drama', 'African Folktales'],
     description:
       'A final departure. An unexpected passenger. A journey through Lagos that changes everything its travellers thought they knew.',
     cover: '/readems/cover-last-train-to-makoko.png',

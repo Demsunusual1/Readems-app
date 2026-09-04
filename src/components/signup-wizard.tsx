@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ArrowLeft,
   ArrowRight,
@@ -21,6 +22,7 @@ import { PasswordField } from './password-field';
 import { Input } from './ui/input';
 import { AuthShell } from './auth-shell';
 import { AuthSocial } from './auth-social';
+import { Logo } from './ui/logo';
 
 type Draft = SignupInput & { confirmPassword: string };
 const initial: Draft = {
@@ -148,7 +150,26 @@ export function SignupWizard({
   );
   return (
     <AuthShell mode="signup">
-      <div className="auth-onboarding">
+      <div className={`auth-onboarding auth-onboarding-step-${step}`}>
+        {step >= 2 && step <= 4 && (
+          <header className="onboarding-topbar">
+            <Logo tone="light" />
+            <div
+              className="onboarding-progress"
+              aria-label={`Step ${step - 1} of 3`}
+            >
+              {[1, 2, 3].map((item) => (
+                <span
+                  key={item}
+                  className={item <= step - 1 ? 'is-active' : undefined}
+                >
+                  {item}
+                </span>
+              ))}
+              <small>Step {step - 1} of 3</small>
+            </div>
+          </header>
+        )}
         <ol className="auth-steps" aria-label="Account setup progress">
           {['Create account', 'Personalize', 'You’re in'].map(
             (label, index) => {
@@ -167,7 +188,11 @@ export function SignupWizard({
             },
           )}
         </ol>
-        <section ref={panel} className="signup-card" aria-label={steps[step]}>
+        <section
+          ref={panel}
+          className={`signup-card signup-step-${step}`}
+          aria-label={steps[step]}
+        >
           {step === 1 && (
             <form
               onSubmit={(e) => {
@@ -226,23 +251,30 @@ export function SignupWizard({
           )}
           {step === 2 && (
             <>
-              <p className="eyebrow">Choose your path</p>
-              <h2 tabIndex={-1}>How will you use Readems?</h2>
-              <p>You can change this later in settings.</p>
+              <p className="eyebrow">Step 1 of 3</p>
+              <h2 tabIndex={-1}>Welcome to Readems</h2>
+              <p>
+                Tell us what inspires you most. We’ll personalize your
+                experience.
+              </p>
               <div className="choice-grid">
                 {(
                   [
                     [
                       'READER',
                       'Reader',
-                      'Discover stories and build your library.',
+                      'Discover stories, grow your mind, and join the conversation.',
                     ],
                     [
                       'CREATOR',
                       'Creator',
-                      'Publish stories and grow an audience.',
+                      'Write your story, share your voice, and build your audience.',
                     ],
-                    ['BOTH', 'Both', 'Read, write, and do it all.'],
+                    [
+                      'BOTH',
+                      'Both',
+                      'Read, write, and connect—your complete creative home.',
+                    ],
                   ] as const
                 ).map(([value, title, copy]) => (
                   <button
@@ -265,16 +297,23 @@ export function SignupWizard({
                   </button>
                 ))}
               </div>
+              <aside className="onboarding-note">
+                <strong>A global community</strong>
+                <span>
+                  Join readers and writers from around the world in a space
+                  built for stories that matter.
+                </span>
+              </aside>
               <Nav back={() => setStep(1)} onNext={next} />
             </>
           )}
           {step === 3 && (
             <>
-              <p className="eyebrow">Make it yours</p>
+              <p className="eyebrow">Step 2 of 3</p>
               <h2 tabIndex={-1}>What stories move you?</h2>
               <p>
-                Choose at least 3 so we can personalize your experience.{' '}
-                <b>{data.interests.length} selected</b>
+                Choose the stories you love. We’ll personalize your Readems
+                experience. <b>{data.interests.length} selected</b>
               </p>
               <div className="interest-grid">
                 {interests.map((item) => {
@@ -299,14 +338,34 @@ export function SignupWizard({
                   );
                 })}
               </div>
+              <aside className="onboarding-note">
+                <strong>Tailored just for you</strong>
+                <span>
+                  Your choices help us recommend stories, writers, and
+                  communities you’ll love.
+                </span>
+              </aside>
               <Nav back={() => setStep(2)} onNext={next} />
             </>
           )}
           {step === 4 && (
             <form onSubmit={submit} aria-busy={loading}>
-              <p className="eyebrow">One last touch</p>
-              <h2 tabIndex={-1}>Set up your profile</h2>
-              <p>Help the community recognize you. Both fields are optional.</p>
+              <p className="eyebrow">Step 3 of 3</p>
+              <h2 tabIndex={-1}>Create Your Reader Profile</h2>
+              <p>
+                Tell us about yourself so we can personalize your Readems
+                experience.
+              </p>
+              <div className="onboarding-profile-photo">
+                <Image
+                  src="/readems/creator-chinelo-okoye.png"
+                  alt="Profile preview"
+                  width={180}
+                  height={180}
+                />
+                <strong>Add a profile photo</strong>
+                <span>Show the community who you are.</span>
+              </div>
               {field('Profile photo URL', 'avatarUrl', 'url', undefined, false)}
               <label>
                 Short bio
