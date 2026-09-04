@@ -366,7 +366,10 @@ export function SignupWizard({
                 <strong>Add a profile photo</strong>
                 <span>Show the community who you are.</span>
               </div>
-              {field('Profile photo URL', 'avatarUrl', 'url', undefined, false)}
+              <div className="onboarding-profile-grid">
+                {field('Display Name', 'fullName', 'text', 'name')}
+                {field('Username', 'username', 'text', 'username')}
+              </div>
               <label>
                 Short bio
                 <textarea
@@ -377,6 +380,61 @@ export function SignupWizard({
                 />
                 <small>{data.bio?.length ?? 0}/240</small>
               </label>
+              <div className="onboarding-select-grid">
+                <label>
+                  Country / Region
+                  <select defaultValue="Nigeria">
+                    <option>Nigeria</option>
+                    <option>Ghana</option>
+                    <option>South Africa</option>
+                    <option>United Kingdom</option>
+                  </select>
+                </label>
+                <label>
+                  Preferred Language
+                  <select defaultValue="English">
+                    <option>English</option>
+                    <option>French</option>
+                    <option>Portuguese</option>
+                  </select>
+                </label>
+              </div>
+              <fieldset className="onboarding-preferences">
+                <legend>Content Preferences</legend>
+                <small>Help us tailor your reading recommendations.</small>
+                <div>
+                  {['Fiction', 'Non-Fiction', 'Poetry', 'Comics'].map(
+                    (preference) => (
+                      <button
+                        key={preference}
+                        type="button"
+                        className={preference === 'Fiction' ? 'selected' : ''}
+                      >
+                        {preference}
+                        <span>{preference === 'Fiction' ? '✓' : '+'}</span>
+                      </button>
+                    ),
+                  )}
+                </div>
+              </fieldset>
+              <fieldset className="onboarding-privacy">
+                <legend>Privacy &amp; Visibility</legend>
+                <small>You can change these anytime in settings.</small>
+                <label>
+                  <span>
+                    <strong>Show my profile to other readers</strong>
+                    Allow others to discover and follow you.
+                  </span>
+                  <input type="checkbox" defaultChecked />
+                </label>
+                <label>
+                  <span>
+                    <strong>Display my reading activity</strong>
+                    Share your reads and reviews with followers.
+                  </span>
+                  <input type="checkbox" />
+                </label>
+              </fieldset>
               <Nav
                 back={() => setStep(3)}
                 label={loading ? 'Creating account…' : 'Finish signup'}

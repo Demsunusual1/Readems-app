@@ -27,7 +27,7 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
 
   await expect(
-    page.getByRole('heading', { name: 'How will you use Readems?' }),
+    page.getByRole('heading', { name: 'Welcome to Readems' }),
   ).toBeVisible();
   await page
     .getByRole('button', {

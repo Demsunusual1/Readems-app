@@ -45,7 +45,7 @@ test('signup checks password rules before personalization and preserves creator 
   await page.getByLabel('Confirm password').fill('StrongPassword9');
   await page.getByRole('button', { name: /^Continue$/ }).click();
   await expect(
-    page.getByRole('button', { name: /Creator.*Publish stories/ }),
+    page.getByRole('button', { name: /Creator.*Write your story/ }),
   ).toHaveAttribute('aria-pressed', 'true');
 });
 

@@ -397,6 +397,11 @@
   max-width: none;
   padding: 0;
 }
+.readems-auth-signup:has(.auth-onboarding-step-2),
+.readems-auth-signup:has(.auth-onboarding-step-3),
+.readems-auth-signup:has(.auth-onboarding-step-4) {
+  overflow-x: clip;
+}
 .auth-onboarding-step-2,
 .auth-onboarding-step-3,
 .auth-onboarding-step-4 {
@@ -589,6 +594,89 @@
   min-height: 120px;
   padding: 14px;
 }
+.onboarding-profile-grid,
+.onboarding-select-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.readems-auth .signup-step-4 select {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 8px;
+  padding: 0 16px;
+  border: 1px solid #d9deea;
+  border-radius: 12px;
+  color: #091735;
+  background: #fff;
+}
+.onboarding-preferences,
+.onboarding-privacy {
+  margin: 6px 0 24px;
+  padding: 0;
+  border: 0;
+}
+.onboarding-preferences legend,
+.onboarding-privacy legend {
+  font-weight: 700;
+}
+.onboarding-preferences > small,
+.onboarding-privacy > small {
+  display: block;
+  margin-bottom: 12px;
+  color: #64748b;
+}
+.onboarding-preferences > div {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.onboarding-preferences button {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  border: 1px solid #d9deea;
+  border-radius: 999px;
+  color: #172443;
+  background: #fff;
+}
+.onboarding-preferences button.selected {
+  border-color: #075be8;
+  color: #075be8;
+  background: #f5f8ff;
+}
+.readems-auth .onboarding-privacy label {
+  min-height: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0;
+  padding: 12px 16px;
+  border: 1px solid #e0e4ec;
+  border-radius: 12px;
+  font-weight: 400;
+}
+.onboarding-privacy label + label {
+  margin-top: 8px;
+}
+.onboarding-privacy label > span {
+  color: #64748b;
+  font-size: 0.82rem;
+}
+.onboarding-privacy label strong {
+  display: block;
+  color: #172443;
+  font-size: 0.92rem;
+}
+.readems-auth .onboarding-privacy input[type='checkbox'] {
+  width: 44px;
+  height: 24px;
+  flex: none;
+  accent-color: #075be8;
+}
 .readems-auth .signup-step-2 .nav-buttons,
 .readems-auth .signup-step-3 .nav-buttons,
 .readems-auth .signup-step-4 .nav-buttons {
@@ -645,6 +733,10 @@
   .readems-auth .signup-card.signup-step-4 h2 {
     font-size: 2rem;
   }
+  .readems-auth .signup-card.signup-step-3 h2 {
+    max-width: 18rem;
+    font-size: 1.85rem;
+  }
   .readems-auth .signup-card.signup-step-2 > p:not(.eyebrow),
   .readems-auth .signup-card.signup-step-3 > p:not(.eyebrow),
   .readems-auth .signup-card.signup-step-4 > p:not(.eyebrow) {
@@ -687,6 +779,14 @@
   .onboarding-profile-photo img {
     width: 130px;
     height: 130px;
+  }
+  .onboarding-profile-grid,
+  .onboarding-select-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .onboarding-preferences > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .readems-auth .signup-step-2 .nav-buttons,
   .readems-auth .signup-step-3 .nav-buttons,
