@@ -296,6 +296,7 @@
   opacity: 0.6;
   cursor: wait;
 }
+/* Compact headers keep every account and reading control visible on small phones. */
 @media (max-width: 600px) {
   .story-top {
     padding: 14px;
