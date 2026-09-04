@@ -89,14 +89,31 @@ for (const viewport of viewports) {
       ).toBeVisible();
 
       const cards = page.locator('.continue-card');
-      for (let index = 0; index < 3; index++) {
-        const card = await cards.nth(index).boundingBox();
-        expect(card).not.toBeNull();
-        expect(card!.x).toBeLessThan(viewport.width);
-      }
-      const discover = await page.locator('.discover-card').boundingBox();
-      expect(discover).not.toBeNull();
-      expect(discover!.x).toBeLessThan(viewport.width);
+      const firstCard = await cards.first().boundingBox();
+      const secondCard = await cards.nth(1).boundingBox();
+      expect(firstCard).not.toBeNull();
+      expect(secondCard).not.toBeNull();
+      expect(firstCard!.width).toBeGreaterThanOrEqual(120);
+      expect(secondCard!.x).toBeLessThan(viewport.width);
+
+      const continueTrack = page.locator('.continue-row');
+      const continueMetrics = await continueTrack.evaluate((element) => ({
+        clientWidth: element.clientWidth,
+        scrollWidth: element.scrollWidth,
+      }));
+      expect(continueMetrics.scrollWidth).toBeGreaterThan(
+        continueMetrics.clientWidth,
+      );
+      await continueTrack.evaluate((element) => {
+        element.scrollLeft = element.scrollWidth;
+      });
+      await expect(page.locator('.discover-card')).toBeInViewport();
+
+      await expect(page.locator('.community-online-dot')).toBeVisible();
+      await expect(page.locator('.community-online-dot')).toHaveCSS(
+        'background-color',
+        'rgb(32, 184, 106)',
+      );
 
       const featured = page.locator('.featured-card');
       const secondFeature = await featured.nth(1).boundingBox();

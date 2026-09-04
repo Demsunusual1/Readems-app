@@ -201,7 +201,11 @@ export default async function HomePage() {
         >
           <div className="section-title">
             <h2 id="community-title">
-              Live in the Community <small>● 1,248 online now</small>
+              Live in the Community{' '}
+              <small>
+                <span className="community-online-dot" aria-hidden="true" />
+                1,248 online now
+              </small>
             </h2>
             <Link href="/signup">
               See all activity <CaretRight />

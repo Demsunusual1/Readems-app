@@ -2590,10 +2590,16 @@ canvas {
 }
 .landing-header .ui-logo-word {
   font-family: var(--font-literary);
-  font-size: 1.8rem;
+  font-size: 1.9rem;
 }
 .landing-header .ui-logo-mark {
-  background: #fff;
+  width: 2.75rem;
+  height: 2.75rem;
+  background: transparent;
+}
+.landing-header .ui-logo-mark > svg {
+  width: 2.75rem;
+  height: 2.75rem;
 }
 .landing-desktop-nav {
   display: flex;
@@ -2984,10 +2990,21 @@ canvas {
   background: linear-gradient(100deg, #f2efff, #f7f7ff);
 }
 .community-live h2 small {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   color: #596986;
   font-family: var(--font-interface);
   font-size: 0.7rem;
   font-weight: 500;
+}
+.community-online-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  flex: none;
+  border-radius: 50%;
+  background: #20b86a;
+  box-shadow: 0 0 0 2px rgb(32 184 106 / 14%);
 }
 .activity-row {
   display: grid;
@@ -3226,14 +3243,18 @@ canvas {
     width: calc(100% - 2.5rem);
   }
   .landing-header-inner {
-    min-height: 3.8rem;
+    min-height: 3.5rem;
   }
   .landing-header .ui-logo-mark {
-    width: 2rem;
-    height: 2rem;
+    width: 2.65rem;
+    height: 2.65rem;
+  }
+  .landing-header .ui-logo-mark > svg {
+    width: 2.65rem;
+    height: 2.65rem;
   }
   .landing-header .ui-logo-word {
-    font-size: 1.22rem;
+    font-size: 1.52rem;
   }
   .landing-desktop-nav {
     display: none;
@@ -3281,11 +3302,11 @@ canvas {
     min-height: 0;
     grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
     gap: 0;
-    padding: 0.55rem 0 2.65rem;
+    padding: 0.2rem 0 2.1rem;
   }
   .official-hero-copy {
     align-self: center;
-    padding-top: 0.35rem;
+    padding-top: 0;
   }
   .official-eyebrow {
     margin-bottom: 0.4rem;
@@ -3295,7 +3316,7 @@ canvas {
     font-size: clamp(1.45rem, 6.8vw, 2.8rem);
   }
   .hero-rule {
-    margin: 0.8rem 0;
+    margin: 0.65rem 0;
   }
   .official-hero-copy .hero-description {
     font-size: 0.73rem;
@@ -3306,7 +3327,7 @@ canvas {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.4rem;
-    margin-top: 0.9rem;
+    margin-top: 0.7rem;
   }
   .official-actions .button {
     min-width: 0;
@@ -3319,7 +3340,7 @@ canvas {
   .hero-asset {
     width: 148%;
     min-height: 0;
-    height: clamp(185px, 52vw, 250px);
+    height: clamp(160px, 46vw, 215px);
     align-self: center;
     margin-left: -45%;
   }
@@ -3339,7 +3360,7 @@ canvas {
       );
   }
   .hero-wave {
-    height: clamp(42px, 11vw, 54px);
+    height: clamp(36px, 9.5vw, 46px);
   }
   .continue-section {
     padding-top: 0.1rem;
@@ -3380,26 +3401,30 @@ canvas {
     scrollbar-width: none;
   }
   .continue-card {
-    flex: 0 0 clamp(4.8rem, 25vw, 6.55rem);
-    min-height: 4.45rem;
-    padding: 0.38rem;
+    flex: 0 0 clamp(7.75rem, 34vw, 8.5rem);
+    min-height: 5.65rem;
+    gap: 0.55rem;
+    padding: 0.4rem;
+    scroll-snap-align: start;
   }
   .continue-card img {
-    width: 38px;
-    height: 54px;
+    width: 44px;
+    height: 66px;
   }
   .continue-card h3 {
-    margin-bottom: 0.2rem;
-    font-size: 0.54rem;
-    line-height: 1.25;
+    margin-bottom: 0.3rem;
+    font-size: 0.66rem;
+    line-height: 1.22;
   }
   .continue-card p {
-    margin-bottom: 0.25rem;
-    font-size: 0.46rem;
+    margin-bottom: 0.3rem;
+    font-size: 0.52rem;
+    line-height: 1.25;
   }
   .discover-card {
-    flex: 0 0 4rem;
-    font-size: 0.49rem;
+    flex: 0 0 5rem;
+    font-size: 0.58rem;
+    scroll-snap-align: start;
   }
   .featured-section,
   .community-live,
@@ -3439,8 +3464,8 @@ canvas {
     display: none;
   }
   .community-live h2 small {
-    display: block;
-    margin-top: 0.2rem;
+    display: inline-flex;
+    margin-left: 0.15rem;
     font-size: 0.58rem;
   }
   .activity-row {
