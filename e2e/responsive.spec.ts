@@ -81,33 +81,48 @@ for (const viewport of viewports) {
       await expect(mobileNavigation).toHaveCSS('position', 'fixed');
       await expect(mobileNavigation).toHaveCSS('bottom', '0px');
       await expect(page.locator('.official-footer')).toHaveCount(0);
-    }
+      await expect(
+        page.getByRole('navigation', { name: 'Landing shortcuts' }),
+      ).toBeVisible();
+      await expect(
+        page.getByRole('link', { name: 'Search stories' }),
+      ).toBeVisible();
 
-    if (viewport.width <= 390) {
       const cards = page.locator('.continue-card');
-      const first = await cards.nth(0).boundingBox();
-      const second = await cards.nth(1).boundingBox();
+      for (let index = 0; index < 3; index++) {
+        const card = await cards.nth(index).boundingBox();
+        expect(card).not.toBeNull();
+        expect(card!.x).toBeLessThan(viewport.width);
+      }
+      const discover = await page.locator('.discover-card').boundingBox();
+      expect(discover).not.toBeNull();
+      expect(discover!.x).toBeLessThan(viewport.width);
 
-      expect(first).not.toBeNull();
-      expect(second).not.toBeNull();
-      expect(first?.x).toBeGreaterThanOrEqual(0);
-      expect(first ? first.x + first.width : Infinity).toBeLessThanOrEqual(
-        viewport.width,
+      const featured = page.locator('.featured-card');
+      const secondFeature = await featured.nth(1).boundingBox();
+      const thirdFeature = await featured.nth(2).boundingBox();
+      expect(secondFeature).not.toBeNull();
+      expect(thirdFeature).not.toBeNull();
+      expect(secondFeature!.x + secondFeature!.width).toBeLessThanOrEqual(
+        viewport.width + 2,
       );
-      expect(second?.x).toBeLessThan(viewport.width);
-    }
-    if (viewport.width <= 767) {
+      expect(thirdFeature!.x).toBeLessThan(viewport.width);
+
+      for (const activity of await page
+        .locator('.activity-row article')
+        .all()) {
+        const box = await activity.boundingBox();
+        expect(box).not.toBeNull();
+        expect(box!.x).toBeGreaterThanOrEqual(0);
+        expect(box!.x + box!.width).toBeLessThanOrEqual(viewport.width);
+      }
+
+      const navItems = page.locator('.landing-bottom-nav > a');
+      await expect(navItems).toHaveCount(5);
+      await expect(page.locator('.landing-bottom-nav svg')).toHaveCount(5);
       await page.screenshot({
         path: testInfo.outputPath(`top-${viewport.width}.png`),
       });
-      await page.getByRole('button', { name: 'Open navigation menu' }).click();
-      await expect(
-        page.getByRole('navigation', { name: 'Primary navigation' }),
-      ).toBeVisible();
-      await page.screenshot({
-        path: testInfo.outputPath(`menu-${viewport.width}.png`),
-      });
-      await page.getByRole('button', { name: 'Close navigation menu' }).click();
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
       const writerButton = page.locator('.official-creator .button');
       await expect(writerButton).toBeInViewport();
@@ -117,6 +132,10 @@ for (const viewport of viewports) {
       await page.screenshot({
         path: testInfo.outputPath(`bottom-${viewport.width}.png`),
       });
+    } else {
+      await expect(
+        page.getByRole('navigation', { name: 'Primary navigation' }),
+      ).toBeVisible();
     }
   });
 }

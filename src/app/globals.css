@@ -2573,28 +2573,45 @@ canvas {
   background-size: 127px 93px;
   pointer-events: none;
 }
-.official-landing .ui-header {
+.landing-header {
   position: relative;
-  border: 0;
-  background: transparent;
 }
-.official-landing .ui-header-inner {
+.landing-header-inner {
   width: min(calc(100% - 2rem), 72rem);
   min-height: 5.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-inline: auto;
 }
-.official-landing .ui-logo-word,
-.official-landing .ui-header-nav a {
+.landing-header .ui-logo-word,
+.landing-desktop-nav a {
   color: #fff;
 }
-.official-landing .ui-logo-word {
+.landing-header .ui-logo-word {
   font-family: var(--font-literary);
   font-size: 1.8rem;
 }
-.official-landing .ui-logo-mark {
+.landing-header .ui-logo-mark {
   background: #fff;
 }
-.official-landing .ui-header-nav .ui-header-cta {
+.landing-desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+.landing-desktop-nav a {
+  font-size: 0.78rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+.landing-desktop-nav .landing-header-cta {
+  padding: 0.7rem 1rem;
+  border-radius: 9px;
   background: var(--landing-blue);
+}
+.landing-mobile-actions {
+  display: none;
 }
 .official-hero {
   min-height: 0;
@@ -3202,42 +3219,69 @@ canvas {
 
 @media (max-width: 767px) {
   .official-landing {
-    padding-bottom: calc(74px + env(safe-area-inset-bottom));
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
   }
   .landing-container,
-  .official-landing .ui-header-inner {
-    width: calc(100% - 1.25rem);
+  .landing-header-inner {
+    width: calc(100% - 2.5rem);
   }
-  .official-landing .ui-header-inner {
-    min-height: 4rem;
+  .landing-header-inner {
+    min-height: 3.8rem;
   }
-  .official-landing .ui-logo-word {
-    font-size: 1.3rem;
+  .landing-header .ui-logo-mark {
+    width: 2rem;
+    height: 2rem;
   }
-  .official-landing .ui-header-nav {
-    top: calc(100% + 0.35rem);
-    right: 0.625rem;
-    left: auto;
-    width: min(15rem, calc(100% - 1.25rem));
-    gap: 0.2rem;
-    padding: 0.55rem;
-    border-color: #d9e1ee;
-    border-radius: 14px;
-    background: #fff;
+  .landing-header .ui-logo-word {
+    font-size: 1.22rem;
   }
-  .official-landing .ui-header-nav a {
-    min-height: 2.6rem;
-    color: #061333;
-    font-size: 0.78rem;
+  .landing-desktop-nav {
+    display: none;
   }
-  .official-landing .ui-header-nav .ui-header-cta {
+  .landing-mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+  .landing-mobile-actions a {
+    position: relative;
+    display: grid;
+    place-items: center;
     color: #fff;
+    text-decoration: none;
+  }
+  .landing-mobile-actions svg {
+    width: 22px;
+    height: 22px;
+  }
+  .landing-notifications > span {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 14px;
+    height: 14px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    background: #8d64e8;
+    font-size: 0.48rem;
+    font-weight: 800;
+  }
+  .landing-avatar,
+  .landing-avatar img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+  }
+  .landing-avatar img {
+    object-fit: cover;
   }
   .official-hero {
     min-height: 0;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
     gap: 0;
-    padding: 0.7rem 0 2.5rem;
+    padding: 0.55rem 0 2.65rem;
   }
   .official-hero-copy {
     align-self: center;
@@ -3273,11 +3317,11 @@ canvas {
     white-space: nowrap;
   }
   .hero-asset {
-    width: 135%;
+    width: 148%;
     min-height: 0;
-    height: clamp(210px, 59vw, 370px);
+    height: clamp(185px, 52vw, 250px);
     align-self: center;
-    margin-left: -30%;
+    margin-left: -45%;
   }
   .hero-asset img {
     object-fit: cover;
@@ -3295,7 +3339,7 @@ canvas {
       );
   }
   .hero-wave {
-    height: clamp(36px, 9vw, 58px);
+    height: clamp(42px, 11vw, 54px);
   }
   .continue-section {
     padding-top: 0.1rem;
@@ -3328,7 +3372,7 @@ canvas {
   .featured-row,
   .genre-grid {
     display: flex;
-    gap: 0.6rem;
+    gap: 0.45rem;
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 0.35rem;
@@ -3336,23 +3380,26 @@ canvas {
     scrollbar-width: none;
   }
   .continue-card {
-    flex: 0 0 min(49vw, 180px);
+    flex: 0 0 clamp(4.8rem, 25vw, 6.55rem);
+    min-height: 4.45rem;
+    padding: 0.38rem;
   }
   .continue-card img {
-    width: 48px;
-    height: 66px;
+    width: 38px;
+    height: 54px;
   }
   .continue-card h3 {
     margin-bottom: 0.2rem;
-    font-size: 0.66rem;
+    font-size: 0.54rem;
+    line-height: 1.25;
   }
   .continue-card p {
     margin-bottom: 0.25rem;
-    font-size: 0.57rem;
+    font-size: 0.46rem;
   }
   .discover-card {
-    flex: 0 0 88px;
-    font-size: 0.64rem;
+    flex: 0 0 4rem;
+    font-size: 0.49rem;
   }
   .featured-section,
   .community-live,
@@ -3365,21 +3412,21 @@ canvas {
     margin-bottom: 0.55rem;
   }
   .featured-card {
-    min-height: 148px;
-    flex: 0 0 min(53vw, 195px);
+    min-height: 128px;
+    flex: 0 0 min(42vw, 168px);
     scroll-snap-align: start;
   }
   .featured-card > div {
-    padding: 0.7rem;
+    padding: 0.58rem;
   }
   .featured-card h3 {
     max-width: 8.5rem;
     margin: 0.45rem 0 0.25rem;
-    font-size: 1rem;
+    font-size: 0.88rem;
   }
   .featured-card p {
     max-width: 8.5rem;
-    font-size: 0.62rem;
+    font-size: 0.54rem;
   }
   .feature-label,
   .featured-card footer {
@@ -3397,22 +3444,20 @@ canvas {
     font-size: 0.58rem;
   }
   .activity-row {
-    display: flex;
-    gap: 0.55rem;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding-bottom: 0.25rem;
-    scrollbar-width: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.4rem;
   }
   .activity-row article {
-    flex: 0 0 170px;
+    min-width: 0;
   }
   .activity-row img {
-    width: 38px;
-    height: 38px;
+    width: 32px;
+    height: 32px;
   }
   .activity-row p {
-    font-size: 0.63rem;
+    font-size: 0.5rem;
+    line-height: 1.25;
   }
   .creator-spotlight {
     min-height: 0;
@@ -3444,7 +3489,7 @@ canvas {
   }
   .spotlight-image {
     width: 100%;
-    min-height: 100px;
+    min-height: 84px;
     height: calc(100% + 1.1rem);
     align-self: center;
     justify-self: center;
@@ -3474,23 +3519,23 @@ canvas {
     height: 18px;
   }
   .genre-grid a {
-    min-height: 44px;
-    flex: 0 0 92px;
+    min-height: 40px;
+    flex: 0 0 3.75rem;
     gap: 0.35rem;
-    font-size: 0.58rem;
+    font-size: 0.48rem;
   }
   .genre-grid svg {
     width: 19px;
     height: 19px;
   }
   .official-creator {
-    min-height: 0;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    min-height: 7.25rem;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     gap: 0;
     padding: 0.6rem 0.75rem;
   }
   .official-creator h2 {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
   .official-creator > div > p:not(.official-eyebrow) {
     margin-bottom: 0.5rem;
@@ -3513,11 +3558,11 @@ canvas {
     font-size: 0.52rem;
   }
   .creator-asset {
-    width: 112%;
+    width: 125%;
     min-height: 0;
-    height: clamp(140px, 38vw, 230px);
+    height: 7.1rem;
     align-self: center;
-    margin-left: -12%;
+    margin-left: -25%;
   }
   .landing-bottom-nav {
     position: fixed;
@@ -3525,7 +3570,7 @@ canvas {
     right: 0;
     bottom: 0;
     left: 0;
-    height: calc(74px + env(safe-area-inset-bottom));
+    height: calc(64px + env(safe-area-inset-bottom));
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     padding: 0.4rem 0.2rem max(0.4rem, env(safe-area-inset-bottom));
@@ -3536,7 +3581,7 @@ canvas {
   }
   .landing-bottom-nav a {
     min-width: 0;
-    min-height: 56px;
+    min-height: 48px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3551,14 +3596,14 @@ canvas {
     color: var(--landing-blue);
   }
   .landing-bottom-nav svg {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
   }
   .landing-bottom-nav .landing-create-link {
-    width: 56px;
-    min-width: 56px;
-    height: 56px;
-    min-height: 56px;
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    min-height: 48px;
     justify-self: center;
     margin-top: -1rem;
     border: 5px solid #fff;
