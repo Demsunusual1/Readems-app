@@ -297,6 +297,16 @@
   cursor: wait;
 }
 @media (max-width: 600px) {
+  .story-top {
+    padding: 14px;
+    gap: 10px;
+  }
+  .story-top .ui-logo-word {
+    font-size: 1.2rem;
+  }
+  .story-top > a:last-child {
+    font-size: 0.875rem;
+  }
   .story-hero-inner {
     grid-template-columns: 105px minmax(0, 1fr);
     gap: 18px;
