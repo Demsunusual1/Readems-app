@@ -265,9 +265,12 @@ export function Discover({
             <h2 id="preview-title">{selected.title}</h2>
             <p>{selected.description}</p>
             <p className="discover-note">
-              This is a sample story concept. Published chapters and reading
-              progress will be added in the reading experience.
+              This is a sample story concept. Open its details to see available
+              sample chapters.
             </p>
+            <Link href={`/stories/${selected.id}`}>
+              View story and chapters →
+            </Link>
           </>
         )}
       </dialog>
