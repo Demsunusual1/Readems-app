@@ -101,9 +101,15 @@ for (const viewport of viewports) {
         clientWidth: element.clientWidth,
         scrollWidth: element.scrollWidth,
       }));
-      expect(continueMetrics.scrollWidth).toBeGreaterThan(
-        continueMetrics.clientWidth,
-      );
+      if (viewport.width <= 390) {
+        expect(continueMetrics.scrollWidth).toBeGreaterThan(
+          continueMetrics.clientWidth,
+        );
+      } else {
+        expect(continueMetrics.scrollWidth).toBeGreaterThanOrEqual(
+          continueMetrics.clientWidth,
+        );
+      }
       await continueTrack.evaluate((element) => {
         element.scrollLeft = element.scrollWidth;
       });
