@@ -65,5 +65,8 @@ describe('Landing hero', () => {
     expect(
       screen.getByRole('link', { name: 'Go to dashboard' }),
     ).toHaveAttribute('href', '/reader/dashboard');
+    expect(
+      screen.getByRole('link', { name: 'Go to dashboard' }).parentElement,
+    ).toHaveClass('is-signed-in');
   });
 });

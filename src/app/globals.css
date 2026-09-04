@@ -3243,6 +3243,9 @@ canvas {
     width: calc(100% - 2.5rem);
   }
   .landing-header-inner {
+    width: calc(100% - 2rem);
+  }
+  .landing-header-inner {
     min-height: 3rem;
   }
   .landing-header .ui-logo-mark {
@@ -3325,19 +3328,25 @@ canvas {
     line-height: 1.35;
   }
   .official-actions {
-    width: min(100%, 18rem);
+    width: max-content;
+    max-width: none;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 5.35rem 6rem;
     gap: 0.4rem;
     margin-top: 0.5rem;
+  }
+  .official-actions.is-signed-in {
+    grid-template-columns: 6.65rem 6rem;
   }
   .official-actions .button {
     min-width: 0;
     min-height: 36px;
-    padding: 0.42rem 0.25rem;
-    font-size: 0.64rem;
+    width: 100%;
+    padding: 0.42rem 0.35rem;
+    font-size: 0.6rem;
     line-height: 1.2;
     white-space: nowrap;
+    overflow: hidden;
   }
   .hero-asset {
     width: 148%;

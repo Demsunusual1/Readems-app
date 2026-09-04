@@ -93,7 +93,7 @@ export function LandingHero({
             <span className="hero-rule" aria-hidden="true" />
             <p className="hero-description">{slide.copy}</p>
           </div>
-          <div className="official-actions">
+          <div className={`official-actions${signedIn ? ' is-signed-in' : ''}`}>
             <Link className="button button-primary" href={readingHref}>
               {signedIn ? 'Go to dashboard' : 'Start Reading'}
             </Link>
