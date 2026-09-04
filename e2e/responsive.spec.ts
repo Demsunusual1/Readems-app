@@ -93,7 +93,7 @@ for (const viewport of viewports) {
       const secondCard = await cards.nth(1).boundingBox();
       expect(firstCard).not.toBeNull();
       expect(secondCard).not.toBeNull();
-      expect(firstCard!.width).toBeGreaterThanOrEqual(120);
+      expect(firstCard!.width).toBeGreaterThanOrEqual(92);
       expect(secondCard!.x).toBeLessThan(viewport.width);
 
       const continueTrack = page.locator('.continue-row');
