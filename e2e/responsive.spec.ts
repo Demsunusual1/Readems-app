@@ -59,7 +59,7 @@ for (const viewport of viewports) {
     if (viewport.width <= 767) {
       const hero = await page.locator('.official-hero').boundingBox();
       expect(hero).not.toBeNull();
-      expect(hero!.height).toBeLessThan(450);
+      expect(hero!.height).toBeLessThanOrEqual(194);
       const art = await page.locator('.hero-asset').boundingBox();
       const copy = await page.locator('.official-hero-copy').boundingBox();
       expect(art).not.toBeNull();

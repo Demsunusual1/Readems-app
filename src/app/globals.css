@@ -3243,7 +3243,7 @@ canvas {
     width: calc(100% - 2.5rem);
   }
   .landing-header-inner {
-    min-height: 3.5rem;
+    min-height: 3rem;
   }
   .landing-header .ui-logo-mark {
     width: 2.65rem;
@@ -3300,38 +3300,40 @@ canvas {
   }
   .official-hero {
     min-height: 0;
+    height: 12rem;
     grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
     gap: 0;
-    padding: 0.2rem 0 2.1rem;
+    padding: 0 0 1.8rem;
   }
   .official-hero-copy {
     align-self: center;
     padding-top: 0;
   }
   .official-eyebrow {
-    margin-bottom: 0.4rem;
-    font-size: 0.63rem;
+    margin-bottom: 0.28rem;
+    font-size: 0.56rem;
   }
   .official-hero h1 {
-    font-size: clamp(1.45rem, 6.8vw, 2.8rem);
+    font-size: clamp(1.3rem, 5.8vw, 2.3rem);
   }
   .hero-rule {
-    margin: 0.65rem 0;
+    width: 34px;
+    margin: 0.45rem 0;
   }
   .official-hero-copy .hero-description {
-    font-size: 0.73rem;
-    line-height: 1.45;
+    font-size: 0.62rem;
+    line-height: 1.35;
   }
   .official-actions {
     width: min(100%, 18rem);
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.4rem;
-    margin-top: 0.7rem;
+    margin-top: 0.5rem;
   }
   .official-actions .button {
     min-width: 0;
-    min-height: 44px;
+    min-height: 36px;
     padding: 0.42rem 0.25rem;
     font-size: 0.64rem;
     line-height: 1.2;
@@ -3340,7 +3342,7 @@ canvas {
   .hero-asset {
     width: 148%;
     min-height: 0;
-    height: clamp(160px, 46vw, 215px);
+    height: clamp(145px, 42vw, 190px);
     align-self: center;
     margin-left: -45%;
   }
@@ -3360,7 +3362,7 @@ canvas {
       );
   }
   .hero-wave {
-    height: clamp(36px, 9.5vw, 46px);
+    height: clamp(32px, 8vw, 40px);
   }
   .continue-section {
     padding-top: 0.1rem;
