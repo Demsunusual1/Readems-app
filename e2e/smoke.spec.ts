@@ -68,16 +68,18 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
 test('mobile navigation is keyboard accessible', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
-  const menu = page.getByRole('button', { name: 'Open navigation menu' });
-  await menu.focus();
-  await page.keyboard.press('Enter');
-  const mobileNavigation = page.getByRole('navigation', {
-    name: 'Primary navigation',
+  const shortcuts = page.getByRole('navigation', {
+    name: 'Landing shortcuts',
   });
-  await expect(
-    mobileNavigation.getByRole('link', { name: 'Log In' }),
-  ).toBeVisible();
-  await expect(
-    mobileNavigation.getByRole('link', { name: 'Join Readems' }),
-  ).toHaveAttribute('href', '/signup');
+  const search = shortcuts.getByRole('link', { name: 'Search stories' });
+  await search.focus();
+  await expect(search).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL('/discover');
+
+  await page.goBack();
+  const notifications = page.getByRole('link', { name: 'Notifications' });
+  await notifications.focus();
+  await expect(notifications).toBeFocused();
+  await expect(notifications).toHaveAttribute('href', '/login');
 });
