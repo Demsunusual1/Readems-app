@@ -57,7 +57,7 @@ export function CreatorDashboard({
             <h1>{name}</h1>
             <span>✹ &nbsp;Verified Creator</span>
           </div>
-          <Link className="creator-new-story" href="/creator/stories/new">
+          <Link className="creator-new-story" href="#draft-queue">
             <Plus /> New Story
           </Link>
         </div>
@@ -132,7 +132,7 @@ export function CreatorDashboard({
           </div>
         </section>
         <div className="creator-two-column">
-          <section className="creator-panel queue-panel">
+          <section className="creator-panel queue-panel" id="draft-queue">
             <Heading title="Draft Queue" />
             <Queue title="Echoes in the Market" chapters="6 Chapters" />
             <Queue title="Fragments of Us" chapters="10 Chapters" />
