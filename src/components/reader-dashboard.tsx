@@ -49,7 +49,7 @@ const serials = [
     title: 'Shadows of the Drum',
     chapter: 'Chapter 8',
     reads: '12.3K',
-    image: '/readems/cover-shadows-of-the-drum.png',
+    image: '/readems/dashboard-cover-shadows.png',
   },
   {
     title: 'City of a Thousand Lights',
@@ -91,7 +91,9 @@ export function ReaderDashboard({
 }: {
   user: { fullName: string; avatarUrl: string | null; interests: string[] };
 }) {
-  const firstName = user.fullName.trim().split(/\s+/)[0] || 'Kemi';
+  const rawFirstName = user.fullName.trim().split(/\s+/)[0] || 'Kemi';
+  const firstName =
+    rawFirstName.charAt(0).toUpperCase() + rawFirstName.slice(1).toLowerCase();
 
   return (
     <div className="reader-dashboard-page">
