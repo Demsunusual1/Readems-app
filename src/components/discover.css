@@ -387,25 +387,25 @@
     height: 40px;
   }
   .discover-hero {
-    height: 286px;
-    padding: 34px 18px;
+    height: 246px;
+    padding: 29px 18px;
   }
   .discover-hero:after {
     bottom: -22px;
     height: 44px;
   }
   .discover-hero-copy {
-    max-width: 56%;
+    max-width: 54%;
   }
   .discover-hero h1 {
-    font-size: 2rem;
+    font-size: 1.68rem;
     line-height: 1.04;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   .discover-hero p {
-    max-width: 185px;
-    font-size: 0.8rem;
-    line-height: 1.45;
+    max-width: 165px;
+    font-size: 0.7rem;
+    line-height: 1.42;
   }
   .discover-hero-art {
     width: 53%;
@@ -414,7 +414,7 @@
     left: 18px;
     right: 18px;
     bottom: -12px;
-    min-height: 54px;
+    min-height: 50px;
     border-radius: 14px;
     padding: 0 12px;
   }
@@ -424,68 +424,83 @@
     height: 22px;
   }
   .discover-search input {
-    font-size: 0.78rem;
+    font-size: clamp(0.66rem, 3vw, 0.76rem);
     padding: 0 8px;
   }
   .discover-content {
-    padding: 56px 18px 18px;
+    padding: 50px 18px 18px;
   }
   .discover-content section {
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
   .discover-content h2 {
-    font-size: 1.25rem;
+    font-size: 1.08rem;
   }
   .discover-section-heading {
     margin-bottom: 14px;
   }
   .discover-section-heading a {
-    font-size: 0.9rem;
+    font-size: 0.76rem;
     gap: 3px;
   }
   .discover-genres {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    margin-right: -18px;
-    padding-right: 18px;
-    scrollbar-width: none;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 7px;
+    overflow: visible;
+    margin: 0;
+    padding: 0;
   }
   .discover-genres button {
-    flex: 0 0 61px;
-    font-size: 0.72rem;
+    min-width: 0;
+    font-size: clamp(0.55rem, 2.3vw, 0.66rem);
   }
   .discover-genres button span {
-    width: 56px;
-    height: 56px;
+    width: min(100%, 48px);
+    aspect-ratio: 1;
+    height: auto;
     margin-bottom: 7px;
   }
   .discover-genres svg {
-    width: 26px;
-    height: 26px;
+    width: 22px;
+    height: 22px;
   }
   .discover-regions {
-    display: flex;
-    gap: 14px;
-    margin-right: -20px;
-    padding-right: 20px;
-    scroll-snap-type: x mandatory;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
   }
   .discover-regions article {
-    flex: 0 0 158px;
-    scroll-snap-align: start;
+    min-width: 0;
+    border-radius: 10px;
   }
   .discover-region-image {
-    height: 132px;
+    height: auto;
+    aspect-ratio: 1;
+  }
+  .discover-region-image svg {
+    left: 6px;
+    top: 6px;
+    width: 24px;
+    height: 24px;
+    padding: 5px;
   }
   .discover-regions h3 {
-    font-size: 1.05rem;
+    font-size: clamp(0.58rem, 2.5vw, 0.7rem);
+    margin: 7px 6px 3px;
   }
   .discover-regions p {
-    font-size: 0.82rem;
+    min-height: 0;
+    margin: 0 6px 6px;
+    font-size: clamp(0.49rem, 2vw, 0.59rem);
+    line-height: 1.25;
   }
   .discover-regions small {
-    font-size: 0.78rem;
+    margin: 0 6px 8px;
+    font-size: clamp(0.48rem, 1.9vw, 0.56rem);
   }
   .discover-moods {
     display: flex;
