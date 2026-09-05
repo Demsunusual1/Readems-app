@@ -821,6 +821,7 @@
   }
 
   .continue-button {
+    align-self: end;
     min-height: 25px;
     padding: 0 7px;
     border-radius: 7px;
@@ -864,7 +865,7 @@
   }
 
   .recommendation-meta {
-    margin-top: auto;
+    margin-top: 2px;
   }
 
   .recommendation-meta > span {
@@ -892,7 +893,10 @@
   }
 
   .serial-card > div {
+    display: grid;
+    grid-template-rows: 22px 14px 14px;
     min-width: 0;
+    align-content: start;
   }
 
   .serial-card > img {
@@ -902,18 +906,21 @@
   }
 
   .serial-card h3 {
-    min-height: 21px;
+    min-height: 0;
+    margin: 0;
     font-size: 0.4rem;
     font-weight: 700;
     line-height: 1.18;
   }
 
   .serial-card p {
-    margin: 3px 0 5px;
+    align-self: center;
+    margin: 0;
     font-size: 0.38rem;
   }
 
   .serial-card span {
+    align-self: center;
     gap: 3px;
     font-size: 0.38rem;
   }
