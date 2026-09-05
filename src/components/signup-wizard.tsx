@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   ArrowLeft,
   ArrowRight,
@@ -17,10 +18,12 @@ import {
   At,
 } from '@phosphor-icons/react';
 import { interests, signupSchema, type SignupInput } from '@/lib/signup';
+import { countries, languages } from '@/lib/countries';
 import { PasswordField } from './password-field';
 import { Input } from './ui/input';
 import { AuthShell } from './auth-shell';
 import { AuthSocial } from './auth-social';
+import { Logo } from './ui/logo';
 
 type Draft = SignupInput & { confirmPassword: string };
 const initial: Draft = {
@@ -33,6 +36,8 @@ const initial: Draft = {
   interests: [],
   bio: '',
   avatarUrl: '',
+  country: 'Nigeria',
+  preferredLanguage: 'English',
 };
 const steps = [
   'Welcome',
@@ -58,11 +63,51 @@ export function SignupWizard({
   }, [step]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [photoError, setPhotoError] = useState('');
   const [destination, setDestination] = useState('/reader/dashboard');
   const [agreed, setAgreed] = useState(false);
   const router = useRouter();
   const update = (field: keyof Draft, value: string | string[]) =>
     setData((current) => ({ ...current, [field]: value }));
+  const choosePhoto = (file?: File) => {
+    setPhotoError('');
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      setPhotoError('Choose a JPG, PNG, or WebP image.');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setPhotoError('Choose an image smaller than 5 MB.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const source = new window.Image();
+      source.onload = () => {
+        const size = Math.min(512, source.width, source.height);
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const context = canvas.getContext('2d');
+        if (!context) return setPhotoError('Unable to process this image.');
+        const crop = Math.min(source.width, source.height);
+        context.drawImage(
+          source,
+          (source.width - crop) / 2,
+          (source.height - crop) / 2,
+          crop,
+          crop,
+          0,
+          0,
+          size,
+          size,
+        );
+        update('avatarUrl', canvas.toDataURL('image/jpeg', 0.82));
+      };
+      source.src = String(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
   const next = () => {
     setError('');
     if (step === 1) {
@@ -148,7 +193,26 @@ export function SignupWizard({
   );
   return (
     <AuthShell mode="signup">
-      <div className="auth-onboarding">
+      <div className={`auth-onboarding auth-onboarding-step-${step}`}>
+        {step >= 2 && step <= 4 && (
+          <header className="onboarding-topbar">
+            <Logo tone="light" />
+            <div
+              className="onboarding-progress"
+              aria-label={`Step ${step - 1} of 3`}
+            >
+              {[1, 2, 3].map((item) => (
+                <span
+                  key={item}
+                  className={item <= step - 1 ? 'is-active' : undefined}
+                >
+                  {item}
+                </span>
+              ))}
+              <small>Step {step - 1} of 3</small>
+            </div>
+          </header>
+        )}
         <ol className="auth-steps" aria-label="Account setup progress">
           {['Create account', 'Personalize', 'You’re in'].map(
             (label, index) => {
@@ -167,7 +231,11 @@ export function SignupWizard({
             },
           )}
         </ol>
-        <section ref={panel} className="signup-card" aria-label={steps[step]}>
+        <section
+          ref={panel}
+          className={`signup-card signup-step-${step}`}
+          aria-label={steps[step]}
+        >
           {step === 1 && (
             <form
               onSubmit={(e) => {
@@ -226,23 +294,30 @@ export function SignupWizard({
           )}
           {step === 2 && (
             <>
-              <p className="eyebrow">Choose your path</p>
-              <h2 tabIndex={-1}>How will you use Readems?</h2>
-              <p>You can change this later in settings.</p>
+              <p className="eyebrow">Step 1 of 3</p>
+              <h2 tabIndex={-1}>Welcome to Readems</h2>
+              <p>
+                Tell us what inspires you most. We’ll personalize your
+                experience.
+              </p>
               <div className="choice-grid">
                 {(
                   [
                     [
                       'READER',
                       'Reader',
-                      'Discover stories and build your library.',
+                      'Discover stories, grow your mind, and join the conversation.',
                     ],
                     [
                       'CREATOR',
                       'Creator',
-                      'Publish stories and grow an audience.',
+                      'Write your story, share your voice, and build your audience.',
                     ],
-                    ['BOTH', 'Both', 'Read, write, and do it all.'],
+                    [
+                      'BOTH',
+                      'Both',
+                      'Read, write, and connect—your complete creative home.',
+                    ],
                   ] as const
                 ).map(([value, title, copy]) => (
                   <button
@@ -265,16 +340,23 @@ export function SignupWizard({
                   </button>
                 ))}
               </div>
+              <aside className="onboarding-note">
+                <strong>A global community</strong>
+                <span>
+                  Join readers and writers from around the world in a space
+                  built for stories that matter.
+                </span>
+              </aside>
               <Nav back={() => setStep(1)} onNext={next} />
             </>
           )}
           {step === 3 && (
             <>
-              <p className="eyebrow">Make it yours</p>
+              <p className="eyebrow">Step 2 of 3</p>
               <h2 tabIndex={-1}>What stories move you?</h2>
               <p>
-                Choose at least 3 so we can personalize your experience.{' '}
-                <b>{data.interests.length} selected</b>
+                Choose the stories you love. We’ll personalize your Readems
+                experience. <b>{data.interests.length} selected</b>
               </p>
               <div className="interest-grid">
                 {interests.map((item) => {
@@ -299,15 +381,67 @@ export function SignupWizard({
                   );
                 })}
               </div>
+              <aside className="onboarding-note">
+                <strong>Tailored just for you</strong>
+                <span>
+                  Your choices help us recommend stories, writers, and
+                  communities you’ll love.
+                </span>
+              </aside>
               <Nav back={() => setStep(2)} onNext={next} />
             </>
           )}
           {step === 4 && (
             <form onSubmit={submit} aria-busy={loading}>
-              <p className="eyebrow">One last touch</p>
-              <h2 tabIndex={-1}>Set up your profile</h2>
-              <p>Help the community recognize you. Both fields are optional.</p>
-              {field('Profile photo URL', 'avatarUrl', 'url', undefined, false)}
+              <p className="eyebrow">Step 3 of 3</p>
+              <h2 tabIndex={-1}>Create Your Reader Profile</h2>
+              <p>
+                Tell us about yourself so we can personalize your Readems
+                experience.
+              </p>
+              <div className="onboarding-profile-photo">
+                {data.avatarUrl ? (
+                  <Image
+                    src={data.avatarUrl}
+                    alt="Your profile preview"
+                    width={180}
+                    height={180}
+                    unoptimized
+                  />
+                ) : (
+                  <Image
+                    src="/readems/creator-chinelo-okoye.png"
+                    alt="Default profile preview"
+                    width={180}
+                    height={180}
+                  />
+                )}
+                <strong>Add a profile photo</strong>
+                <span>Show the community who you are.</span>
+                <div className="onboarding-photo-actions">
+                  <label>
+                    {data.avatarUrl ? 'Change photo' : 'Choose photo'}
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      onChange={(event) => choosePhoto(event.target.files?.[0])}
+                    />
+                  </label>
+                  {data.avatarUrl && (
+                    <button
+                      type="button"
+                      onClick={() => update('avatarUrl', '')}
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+                {photoError && <small className="error">{photoError}</small>}
+              </div>
+              <div className="onboarding-profile-grid">
+                {field('Display Name', 'fullName', 'text', 'name')}
+                {field('Username', 'username', 'text', 'username')}
+              </div>
               <label>
                 Short bio
                 <textarea
@@ -318,6 +452,70 @@ export function SignupWizard({
                 />
                 <small>{data.bio?.length ?? 0}/240</small>
               </label>
+              <div className="onboarding-select-grid">
+                <label>
+                  Country / Region
+                  <select
+                    value={data.country}
+                    onChange={(event) => update('country', event.target.value)}
+                  >
+                    {countries.map(({ code, name }) => (
+                      <option key={code} value={name}>
+                        {name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  Preferred Language
+                  <select
+                    value={data.preferredLanguage}
+                    onChange={(event) =>
+                      update('preferredLanguage', event.target.value)
+                    }
+                  >
+                    {languages.map((language) => (
+                      <option key={language}>{language}</option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+              <fieldset className="onboarding-preferences">
+                <legend>Content Preferences</legend>
+                <small>Help us tailor your reading recommendations.</small>
+                <div>
+                  {['Fiction', 'Non-Fiction', 'Poetry', 'Comics'].map(
+                    (preference) => (
+                      <button
+                        key={preference}
+                        type="button"
+                        className={preference === 'Fiction' ? 'selected' : ''}
+                      >
+                        {preference}
+                        <span>{preference === 'Fiction' ? '✓' : '+'}</span>
+                      </button>
+                    ),
+                  )}
+                </div>
+              </fieldset>
+              <fieldset className="onboarding-privacy">
+                <legend>Privacy &amp; Visibility</legend>
+                <small>You can change these anytime in settings.</small>
+                <label>
+                  <span>
+                    <strong>Show my profile to other readers</strong>
+                    Allow others to discover and follow you.
+                  </span>
+                  <input type="checkbox" defaultChecked />
+                </label>
+                <label>
+                  <span>
+                    <strong>Display my reading activity</strong>
+                    Share your reads and reviews with followers.
+                  </span>
+                  <input type="checkbox" />
+                </label>
+              </fieldset>
               <Nav
                 back={() => setStep(3)}
                 label={loading ? 'Creating account…' : 'Finish signup'}

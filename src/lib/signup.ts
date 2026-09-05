@@ -9,7 +9,7 @@ export const interests = [
   'Poetry',
   'Non-Fiction',
   'Young Adult',
-  'African Literature',
+  'African Folktales',
   'Personal Growth',
 ] as const;
 
@@ -37,7 +37,19 @@ export const signupSchema = z.object({
     .min(3, 'Choose at least 3 interests.')
     .max(interests.length),
   bio: z.string().trim().max(240).optional(),
-  avatarUrl: z.union([z.literal(''), z.url()]).optional(),
+  avatarUrl: z
+    .string()
+    .max(500_000)
+    .refine(
+      (value) =>
+        value === '' ||
+        /^https?:\/\//.test(value) ||
+        /^data:image\/(jpeg|png|webp);base64,/.test(value),
+      'Choose a valid profile image.',
+    )
+    .optional(),
+  country: z.string().trim().min(2).max(80).optional(),
+  preferredLanguage: z.string().trim().min(2).max(80).optional(),
 });
 
 export type SignupInput = z.infer<typeof signupSchema>;
