@@ -394,12 +394,12 @@
   }
   .details-hero-inner {
     margin: 12px auto;
-    grid-template-columns: 112px 1fr;
-    gap: 16px;
+    grid-template-columns: 105px 1fr;
+    gap: 13px;
   }
   .details-cover {
-    width: 112px;
-    height: 150px;
+    width: 105px;
+    height: 136px;
     border-radius: 9px;
   }
   .details-summary > span {
@@ -407,29 +407,29 @@
     padding: 3px 7px;
   }
   .details-summary h1 {
-    font-size: 1.55rem;
-    margin: 9px 0;
+    font-size: 1.2rem;
+    margin: 7px 0;
   }
   .details-summary > p {
-    font-size: 0.72rem;
+    font-size: 0.62rem;
   }
   .details-stats {
-    margin-top: 14px;
+    margin-top: 10px;
   }
   .details-stats > span {
     min-width: 0;
-    padding: 0 10px;
-    grid-template-columns: 19px auto;
+    padding: 0 7px;
+    grid-template-columns: 16px auto;
   }
   .details-stats svg {
-    width: 16px;
-    height: 16px;
+    width: 13px;
+    height: 13px;
   }
   .details-stats b {
-    font-size: 0.78rem;
+    font-size: 0.66rem;
   }
   .details-stats small {
-    font-size: 0.58rem;
+    font-size: 0.49rem;
   }
   .details-actions {
     grid-template-columns: 1fr 1fr 42px;
@@ -437,9 +437,9 @@
   }
   .details-actions a,
   .details-actions button {
-    min-height: 43px;
+    min-height: 39px;
     border-radius: 8px;
-    font-size: 0.72rem;
+    font-size: 0.65rem;
     gap: 6px;
   }
   .details-actions svg {
@@ -447,41 +447,46 @@
     height: 18px;
   }
   .details-content {
-    padding: 27px 18px;
+    padding: 23px 18px;
   }
   .details-description {
-    font-size: 0.82rem;
-    line-height: 1.48;
+    font-size: 0.68rem;
+    line-height: 1.42;
   }
   .details-meta {
-    padding: 12px 10px;
+    min-height: 58px;
+    padding: 8px 6px;
   }
   .details-meta > span {
-    grid-template-columns: 24px 1fr;
+    grid-template-columns: 19px 1fr;
   }
   .details-meta svg {
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
   }
   .details-meta b {
-    font-size: 0.65rem;
+    font-size: clamp(0.48rem, 2vw, 0.58rem);
+    white-space: nowrap;
   }
   .details-meta small {
-    font-size: 0.58rem;
+    font-size: 0.49rem;
   }
   .details-content section {
-    margin: 22px 0;
+    margin: 18px 0;
   }
   .details-content h2 {
-    font-size: 1rem;
+    font-size: 0.86rem;
   }
   .details-tags > div {
-    gap: 7px;
-    margin-top: 11px;
+    flex-wrap: nowrap;
+    gap: 4px;
+    margin-top: 9px;
   }
   .details-tags span {
-    font-size: 0.62rem;
-    padding: 6px 10px;
+    flex: 0 1 auto;
+    white-space: nowrap;
+    font-size: clamp(0.44rem, 1.85vw, 0.54rem);
+    padding: 5px 7px;
   }
   .details-heading h2 small {
     font-size: 0.62rem;
