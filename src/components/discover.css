@@ -358,6 +358,7 @@
 }
 @media (max-width: 700px) {
   .discover-page {
+    background: #041b43;
     padding-bottom: 88px;
   }
   .discover-header {
@@ -428,6 +429,7 @@
     padding: 0 8px;
   }
   .discover-content {
+    background: #fff;
     padding: 50px 18px 18px;
   }
   .discover-content section {
