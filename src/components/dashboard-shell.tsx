@@ -14,7 +14,6 @@ import {
   PenNib,
   Users,
   UserCircle,
-  SignOut,
 } from '@phosphor-icons/react/dist/ssr';
 import { ReademsLogo } from './readems-logo';
 import { BottomNavigation } from './ui/bottom-navigation';
@@ -116,11 +115,6 @@ export function DashboardShell({
           >
             {!avatarUrl && name.charAt(0)}
           </span>
-          <form action="/api/logout" method="post">
-            <button className="dashboard-logout" type="submit">
-              <SignOut aria-hidden="true" /> <span>Log out</span>
-            </button>
-          </form>
         </div>
       </header>
       <div className="dashboard-layout">

@@ -2616,47 +2616,6 @@ canvas {
   border-radius: 9px;
   background: var(--landing-blue);
 }
-.landing-desktop-nav form,
-.landing-mobile-actions form,
-.dash-account form {
-  margin: 0;
-}
-.landing-logout,
-.landing-mobile-logout,
-.dashboard-logout {
-  border: 0;
-  color: inherit;
-  background: transparent;
-  cursor: pointer;
-}
-.landing-logout {
-  padding: 0;
-  color: #fff;
-  font-size: 0.78rem;
-  font-weight: 650;
-}
-.landing-mobile-logout {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  padding: 7px;
-  color: #fff;
-}
-.landing-mobile-logout svg {
-  width: 100%;
-  height: 100%;
-}
-.dashboard-logout {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 700;
-}
-.dashboard-logout svg {
-  width: 20px;
-  height: 20px;
-}
 .landing-mobile-actions {
   display: none;
 }
