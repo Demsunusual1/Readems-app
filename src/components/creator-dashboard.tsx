@@ -1,166 +1,323 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { PlusCircle } from '@phosphor-icons/react/dist/ssr';
-import { DashboardShell } from './dashboard-shell';
+import {
+  Bell,
+  Books,
+  CalendarBlank,
+  CaretDown,
+  CaretRight,
+  ChartBar,
+  ChatCircle,
+  CurrencyDollar,
+  Eye,
+  FileText,
+  Heart,
+  List,
+  Plus,
+  ShareNetwork,
+  Sparkle,
+  Users,
+} from '@phosphor-icons/react/dist/ssr';
+import { ReademsLogo } from './readems-logo';
+import './creator-dashboard.css';
 
-const creatorStories = [
-  [
-    'The Last Train to Makoko',
-    'Thriller · 12 Chapters',
-    '96.4K reads',
-    'PUBLISHED',
-  ],
-  [
-    'Whispers of the Lagoon',
-    'Romance · 8 Chapters',
-    '78.2K reads',
-    'PUBLISHED',
-  ],
-  ['Echoes in the Market', 'Drama · 6 Chapters', '45.1K reads', 'DRAFT'],
-  ['Fragments of Us', 'Contemporary · 10 Chapters', '32.7K reads', 'DRAFT'],
+const schedule = [
+  ['Chapter 12: Crossroads', 'May 14, 2024 · 9:00 AM'],
+  ['Chapter 13: The Confession', 'May 21, 2024 · 9:00 AM'],
+  ['Chapter 14: No Turning Back', 'May 28, 2024 · 9:00 AM'],
 ] as const;
+
 export function CreatorDashboard({
   user,
 }: {
   user: { fullName: string; avatarUrl: string | null };
 }) {
+  const name = user.fullName || 'Tunde Adeyemi';
+  const avatar = user.avatarUrl || '/readems/dashboard-avatar-tobi.png';
   return (
-    <DashboardShell
-      kind="creator"
-      name={user.fullName}
-      avatarUrl={user.avatarUrl}
-    >
-      <section className="creator-welcome">
-        <span className="avatar large">{user.fullName.charAt(0)}</span>
-        <div>
-          <h1>
-            Welcome back, {user.fullName}{' '}
-            <span title="Verified creator" aria-label="Verified creator">
-              ●
-            </span>
-          </h1>
-          <p>✹ Verified Creator</p>
-        </div>
-        <Link className="create-story" href="#my-stories">
-          <PlusCircle aria-hidden="true" /> Create New Story
-        </Link>
-      </section>
-      <section className="stat-grid" aria-label="Creator statistics">
-        <Stat label="Total Reads" value="245,780" trend="↑ 3.9%" />
-        <Stat label="Followers" value="18,642" trend="↑ 8.3%" />
-        <Stat
-          label="Earnings"
-          value="Not available"
-          trend="Payments are not configured"
-          placeholder
-        />
-        <Stat label="Stories" value="14" trend="Published" />
-      </section>
-      <section className="creator-card" id="my-stories">
-        <header>
-          <h2>My Stories</h2>
-          <a href="#">View all</a>
-        </header>
-        {creatorStories.map(([title, meta, reads, status], index) => (
-          <article className="story-row" key={title}>
-            <div
-              className={`story-thumb cover-${['teal', 'blue', 'gold', 'amber'][index]}`}
-              role="img"
-              aria-label={`Cover for ${title}`}
-            />
-            <div>
-              <h3>{title}</h3>
-              <p>{meta}</p>
-              <small>{reads}</small>
-            </div>
-            <b className={`status ${status.toLowerCase()}`}>{status}</b>
-            <span>›</span>
-          </article>
-        ))}
-      </section>
-      <section className="creator-card">
-        <header>
+    <main className="creator-official-shell">
+      <section className="creator-official-hero">
+        <header className="creator-official-header">
+          <ReademsLogo />
           <div>
-            <h2>Chapter Management</h2>
-            <p>The Last Train to Makoko</p>
+            <Link href="#notifications" aria-label="Notifications">
+              <Bell />
+              <i />
+            </Link>
+            <Image src={avatar} alt="" width={54} height={54} />
           </div>
-          <a href="#">View Story</a>
         </header>
-        {[
-          'Chapter 12: Crossroads',
-          'Chapter 11: The Confession',
-          'Chapter 10: No Turning Back',
-        ].map((chapter, index) => (
-          <div className="chapter-row" key={chapter}>
-            <span>⠿</span>
-            <b>
-              {chapter}
-              <small>Published　·　May {12 - index * 7}, 2024</small>
-            </b>
-            <span>›</span>
+        <div className="creator-official-welcome">
+          <div className="creator-profile-photo">
+            <Image src={avatar} alt="" fill sizes="112px" />
+            <b aria-label="Verified creator">✓</b>
           </div>
-        ))}
-        <button className="add-chapter">
-          <PlusCircle aria-hidden="true" /> Add New Chapter
-        </button>
+          <div className="creator-welcome-copy">
+            <p>Welcome back,</p>
+            <h1>{name}</h1>
+            <span>✹ &nbsp;Verified Creator</span>
+          </div>
+          <Link className="creator-new-story" href="/creator/stories/new">
+            <Plus /> New Story
+          </Link>
+        </div>
       </section>
-      <div className="analytics-grid">
-        <section className="creator-card">
-          <h2>Analytics Overview</h2>
-          <div
-            className="line-chart"
-            role="img"
-            aria-label="Placeholder graph of reads over the last 30 days"
-          >
-            <span>30K</span>
-            <svg viewBox="0 0 400 110" aria-hidden="true">
-              <polyline points="0,95 55,55 100,78 150,15 210,70 260,5 320,55 365,14 400,35" />
-            </svg>
-            <small>Apr 15　　　　 Apr 29　　　　 May 13</small>
+      <div className="creator-official-content">
+        <section className="momentum-card">
+          <Sparkle />
+          <div>
+            <h2>Creative Momentum</h2>
+            <p>Keep building. You’re in your flow.</p>
+          </div>
+          <div className="momentum-score">
+            <strong>
+              82<small>/100</small>
+            </strong>
+            <span>Strong</span>
+          </div>
+          <CaretRight />
+        </section>
+        <section className="creator-metrics" aria-label="Creator statistics">
+          <Metric
+            icon={<Eye />}
+            label="Total Reads"
+            value="245.8K"
+            trend="↑ 3.9%"
+          />
+          <Metric
+            icon={<Users />}
+            label="Followers"
+            value="18.6K"
+            trend="↑ 8.3%"
+          />
+          <Metric
+            icon={<CurrencyDollar />}
+            label="Earnings"
+            value="$4,236.50"
+            trend="↑ 15.7%"
+            gold
+          />
+          <Metric
+            icon={<FileText />}
+            label="Stories"
+            value="14"
+            trend="Published"
+          />
+        </section>
+        <section className="creator-panel performance-panel">
+          <Heading title="Current Story Performance" />
+          <div className="performance-story">
+            <Image
+              src="/readems/cover-last-train-to-makoko.png"
+              alt="The Last Train to Makoko"
+              width={148}
+              height={170}
+            />
+            <div className="performance-main">
+              <h3>The Last Train to Makoko</h3>
+              <p>Thriller &nbsp;·&nbsp; 12 Chapters</p>
+              <span>PUBLISHED</span>
+              <div className="performance-stats">
+                <StoryStat icon={<Eye />} value="96.4K" label="Reads" />
+                <StoryStat icon={<Heart />} value="2.8K" label="Likes" />
+                <StoryStat icon={<ChatCircle />} value="512" label="Comments" />
+                <StoryStat
+                  icon={<ShareNetwork />}
+                  value="1.2K"
+                  label="Shares"
+                />
+              </div>
+            </div>
+            <CaretRight className="performance-caret" />
           </div>
         </section>
-        <section className="creator-card">
-          <h2>Reads by Source</h2>
-          <div className="source-chart">
-            <div
-              role="img"
-              aria-label="Home Feed 45%, Direct 25%, Search 20%, Other 10%"
-            />
-            <ul>
-              <li>
-                Home Feed <b>45%</b>
-              </li>
-              <li>
-                Direct <b>25%</b>
-              </li>
-              <li>
-                Search <b>20%</b>
-              </li>
-              <li>
-                Other <b>10%</b>
-              </li>
-            </ul>
+        <div className="creator-two-column">
+          <section className="creator-panel queue-panel">
+            <Heading title="Draft Queue" />
+            <Queue title="Echoes in the Market" chapters="6 Chapters" />
+            <Queue title="Fragments of Us" chapters="10 Chapters" />
+            <Link className="creator-panel-action" href="#new-draft">
+              <Plus /> New Draft
+            </Link>
+          </section>
+          <section className="creator-panel schedule-panel">
+            <Heading title="Chapter Schedule" />
+            {schedule.map(([title, date]) => (
+              <div className="schedule-row" key={title}>
+                <span>
+                  <CalendarBlank />
+                </span>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{date}</p>
+                </div>
+              </div>
+            ))}
+            <Link className="creator-panel-action" href="#schedule">
+              <Plus /> Schedule Chapter
+            </Link>
+          </section>
+        </div>
+        <section className="audience-strip">
+          <header>
+            <h2>Audience Activity</h2>
+            <span>
+              Last 7 days <CaretDown />
+            </span>
+          </header>
+          <div>
+            <StoryStat icon={<Eye />} value="24.7K" label="Reads" />
+            <StoryStat icon={<Heart />} value="1.4K" label="Likes" />
+            <StoryStat icon={<ChatCircle />} value="320" label="Comments" />
+            <StoryStat icon={<Users />} value="612" label="New Followers" />
+          </div>
+        </section>
+        <section className="creator-panel analytics-snapshot">
+          <header>
+            <h2>Analytics Snapshot</h2>
+            <span>
+              Last 30 days <CaretDown />
+            </span>
+          </header>
+          <div className="analytics-content">
+            <div className="creator-line-chart">
+              <h3>Reads Over Time</h3>
+              <svg
+                viewBox="0 0 360 145"
+                role="img"
+                aria-label="Reads rising over the last 30 days"
+              >
+                <path d="M10 122 L55 91 L94 103 L132 61 L170 80 L207 36 L246 79 L282 33 L330 55" />
+              </svg>
+              <div>
+                <span>Apr 16</span>
+                <span>Apr 23</span>
+                <span>Apr 30</span>
+                <span>May 7</span>
+                <span>May 14</span>
+              </div>
+            </div>
+            <div className="creator-source-chart">
+              <h3>Reads by Source</h3>
+              <div>
+                <i aria-label="Home Feed 45%, Direct 25%, Search 20%, Other 10%" />
+                <ul>
+                  <li>
+                    <span>Home Feed</span>
+                    <b>45%</b>
+                  </li>
+                  <li>
+                    <span>Direct</span>
+                    <b>25%</b>
+                  </li>
+                  <li>
+                    <span>Search</span>
+                    <b>20%</b>
+                  </li>
+                  <li>
+                    <span>Other</span>
+                    <b>10%</b>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
       </div>
-    </DashboardShell>
+      <nav className="creator-bottom-nav" aria-label="Creator navigation">
+        <Link className="active" href="/creator/dashboard">
+          <span>
+            <ChartBar weight="fill" />
+          </span>
+          Dashboard
+        </Link>
+        <Link href="#stories">
+          <span>
+            <Books />
+          </span>
+          Stories
+        </Link>
+        <Link href="#analytics">
+          <span>
+            <ChartBar />
+          </span>
+          Analytics
+        </Link>
+        <Link href="#earnings">
+          <span>
+            <CurrencyDollar />
+          </span>
+          Earnings
+        </Link>
+        <Link href="#more">
+          <span>
+            <List />
+          </span>
+          More
+        </Link>
+      </nav>
+    </main>
   );
 }
-function Stat({
+function Heading({ title }: { title: string }) {
+  return (
+    <header className="creator-panel-heading">
+      <h2>{title}</h2>
+      <Link href="#view-all">View all</Link>
+    </header>
+  );
+}
+function Metric({
+  icon,
   label,
   value,
   trend,
-  placeholder = false,
+  gold = false,
 }: {
+  icon: React.ReactNode;
   label: string;
   value: string;
   trend: string;
-  placeholder?: boolean;
+  gold?: boolean;
 }) {
   return (
-    <article className={`stat ${placeholder ? 'placeholder' : ''}`}>
+    <article className={`creator-metric ${gold ? 'gold' : ''}`}>
+      <span>{icon}</span>
       <p>{label}</p>
       <strong>{value}</strong>
       <small>{trend}</small>
     </article>
+  );
+}
+function StoryStat({
+  icon,
+  value,
+  label,
+}: {
+  icon: React.ReactNode;
+  value: string;
+  label: string;
+}) {
+  return (
+    <div className="creator-story-stat">
+      <span>{icon}</span>
+      <strong>{value}</strong>
+      <small>{label}</small>
+    </div>
+  );
+}
+function Queue({ title, chapters }: { title: string; chapters: string }) {
+  return (
+    <div className="queue-row">
+      <span>
+        <FileText />
+      </span>
+      <div>
+        <h3>{title}</h3>
+        <p>{chapters}</p>
+        <small>DRAFT</small>
+      </div>
+      <CaretRight />
+    </div>
   );
 }
