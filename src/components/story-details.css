@@ -295,7 +295,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 22px;
 }
-.details-similar > div > a {
+.details-similar > div:last-child > a {
   border: 1px solid #dce2ed;
   border-radius: 10px;
   overflow: hidden;
