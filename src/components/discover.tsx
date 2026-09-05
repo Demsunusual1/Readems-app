@@ -236,7 +236,7 @@ export function Discover({ dashboardHref }: { dashboardHref: string }) {
           <UsersThree />
           <span>Community</span>
         </Link>
-        <Link href={dashboardHref}>
+        <Link href="/library">
           <BookOpen />
           <span>Library</span>
         </Link>

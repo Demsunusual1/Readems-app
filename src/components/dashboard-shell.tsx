@@ -84,7 +84,9 @@ export function DashboardShell({
           ? `/${kind}/dashboard`
           : kind === 'reader' && item === 'Explore'
             ? '/discover'
-            : `#${item.toLowerCase().replaceAll(' ', '-')}`,
+            : kind === 'reader' && item === 'Library'
+              ? '/library'
+              : `#${item.toLowerCase().replaceAll(' ', '-')}`,
       icon: <Icon weight={index === 0 ? 'fill' : 'regular'} />,
     };
   });

@@ -257,7 +257,7 @@ export default async function StoryPage({
           <Eye />
           <span>Explore</span>
         </Link>
-        <Link href="/reader/dashboard">
+        <Link href="/library">
           <BookOpen />
           <span>Library</span>
         </Link>

@@ -359,7 +359,7 @@ export default async function HomePage() {
           <House aria-hidden="true" />
           <span>Home</span>
         </Link>
-        <Link href={readingHref}>
+        <Link href="/library">
           <BookOpenText aria-hidden="true" />
           <span>Library</span>
         </Link>
