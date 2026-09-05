@@ -73,7 +73,7 @@
   gap: 32px;
 }
 
-.library-header a,
+.library-header nav a,
 .library-header button {
   position: relative;
   display: grid;
@@ -611,233 +611,241 @@
 
 @media (max-width: 700px) {
   .library-page {
-    padding-bottom: 75px;
+    padding-bottom: 64px;
   }
 
   .library-hero {
-    height: 178px;
-    padding: 15px 20px;
+    height: 138px;
+    padding: 10px 18px;
   }
 
   .library-hero::after {
     right: -10%;
     left: -10%;
-    bottom: -25px;
-    height: 43px;
+    bottom: -20px;
+    height: 34px;
     border-radius: 50% 50% 0 0 / 36% 36% 0 0;
   }
 
   .library-header .ui-logo {
-    gap: 7px;
+    width: auto;
+    height: auto;
+    gap: 4px;
+    flex: none;
   }
   .library-header .ui-logo-mark svg {
-    width: 30px;
-    height: 30px;
+    width: 23px;
+    height: 23px;
   }
   .library-header .ui-logo-word {
-    font-size: 1.18rem;
+    font-size: 1rem;
+    white-space: nowrap;
   }
   .library-header nav {
-    gap: 15px;
+    gap: 11px;
   }
-  .library-header a,
+  .library-header nav a,
   .library-header button {
-    width: 29px;
-    height: 29px;
+    width: 24px;
+    height: 24px;
     padding: 2px;
   }
   .library-header svg {
-    width: 25px;
-    height: 25px;
+    width: 21px;
+    height: 21px;
   }
   .library-header button span {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
   }
 
   .library-hero-copy {
-    margin-top: 27px;
+    margin-top: 18px;
   }
   .library-hero-copy h1 {
-    margin-bottom: 6px;
-    font-size: 2rem;
+    margin-bottom: 4px;
+    font-size: 1.55rem;
   }
   .library-hero-copy p {
-    font-size: 0.72rem;
-    line-height: 1.43;
+    font-size: 0.62rem;
+    line-height: 1.38;
   }
   .library-hero-book {
     right: -2px;
-    bottom: 8px;
-    width: 49%;
+    bottom: 0;
+    width: 42%;
   }
 
   .library-main {
-    width: calc(100% - 38px);
-    margin-top: 8px;
+    width: calc(100% - 32px);
+    margin-top: 4px;
   }
 
   .reading-goal {
-    grid-template-columns: 1fr 50px 112px;
-    min-height: 100px;
-    padding: 13px 17px;
-    border-radius: 13px;
+    grid-template-columns: 1fr 34px 92px;
+    min-height: 76px;
+    padding: 9px 13px;
+    border-radius: 11px;
   }
 
   .reading-goal-copy h2,
   .library-shelf h2,
   .reading-lists h2 {
-    font-size: 0.88rem;
+    font-size: 0.76rem;
   }
   .reading-goal-copy > strong {
-    margin-top: 3px;
-    font-size: 1.12rem;
+    margin-top: 2px;
+    font-size: 0.95rem;
   }
   .reading-goal-copy p {
-    margin: 2px 0 7px;
-    font-size: 0.68rem;
+    margin: 1px 0 5px;
+    font-size: 0.58rem;
   }
   .goal-progress {
-    height: 6px;
+    height: 5px;
   }
   .goal-sparkles svg {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
   }
   .goal-status {
-    min-height: 62px;
+    min-height: 48px;
   }
   .goal-ring {
-    width: 42px;
-    height: 42px;
-    margin-bottom: 2px;
-    border-width: 4px;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 1px;
+    border-width: 3px;
   }
   .goal-ring svg {
-    width: 19px;
-    height: 19px;
+    width: 16px;
+    height: 16px;
   }
   .goal-status strong {
-    font-size: 0.65rem;
+    font-size: 0.56rem;
   }
   .goal-status span {
-    font-size: 0.62rem;
+    font-size: 0.53rem;
   }
 
   .library-tabs {
-    margin: 12px 0 14px;
-    border-radius: 13px;
+    margin: 8px 0 10px;
+    border-radius: 11px;
   }
   .library-tabs button {
-    height: 32px;
-    gap: 5px;
-    font-size: 0.62rem;
+    height: 26px;
+    gap: 4px;
+    padding: 0 3px;
+    font-size: 0.56rem;
   }
   .library-tabs button.is-active {
-    border-radius: 12px;
+    border-radius: 10px;
   }
   .library-tabs svg {
-    width: 15px;
-    height: 15px;
+    width: 13px;
+    height: 13px;
   }
 
   .library-shelf > header,
   .reading-lists > header {
-    margin-bottom: 9px;
+    margin-bottom: 7px;
   }
   .library-shelf > header > div:first-child {
     gap: 7px;
   }
   .library-shelf > header > div:first-child span {
-    min-width: 25px;
-    height: 21px;
-    padding: 0 6px;
-    font-size: 0.64rem;
+    min-width: 22px;
+    height: 18px;
+    padding: 0 5px;
+    font-size: 0.56rem;
   }
   .shelf-controls {
-    gap: 12px;
+    gap: 8px;
   }
   .shelf-controls button,
   .reading-lists > header button {
     gap: 4px;
-    font-size: 0.66rem;
+    font-size: 0.58rem;
   }
   .shelf-controls svg,
   .reading-lists > header svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
   }
 
   .shelf-grid {
-    gap: 8px;
+    gap: 6px;
   }
   .shelf-card {
     border-radius: 10px;
   }
   .shelf-cover > span {
-    top: 6px;
-    left: 5px;
-    padding: 3px 7px;
-    border-radius: 6px;
-    font-size: 0.58rem;
+    top: 5px;
+    left: 4px;
+    padding: 2px 6px;
+    border-radius: 5px;
+    font-size: 0.52rem;
+  }
+  .shelf-cover {
+    aspect-ratio: 1.1;
   }
   .shelf-card-copy {
-    min-height: 78px;
-    padding: 7px 7px 6px;
+    min-height: 55px;
+    padding: 5px 6px;
   }
   .shelf-card-copy > button {
     top: 5px;
     right: 3px;
     padding: 0;
-    font-size: 0.68rem;
+    font-size: 0.58rem;
   }
   .shelf-card h3 {
-    min-height: 26px;
-    margin-bottom: 2px;
-    font-size: clamp(0.55rem, 2.45vw, 0.68rem);
-    line-height: 1.18;
+    min-height: 22px;
+    margin-bottom: 1px;
+    font-size: clamp(0.5rem, 2.2vw, 0.6rem);
+    line-height: 1.12;
   }
   .shelf-card p {
-    font-size: clamp(0.5rem, 2.1vw, 0.6rem);
+    font-size: clamp(0.46rem, 1.9vw, 0.54rem);
   }
   .shelf-progress {
-    gap: 5px;
-    margin-top: 7px;
+    gap: 4px;
+    margin-top: 4px;
   }
   .shelf-progress > span {
     height: 4px;
   }
   .shelf-progress b {
-    font-size: 0.55rem;
+    font-size: 0.5rem;
   }
 
   .reading-lists {
-    margin-top: 19px;
+    margin-top: 14px;
   }
   .reading-list-rows {
     gap: 5px;
   }
   .reading-list-row {
-    grid-template-columns: 55px minmax(0, 1fr) 96px 13px;
-    min-height: 64px;
-    gap: 10px;
-    padding: 5px 9px 5px 7px;
-    border-radius: 12px;
+    grid-template-columns: 43px minmax(0, 1fr) 78px 12px;
+    min-height: 52px;
+    gap: 7px;
+    padding: 4px 7px 4px 5px;
+    border-radius: 10px;
   }
   .reading-list-icon {
-    width: 55px;
-    height: 54px;
-    border-radius: 8px;
+    width: 43px;
+    height: 43px;
+    border-radius: 7px;
   }
   .reading-list-icon svg {
-    width: 28px;
-    height: 28px;
+    width: 23px;
+    height: 23px;
   }
   .reading-list-copy strong {
-    font-size: 0.7rem;
+    font-size: 0.62rem;
   }
   .reading-list-copy small {
-    font-size: 0.56rem;
+    font-size: 0.49rem;
   }
   .reading-list-copy small i {
     margin: 0 3px;
@@ -847,13 +855,13 @@
     height: 9px;
   }
   .reading-list-copy > span {
-    margin-top: 2px;
-    font-size: 0.55rem;
-    line-height: 1.25;
+    margin-top: 1px;
+    font-size: 0.48rem;
+    line-height: 1.2;
   }
   .reading-list-row > img {
-    width: 96px;
-    height: 44px;
+    width: 78px;
+    height: 35px;
     object-fit: cover;
   }
   .reading-list-row > svg {
@@ -862,46 +870,46 @@
   }
 
   .offline-card {
-    grid-template-columns: 32px 1fr auto;
-    min-height: 48px;
-    gap: 8px;
-    margin: 7px 0 10px;
-    padding: 6px 10px;
-    border-radius: 13px;
+    grid-template-columns: 27px 1fr auto;
+    min-height: 42px;
+    gap: 7px;
+    margin: 6px 0 8px;
+    padding: 5px 8px;
+    border-radius: 11px;
   }
   .offline-card > svg {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
   }
   .offline-card strong {
-    font-size: 0.65rem;
+    font-size: 0.58rem;
   }
   .offline-card span {
-    font-size: 0.56rem;
+    font-size: 0.5rem;
   }
   .offline-card button {
-    min-height: 30px;
-    padding: 0 10px;
+    min-height: 25px;
+    padding: 0 8px;
     border-width: 1px;
     border-radius: 7px;
-    font-size: 0.62rem;
+    font-size: 0.54rem;
   }
 
   .library-bottom-nav {
-    min-height: 72px;
-    padding: 7px 10px calc(6px + env(safe-area-inset-bottom));
+    min-height: 62px;
+    padding: 5px 10px calc(4px + env(safe-area-inset-bottom));
   }
   .library-bottom-nav a {
     gap: 2px;
-    font-size: 0.62rem;
+    font-size: 0.56rem;
   }
   .library-bottom-nav svg {
-    width: 23px;
-    height: 23px;
+    width: 20px;
+    height: 20px;
   }
   .library-bottom-nav a[aria-current='page']::before {
-    top: -7px;
-    width: 24px;
+    top: -5px;
+    width: 21px;
     height: 3px;
   }
 }
