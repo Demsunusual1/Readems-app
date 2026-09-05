@@ -25,7 +25,11 @@ import { AuthShell } from './auth-shell';
 import { AuthSocial } from './auth-social';
 import { Logo } from './ui/logo';
 
-type Draft = SignupInput & { confirmPassword: string };
+type Draft = SignupInput & {
+  confirmPassword: string;
+  country: string;
+  preferredLanguage: string;
+};
 const initial: Draft = {
   fullName: '',
   username: '',
@@ -129,8 +133,15 @@ export function SignupWizard({
     if (loading) return;
     setLoading(true);
     setError('');
-    const { confirmPassword: _, ...payload } = data;
+    const {
+      confirmPassword: _,
+      country: _country,
+      preferredLanguage: _language,
+      ...payload
+    } = data;
     void _;
+    void _country;
+    void _language;
     try {
       const response = await fetch('/api/signup', {
         method: 'POST',

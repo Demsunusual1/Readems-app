@@ -48,8 +48,6 @@ export const signupSchema = z.object({
       'Choose a valid profile image.',
     )
     .optional(),
-  country: z.string().trim().min(2).max(80).optional(),
-  preferredLanguage: z.string().trim().min(2).max(80).optional(),
 });
 
 export type SignupInput = z.infer<typeof signupSchema>;
