@@ -31,7 +31,7 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
   ).toBeVisible();
   await page
     .getByRole('button', {
-      name: /Reader.*Discover stories and build your library/,
+      name: /Reader.*Discover stories/,
     })
     .click();
   await page.getByRole('button', { name: /Continue/ }).click();
@@ -45,7 +45,7 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
   await page.getByRole('button', { name: /Continue/ }).click();
 
   await expect(
-    page.getByRole('heading', { name: 'Set up your profile' }),
+    page.getByRole('heading', { name: 'Create Your Reader Profile' }),
   ).toBeVisible();
   await page.getByRole('button', { name: /Finish signup/ }).click();
 
