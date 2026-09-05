@@ -7,15 +7,15 @@ test('reader preferences, chapters and account-only save prompt work', async ({
   await expect(
     page.getByRole('heading', { name: 'Roots of Our Past' }),
   ).toBeVisible();
-  await page.getByLabel('Text size').selectOption('24');
-  await expect(page.locator('.reader-text')).toHaveCSS('font-size', '24px');
-  await page.getByRole('button', { name: 'Dark theme' }).click();
+  await page.getByRole('button', { name: /Text Serif/ }).click();
+  await expect(page.locator('.reader-text')).toHaveCSS('font-size', '20px');
+  await page.getByRole('button', { name: /Theme Paper/ }).click();
   await expect(page.locator('.chapter-reader')).toHaveClass(/reader-night/);
   await page.getByRole('button', { name: 'Save my place' }).click();
-  await expect(
-    page.getByRole('link', { name: 'Log in to save' }),
-  ).toBeVisible();
-  await page.getByRole('link', { name: 'Next chapter' }).click();
+  await expect(page.getByRole('status')).toHaveText(
+    'Sign in to save your reading progress.',
+  );
+  await page.getByRole('link', { name: /Next Chapter 2/ }).click();
   await expect(
     page.getByRole('heading', { name: 'The House Beyond the Path' }),
   ).toBeVisible();
@@ -48,10 +48,9 @@ test('reading progress persists and is isolated by authenticated account', async
     data: { storyId: 'baobab', chapter: 1, paragraph: 999, completed: false },
   });
   expect(invalid.status()).toBe(400);
-  await page.getByRole('button', { name: 'Mark chapter complete' }).click();
-  await expect(page.getByRole('status')).toHaveText(
-    'Chapter marked complete. Progress saved to your account.',
-  );
+  await page.locator('#paragraph-5').scrollIntoViewIfNeeded();
+  await page.getByRole('button', { name: 'Save my place' }).click();
+  await expect(page.getByRole('status')).toHaveText('Your place is saved.');
   await page.goto('/stories/baobab');
   await expect(
     page.getByRole('link', { name: 'Resume reading' }),
@@ -85,9 +84,9 @@ for (const width of [320, 390, 768, 1440]) {
       ).toBe(width);
     }
     if (width === 390) {
-      await page.goto('/stories/baobab');
+      await page.goto('/stories/baobab/chapters/1');
       await page.screenshot({
-        path: 'test-results/story-details-390.png',
+        path: 'test-results/chapter-reading-390.png',
         fullPage: true,
       });
     }
