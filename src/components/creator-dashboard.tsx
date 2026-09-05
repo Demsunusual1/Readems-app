@@ -117,18 +117,14 @@ export function CreatorDashboard({
               <h3>The Last Train to Makoko</h3>
               <p>Thriller &nbsp;·&nbsp; 12 Chapters</p>
               <span>PUBLISHED</span>
-              <div className="performance-stats">
-                <StoryStat icon={<Eye />} value="96.4K" label="Reads" />
-                <StoryStat icon={<Heart />} value="2.8K" label="Likes" />
-                <StoryStat icon={<ChatCircle />} value="512" label="Comments" />
-                <StoryStat
-                  icon={<ShareNetwork />}
-                  value="1.2K"
-                  label="Shares"
-                />
-              </div>
             </div>
             <CaretRight className="performance-caret" />
+            <div className="performance-stats">
+              <StoryStat icon={<Eye />} value="96.4K" label="Reads" />
+              <StoryStat icon={<Heart />} value="2.8K" label="Likes" />
+              <StoryStat icon={<ChatCircle />} value="512" label="Comments" />
+              <StoryStat icon={<ShareNetwork />} value="1.2K" label="Shares" />
+            </div>
           </div>
         </section>
         <div className="creator-two-column">
