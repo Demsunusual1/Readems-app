@@ -743,15 +743,15 @@
 
   .reader-streak-ring .streak-book {
     position: absolute;
-    bottom: 10px;
-    width: 25px;
-    height: 14px;
+    bottom: 7px;
+    width: 30px;
+    height: 18px;
     transform: rotate(-8deg);
   }
 
   .reader-dashboard-main {
     width: calc(100% - 22px);
-    margin-top: -66px;
+    margin-top: -51px;
   }
 
   .continue-reading {
@@ -828,12 +828,12 @@
   }
 
   .dashboard-section {
-    padding: 4px 6px 0;
+    padding: 1px 6px 0;
   }
 
   .recommendation-grid {
     gap: 8px;
-    margin-top: 4px;
+    margin-top: 0;
   }
 
   .recommendation-card {
@@ -846,21 +846,21 @@
 
   .recommendation-card > div {
     display: flex;
-    height: 68px;
+    height: 64px;
     box-sizing: border-box;
     flex-direction: column;
     padding: 6px 7px 5px;
   }
 
   .recommendation-card h3 {
-    min-height: 22px;
-    font-size: 0.52rem;
+    min-height: 18px;
+    font-size: 0.46rem;
     line-height: 1.18;
   }
 
   .recommendation-card p {
-    margin: 3px 0 5px;
-    font-size: 0.42rem;
+    margin: 2px 0 3px;
+    font-size: 0.37rem;
   }
 
   .recommendation-meta {
@@ -869,9 +869,9 @@
 
   .recommendation-meta > span {
     max-width: calc(100% - 13px);
-    padding: 2px 5px;
+    padding: 1px 4px;
     border-radius: 4px;
-    font-size: 0.37rem;
+    font-size: 0.33rem;
     white-space: nowrap;
   }
 
