@@ -846,6 +846,7 @@
   }
 
   .recommendation-card > div {
+    position: relative;
     display: flex;
     height: 64px;
     box-sizing: border-box;
@@ -865,7 +866,11 @@
   }
 
   .recommendation-meta {
-    margin-top: 2px;
+    position: absolute;
+    right: 7px;
+    bottom: 5px;
+    left: 7px;
+    margin: 0;
   }
 
   .recommendation-meta > span {
