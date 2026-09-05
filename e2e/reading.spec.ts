@@ -3,7 +3,7 @@ test('reader preferences, chapters and account-only save prompt work', async ({
   page,
 }) => {
   await page.goto('/stories/baobab');
-  await page.getByRole('link', { name: 'Start reading', exact: true }).click();
+  await page.getByRole('link', { name: 'Start Reading', exact: true }).click();
   await expect(
     page.getByRole('heading', { name: 'Roots of Our Past' }),
   ).toBeVisible();
@@ -83,6 +83,13 @@ for (const width of [320, 390, 768, 1440]) {
       expect(
         await page.evaluate(() => document.documentElement.scrollWidth),
       ).toBe(width);
+    }
+    if (width === 390) {
+      await page.goto('/stories/baobab');
+      await page.screenshot({
+        path: 'test-results/story-details-390.png',
+        fullPage: true,
+      });
     }
   });
 }
