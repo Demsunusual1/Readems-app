@@ -547,8 +547,12 @@
     padding-bottom: 70px;
   }
   .creator-official-hero {
-    min-height: 250px;
-    padding: 18px 18px 34px;
+    min-height: 198px;
+    padding: 12px 18px 24px;
+  }
+  .creator-official-hero:after {
+    bottom: -30px;
+    height: 56px;
   }
   .creator-official-header .readems-logo {
     font-size: 1.3rem;
@@ -565,12 +569,12 @@
     height: 42px;
   }
   .creator-official-welcome {
-    gap: 12px;
-    margin-top: 24px;
+    gap: 10px;
+    margin-top: 12px;
   }
   .creator-profile-photo {
-    width: 72px;
-    height: 72px;
+    width: 58px;
+    height: 58px;
     border-width: 3px;
   }
   .creator-profile-photo b {
@@ -579,21 +583,21 @@
     font-size: 10px;
   }
   .creator-welcome-copy p {
-    font-size: 0.86rem;
+    font-size: 0.74rem;
   }
   .creator-welcome-copy h1 {
-    max-width: 150px;
-    margin-bottom: 5px;
-    font-size: 1.45rem;
+    max-width: 142px;
+    margin-bottom: 3px;
+    font-size: 1.18rem;
   }
   .creator-welcome-copy span {
-    font-size: 0.72rem;
+    font-size: 0.64rem;
   }
   .creator-new-story {
     gap: 6px;
-    padding: 10px 12px;
+    padding: 8px 10px;
     border-radius: 9px;
-    font-size: 0.78rem;
+    font-size: 0.7rem;
   }
   .creator-new-story svg {
     width: 19px;
@@ -605,26 +609,26 @@
   .momentum-card {
     grid-template-columns: auto 1fr auto;
     gap: 10px;
-    min-height: 88px;
-    padding: 13px 14px;
+    min-height: 72px;
+    padding: 10px 12px;
   }
   .momentum-card > svg:first-child {
     width: 25px;
   }
   .momentum-card h2 {
-    font-size: 0.97rem;
+    font-size: 0.84rem;
   }
   .momentum-card p {
     margin-top: 3px;
-    font-size: 0.67rem;
+    font-size: 0.61rem;
   }
   .momentum-score {
-    min-width: 88px;
+    min-width: 76px;
     padding: 4px 7px 0;
     border-top-width: 5px;
   }
   .momentum-score strong {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
   .momentum-score span {
     font-size: 0.68rem;
@@ -633,28 +637,28 @@
     display: none;
   }
   .creator-metrics {
-    gap: 7px;
-    margin-top: 13px;
+    gap: 6px;
+    margin-top: 10px;
   }
   .creator-metric {
-    padding: 10px 8px;
+    padding: 8px 7px;
   }
   .creator-metric > span {
-    width: 30px;
-    height: 30px;
+    width: 27px;
+    height: 27px;
   }
   .creator-metric > span svg {
     width: 18px;
   }
   .creator-metric p {
-    margin: 7px 0 2px;
-    font-size: 0.68rem;
+    margin: 5px 0 1px;
+    font-size: 0.62rem;
   }
   .creator-metric strong {
-    font-size: clamp(0.82rem, 3.6vw, 1.08rem);
+    font-size: clamp(0.75rem, 3.3vw, 0.98rem);
   }
   .creator-metric small {
-    font-size: 0.65rem;
+    font-size: 0.59rem;
   }
   .creator-panel {
     margin-top: 12px;
@@ -668,19 +672,20 @@
     font-size: 0.75rem;
   }
   .performance-story {
-    grid-template-columns: 86px 1fr;
-    gap: 12px;
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 10px;
     margin-top: 10px;
   }
   .performance-story > img {
-    width: 86px;
-    height: 112px;
+    width: 72px;
+    height: 94px;
   }
   .performance-main h3 {
-    font-size: 0.91rem;
+    padding-right: 10px;
+    font-size: 0.8rem;
   }
   .performance-main > p {
-    font-size: 0.69rem;
+    font-size: 0.62rem;
   }
   .performance-main > span {
     margin-top: 4px;
@@ -688,8 +693,8 @@
   }
   .performance-stats {
     gap: 2px;
-    margin-top: 7px;
-    padding-top: 7px;
+    margin-top: 5px;
+    padding-top: 5px;
   }
   .creator-story-stat {
     column-gap: 4px;
