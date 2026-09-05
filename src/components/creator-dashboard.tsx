@@ -33,7 +33,7 @@ export function CreatorDashboard({
   user: { fullName: string; avatarUrl: string | null };
 }) {
   const name = user.fullName || 'Tunde Adeyemi';
-  const avatar = user.avatarUrl || '/readems/dashboard-avatar-tobi.png';
+  const avatar = user.avatarUrl || '/readems/community-daniel.png';
   return (
     <main className="creator-official-shell">
       <section className="creator-official-hero">
@@ -44,12 +44,12 @@ export function CreatorDashboard({
               <Bell />
               <i />
             </Link>
-            <Image src={avatar} alt="" width={54} height={54} />
+            <Image src={avatar} alt="" width={54} height={54} unoptimized />
           </div>
         </header>
         <div className="creator-official-welcome">
           <div className="creator-profile-photo">
-            <Image src={avatar} alt="" fill sizes="112px" />
+            <Image src={avatar} alt="" fill sizes="112px" unoptimized />
             <b aria-label="Verified creator">✓</b>
           </div>
           <div className="creator-welcome-copy">
