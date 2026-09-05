@@ -136,7 +136,8 @@ export function ReaderDashboard({
             <b>You’re on fire!</b>
           </div>
           <div className="reader-streak-ring" aria-hidden="true">
-            <Fire weight="fill" />
+            <Fire className="streak-fire" weight="fill" />
+            <BookOpen className="streak-book" weight="bold" />
           </div>
         </section>
       </header>
