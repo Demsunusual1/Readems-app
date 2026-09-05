@@ -1,10 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-  Bell,
-  MagnifyingGlass,
-  SignOut,
-} from '@phosphor-icons/react/dist/ssr';
+import { Bell, MagnifyingGlass, SignOut } from '@phosphor-icons/react/dist/ssr';
 import { Logo } from './ui/logo';
 
 export function LandingHeader({ dashboardHref }: { dashboardHref?: string }) {
@@ -29,7 +25,9 @@ export function LandingHeader({ dashboardHref }: { dashboardHref?: string }) {
           </Link>
           {dashboardHref && (
             <form action="/api/logout" method="post">
-              <button className="landing-logout" type="submit">Log out</button>
+              <button className="landing-logout" type="submit">
+                Log out
+              </button>
             </form>
           )}
         </nav>
