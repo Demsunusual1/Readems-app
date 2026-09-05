@@ -1,0 +1,553 @@
+.creator-analytics-page {
+  min-height: 100vh;
+  padding-bottom: 78px;
+  background: #fff;
+  color: #081a3a;
+}
+.analytics-hero {
+  min-height: 320px;
+  padding: 26px 4.3% 44px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 72% 67%, #6e3dde76, transparent 35%),
+    linear-gradient(120deg, #001632, #00265a);
+}
+.analytics-hero > header,
+.analytics-hero > div,
+.analytics-page-body,
+.creator-analytics-page > .creator-bottom-nav {
+  width: min(100%, 900px);
+  margin-inline: auto;
+}
+.analytics-hero > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.analytics-hero > header > div {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.analytics-hero header svg {
+  width: 27px;
+  height: 27px;
+}
+.analytics-hero header img {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.analytics-hero > div {
+  margin-top: 40px;
+}
+.analytics-hero > div p {
+  margin: 0;
+  color: #c183ff;
+  font-size: 1rem;
+}
+.analytics-hero h1 {
+  margin: 10px 0 9px;
+  font: 500 2.4rem/1.12 var(--font-literary);
+}
+.analytics-hero > div span {
+  font-size: 0.97rem;
+}
+.analytics-page-body {
+  padding: 18px 3.8% 24px;
+}
+.analytics-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.analytics-toolbar button,
+.reads-chart header button,
+.earnings-card header button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #dfe5ef;
+  border-radius: 9px;
+  background: #fff;
+  color: #15294c;
+}
+.analytics-toolbar svg {
+  width: 18px;
+}
+.analytics-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 13px;
+  margin-top: 16px;
+}
+.analytics-metrics article {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  padding: 16px;
+  border: 1px solid #e2e7ef;
+  border-radius: 13px;
+}
+.analytics-metrics article > span {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  background: #edf2ff;
+  color: #1760ed;
+}
+.analytics-metrics article:nth-child(4) > span {
+  background: #fff4d8;
+  color: #c98200;
+}
+.analytics-metrics p {
+  align-self: center;
+  margin: 0 0 0 8px;
+}
+.analytics-metrics strong,
+.analytics-metrics small,
+.analytics-metrics em {
+  grid-column: 1/-1;
+}
+.analytics-metrics strong {
+  margin-top: 12px;
+  font: 600 1.65rem var(--font-literary);
+}
+.analytics-metrics small {
+  color: #07955f;
+}
+.analytics-metrics em {
+  color: #66758e;
+  font-size: 0.72rem;
+  font-style: normal;
+}
+.analytics-card {
+  margin-top: 16px;
+  padding: 18px;
+  border: 1px solid #e2e7ef;
+  border-radius: 13px;
+  background: #fff;
+}
+.analytics-card h2,
+.earnings-card h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+.reads-chart > header,
+.analytics-heading,
+.earnings-card > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.reads-chart header button {
+  padding: 7px 11px;
+}
+.chart-area {
+  position: relative;
+  margin-top: 10px;
+}
+.chart-area svg {
+  width: 100%;
+  height: 195px;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 46px,
+    #edf0f5 47px
+  );
+}
+.chart-area path {
+  fill: #2466ed12;
+  stroke: #1760ed;
+  stroke-width: 3;
+}
+.chart-area > div {
+  display: flex;
+  justify-content: space-between;
+  color: #64748b;
+  font-size: 0.7rem;
+}
+.chart-tooltip {
+  position: absolute;
+  top: 5px;
+  left: 38%;
+  padding: 8px 12px;
+  border: 1px solid #dce3ed;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 6px 18px #10254b1a;
+  font-size: 0.7rem;
+}
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.analytics-heading a {
+  color: #075ff7;
+  text-decoration: none;
+  font-size: 0.78rem;
+}
+.top-stories article,
+.transactions article {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+.top-stories img {
+  width: 86px;
+  height: 62px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.top-stories article > div {
+  flex: 1;
+}
+.top-stories h3,
+.top-stories p,
+.transactions h3,
+.transactions p {
+  margin: 0;
+}
+.top-stories h3 {
+  font-size: 0.82rem;
+}
+.top-stories p {
+  color: #5e6f8b;
+  font-size: 0.68rem;
+}
+.top-stories article > strong {
+  font-size: 0.78rem;
+}
+.top-stories strong small {
+  display: block;
+  color: #677692;
+  font-size: 0.63rem;
+  font-weight: 400;
+}
+.audience-globe {
+  display: block;
+  width: 90%;
+  height: 150px;
+  margin: 5px auto;
+  color: #dce4f3;
+}
+.audience-card ul,
+.source-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.audience-card li,
+.source-card li {
+  display: flex;
+  gap: 10px;
+  margin: 7px 0;
+  font-size: 0.72rem;
+}
+.audience-card li span {
+  flex: 1;
+}
+.source-card > div {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 18px;
+}
+.source-card i {
+  position: relative;
+  width: 145px;
+  height: 145px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #1760ed 0 45%,
+    #8c54e9 45% 70%,
+    #f0b22c 70% 90%,
+    #082a58 90%
+  );
+}
+.source-card i:after {
+  content: '';
+  position: absolute;
+  inset: 29%;
+  border-radius: 50%;
+  background: #fff;
+}
+.source-card ul {
+  flex: 1;
+}
+.source-card li {
+  justify-content: space-between;
+}
+.earnings-card {
+  margin-top: 16px;
+  padding: 18px;
+  border-radius: 13px;
+  background: linear-gradient(120deg, #001632, #00265a);
+  color: #fff;
+}
+.earnings-card header button {
+  padding: 7px 11px;
+  background: transparent;
+  color: #fff;
+}
+.earnings-card > p {
+  margin: 20px 0 0;
+  font-size: 0.78rem;
+}
+.earnings-card > strong {
+  display: block;
+  color: #f6bd34;
+  font: 500 2rem var(--font-literary);
+}
+.earnings-card > small {
+  color: #2dd896;
+}
+.earnings-card > small span {
+  color: #fff;
+}
+.earnings-card hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #ffffff40;
+}
+.earnings-card > div {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+}
+.transactions article > span {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff2d2;
+  color: #c98200;
+}
+.transactions article:nth-of-type(2) > span {
+  background: #f1e8ff;
+  color: #7c45d9;
+}
+.transactions article:nth-of-type(3) > span {
+  background: #eaf1ff;
+  color: #1760ed;
+}
+.transactions article > div {
+  flex: 1;
+}
+.transactions h3 {
+  font-size: 0.78rem;
+}
+.transactions p {
+  color: #687792;
+  font-size: 0.67rem;
+}
+.transactions article > strong {
+  text-align: right;
+  color: #07955f;
+  font-size: 0.8rem;
+}
+.transactions article:nth-of-type(2) > strong {
+  color: #081a3a;
+}
+.transactions strong small {
+  display: block;
+  color: #687792;
+  font-size: 0.62rem;
+  font-weight: 400;
+}
+@media (max-width: 640px) {
+  .creator-analytics-page {
+    padding-bottom: 70px;
+  }
+  .analytics-hero {
+    min-height: 235px;
+    padding: 16px 17px 30px;
+  }
+  .analytics-hero > header .ui-logo {
+    font-size: 1.3rem;
+  }
+  .analytics-hero > header > div {
+    gap: 15px;
+  }
+  .analytics-hero header img {
+    width: 42px;
+    height: 42px;
+  }
+  .analytics-hero > div {
+    margin-top: 25px;
+  }
+  .analytics-hero > div p {
+    font-size: 0.72rem;
+  }
+  .analytics-hero h1 {
+    margin: 6px 0;
+    font-size: 1.75rem;
+  }
+  .analytics-hero > div span {
+    font-size: 0.72rem;
+  }
+  .analytics-page-body {
+    padding: 12px 12px 18px;
+  }
+  .analytics-toolbar button {
+    padding: 7px 9px;
+    font-size: 0.67rem;
+  }
+  .analytics-metrics {
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .analytics-metrics article {
+    padding: 8px 6px;
+  }
+  .analytics-metrics article > span {
+    width: 28px;
+    height: 28px;
+  }
+  .analytics-metrics article > span svg {
+    width: 17px;
+  }
+  .analytics-metrics p {
+    margin-left: 4px;
+    font-size: 0.6rem;
+  }
+  .analytics-metrics strong {
+    margin-top: 7px;
+    font-size: 0.88rem;
+  }
+  .analytics-metrics small,
+  .analytics-metrics em {
+    font-size: 0.54rem;
+  }
+  .analytics-card {
+    margin-top: 10px;
+    padding: 11px;
+  }
+  .analytics-card h2,
+  .earnings-card h2 {
+    font-size: 0.78rem;
+  }
+  .reads-chart header button,
+  .earnings-card header button {
+    padding: 5px 8px;
+    font-size: 0.6rem;
+  }
+  .chart-area svg {
+    height: 125px;
+  }
+  .chart-area > div {
+    font-size: 0.53rem;
+  }
+  .chart-tooltip {
+    padding: 5px 7px;
+    font-size: 0.55rem;
+  }
+  .analytics-grid {
+    gap: 8px;
+  }
+  .analytics-heading a {
+    font-size: 0.62rem;
+  }
+  .top-stories article {
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .top-stories img {
+    width: 48px;
+    height: 42px;
+  }
+  .top-stories h3 {
+    font-size: 0.61rem;
+  }
+  .top-stories p {
+    font-size: 0.52rem;
+  }
+  .top-stories article > strong {
+    font-size: 0.58rem;
+  }
+  .audience-globe {
+    height: 90px;
+  }
+  .audience-card li,
+  .source-card li {
+    gap: 5px;
+    margin: 4px 0;
+    font-size: 0.55rem;
+  }
+  .source-card > div {
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .source-card i {
+    width: 76px;
+    height: 76px;
+    flex: 0 0 auto;
+  }
+  .earnings-card {
+    margin-top: 10px;
+    padding: 11px;
+  }
+  .earnings-card > p {
+    margin-top: 12px;
+    font-size: 0.62rem;
+  }
+  .earnings-card > strong {
+    font-size: 1.35rem;
+  }
+  .earnings-card > small,
+  .earnings-card > div {
+    font-size: 0.58rem;
+  }
+  .earnings-card hr {
+    margin: 10px 0;
+  }
+  .transactions article {
+    gap: 7px;
+    margin-top: 8px;
+  }
+  .transactions article > span {
+    width: 29px;
+    height: 29px;
+  }
+  .transactions h3 {
+    font-size: 0.62rem;
+  }
+  .transactions p,
+  .transactions strong small {
+    font-size: 0.53rem;
+  }
+  .transactions article > strong {
+    font-size: 0.62rem;
+  }
+}
+@media (max-width: 390px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+  .analytics-hero {
+    min-height: 220px;
+  }
+  .analytics-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .analytics-metrics article {
+    grid-template-columns: auto 1fr;
+  }
+  .top-stories img {
+    width: 58px;
+    height: 45px;
+  }
+  .audience-globe {
+    height: 105px;
+  }
+  .source-card i {
+    width: 90px;
+    height: 90px;
+  }
+}
