@@ -14,8 +14,6 @@ export default async function DiscoverPage() {
     : null;
   return (
     <Discover
-      interests={user?.interests ?? []}
-      signedIn={Boolean(user)}
       dashboardHref={
         user
           ? `/${user.role === 'CREATOR' ? 'creator' : 'reader'}/dashboard`
