@@ -363,14 +363,14 @@
     padding-bottom: 72px;
   }
   .details-hero {
-    padding: 0 18px 31px;
+    padding: 0 18px 24px;
     border-radius: 0 0 45% 4%/0 0 4% 1%;
     background-size:
       auto,
       90% 70%;
   }
   .details-top {
-    height: 62px;
+    height: 54px;
   }
   .details-top > a:first-child,
   .details-top button {
@@ -393,58 +393,59 @@
     height: 20px;
   }
   .details-hero-inner {
-    margin: 12px auto;
-    grid-template-columns: 105px 1fr;
-    gap: 13px;
+    margin: 9px auto 10px;
+    grid-template-columns: 98px 1fr;
+    gap: 11px;
   }
   .details-cover {
-    width: 105px;
-    height: 136px;
+    width: 98px;
+    height: 126px;
     border-radius: 9px;
   }
   .details-summary > span {
-    font-size: 0.55rem;
-    padding: 3px 7px;
+    font-size: 0.48rem;
+    padding: 2px 6px;
   }
   .details-summary h1 {
-    font-size: 1.2rem;
-    margin: 7px 0;
+    font-size: 1.05rem;
+    line-height: 1.02;
+    margin: 6px 0;
   }
   .details-summary > p {
-    font-size: 0.62rem;
+    font-size: 0.56rem;
   }
   .details-stats {
-    margin-top: 10px;
+    margin-top: 8px;
   }
   .details-stats > span {
     min-width: 0;
-    padding: 0 7px;
-    grid-template-columns: 16px auto;
+    padding: 0 6px;
+    grid-template-columns: 14px auto;
   }
   .details-stats svg {
-    width: 13px;
-    height: 13px;
+    width: 12px;
+    height: 12px;
   }
   .details-stats b {
-    font-size: 0.66rem;
+    font-size: 0.6rem;
   }
   .details-stats small {
-    font-size: 0.49rem;
+    font-size: 0.44rem;
   }
   .details-actions {
-    grid-template-columns: 1fr 1fr 42px;
-    gap: 8px;
+    grid-template-columns: 1fr 1fr 36px;
+    gap: 7px;
   }
   .details-actions a,
   .details-actions button {
-    min-height: 39px;
-    border-radius: 8px;
-    font-size: 0.65rem;
-    gap: 6px;
+    min-height: 34px;
+    border-radius: 7px;
+    font-size: 0.58rem;
+    gap: 5px;
   }
   .details-actions svg {
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
   }
   .details-content {
     padding: 23px 18px;
@@ -454,22 +455,22 @@
     line-height: 1.42;
   }
   .details-meta {
-    min-height: 58px;
-    padding: 8px 6px;
+    min-height: 52px;
+    padding: 7px 6px;
   }
   .details-meta > span {
-    grid-template-columns: 19px 1fr;
+    grid-template-columns: 18px 1fr;
   }
   .details-meta svg {
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
   }
   .details-meta b {
-    font-size: clamp(0.48rem, 2vw, 0.58rem);
+    font-size: clamp(0.46rem, 1.85vw, 0.54rem);
     white-space: nowrap;
   }
   .details-meta small {
-    font-size: 0.49rem;
+    font-size: 0.45rem;
   }
   .details-content section {
     margin: 18px 0;
