@@ -18,6 +18,7 @@ import {
   At,
 } from '@phosphor-icons/react';
 import { interests, signupSchema, type SignupInput } from '@/lib/signup';
+import { countries, languages } from '@/lib/countries';
 import { PasswordField } from './password-field';
 import { Input } from './ui/input';
 import { AuthShell } from './auth-shell';
@@ -35,6 +36,8 @@ const initial: Draft = {
   interests: [],
   bio: '',
   avatarUrl: '',
+  country: 'Nigeria',
+  preferredLanguage: 'English',
 };
 const steps = [
   'Welcome',
@@ -60,11 +63,51 @@ export function SignupWizard({
   }, [step]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [photoError, setPhotoError] = useState('');
   const [destination, setDestination] = useState('/reader/dashboard');
   const [agreed, setAgreed] = useState(false);
   const router = useRouter();
   const update = (field: keyof Draft, value: string | string[]) =>
     setData((current) => ({ ...current, [field]: value }));
+  const choosePhoto = (file?: File) => {
+    setPhotoError('');
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      setPhotoError('Choose a JPG, PNG, or WebP image.');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setPhotoError('Choose an image smaller than 5 MB.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const source = new window.Image();
+      source.onload = () => {
+        const size = Math.min(512, source.width, source.height);
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const context = canvas.getContext('2d');
+        if (!context) return setPhotoError('Unable to process this image.');
+        const crop = Math.min(source.width, source.height);
+        context.drawImage(
+          source,
+          (source.width - crop) / 2,
+          (source.height - crop) / 2,
+          crop,
+          crop,
+          0,
+          0,
+          size,
+          size,
+        );
+        update('avatarUrl', canvas.toDataURL('image/jpeg', 0.82));
+      };
+      source.src = String(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
   const next = () => {
     setError('');
     if (step === 1) {
@@ -357,14 +400,43 @@ export function SignupWizard({
                 experience.
               </p>
               <div className="onboarding-profile-photo">
-                <Image
-                  src="/readems/creator-chinelo-okoye.png"
-                  alt="Profile preview"
-                  width={180}
-                  height={180}
-                />
+                {data.avatarUrl ? (
+                  <Image
+                    src={data.avatarUrl}
+                    alt="Your profile preview"
+                    width={180}
+                    height={180}
+                    unoptimized
+                  />
+                ) : (
+                  <Image
+                    src="/readems/creator-chinelo-okoye.png"
+                    alt="Default profile preview"
+                    width={180}
+                    height={180}
+                  />
+                )}
                 <strong>Add a profile photo</strong>
                 <span>Show the community who you are.</span>
+                <div className="onboarding-photo-actions">
+                  <label>
+                    {data.avatarUrl ? 'Change photo' : 'Choose photo'}
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      onChange={(event) => choosePhoto(event.target.files?.[0])}
+                    />
+                  </label>
+                  {data.avatarUrl && (
+                    <button
+                      type="button"
+                      onClick={() => update('avatarUrl', '')}
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+                {photoError && <small className="error">{photoError}</small>}
               </div>
               <div className="onboarding-profile-grid">
                 {field('Display Name', 'fullName', 'text', 'name')}
@@ -383,19 +455,28 @@ export function SignupWizard({
               <div className="onboarding-select-grid">
                 <label>
                   Country / Region
-                  <select defaultValue="Nigeria">
-                    <option>Nigeria</option>
-                    <option>Ghana</option>
-                    <option>South Africa</option>
-                    <option>United Kingdom</option>
+                  <select
+                    value={data.country}
+                    onChange={(event) => update('country', event.target.value)}
+                  >
+                    {countries.map(({ code, name }) => (
+                      <option key={code} value={name}>
+                        {name}
+                      </option>
+                    ))}
                   </select>
                 </label>
                 <label>
                   Preferred Language
-                  <select defaultValue="English">
-                    <option>English</option>
-                    <option>French</option>
-                    <option>Portuguese</option>
+                  <select
+                    value={data.preferredLanguage}
+                    onChange={(event) =>
+                      update('preferredLanguage', event.target.value)
+                    }
+                  >
+                    {languages.map((language) => (
+                      <option key={language}>{language}</option>
+                    ))}
                   </select>
                 </label>
               </div>

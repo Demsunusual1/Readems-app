@@ -1,6 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Bell, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
+import {
+  Bell,
+  MagnifyingGlass,
+  SignOut,
+} from '@phosphor-icons/react/dist/ssr';
 import { Logo } from './ui/logo';
 
 export function LandingHeader({ dashboardHref }: { dashboardHref?: string }) {
@@ -23,6 +27,13 @@ export function LandingHeader({ dashboardHref }: { dashboardHref?: string }) {
           >
             {dashboardHref ? 'Open Readems' : 'Join Readems'}
           </Link>
+          {dashboardHref && (
+            <form action="/api/logout" method="post">
+              <button className="landing-logout" type="submit">
+                Log out
+              </button>
+            </form>
+          )}
         </nav>
         <nav className="landing-mobile-actions" aria-label="Landing shortcuts">
           <Link href="/discover" aria-label="Search stories">
@@ -48,6 +59,17 @@ export function LandingHeader({ dashboardHref }: { dashboardHref?: string }) {
               height={42}
             />
           </Link>
+          {dashboardHref && (
+            <form action="/api/logout" method="post">
+              <button
+                className="landing-mobile-logout"
+                type="submit"
+                aria-label="Log out"
+              >
+                <SignOut aria-hidden="true" />
+              </button>
+            </form>
+          )}
         </nav>
       </div>
     </header>
