@@ -29,9 +29,7 @@ export function LandingHeader({ dashboardHref }: { dashboardHref?: string }) {
           </Link>
           {dashboardHref && (
             <form action="/api/logout" method="post">
-              <button className="landing-logout" type="submit">
-                Log out
-              </button>
+              <button className="landing-logout" type="submit">Log out</button>
             </form>
           )}
         </nav>
