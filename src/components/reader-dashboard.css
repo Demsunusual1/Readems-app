@@ -27,6 +27,8 @@
 .reader-dashboard-topbar .ui-logo-mark svg {
   width: 54px;
   height: 54px;
+  filter: brightness(0) saturate(100%) invert(31%) sepia(99%) saturate(3470%)
+    hue-rotate(210deg) brightness(99%) contrast(108%);
 }
 
 .reader-dashboard-topbar .ui-logo-word {
@@ -338,20 +340,6 @@
   object-fit: cover;
 }
 
-.recommendation-cover > span {
-  position: absolute;
-  top: 11px;
-  right: 11px;
-  display: grid;
-  width: 40px;
-  height: 40px;
-  place-items: center;
-  color: #fff;
-  border-radius: 50%;
-  background: #9564df;
-  font-size: 1.3rem;
-}
-
 .recommendation-card > div {
   padding: 16px 18px 14px;
 }
@@ -643,12 +631,12 @@
   }
 
   .reader-dashboard-topbar .ui-logo-mark svg {
-    width: 27px;
-    height: 27px;
+    width: 24px;
+    height: 24px;
   }
 
   .reader-dashboard-topbar .ui-logo-word {
-    font-size: 1.13rem;
+    font-size: 1rem;
   }
 
   .reader-dashboard-topbar nav {
@@ -662,8 +650,8 @@
   }
 
   .reader-dashboard-topbar nav svg {
-    width: 20px;
-    height: 20px;
+    width: 19px;
+    height: 19px;
   }
 
   .reader-dashboard-topbar nav button span {
@@ -811,14 +799,6 @@
 
   .recommendation-card {
     border-radius: 9px;
-  }
-
-  .recommendation-cover > span {
-    top: 5px;
-    right: 5px;
-    width: 20px;
-    height: 20px;
-    font-size: 0.65rem;
   }
 
   .recommendation-card > div {
@@ -1004,13 +984,13 @@
   }
 
   .continue-reading-content {
-    grid-template-columns: 88px 1fr 62px;
+    grid-template-columns: 96px 1fr 62px;
     gap: 10px;
   }
 
   .continue-cover {
-    width: 88px;
-    height: 118px;
+    width: 96px;
+    height: 128px;
   }
 
   .continue-progress-copy {

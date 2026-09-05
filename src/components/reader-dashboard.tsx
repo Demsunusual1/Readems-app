@@ -22,13 +22,13 @@ const recommendations = [
     title: 'Letters to My Younger Self',
     author: 'Zanele M.',
     genre: 'Contemporary',
-    image: '/readems/cover-letters-to-my-younger-self.png',
+    image: '/readems/dashboard-cover-letters.png',
   },
   {
     title: 'The Last Train to Makoko',
     author: 'Tobi A.',
     genre: 'Historical Fiction',
-    image: '/readems/cover-last-train-to-makoko.png',
+    image: '/readems/dashboard-cover-makoko.png',
   },
   {
     title: 'The Girl Who Dreamed in Code',
@@ -190,7 +190,6 @@ export function ReaderDashboard({
                     fill
                     sizes="(max-width: 700px) 30vw, 360px"
                   />
-                  <span aria-hidden="true">♥</span>
                 </Link>
                 <div>
                   <h3>{story.title}</h3>
