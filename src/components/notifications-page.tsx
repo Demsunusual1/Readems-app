@@ -174,7 +174,7 @@ export function NotificationsPage({ role }: { role: string }) {
           <House />
           <span>Home</span>
         </Link>
-        <Link href="#library">
+        <Link href="/library">
           <Books />
           <span>Library</span>
         </Link>

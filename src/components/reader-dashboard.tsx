@@ -233,7 +233,7 @@ export function ReaderDashboard({
           <House />
           Home
         </Link>
-        <Link href="#library">
+        <Link href="/library">
           <BookOpen />
           Library
         </Link>
