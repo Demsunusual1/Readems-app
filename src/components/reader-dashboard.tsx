@@ -68,7 +68,9 @@ export function ReaderDashboard({
   const firstName = user.fullName.split(' ')[0] || 'Kemi';
   const avatar = user.avatarUrl || '/readems/community-zara.png';
   const createUrl =
-    user.role === 'READER' ? '/signup?role=creator' : '/creator/stories/new';
+    user.role === 'READER'
+      ? '/profile-settings#account'
+      : '/creator/stories/new';
   return (
     <main className="official-reader-dashboard">
       <header className="reader-header">
@@ -145,7 +147,9 @@ export function ReaderDashboard({
                 <p>by {author}</p>
                 <footer>
                   <span>{genre}</span>
-                  <button aria-label={`More options for ${title}`}>⋮</button>
+                  <Link href="/stories/baobab" aria-label={`Open ${title}`}>
+                    ⋮
+                  </Link>
                 </footer>
               </article>
             ))}
@@ -218,7 +222,7 @@ export function ReaderDashboard({
               <br />
               and connect with readers worldwide.
             </span>
-            <Link href="#community">Explore Community ›</Link>
+            <Link href="/discover">Explore Community ›</Link>
           </div>
           <div>
             <b>
@@ -250,7 +254,7 @@ export function ReaderDashboard({
           </span>
           Create
         </Link>
-        <Link href="#community">
+        <Link href="/discover">
           <Users />
           Community
         </Link>

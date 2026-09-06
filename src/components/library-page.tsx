@@ -62,9 +62,14 @@ const lists = [
 export function LibraryPage({ role }: { role: string }) {
   const [shelf, setShelf] = useState<Shelf>('Current');
   const [newListVisible, setNewListVisible] = useState(false);
+  const [oldestFirst, setOldestFirst] = useState(false);
+  const [inProgressOnly, setInProgressOnly] = useState(false);
   const home = role === 'CREATOR' ? '/creator/dashboard' : '/reader/dashboard';
   const write =
-    role === 'READER' ? '/signup?role=creator' : '/creator/stories/new';
+    role === 'READER' ? '/profile-settings#account' : '/creator/stories/new';
+  const visibleBooks = (oldestFirst ? [...books].reverse() : books).filter(
+    (book) => !inProgressOnly || Number.parseInt(book[2]) > 20,
+  );
 
   return (
     <main className="library-page">
@@ -157,16 +162,25 @@ export function LibraryPage({ role }: { role: string }) {
               My Shelf <span>12</span>
             </h2>
             <div>
-              <button type="button" aria-label="Sort shelf by recent">
-                Recent <CaretDown />
+              <button
+                type="button"
+                onClick={() => setOldestFirst((value) => !value)}
+                aria-pressed={oldestFirst}
+              >
+                {oldestFirst ? 'Oldest' : 'Recent'} <CaretDown />
               </button>
-              <button type="button" aria-label="Filter shelf">
+              <button
+                type="button"
+                aria-label="Show in-progress books only"
+                aria-pressed={inProgressOnly}
+                onClick={() => setInProgressOnly((value) => !value)}
+              >
                 <SlidersHorizontal />
               </button>
             </div>
           </header>
           <div className="library-book-grid">
-            {books.map(([title, author, progress, image]) => (
+            {visibleBooks.map(([title, author, progress, image]) => (
               <Link
                 className="library-book-card"
                 href="/stories/baobab"
