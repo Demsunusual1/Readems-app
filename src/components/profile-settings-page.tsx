@@ -125,9 +125,9 @@ export function ProfileSettingsPage({
             <p>{user.email}</p>
             <span>{role}</span>
           </div>
-          <button type="button">
+          <a href="#account">
             <PencilSimple /> Edit
-          </button>
+          </a>
         </article>
 
         <section className="profile-setting-list" aria-label="Profile settings">
@@ -135,6 +135,7 @@ export function ProfileSettingsPage({
             <Link
               href={href}
               key={title}
+              id={href.startsWith('#') ? href.slice(1) : undefined}
               onClick={
                 title === 'Appearance & Reading Theme'
                   ? (event) => {
