@@ -37,6 +37,7 @@ type SessionClient = Pick<typeof prisma, 'session'>;
 export async function createSession(
   userId: string,
   client: SessionClient = prisma,
+  secureCookie = process.env.NODE_ENV === 'production',
 ) {
   const token = randomBytes(32).toString('base64url');
   const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
@@ -46,7 +47,7 @@ export async function createSession(
   (await cookies()).set(SESSION_COOKIE, token, {
     httpOnly: true,
     sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production',
+    secure: secureCookie,
     path: '/',
     expires: expiresAt,
   });
