@@ -240,7 +240,7 @@ export function CreatorAnalytics({ avatarUrl }: { avatarUrl: string | null }) {
           </span>
           Dashboard
         </Link>
-        <Link href="#stories">
+        <Link href="/creator/stories">
           <span>
             <Books />
           </span>
