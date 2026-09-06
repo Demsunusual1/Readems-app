@@ -498,3 +498,64 @@
   }
   .serial-grid img {
     width: 45px;
+    height: 52px;
+  }
+  .serial-grid h3 {
+    font-size: 0.54rem;
+  }
+  .serial-grid p,
+  .serial-grid span {
+    font-size: 0.48rem;
+  }
+  .serial-grid span {
+    margin-top: 5px;
+  }
+  .creators-follow > p {
+    grid-template-columns: 26px 1fr auto;
+    gap: 6px;
+    margin: 7px 0;
+    font-size: 0.53rem;
+  }
+  .creators-follow img {
+    width: 26px;
+    height: 26px;
+  }
+  .community-pulse {
+    gap: 12px;
+    margin-top: 12px;
+    padding: 16px 18px;
+    border-radius: 25px 25px 0 0;
+  }
+  .community-pulse p {
+    font-size: 0.55rem;
+  }
+  .community-pulse h2 {
+    font-size: 1rem;
+  }
+  .community-pulse > div > span {
+    font-size: 0.52rem;
+  }
+  .community-pulse a {
+    margin-top: 10px;
+    padding: 6px 8px;
+    font-size: 0.53rem;
+  }
+  .community-pulse > div:last-child b {
+    gap: 5px;
+    font-size: 0.75rem;
+  }
+  .community-pulse svg {
+    width: 20px;
+  }
+  .community-pulse small {
+    font-size: 0.46rem;
+  }
+  .reader-bottom-nav a {
+    min-height: 66px;
+    font-size: 0.58rem;
+  }
+  .reader-bottom-nav svg {
+    width: 21px;
+    height: 21px;
+  }
+}
