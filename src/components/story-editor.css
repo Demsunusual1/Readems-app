@@ -121,6 +121,9 @@
   font-weight: 500;
 }
 .writing-card {
+  display: block;
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
   border: 1px solid #dce3ee;
   border-radius: 16px;
@@ -295,7 +298,7 @@
   color: #fff;
   box-shadow: 0 10px 24px #075cff30;
 }
-@media (max-width: 720px) {
+@media (max-width: 1024px) {
   .story-editor-page {
     padding-bottom: 96px;
   }
@@ -331,9 +334,6 @@
   .editor-actions button svg {
     width: 21px;
   }
-  .editor-actions button:nth-child(2) {
-    display: none;
-  }
   .editor-sheet {
     margin-top: -25px;
     padding: 35px 16px 24px;
@@ -352,11 +352,19 @@
     margin: 0 3px 6px;
   }
   .chapter-title small {
+    gap: 12px;
     padding: 12px 4px 26px;
     font-size: 13px;
   }
+  .chapter-title small:first-line {
+    line-height: 1.45;
+  }
+  .chapter-title small b {
+    flex: 0 0 auto;
+  }
   .format-bar {
-    grid-template-columns: 116px repeat(5, 1fr);
+    width: 100%;
+    grid-template-columns: minmax(90px, 1.6fr) repeat(5, minmax(0, 1fr));
     height: 68px;
   }
   .format-bar button {
@@ -369,6 +377,7 @@
     width: 23px;
   }
   .chapter-body {
+    width: 100%;
     min-height: 500px;
     padding: 35px 30px 22px;
     font-size: 19px;
@@ -442,15 +451,29 @@
   }
 }
 @media (max-width: 430px) {
+  .editor-hero {
+    padding-inline: 14px;
+  }
+  .editor-top {
+    gap: 8px;
+  }
+  .editor-top > a {
+    width: 40px;
+    height: 40px;
+  }
   .editor-breadcrumb strong {
     display: block;
-    max-width: 142px;
+    max-width: 124px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .editor-actions button:last-child {
-    display: none;
+  .editor-actions {
+    gap: 5px;
+  }
+  .editor-actions button {
+    width: 36px;
+    height: 36px;
   }
   .chapter-title input {
     font-size: 40px;
