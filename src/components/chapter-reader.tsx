@@ -53,6 +53,7 @@ export function ChapterReader({
   const [saving, setSaving] = useState(false);
   const body = useRef<HTMLDivElement>(null);
   const pending = useRef(false);
+  const furthestParagraph = useRef(0);
 
   let settings: { size?: number; night?: boolean } = {};
   try {
@@ -72,6 +73,27 @@ export function ChapterReader({
     },
     [],
   );
+
+  useEffect(() => {
+    const rememberPosition = () => {
+      const paragraphs = Array.from(
+        body.current?.querySelectorAll<HTMLElement>('[data-paragraph]') ?? [],
+      );
+      const visible = paragraphs
+        .filter((paragraph) => {
+          const bounds = paragraph.getBoundingClientRect();
+          return bounds.top < window.innerHeight && bounds.bottom > 0;
+        })
+        .at(-1);
+      furthestParagraph.current = Math.max(
+        furthestParagraph.current,
+        Number(visible?.dataset.paragraph ?? 0),
+      );
+    };
+    rememberPosition();
+    window.addEventListener('scroll', rememberPosition, { passive: true });
+    return () => window.removeEventListener('scroll', rememberPosition);
+  }, [chapter.number]);
 
   function preference(nextSize: number, nextNight: boolean) {
     setOverride({ size: nextSize, night: nextNight });
@@ -113,16 +135,7 @@ export function ChapterReader({
     pending.current = true;
     setSaving(true);
     setMessage('Saving your place…');
-    const paragraphs = Array.from(
-      body.current?.querySelectorAll<HTMLElement>('[data-paragraph]') ?? [],
-    );
-    const visible = paragraphs
-      .filter((paragraph) => {
-        const bounds = paragraph.getBoundingClientRect();
-        return bounds.top < window.innerHeight && bounds.bottom > 0;
-      })
-      .at(-1);
-    const paragraph = Number(visible?.dataset.paragraph ?? 0);
+    const paragraph = furthestParagraph.current;
     try {
       const response = await fetch('/api/reading-progress', {
         method: 'POST',
