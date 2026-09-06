@@ -176,7 +176,7 @@ export function CreatorStories({ avatarUrl }: { avatarUrl: string | null }) {
           </span>
           Create
         </Link>
-        <Link href="#messages">
+        <Link href="/messages">
           <ChatCircle />
           Messages
         </Link>
