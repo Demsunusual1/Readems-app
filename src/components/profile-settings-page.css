@@ -271,20 +271,20 @@
 
 @media (max-width: 700px) {
   .profile-settings-hero {
-    min-height: 220px;
-    padding: 22px 22px 53px;
+    min-height: 202px;
+    padding: 18px 20px 46px;
   }
   .profile-settings-hero > img {
-    width: 38px;
-    height: 38px;
+    width: 34px;
+    height: 34px;
     border-radius: 8px;
   }
   .profile-settings-hero h1 {
-    margin: 23px 0 8px;
-    font-size: 34px;
+    margin: 19px 0 7px;
+    font-size: 31px;
   }
   .profile-settings-hero p {
-    font-size: 14px;
+    font-size: 13px;
   }
   .profile-quill {
     right: 2%;
@@ -292,28 +292,28 @@
     font-size: 125px;
   }
   .profile-settings-body {
-    margin-top: -28px;
-    padding: 0 18px 12px;
+    margin-top: -25px;
+    padding: 0 16px 10px;
   }
   .profile-identity-card {
-    gap: 13px;
-    padding: 19px 18px;
-    border-radius: 20px;
+    gap: 11px;
+    padding: 16px;
+    border-radius: 18px;
   }
   .profile-identity-card > img {
-    width: 68px;
-    height: 68px;
+    width: 60px;
+    height: 60px;
   }
   .profile-identity-card h2 {
     gap: 4px;
-    font-size: 17px;
+    font-size: 15px;
   }
   .profile-identity-card h2 svg {
     width: 17px;
   }
   .profile-identity-card p {
     max-width: 178px;
-    margin: 5px 0 8px;
+    margin: 4px 0 6px;
     overflow: hidden;
     font-size: 11px;
     text-overflow: ellipsis;
@@ -323,11 +323,11 @@
     font-size: 9px;
   }
   .profile-identity-card button {
-    height: 33px;
+    height: 30px;
     gap: 5px;
     padding: 0 10px;
     border-radius: 8px;
-    font-size: 11px;
+    font-size: 10px;
   }
   .profile-identity-card button svg {
     width: 15px;
@@ -337,27 +337,27 @@
   }
   .profile-setting-list > a,
   .profile-setting-list form > button {
-    min-height: 68px;
-    gap: 13px;
-    padding: 8px 7px;
+    min-height: 61px;
+    gap: 11px;
+    padding: 7px 6px;
   }
   .profile-setting-icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
   }
   .profile-setting-icon svg {
-    width: 23px;
-    height: 23px;
+    width: 21px;
+    height: 21px;
   }
   .profile-setting-copy {
     gap: 4px;
   }
   .profile-setting-copy strong {
-    font-size: 14px;
+    font-size: 13px;
   }
   .profile-setting-copy small {
-    font-size: 10px;
+    font-size: 9px;
   }
   .profile-setting-caret {
     width: 16px;
@@ -372,11 +372,11 @@
     height: 18px;
   }
   .profile-settings-footer {
-    min-height: 76px;
-    gap: 13px;
-    margin-top: 12px;
-    padding: 13px 22px;
-    border-radius: 18px;
+    min-height: 68px;
+    gap: 11px;
+    margin-top: 10px;
+    padding: 11px 19px;
+    border-radius: 16px;
   }
   .profile-settings-footer > span {
     font-size: 35px;
