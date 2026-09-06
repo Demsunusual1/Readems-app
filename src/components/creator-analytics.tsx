@@ -233,7 +233,7 @@ export function CreatorAnalytics({ avatarUrl }: { avatarUrl: string | null }) {
           />
         </section>
       </div>
-      <nav className="creator-bottom-nav">
+      <nav className="creator-bottom-nav" aria-label="Creator navigation">
         <Link href="/creator/dashboard">
           <span>
             <ChartBar />
