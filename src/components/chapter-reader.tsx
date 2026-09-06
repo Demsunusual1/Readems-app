@@ -116,9 +116,20 @@ export function ChapterReader({
     const paragraphs = Array.from(
       body.current?.querySelectorAll<HTMLElement>('[data-paragraph]') ?? [],
     );
-    const visible = paragraphs
-      .filter((paragraph) => paragraph.getBoundingClientRect().top <= 180)
-      .at(-1);
+    const readingLine = window.innerHeight / 2;
+    const visible = paragraphs.reduce<HTMLElement | undefined>(
+      (closest, paragraph) => {
+        if (!closest) return paragraph;
+        const distance = Math.abs(
+          paragraph.getBoundingClientRect().top - readingLine,
+        );
+        const closestDistance = Math.abs(
+          closest.getBoundingClientRect().top - readingLine,
+        );
+        return distance < closestDistance ? paragraph : closest;
+      },
+      undefined,
+    );
     const paragraph = Number(visible?.dataset.paragraph ?? 0);
     try {
       const response = await fetch('/api/reading-progress', {
