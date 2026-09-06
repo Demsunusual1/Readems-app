@@ -132,7 +132,7 @@
   color: #075cff;
   font-size: 17px;
 }
-.profile-identity-card button {
+.profile-identity-card > a {
   display: flex;
   height: 54px;
   align-items: center;
@@ -143,8 +143,9 @@
   background: #fff;
   color: #3f4d78;
   font-size: 20px;
+  text-decoration: none;
 }
-.profile-identity-card button svg {
+.profile-identity-card > a svg {
   width: 25px;
 }
 .profile-setting-list {
@@ -264,7 +265,7 @@
 .dark-theme .profile-identity-card {
   background: #10213f;
 }
-.dark-theme .profile-identity-card button {
+.dark-theme .profile-identity-card > a {
   background: #10213f;
   color: #fff;
 }
@@ -322,14 +323,14 @@
     padding: 4px 7px;
     font-size: 9px;
   }
-  .profile-identity-card button {
+  .profile-identity-card > a {
     height: 30px;
     gap: 5px;
     padding: 0 10px;
     border-radius: 8px;
     font-size: 10px;
   }
-  .profile-identity-card button svg {
+  .profile-identity-card > a svg {
     width: 15px;
   }
   .profile-setting-list {

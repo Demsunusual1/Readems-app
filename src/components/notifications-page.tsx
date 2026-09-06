@@ -100,6 +100,8 @@ export function NotificationsPage({ role }: { role: string }) {
     [kind],
   );
   const home = role === 'CREATOR' ? '/creator/dashboard' : '/reader/dashboard';
+  const create =
+    role === 'READER' ? '/signup?role=creator' : '/creator/stories/new';
 
   return (
     <main className="notifications-page">
@@ -108,9 +110,9 @@ export function NotificationsPage({ role }: { role: string }) {
           <Image src="/readems/logo.png" alt="Readems" width={48} height={48} />
           <strong>Readems</strong>
         </Link>
-        <button aria-label="Search notifications">
+        <Link href="/discover" aria-label="Search notifications">
           <span />
-        </button>
+        </Link>
       </header>
       <section className="notifications-intro">
         <div className="notification-stars" />
@@ -122,11 +124,15 @@ export function NotificationsPage({ role }: { role: string }) {
             and community.
           </p>
         </div>
-        <button aria-label="Filter notifications">
+        <a href="#notification-categories" aria-label="Filter notifications">
           <FunnelSimple />
-        </button>
+        </a>
       </section>
-      <nav className="notification-tabs" aria-label="Notification categories">
+      <nav
+        id="notification-categories"
+        className="notification-tabs"
+        aria-label="Notification categories"
+      >
         {(['All', 'Reading', 'Community', 'Creator'] as Kind[]).map((tab) => (
           <button
             className={kind === tab ? 'active' : ''}
@@ -178,7 +184,7 @@ export function NotificationsPage({ role }: { role: string }) {
           <Books />
           <span>Library</span>
         </Link>
-        <Link className="create" href="/creator/stories/new">
+        <Link className="create" href={create}>
           <Plus />
         </Link>
         <Link className="active" href="/notifications">

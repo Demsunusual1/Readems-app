@@ -26,7 +26,7 @@
   width: 48px;
   height: 48px;
 }
-.notifications-top > button {
+.notifications-top > a:last-child {
   display: grid;
   width: 58px;
   height: 58px;
@@ -35,13 +35,13 @@
   border-radius: 50%;
   background: transparent;
 }
-.notifications-top > button span {
+.notifications-top > a:last-child span {
   width: 23px;
   height: 23px;
   border: 3px solid #fff;
   border-radius: 50%;
 }
-.notifications-top > button span:after {
+.notifications-top > a:last-child span:after {
   display: block;
   width: 10px;
   height: 3px;
@@ -97,7 +97,7 @@
   color: #64748b;
   font-size: 20px;
 }
-.notifications-intro > button {
+.notifications-intro > a {
   position: relative;
   align-self: end;
   display: grid;
@@ -108,6 +108,7 @@
   border-radius: 50%;
   background: #f4f0fd;
   color: #071a3d;
+  text-decoration: none;
 }
 .notifications-intro svg {
   width: 25px;
@@ -286,16 +287,16 @@
     width: 31px;
     height: 31px;
   }
-  .notifications-top > button {
+  .notifications-top > a:last-child {
     width: 38px;
     height: 38px;
   }
-  .notifications-top > button span {
+  .notifications-top > a:last-child span {
     width: 16px;
     height: 16px;
     border-width: 2px;
   }
-  .notifications-top > button span:after {
+  .notifications-top > a:last-child span:after {
     width: 7px;
     height: 2px;
     margin: 11px 0 0 11px;
@@ -321,7 +322,7 @@
     margin-top: 5px;
     font-size: 12px;
   }
-  .notifications-intro > button {
+  .notifications-intro > a {
     width: 35px;
     height: 35px;
   }

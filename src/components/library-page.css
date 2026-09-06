@@ -210,6 +210,14 @@
   align-items: center;
   gap: 12px;
 }
+.library-shelf header div button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
 .library-shelf header svg {
   width: 24px;
 }
@@ -218,11 +226,13 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
 }
-.library-book-grid > article {
+.library-book-card {
   overflow: hidden;
   border: 1px solid #dfe5ef;
   border-radius: 16px;
   background: #fff;
+  color: inherit;
+  text-decoration: none;
 }
 .library-cover {
   position: relative;
@@ -275,6 +285,21 @@
 }
 .reading-lists header button svg {
   width: 24px;
+}
+.new-reading-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #f4efff;
+  color: #6434ce;
+}
+.new-reading-list button {
+  border: 0;
+  background: transparent;
+  color: #075cff;
 }
 .reading-lists article {
   display: grid;
@@ -388,8 +413,8 @@
     padding-bottom: 61px;
   }
   .library-hero {
-    min-height: 235px;
-    padding: 18px 18px 45px;
+    min-height: 202px;
+    padding: 15px 17px 40px;
   }
   .library-hero:after {
     bottom: -34px;
@@ -411,24 +436,25 @@
     height: 22px;
   }
   .library-hero h1 {
-    margin: 27px 0 6px;
-    font-size: 37px;
+    margin: 22px 0 5px;
+    font-size: 33px;
   }
   .library-hero p {
     font-size: 13px;
   }
   .library-book-art {
-    right: -14px;
-    bottom: 22px;
-    width: 230px;
-    height: 155px;
+    right: -12px;
+    bottom: 17px;
+    width: 195px;
+    height: 132px;
   }
   .library-content {
     width: calc(100% - 34px);
     margin-top: -4px;
   }
   .reading-goal {
-    grid-template-columns: 1fr auto 100px;
+    position: relative;
+    grid-template-columns: minmax(0, 1fr) 100px;
     gap: 10px;
     padding: 15px 17px;
     border-radius: 14px;
@@ -452,7 +478,13 @@
     height: 6px;
   }
   .reading-goal > span {
+    position: absolute;
+    right: 105px;
+    top: 48px;
     font-size: 29px;
+  }
+  .goal-momentum {
+    grid-column: 2;
   }
   .goal-momentum b {
     width: 44px;

@@ -61,9 +61,10 @@ const lists = [
 
 export function LibraryPage({ role }: { role: string }) {
   const [shelf, setShelf] = useState<Shelf>('Current');
+  const [newListVisible, setNewListVisible] = useState(false);
   const home = role === 'CREATOR' ? '/creator/dashboard' : '/reader/dashboard';
   const write =
-    role === 'CREATOR' ? '/creator/stories/new' : '/signup?role=creator';
+    role === 'READER' ? '/signup?role=creator' : '/creator/stories/new';
 
   return (
     <main className="library-page">
@@ -156,13 +157,21 @@ export function LibraryPage({ role }: { role: string }) {
               My Shelf <span>12</span>
             </h2>
             <div>
-              Recent <CaretDown />
-              <SlidersHorizontal />
+              <button type="button" aria-label="Sort shelf by recent">
+                Recent <CaretDown />
+              </button>
+              <button type="button" aria-label="Filter shelf">
+                <SlidersHorizontal />
+              </button>
             </div>
           </header>
           <div className="library-book-grid">
             {books.map(([title, author, progress, image]) => (
-              <article key={title}>
+              <Link
+                className="library-book-card"
+                href="/stories/baobab"
+                key={title}
+              >
                 <div className="library-cover">
                   <Image
                     src={image}
@@ -178,7 +187,7 @@ export function LibraryPage({ role }: { role: string }) {
                   <progress value={Number.parseInt(progress)} max="100" />
                   <strong>{progress}</strong>
                 </footer>
-              </article>
+              </Link>
             ))}
           </div>
         </section>
@@ -186,10 +195,18 @@ export function LibraryPage({ role }: { role: string }) {
         <section className="reading-lists">
           <header>
             <h2>My Reading Lists</h2>
-            <button>
+            <button type="button" onClick={() => setNewListVisible(true)}>
               New List <Plus />
             </button>
           </header>
+          {newListVisible && (
+            <div className="new-reading-list" role="status">
+              New reading list ready to name.
+              <button type="button" onClick={() => setNewListVisible(false)}>
+                Close
+              </button>
+            </div>
+          )}
           {lists.map(([title, count, privacy, copy, symbol]) => (
             <article key={title}>
               <span>{symbol}</span>
@@ -222,7 +239,9 @@ export function LibraryPage({ role }: { role: string }) {
             <strong>Offline Mode</strong>
             <small>3 books available offline</small>
           </div>
-          <button>View Downloads</button>
+          <button type="button" onClick={() => setShelf('Downloads')}>
+            View Downloads
+          </button>
         </aside>
       </section>
 

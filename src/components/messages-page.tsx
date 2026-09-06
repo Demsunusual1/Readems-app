@@ -76,6 +76,8 @@ export function MessagesPage({ role }: { role: string }) {
     [query],
   );
   const home = role === 'CREATOR' ? '/creator/dashboard' : '/reader/dashboard';
+  const write =
+    role === 'READER' ? '/signup?role=creator' : '/creator/stories/new';
 
   return (
     <main className="messages-page">
@@ -171,7 +173,7 @@ export function MessagesPage({ role }: { role: string }) {
           <Compass />
           <span>Discover</span>
         </Link>
-        <Link href="/creator/stories/new">
+        <Link href={write}>
           <NotePencil />
           <span>Write</span>
         </Link>

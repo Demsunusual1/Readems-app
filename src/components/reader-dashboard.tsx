@@ -58,10 +58,17 @@ const serials = [
 export function ReaderDashboard({
   user,
 }: {
-  user: { fullName: string; avatarUrl: string | null; interests: string[] };
+  user: {
+    fullName: string;
+    avatarUrl: string | null;
+    interests: string[];
+    role: string;
+  };
 }) {
   const firstName = user.fullName.split(' ')[0] || 'Kemi';
   const avatar = user.avatarUrl || '/readems/community-zara.png';
+  const createUrl =
+    user.role === 'READER' ? '/signup?role=creator' : '/creator/stories/new';
   return (
     <main className="official-reader-dashboard">
       <header className="reader-header">
@@ -237,7 +244,7 @@ export function ReaderDashboard({
           <BookOpen />
           Library
         </Link>
-        <Link className="create" href="#create">
+        <Link className="create" href={createUrl}>
           <span>
             <Plus />
           </span>
@@ -259,7 +266,7 @@ function SectionHeading({ title }: { title: string }) {
   return (
     <header className="reader-section-heading">
       <h2>{title}</h2>
-      <Link href="#view-all">View all ›</Link>
+      <Link href="/discover">View all ›</Link>
     </header>
   );
 }
