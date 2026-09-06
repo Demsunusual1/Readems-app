@@ -107,7 +107,8 @@ export function CreateStory() {
             <Sparkle />
           </div>
           <small>
-            Give your story a memorable title.<b>{title.length} / 120</b>
+            <span>Give your story a memorable title.</span>
+            <b>{title.length} / 120</b>
           </small>
         </label>
 
