@@ -247,7 +247,7 @@ export function ReaderDashboard({
           <Users />
           Community
         </Link>
-        <Link href="#profile">
+        <Link href="/profile-settings">
           <User />
           Profile
         </Link>

@@ -180,7 +180,7 @@ export function CreatorStories({ avatarUrl }: { avatarUrl: string | null }) {
           <ChatCircle />
           Messages
         </Link>
-        <Link href="#profile">
+        <Link href="/profile-settings">
           <User />
           Profile
         </Link>

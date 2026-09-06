@@ -180,7 +180,7 @@ export function MessagesPage({ role }: { role: string }) {
           <NotePencil />
           <span>Messages</span>
         </Link>
-        <Link href="#profile">
+        <Link href="/profile-settings">
           <User />
           <span>Profile</span>
         </Link>
