@@ -40,7 +40,7 @@ export function CreatorDashboard({
         <header className="creator-official-header">
           <ReademsLogo tone="light" />
           <div>
-            <Link href="#notifications" aria-label="Notifications">
+            <Link href="/notifications" aria-label="Notifications">
               <Bell />
               <i />
             </Link>

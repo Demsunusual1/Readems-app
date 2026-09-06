@@ -70,7 +70,7 @@ export function ReaderDashboard({
           <Link href="/discover" aria-label="Search">
             <MagnifyingGlass />
           </Link>
-          <Link href="#notifications" aria-label="Notifications">
+          <Link href="/notifications" aria-label="Notifications">
             <Bell />
             <i />
           </Link>
