@@ -57,7 +57,7 @@ export function CreatorDashboard({
             <h1>{name}</h1>
             <span>✹ &nbsp;Verified Creator</span>
           </div>
-          <Link className="creator-new-story" href="#draft-queue">
+          <Link className="creator-new-story" href="/creator/stories/new">
             <Plus /> New Story
           </Link>
         </div>

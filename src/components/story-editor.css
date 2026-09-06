@@ -1,0 +1,473 @@
+.story-editor-page {
+  min-height: 100vh;
+  padding-bottom: 126px;
+  background: #fff;
+  color: #071a3d;
+}
+.editor-hero {
+  position: relative;
+  padding: 58px max(4%, 30px) 82px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 88% 15%, #6731b866, transparent 32%),
+    linear-gradient(120deg, #00132e, #03255a);
+  overflow: hidden;
+}
+.editor-constellations {
+  position: absolute;
+  inset: 0 0 0 55%;
+  opacity: 0.5;
+  background-image:
+    radial-gradient(circle, #fff 2px, transparent 2.5px),
+    linear-gradient(35deg, transparent 48%, #8ca0d555 49%, transparent 51%);
+  background-size:
+    72px 63px,
+    130px 90px;
+}
+.editor-top {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 24px;
+  width: min(100%, 1120px);
+  margin: auto;
+  align-items: center;
+}
+.editor-top > a,
+.editor-actions button {
+  display: grid;
+  width: 72px;
+  height: 72px;
+  place-items: center;
+  border: 1px solid #ffffff61;
+  border-radius: 50%;
+  background: #071f48aa;
+  color: #fff;
+}
+.editor-top svg {
+  width: 32px;
+  height: 32px;
+}
+.editor-breadcrumb strong {
+  font-size: 25px;
+}
+.editor-breadcrumb p {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 0;
+  font-size: 22px;
+}
+.editor-breadcrumb p svg {
+  width: 18px;
+}
+.editor-breadcrumb p b {
+  color: #1674ff;
+}
+.editor-actions {
+  display: flex;
+  gap: 22px;
+}
+.editor-actions button {
+  width: 72px;
+  height: 72px;
+}
+.editor-sheet {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 1200px);
+  margin: -30px auto 0;
+  padding: 52px 44px 38px;
+  border-radius: 58px 58px 0 0;
+  background: #fff;
+}
+.chapter-title > span,
+.chapter-inserts h2 {
+  color: #52617e;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.chapter-title > div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  border-bottom: 4px solid #0969ff;
+}
+.chapter-title input {
+  width: 100%;
+  padding: 22px 8px 17px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #061737;
+  font: 500 68px/1 var(--font-literary);
+}
+.chapter-title svg {
+  width: 64px;
+  height: 64px;
+  margin: 0 12px 12px;
+  color: #8756e8;
+}
+.chapter-title small {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 8px 42px;
+  color: #657493;
+  font-size: 20px;
+}
+.chapter-title small b {
+  font-weight: 500;
+}
+.writing-card {
+  overflow: hidden;
+  border: 1px solid #dce3ee;
+  border-radius: 16px;
+}
+.format-bar {
+  display: grid;
+  grid-template-columns: 230px repeat(5, 1fr);
+  height: 104px;
+  border-bottom: 1px solid #dce3ee;
+}
+.format-bar button {
+  border: 0;
+  border-right: 1px solid #e1e6ef;
+  background: #fff;
+  color: #061737;
+  font-size: 28px;
+}
+.format-bar button:last-child {
+  border-right: 0;
+}
+.format-bar .paragraph {
+  font-size: 20px;
+}
+.format-bar svg {
+  width: 32px;
+  height: 32px;
+}
+.chapter-body {
+  min-height: 720px;
+  padding: 66px 84px 40px;
+  outline: 0;
+  color: #101523;
+  font: 28px/1.55 var(--font-literary);
+}
+.chapter-body p {
+  margin: 0 0 34px;
+}
+.chapter-body .opening:first-letter {
+  float: left;
+  margin: -3px 10px 0 0;
+  color: #8b38cc;
+  font-size: 82px;
+  line-height: 0.85;
+}
+.editor-stats {
+  display: grid;
+  grid-template-columns: 150px 170px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 28px 42px;
+  border-top: 1px solid #dce3ee;
+}
+.editor-stats > span {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #dce3ee;
+}
+.editor-stats b {
+  font-size: 23px;
+}
+.editor-stats small {
+  color: #6b7892;
+  font-size: 18px;
+}
+.editor-stats .saved {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  border: 0;
+  font-size: 38px;
+}
+.saved > i {
+  position: absolute;
+  left: 24px;
+  bottom: 2px;
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+  border: 2px solid #16a66a;
+  border-radius: 50%;
+  background: #fff;
+  color: #16a66a;
+  font: 700 10px sans-serif;
+}
+.saved > span {
+  font-size: 17px;
+}
+.saved > span small {
+  display: block;
+}
+.editor-stats button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 18px;
+  border: 1px solid #dce3ee;
+  border-radius: 10px;
+  background: #fff;
+  color: #075cff;
+  font: 700 17px var(--font-interface);
+}
+.editor-stats button svg {
+  width: 25px;
+  height: 25px;
+}
+.chapter-inserts {
+  margin-top: 38px;
+}
+.chapter-inserts h2 {
+  font-size: 16px;
+}
+.chapter-inserts > div {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(120px, 1fr));
+  gap: 26px;
+  margin-top: 22px;
+  overflow-x: auto;
+}
+.chapter-inserts button {
+  display: grid;
+  min-width: 122px;
+  height: 142px;
+  place-items: center;
+  padding: 24px 12px;
+  border: 1px solid #dce3ee;
+  border-radius: 16px;
+  background: #fff;
+  color: #071a3d;
+  font: 600 17px var(--font-interface);
+}
+.chapter-inserts button svg {
+  width: 43px;
+  height: 43px;
+  color: #075cff;
+}
+.publish-bar {
+  position: fixed;
+  z-index: 10;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 24px;
+  padding: 24px max(calc((100% - 1120px) / 2), 30px);
+  border-top: 1px solid #dce3ee;
+  background: #fff;
+}
+.publish-bar button {
+  display: flex;
+  height: 76px;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border-radius: 15px;
+  font: 800 21px var(--font-interface);
+}
+.publish-bar svg {
+  width: 30px;
+  height: 30px;
+}
+.schedule {
+  border: 2px solid #075cff;
+  background: #fff;
+  color: #075cff;
+}
+.publish {
+  border: 0;
+  background: linear-gradient(120deg, #075cff, #074be9);
+  color: #fff;
+  box-shadow: 0 10px 24px #075cff30;
+}
+@media (max-width: 720px) {
+  .story-editor-page {
+    padding-bottom: 96px;
+  }
+  .editor-hero {
+    padding: 28px 18px 62px;
+  }
+  .editor-top {
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+  }
+  .editor-top > a {
+    width: 48px;
+    height: 48px;
+  }
+  .editor-top > a svg {
+    width: 23px;
+  }
+  .editor-breadcrumb strong {
+    font-size: 16px;
+  }
+  .editor-breadcrumb p {
+    gap: 5px;
+    margin-top: 5px;
+    font-size: 14px;
+  }
+  .editor-actions {
+    gap: 7px;
+  }
+  .editor-actions button {
+    width: 43px;
+    height: 43px;
+  }
+  .editor-actions button svg {
+    width: 21px;
+  }
+  .editor-actions button:nth-child(2) {
+    display: none;
+  }
+  .editor-sheet {
+    margin-top: -25px;
+    padding: 35px 16px 24px;
+    border-radius: 34px 34px 0 0;
+  }
+  .chapter-title > span {
+    font-size: 12px;
+  }
+  .chapter-title input {
+    padding: 15px 4px 10px;
+    font-size: 46px;
+  }
+  .chapter-title svg {
+    width: 43px;
+    height: 43px;
+    margin: 0 3px 6px;
+  }
+  .chapter-title small {
+    padding: 12px 4px 26px;
+    font-size: 13px;
+  }
+  .format-bar {
+    grid-template-columns: 116px repeat(5, 1fr);
+    height: 68px;
+  }
+  .format-bar button {
+    font-size: 20px;
+  }
+  .format-bar .paragraph {
+    font-size: 14px;
+  }
+  .format-bar svg {
+    width: 23px;
+  }
+  .chapter-body {
+    min-height: 500px;
+    padding: 35px 30px 22px;
+    font-size: 19px;
+  }
+  .chapter-body p {
+    margin-bottom: 24px;
+  }
+  .chapter-body .opening:first-letter {
+    font-size: 60px;
+  }
+  .editor-stats {
+    grid-template-columns: 70px 88px 1fr auto;
+    gap: 8px;
+    padding: 18px 14px;
+  }
+  .editor-stats b {
+    font-size: 14px;
+  }
+  .editor-stats small {
+    font-size: 11px;
+  }
+  .editor-stats .saved {
+    gap: 4px;
+    font-size: 24px;
+  }
+  .saved > span {
+    font-size: 11px;
+  }
+  .saved > i {
+    left: 13px;
+    width: 14px;
+    height: 14px;
+  }
+  .editor-stats button {
+    padding: 10px;
+    font-size: 0;
+  }
+  .editor-stats button svg {
+    width: 22px;
+  }
+  .chapter-inserts {
+    margin-top: 26px;
+  }
+  .chapter-inserts h2 {
+    font-size: 12px;
+  }
+  .chapter-inserts > div {
+    gap: 12px;
+    margin-top: 14px;
+  }
+  .chapter-inserts button {
+    min-width: 96px;
+    height: 108px;
+    padding: 14px 8px;
+    font-size: 14px;
+  }
+  .chapter-inserts button svg {
+    width: 33px;
+  }
+  .publish-bar {
+    gap: 12px;
+    padding: 12px 16px;
+  }
+  .publish-bar button {
+    height: 58px;
+    border-radius: 11px;
+    font-size: 16px;
+  }
+  .publish-bar svg {
+    width: 23px;
+  }
+}
+@media (max-width: 430px) {
+  .editor-breadcrumb strong {
+    display: block;
+    max-width: 142px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .editor-actions button:last-child {
+    display: none;
+  }
+  .chapter-title input {
+    font-size: 40px;
+  }
+  .chapter-body {
+    padding-inline: 23px;
+  }
+  .editor-stats {
+    grid-template-columns: 64px 76px 1fr;
+  }
+  .editor-stats button {
+    display: none;
+  }
+  .publish-bar {
+    grid-template-columns: 1fr 1.25fr;
+  }
+  .publish-bar button {
+    font-size: 14px;
+  }
+}
