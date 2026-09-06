@@ -455,7 +455,6 @@
     font-size: 0.55rem;
   }
   .analytics-grid {
-    align-items: start;
     gap: 8px;
   }
   .top-stories,
@@ -467,14 +466,14 @@
   }
   .top-stories article {
     display: grid;
-    grid-template-columns: 48px minmax(0, 1fr) auto;
-    gap: 6px;
-    min-height: 45px;
+    grid-template-columns: 44px minmax(0, 1fr) 32px;
+    gap: 5px;
+    min-height: 42px;
     margin-top: 6px;
   }
   .top-stories img {
-    width: 48px;
-    height: 42px;
+    width: 44px;
+    height: 40px;
   }
   .top-stories h3 {
     display: -webkit-box;
@@ -491,13 +490,14 @@
     white-space: nowrap;
   }
   .top-stories article > strong {
+    align-self: center;
     font-size: 0.58rem;
     text-align: right;
   }
   .audience-globe {
-    width: 72%;
-    height: 66px;
-    margin: 2px auto;
+    width: 82%;
+    height: 78px;
+    margin: 4px auto 2px;
   }
   .audience-card li,
   .source-card li {
@@ -565,17 +565,25 @@
     min-height: 106px;
   }
   .top-stories img {
-    width: 42px;
-    height: 38px;
+    width: 38px;
+    height: 36px;
   }
   .top-stories article {
-    grid-template-columns: 42px minmax(0, 1fr) auto;
-    gap: 4px;
-    min-height: 40px;
+    grid-template-columns: 38px minmax(0, 1fr) 28px;
+    gap: 3px;
+    min-height: 38px;
+  }
+  .top-stories h3 {
+    font-size: 0.52rem;
+  }
+  .top-stories p,
+  .top-stories article > strong,
+  .top-stories strong small {
+    font-size: 0.46rem;
   }
   .audience-globe {
-    width: 68%;
-    height: 62px;
+    width: 80%;
+    height: 72px;
   }
   .source-card i {
     width: 64px;
