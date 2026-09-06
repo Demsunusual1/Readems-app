@@ -401,10 +401,16 @@
   }
   .analytics-metrics {
     gap: 6px;
-    margin-top: 10px;
+    margin-top: 7px;
   }
   .analytics-metrics article {
-    padding: 8px 6px;
+    display: flex;
+    min-height: 112px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    padding: 8px 4px;
+    text-align: center;
   }
   .analytics-metrics article > span {
     width: 28px;
@@ -414,11 +420,11 @@
     width: 17px;
   }
   .analytics-metrics p {
-    margin-left: 4px;
+    margin: 4px 0 0;
     font-size: 0.6rem;
   }
   .analytics-metrics strong {
-    margin-top: 7px;
+    margin-top: 5px;
     font-size: 0.88rem;
   }
   .analytics-metrics small,
@@ -426,8 +432,8 @@
     font-size: 0.54rem;
   }
   .analytics-card {
-    margin-top: 10px;
-    padding: 11px;
+    margin-top: 8px;
+    padding: 9px;
   }
   .analytics-card h2,
   .earnings-card h2 {
@@ -472,13 +478,15 @@
     font-size: 0.58rem;
   }
   .audience-globe {
-    height: 90px;
+    width: 72%;
+    height: 66px;
+    margin: 2px auto;
   }
   .audience-card li,
   .source-card li {
     gap: 5px;
-    margin: 4px 0;
-    font-size: 0.55rem;
+    margin: 3px 0;
+    font-size: 0.51rem;
   }
   .source-card > div {
     gap: 8px;
@@ -528,7 +536,7 @@
 }
 @media (max-width: 390px) {
   .analytics-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .analytics-hero {
     min-height: 220px;
@@ -537,18 +545,19 @@
     grid-template-columns: repeat(2, 1fr);
   }
   .analytics-metrics article {
-    grid-template-columns: auto 1fr;
+    min-height: 106px;
   }
   .top-stories img {
     width: 58px;
     height: 45px;
   }
   .audience-globe {
-    height: 105px;
+    width: 68%;
+    height: 62px;
   }
   .source-card i {
-    width: 90px;
-    height: 90px;
+    width: 64px;
+    height: 64px;
   }
 }
 
