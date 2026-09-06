@@ -186,7 +186,7 @@ export function NotificationsPage({ role }: { role: string }) {
           <i />
           <span>Notifications</span>
         </Link>
-        <Link href="#profile">
+        <Link href="/profile-settings">
           <User />
           <span>Profile</span>
         </Link>
