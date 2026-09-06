@@ -233,7 +233,7 @@ export function CreatorDashboard({
           </span>
           Stories
         </Link>
-        <Link href="#analytics">
+        <Link href="/creator/analytics">
           <span>
             <ChartBar />
           </span>
