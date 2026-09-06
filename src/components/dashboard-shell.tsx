@@ -103,7 +103,7 @@ export function DashboardShell({
           </label>
         )}
         <div className="dash-account">
-          <Link href="#notifications" aria-label="Notifications">
+          <Link href="/notifications" aria-label="Notifications">
             <Bell aria-hidden="true" />
             <i />
           </Link>

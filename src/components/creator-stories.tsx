@@ -77,7 +77,7 @@ export function CreatorStories({ avatarUrl }: { avatarUrl: string | null }) {
         <header>
           <ReademsLogo tone="light" />
           <div>
-            <Link href="#notifications" aria-label="Notifications">
+            <Link href="/notifications" aria-label="Notifications">
               <Bell />
             </Link>
             <Image src={avatar} alt="" width={52} height={52} unoptimized />
