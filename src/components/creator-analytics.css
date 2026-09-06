@@ -455,27 +455,44 @@
     font-size: 0.55rem;
   }
   .analytics-grid {
+    align-items: start;
     gap: 8px;
+  }
+  .top-stories,
+  .audience-card {
+    min-height: 0;
   }
   .analytics-heading a {
     font-size: 0.62rem;
   }
   .top-stories article {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) auto;
     gap: 6px;
-    margin-top: 8px;
+    min-height: 45px;
+    margin-top: 6px;
   }
   .top-stories img {
     width: 48px;
     height: 42px;
   }
   .top-stories h3 {
+    display: -webkit-box;
+    overflow: hidden;
     font-size: 0.61rem;
+    line-height: 1.2;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
   .top-stories p {
+    overflow: hidden;
     font-size: 0.52rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .top-stories article > strong {
     font-size: 0.58rem;
+    text-align: right;
   }
   .audience-globe {
     width: 72%;
@@ -548,8 +565,13 @@
     min-height: 106px;
   }
   .top-stories img {
-    width: 58px;
-    height: 45px;
+    width: 42px;
+    height: 38px;
+  }
+  .top-stories article {
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    gap: 4px;
+    min-height: 40px;
   }
   .audience-globe {
     width: 68%;
