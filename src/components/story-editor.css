@@ -169,12 +169,24 @@
   line-height: 0.85;
 }
 .editor-stats {
+  position: relative;
   display: grid;
   grid-template-columns: 150px 170px 1fr auto;
   align-items: center;
   gap: 16px;
   padding: 28px 42px;
   border-top: 1px solid #dce3ee;
+}
+.editor-stats::before {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  width: 42px;
+  height: 5px;
+  border-radius: 999px;
+  background: #d8dde6;
+  content: '';
+  transform: translateX(-50%);
 }
 .editor-stats > span {
   display: flex;
@@ -235,6 +247,7 @@
   margin-top: 38px;
 }
 .chapter-inserts h2 {
+  font-family: var(--font-interface);
   font-size: 16px;
 }
 .chapter-inserts > div {
@@ -425,17 +438,20 @@
     font-size: 12px;
   }
   .chapter-inserts > div {
-    gap: 12px;
+    grid-template-columns: repeat(6, 72px);
+    gap: 8px;
     margin-top: 14px;
   }
   .chapter-inserts button {
-    min-width: 96px;
-    height: 108px;
-    padding: 14px 8px;
-    font-size: 14px;
+    min-width: 72px;
+    height: 76px;
+    padding: 8px 5px;
+    border-radius: 10px;
+    font-size: 11px;
   }
   .chapter-inserts button svg {
-    width: 33px;
+    width: 23px;
+    height: 23px;
   }
   .publish-bar {
     gap: 9px;
@@ -482,10 +498,19 @@
     padding-inline: 23px;
   }
   .editor-stats {
-    grid-template-columns: 64px 76px 1fr;
+    grid-template-columns: 52px 62px 1fr auto;
+    gap: 5px;
+    padding-inline: 9px;
   }
   .editor-stats button {
-    display: none;
+    display: flex;
+    gap: 4px;
+    padding: 6px;
+    font-size: 9px;
+  }
+  .editor-stats button svg {
+    width: 15px;
+    height: 15px;
   }
   .publish-bar {
     grid-template-columns: 1fr 1.25fr;
