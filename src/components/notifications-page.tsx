@@ -101,7 +101,7 @@ export function NotificationsPage({ role }: { role: string }) {
   );
   const home = role === 'CREATOR' ? '/creator/dashboard' : '/reader/dashboard';
   const create =
-    role === 'READER' ? '/signup?role=creator' : '/creator/stories/new';
+    role === 'READER' ? '/profile-settings#account' : '/creator/stories/new';
 
   return (
     <main className="notifications-page">

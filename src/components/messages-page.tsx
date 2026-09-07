@@ -77,7 +77,7 @@ export function MessagesPage({ role }: { role: string }) {
   );
   const home = role === 'CREATOR' ? '/creator/dashboard' : '/reader/dashboard';
   const write =
-    role === 'READER' ? '/signup?role=creator' : '/creator/stories/new';
+    role === 'READER' ? '/profile-settings#account' : '/creator/stories/new';
 
   return (
     <main className="messages-page">
