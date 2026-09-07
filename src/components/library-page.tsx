@@ -250,13 +250,13 @@ export function LibraryPage({ role }: { role: string }) {
                 <small>{copy}</small>
               </div>
               <div className="mini-books">
-                {books.map((book) => (
+                {[...books, books[1], books[2]].map((book, index) => (
                   <Image
                     src={book[3]}
                     alt=""
                     width={35}
                     height={50}
-                    key={book[0]}
+                    key={`${book[0]}-${index}`}
                   />
                 ))}
               </div>

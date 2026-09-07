@@ -458,24 +458,24 @@
   }
   .reading-goal {
     position: relative;
-    grid-template-columns: minmax(0, 1fr) 100px;
-    gap: 10px;
-    padding: 15px 17px;
-    border-radius: 14px;
+    grid-template-columns: minmax(0, 1fr) 92px;
+    gap: 7px;
+    padding: 11px 14px;
+    border-radius: 12px;
   }
   .reading-goal h2 {
-    margin-bottom: 6px;
-    font-size: 13px;
+    margin-bottom: 4px;
+    font-size: 12px;
   }
   .reading-goal > div:first-child > strong {
-    font-size: 20px;
+    font-size: 18px;
   }
   .reading-goal strong small {
-    font-size: 13px;
+    font-size: 12px;
   }
   .reading-goal p {
-    margin: 4px 0;
-    font-size: 10px;
+    margin: 3px 0;
+    font-size: 9px;
   }
   .reading-goal progress {
     width: 100%;
@@ -483,28 +483,30 @@
   }
   .reading-goal > span {
     position: absolute;
-    right: 104px;
-    top: 49px;
+    right: 94px;
+    top: 40px;
     display: block;
-    font-size: 21px;
+    font-size: 18px;
   }
   .goal-momentum {
     grid-column: 2;
   }
   .goal-momentum b {
-    width: 44px;
-    height: 44px;
-    border-width: 4px;
+    width: 38px;
+    height: 38px;
+    border-width: 3px;
   }
   .goal-momentum b svg {
-    width: 20px;
+    width: 17px;
   }
   .goal-momentum strong {
-    font-size: 11px;
+    margin-top: 4px;
+    font-size: 10px;
     white-space: nowrap;
   }
   .goal-momentum small {
-    font-size: 9px;
+    margin-top: 2px;
+    font-size: 8px;
     white-space: nowrap;
   }
   .library-tabs {
@@ -577,20 +579,20 @@
   }
   .reading-lists article {
     grid-template-columns: auto 1fr auto auto;
-    gap: 9px;
-    margin-bottom: 7px;
-    padding: 7px 9px;
+    gap: 8px;
+    margin-bottom: 6px;
+    padding: 6px 8px;
     border-radius: 10px;
   }
   .reading-lists article > span {
-    width: 54px;
-    height: 54px;
+    width: 48px;
+    height: 48px;
     border-radius: 8px;
     color: #d7a93c;
   }
   .reading-lists article > span svg {
-    width: 29px;
-    height: 29px;
+    width: 26px;
+    height: 26px;
   }
   .reading-lists h3 {
     font-size: 12px;
@@ -603,9 +605,9 @@
     font-size: 8px;
   }
   .mini-books img {
-    width: 20px;
-    height: 29px;
-    margin-left: -6px;
+    width: 22px;
+    height: 32px;
+    margin-left: -7px;
   }
   .reading-lists article > svg {
     width: 15px;
