@@ -458,7 +458,7 @@
   }
   .reading-goal {
     position: relative;
-    grid-template-columns: minmax(0, 1fr) 92px;
+    grid-template-columns: minmax(0, 1fr) 82px;
     gap: 7px;
     padding: 11px 14px;
     border-radius: 12px;
@@ -483,7 +483,7 @@
   }
   .reading-goal > span {
     position: absolute;
-    right: 94px;
+    right: 84px;
     top: 40px;
     display: block;
     font-size: 18px;
@@ -492,21 +492,21 @@
     grid-column: 2;
   }
   .goal-momentum b {
-    width: 38px;
-    height: 38px;
+    width: 32px;
+    height: 32px;
     border-width: 3px;
   }
   .goal-momentum b svg {
-    width: 17px;
+    width: 14px;
   }
   .goal-momentum strong {
-    margin-top: 4px;
-    font-size: 10px;
+    margin-top: 3px;
+    font-size: 9px;
     white-space: nowrap;
   }
   .goal-momentum small {
-    margin-top: 2px;
-    font-size: 8px;
+    margin-top: 1px;
+    font-size: 7px;
     white-space: nowrap;
   }
   .library-tabs {
