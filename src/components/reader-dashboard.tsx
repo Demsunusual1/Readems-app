@@ -20,18 +20,21 @@ const recommendations = [
     'Zanele M.',
     'Contemporary',
     '/readems/cover-letters-to-my-younger-self.png',
+    'letters',
   ],
   [
     'The Last Train to Makoko',
     'Tobi A.',
     'Historical Fiction',
     '/readems/cover-last-train-to-makoko.png',
+    'makoko',
   ],
   [
     'The Girl Who Dreamed in Code',
     'Ada N.',
     'Young Adult',
     '/readems/featured-archivist-of-salt.png',
+    'archivist',
   ],
 ] as const;
 const serials = [
@@ -137,7 +140,7 @@ export function ReaderDashboard({
         <section className="reader-section">
           <SectionHeading title="Because you read Contemporary & Drama" />
           <div className="recommendation-grid">
-            {recommendations.map(([title, author, genre, image]) => (
+            {recommendations.map(([title, author, genre, image, id]) => (
               <article key={title}>
                 <div>
                   <Image src={image} alt="" fill sizes="30vw" />
@@ -147,7 +150,7 @@ export function ReaderDashboard({
                 <p>by {author}</p>
                 <footer>
                   <span>{genre}</span>
-                  <Link href="/stories/baobab" aria-label={`Open ${title}`}>
+                  <Link href={`/stories/${id}`} aria-label={`Open ${title}`}>
                     ⋮
                   </Link>
                 </footer>

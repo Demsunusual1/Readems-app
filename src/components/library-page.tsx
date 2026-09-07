@@ -27,18 +27,21 @@ const books = [
     'Chineu Odafe',
     '65%',
     '/readems/story-baobab-cover.png',
+    'baobab',
   ],
   [
     'The House on Freedom Street',
     'Lesil Johnson',
     '42%',
     '/readems/featured-when-stars-learn-to-bloom.png',
+    'archivist',
   ],
   [
     'The Last Train to Makoko',
     'Tendayi M.',
     '20%',
     '/readems/cover-last-train-to-makoko.png',
+    'makoko',
   ],
 ] as const;
 const lists = [
@@ -68,7 +71,10 @@ export function LibraryPage({ role }: { role: string }) {
   const write =
     role === 'READER' ? '/profile-settings#account' : '/creator/stories/new';
   const visibleBooks = (oldestFirst ? [...books].reverse() : books).filter(
-    (book) => !inProgressOnly || Number.parseInt(book[2]) > 20,
+    (book) => {
+      const progress = Number.parseInt(book[2]);
+      return !inProgressOnly || (progress > 0 && progress < 100);
+    },
   );
 
   return (
@@ -180,10 +186,10 @@ export function LibraryPage({ role }: { role: string }) {
             </div>
           </header>
           <div className="library-book-grid">
-            {visibleBooks.map(([title, author, progress, image]) => (
+            {visibleBooks.map(([title, author, progress, image, id]) => (
               <Link
                 className="library-book-card"
-                href="/stories/baobab"
+                href={`/stories/${id}`}
                 key={title}
               >
                 <div className="library-cover">
