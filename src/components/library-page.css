@@ -321,6 +321,10 @@
   color: #e6b94d;
   font-size: 48px;
 }
+.reading-lists article > span svg {
+  width: 50px;
+  height: 50px;
+}
 .reading-lists h3 {
   margin: 0;
   font-size: 21px;
@@ -478,7 +482,11 @@
     height: 6px;
   }
   .reading-goal > span {
-    display: none;
+    position: absolute;
+    right: 104px;
+    top: 49px;
+    display: block;
+    font-size: 21px;
   }
   .goal-momentum {
     grid-column: 2;
@@ -578,7 +586,11 @@
     width: 54px;
     height: 54px;
     border-radius: 8px;
-    font-size: 27px;
+    color: #d7a93c;
+  }
+  .reading-lists article > span svg {
+    width: 29px;
+    height: 29px;
   }
   .reading-lists h3 {
     font-size: 12px;

@@ -378,15 +378,8 @@
 .reader-bottom-nav .active {
   color: #0877f9;
 }
-.reader-bottom-nav .messages span {
-  display: grid;
-  width: 46px;
-  height: 46px;
-  place-items: center;
-  margin-top: -25px;
-  border-radius: 12px;
-  background: #0877f9;
-  color: #fff;
+.reader-bottom-nav .messages {
+  color: #536682;
 }
 @media (max-width: 640px) {
   .reader-header {

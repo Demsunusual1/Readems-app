@@ -13,10 +13,13 @@ import {
   CheckCircle,
   Compass,
   DownloadSimple,
+  Feather,
+  GlobeHemisphereWest,
   House,
   MagnifyingGlass,
   Plus,
   SlidersHorizontal,
+  StarFour,
   User,
 } from '@phosphor-icons/react';
 import './library-page.css';
@@ -51,16 +54,16 @@ const lists = [
     '8 books',
     'Public',
     'Stories that center our voices and our worlds.',
-    '◎',
+    'globe',
   ],
   [
     'Writers I Admire',
     '12 books',
     'Private',
     'Craft, courage, and impact.',
-    '✎',
+    'feather',
   ],
-  ['Future Reads', '15 books', 'Private', 'On deck and on my mind.', '✷'],
+  ['Future Reads', '15 books', 'Private', 'On deck and on my mind.', 'star'],
 ] as const;
 
 export function LibraryPage({ role }: { role: string }) {
@@ -230,7 +233,15 @@ export function LibraryPage({ role }: { role: string }) {
           )}
           {lists.map(([title, count, privacy, copy, symbol]) => (
             <article key={title}>
-              <span>{symbol}</span>
+              <span>
+                {symbol === 'globe' ? (
+                  <GlobeHemisphereWest />
+                ) : symbol === 'feather' ? (
+                  <Feather />
+                ) : (
+                  <StarFour />
+                )}
+              </span>
               <div>
                 <h3>{title}</h3>
                 <p>
