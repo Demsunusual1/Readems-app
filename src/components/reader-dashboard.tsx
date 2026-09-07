@@ -7,7 +7,6 @@ import {
   Eye,
   House,
   MagnifyingGlass,
-  Plus,
   User,
   Users,
 } from '@phosphor-icons/react/dist/ssr';
@@ -70,10 +69,6 @@ export function ReaderDashboard({
 }) {
   const firstName = user.fullName.split(' ')[0] || 'Kemi';
   const avatar = user.avatarUrl || '/readems/community-zara.png';
-  const createUrl =
-    user.role === 'READER'
-      ? '/profile-settings#account'
-      : '/creator/stories/new';
   return (
     <main className="official-reader-dashboard">
       <header className="reader-header">
@@ -251,11 +246,11 @@ export function ReaderDashboard({
           <BookOpen />
           Library
         </Link>
-        <Link className="create" href={createUrl}>
+        <Link className="messages" href="/messages">
           <span>
-            <Plus />
+            <ChatCircle />
           </span>
-          Create
+          Messages
         </Link>
         <Link href="/discover">
           <Users />

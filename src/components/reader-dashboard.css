@@ -44,8 +44,10 @@
   object-fit: cover;
 }
 .reader-welcome {
+  position: relative;
   display: grid;
   grid-template-columns: 42% 58%;
+  overflow: hidden;
 }
 .reader-welcome > div:first-child {
   padding: 30px 36px 18px;
@@ -67,7 +69,9 @@
   align-items: center;
   justify-content: space-around;
   padding: 24px 38px;
-  border-radius: 90px 0 0;
+  margin-left: -34px;
+  padding-left: 68px;
+  border-radius: 46% 0 0 0 / 100% 0 0 0;
   background: linear-gradient(120deg, #00142f, #00265b);
   color: #fff;
 }
@@ -285,6 +289,7 @@
   color: #60718c;
 }
 .community-pulse {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
@@ -293,6 +298,7 @@
   border-radius: 42px 42px 0 0;
   background: linear-gradient(120deg, #00142f, #00265b);
   color: #fff;
+  overflow: hidden;
 }
 .community-pulse p {
   margin: 0;
@@ -317,7 +323,9 @@
   text-decoration: none;
 }
 .community-pulse > div:last-child {
+  position: relative;
   display: grid;
+  z-index: 1;
 }
 .community-pulse > div:last-child b {
   display: grid;
@@ -327,8 +335,16 @@
   border-bottom: 1px solid #ffffff40;
   font: 600 1.35rem var(--font-literary);
 }
+.community-pulse > div:first-child {
+  position: relative;
+  z-index: 1;
+}
 .community-pulse svg {
-  width: 28px;
+  width: 30px;
+  height: 30px;
+  padding: 6px;
+  border-radius: 50%;
+  background: #7046ce;
 }
 .community-pulse small {
   font: 400 0.65rem sans-serif;
@@ -362,7 +378,7 @@
 .reader-bottom-nav .active {
   color: #0877f9;
 }
-.reader-bottom-nav .create span {
+.reader-bottom-nav .messages span {
   display: grid;
   width: 46px;
   height: 46px;
@@ -399,8 +415,9 @@
     font-size: 0.58rem;
   }
   .reading-streak {
-    padding: 14px 10px;
-    border-radius: 50px 0 0;
+    margin-left: -20px;
+    padding: 14px 9px 14px 32px;
+    border-radius: 75% 0 0 0 / 100% 0 0 0;
   }
   .reading-streak p {
     font-size: 0.58rem;
@@ -523,7 +540,8 @@
     height: 26px;
   }
   .community-pulse {
-    gap: 12px;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 10px;
     margin-top: 12px;
     padding: 16px 18px;
     border-radius: 25px 25px 0 0;
@@ -543,14 +561,19 @@
     font-size: 0.53rem;
   }
   .community-pulse > div:last-child b {
-    gap: 5px;
-    font-size: 0.75rem;
+    grid-template-columns: 24px 38px minmax(0, 1fr);
+    gap: 4px;
+    min-height: 42px;
+    font-size: 0.72rem;
   }
   .community-pulse svg {
-    width: 20px;
+    width: 23px;
+    height: 23px;
+    padding: 5px;
   }
   .community-pulse small {
-    font-size: 0.46rem;
+    font-size: 0.43rem;
+    white-space: nowrap;
   }
   .reader-bottom-nav a {
     min-height: 66px;

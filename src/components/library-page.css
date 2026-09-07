@@ -116,7 +116,7 @@
   margin: 0 0 12px;
   font-size: 22px;
 }
-.reading-goal > div > strong {
+.reading-goal > div:first-child > strong {
   font-size: 34px;
 }
 .reading-goal strong small {
@@ -463,7 +463,7 @@
     margin-bottom: 6px;
     font-size: 13px;
   }
-  .reading-goal > div > strong {
+  .reading-goal > div:first-child > strong {
     font-size: 20px;
   }
   .reading-goal strong small {
@@ -478,10 +478,7 @@
     height: 6px;
   }
   .reading-goal > span {
-    position: absolute;
-    right: 105px;
-    top: 48px;
-    font-size: 29px;
+    display: none;
   }
   .goal-momentum {
     grid-column: 2;
@@ -496,9 +493,11 @@
   }
   .goal-momentum strong {
     font-size: 11px;
+    white-space: nowrap;
   }
   .goal-momentum small {
     font-size: 9px;
+    white-space: nowrap;
   }
   .library-tabs {
     margin: 13px 0;
@@ -633,6 +632,12 @@
     height: 20px;
   }
   .library-bottom a:nth-child(3) > span {
+    display: grid;
+    place-items: center;
     font-size: 22px;
+  }
+  .library-bottom a:nth-child(3) > span svg {
+    width: 21px;
+    height: 21px;
   }
 }

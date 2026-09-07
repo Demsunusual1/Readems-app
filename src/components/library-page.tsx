@@ -9,6 +9,7 @@ import {
   BookmarkSimple,
   CaretDown,
   CaretRight,
+  ChatCircle,
   CheckCircle,
   Compass,
   DownloadSimple,
@@ -68,8 +69,8 @@ export function LibraryPage({ role }: { role: string }) {
   const [oldestFirst, setOldestFirst] = useState(false);
   const [inProgressOnly, setInProgressOnly] = useState(false);
   const home = role === 'CREATOR' ? '/creator/dashboard' : '/reader/dashboard';
-  const write =
-    role === 'READER' ? '/profile-settings#account' : '/creator/stories/new';
+  const readerMode = role === 'READER';
+  const middleUrl = readerMode ? '/messages' : '/creator/stories/new';
   const visibleBooks = (oldestFirst ? [...books].reverse() : books).filter(
     (book) => {
       const progress = Number.parseInt(book[2]);
@@ -274,9 +275,9 @@ export function LibraryPage({ role }: { role: string }) {
           <Compass />
           <span>Explore</span>
         </Link>
-        <Link href={write}>
-          <span>✎</span>
-          <small>Write</small>
+        <Link href={middleUrl}>
+          <span>{readerMode ? <ChatCircle /> : '✎'}</span>
+          <small>{readerMode ? 'Messages' : 'Write'}</small>
         </Link>
         <Link className="active" href="/library">
           <BookOpen weight="fill" />
