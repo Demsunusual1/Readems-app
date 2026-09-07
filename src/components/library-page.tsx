@@ -9,13 +9,17 @@ import {
   BookmarkSimple,
   CaretDown,
   CaretRight,
+  ChatCircle,
   CheckCircle,
   Compass,
   DownloadSimple,
+  Feather,
+  GlobeHemisphereWest,
   House,
   MagnifyingGlass,
   Plus,
   SlidersHorizontal,
+  StarFour,
   User,
 } from '@phosphor-icons/react';
 import './library-page.css';
@@ -50,16 +54,16 @@ const lists = [
     '8 books',
     'Public',
     'Stories that center our voices and our worlds.',
-    '◎',
+    'globe',
   ],
   [
     'Writers I Admire',
     '12 books',
     'Private',
     'Craft, courage, and impact.',
-    '✎',
+    'feather',
   ],
-  ['Future Reads', '15 books', 'Private', 'On deck and on my mind.', '✷'],
+  ['Future Reads', '15 books', 'Private', 'On deck and on my mind.', 'star'],
 ] as const;
 
 export function LibraryPage({ role }: { role: string }) {
@@ -68,8 +72,8 @@ export function LibraryPage({ role }: { role: string }) {
   const [oldestFirst, setOldestFirst] = useState(false);
   const [inProgressOnly, setInProgressOnly] = useState(false);
   const home = role === 'CREATOR' ? '/creator/dashboard' : '/reader/dashboard';
-  const write =
-    role === 'READER' ? '/profile-settings#account' : '/creator/stories/new';
+  const readerMode = role === 'READER';
+  const middleUrl = readerMode ? '/messages' : '/creator/stories/new';
   const visibleBooks = (oldestFirst ? [...books].reverse() : books).filter(
     (book) => {
       const progress = Number.parseInt(book[2]);
@@ -229,7 +233,15 @@ export function LibraryPage({ role }: { role: string }) {
           )}
           {lists.map(([title, count, privacy, copy, symbol]) => (
             <article key={title}>
-              <span>{symbol}</span>
+              <span>
+                {symbol === 'globe' ? (
+                  <GlobeHemisphereWest />
+                ) : symbol === 'feather' ? (
+                  <Feather />
+                ) : (
+                  <StarFour />
+                )}
+              </span>
               <div>
                 <h3>{title}</h3>
                 <p>
@@ -238,13 +250,13 @@ export function LibraryPage({ role }: { role: string }) {
                 <small>{copy}</small>
               </div>
               <div className="mini-books">
-                {books.map((book) => (
+                {[...books, books[1], books[2]].map((book, index) => (
                   <Image
                     src={book[3]}
                     alt=""
                     width={35}
                     height={50}
-                    key={book[0]}
+                    key={`${book[0]}-${index}`}
                   />
                 ))}
               </div>
@@ -274,9 +286,9 @@ export function LibraryPage({ role }: { role: string }) {
           <Compass />
           <span>Explore</span>
         </Link>
-        <Link href={write}>
-          <span>✎</span>
-          <small>Write</small>
+        <Link href={middleUrl}>
+          <span>{readerMode ? <ChatCircle /> : '✎'}</span>
+          <small>{readerMode ? 'Messages' : 'Write'}</small>
         </Link>
         <Link className="active" href="/library">
           <BookOpen weight="fill" />

@@ -116,7 +116,7 @@
   margin: 0 0 12px;
   font-size: 22px;
 }
-.reading-goal > div > strong {
+.reading-goal > div:first-child > strong {
   font-size: 34px;
 }
 .reading-goal strong small {
@@ -321,6 +321,10 @@
   color: #e6b94d;
   font-size: 48px;
 }
+.reading-lists article > span svg {
+  width: 50px;
+  height: 50px;
+}
 .reading-lists h3 {
   margin: 0;
   font-size: 21px;
@@ -454,24 +458,24 @@
   }
   .reading-goal {
     position: relative;
-    grid-template-columns: minmax(0, 1fr) 100px;
-    gap: 10px;
-    padding: 15px 17px;
-    border-radius: 14px;
+    grid-template-columns: minmax(0, 1fr) 82px;
+    gap: 7px;
+    padding: 11px 14px;
+    border-radius: 12px;
   }
   .reading-goal h2 {
-    margin-bottom: 6px;
-    font-size: 13px;
+    margin-bottom: 4px;
+    font-size: 12px;
   }
-  .reading-goal > div > strong {
-    font-size: 20px;
+  .reading-goal > div:first-child > strong {
+    font-size: 18px;
   }
   .reading-goal strong small {
-    font-size: 13px;
+    font-size: 12px;
   }
   .reading-goal p {
-    margin: 4px 0;
-    font-size: 10px;
+    margin: 3px 0;
+    font-size: 9px;
   }
   .reading-goal progress {
     width: 100%;
@@ -479,26 +483,31 @@
   }
   .reading-goal > span {
     position: absolute;
-    right: 105px;
-    top: 48px;
-    font-size: 29px;
+    right: 84px;
+    top: 40px;
+    display: block;
+    font-size: 18px;
   }
   .goal-momentum {
     grid-column: 2;
   }
   .goal-momentum b {
-    width: 44px;
-    height: 44px;
-    border-width: 4px;
+    width: 32px;
+    height: 32px;
+    border-width: 3px;
   }
   .goal-momentum b svg {
-    width: 20px;
+    width: 14px;
   }
   .goal-momentum strong {
-    font-size: 11px;
+    margin-top: 3px;
+    font-size: 9px;
+    white-space: nowrap;
   }
   .goal-momentum small {
-    font-size: 9px;
+    margin-top: 1px;
+    font-size: 7px;
+    white-space: nowrap;
   }
   .library-tabs {
     margin: 13px 0;
@@ -570,16 +579,20 @@
   }
   .reading-lists article {
     grid-template-columns: auto 1fr auto auto;
-    gap: 9px;
-    margin-bottom: 7px;
-    padding: 7px 9px;
+    gap: 8px;
+    margin-bottom: 6px;
+    padding: 6px 8px;
     border-radius: 10px;
   }
   .reading-lists article > span {
-    width: 54px;
-    height: 54px;
+    width: 48px;
+    height: 48px;
     border-radius: 8px;
-    font-size: 27px;
+    color: #d7a93c;
+  }
+  .reading-lists article > span svg {
+    width: 26px;
+    height: 26px;
   }
   .reading-lists h3 {
     font-size: 12px;
@@ -592,9 +605,9 @@
     font-size: 8px;
   }
   .mini-books img {
-    width: 20px;
-    height: 29px;
-    margin-left: -6px;
+    width: 22px;
+    height: 32px;
+    margin-left: -7px;
   }
   .reading-lists article > svg {
     width: 15px;
@@ -633,6 +646,12 @@
     height: 20px;
   }
   .library-bottom a:nth-child(3) > span {
+    display: grid;
+    place-items: center;
     font-size: 22px;
+  }
+  .library-bottom a:nth-child(3) > span svg {
+    width: 21px;
+    height: 21px;
   }
 }

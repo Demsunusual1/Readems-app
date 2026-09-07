@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import '@fontsource-variable/manrope';
 import '@fontsource-variable/lora';
 import './globals.css';
@@ -15,6 +15,12 @@ export const metadata: Metadata = {
     type: 'website',
     siteName: 'Readems',
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export default function RootLayout({
