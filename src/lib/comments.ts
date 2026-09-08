@@ -1,4 +1,5 @@
 import { prisma } from './prisma';
+import { notify } from './notifications';
 
 export type ChapterComment = {
   id: string;
@@ -34,9 +35,53 @@ export async function addComment(
     // One level of replies keeps a conversation readable on a phone.
     if (parent.parentId) throw new Error('Reply to the first comment instead.');
   }
-  return prisma.comment.create({
+  const comment = await prisma.comment.create({
     data: { userId, chapterId, body: text, parentId: parentId ?? null },
   });
+
+  const [writer, chapter] = await Promise.all([
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: { fullName: true },
+    }),
+    prisma.chapter.findUnique({
+      where: { id: chapterId },
+      select: {
+        number: true,
+        title: true,
+        story: { select: { id: true, title: true, authorId: true } },
+      },
+    }),
+  ]);
+  if (writer && chapter) {
+    const href = `/stories/${chapter.story.id}/chapters/${chapter.number}#comments`;
+    await notify({
+      userId: chapter.story.authorId,
+      actorId: userId,
+      kind: 'COMMENT',
+      category: 'CREATOR',
+      title: 'New comment',
+      body: `${writer.fullName} commented on ${chapter.story.title}.`,
+      href,
+    });
+    if (parentId) {
+      const parent = await prisma.comment.findUnique({
+        where: { id: parentId },
+        select: { userId: true },
+      });
+      if (parent)
+        await notify({
+          userId: parent.userId,
+          actorId: userId,
+          kind: 'REPLY',
+          category: 'COMMUNITY',
+          title: 'New reply',
+          body: `${writer.fullName} replied to your comment.`,
+          href,
+        });
+    }
+  }
+  return comment;
 }
 
 export async function deleteComment(userId: string, commentId: string) {

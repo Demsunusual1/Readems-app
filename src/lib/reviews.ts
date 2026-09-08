@@ -1,4 +1,19 @@
 import { prisma } from './prisma';
+import { notify } from './notifications';
+
+async function storyAndActor(storyId: string, userId: string) {
+  const [story, actor] = await Promise.all([
+    prisma.story.findUnique({
+      where: { id: storyId },
+      select: { title: true, authorId: true },
+    }),
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: { fullName: true },
+    }),
+  ]);
+  return story && actor ? { story, actor } : null;
+}
 
 export type StoryReaction = {
   likes: number;
@@ -35,6 +50,17 @@ export async function toggleStoryLike(userId: string, storyId: string) {
     return false;
   }
   await prisma.storyLike.create({ data: { userId, storyId } });
+  const context = await storyAndActor(storyId, userId);
+  if (context)
+    await notify({
+      userId: context.story.authorId,
+      actorId: userId,
+      kind: 'LIKE',
+      category: 'CREATOR',
+      title: 'New like',
+      body: `${context.actor.fullName} liked ${context.story.title}.`,
+      href: `/stories/${storyId}`,
+    });
   return true;
 }
 
@@ -74,11 +100,29 @@ export async function saveReview(
   const body = input.body?.trim() ?? '';
   if (body.length > 2000)
     throw new Error('A review can be up to 2000 characters.');
-  return prisma.review.upsert({
+  const existing = await prisma.review.findUnique({
+    where: { userId_storyId: { userId, storyId } },
+    select: { id: true },
+  });
+  const review = await prisma.review.upsert({
     where: { userId_storyId: { userId, storyId } },
     create: { userId, storyId, rating: input.rating, body: body || null },
     update: { rating: input.rating, body: body || null },
   });
+  if (!existing) {
+    const context = await storyAndActor(storyId, userId);
+    if (context)
+      await notify({
+        userId: context.story.authorId,
+        actorId: userId,
+        kind: 'REVIEW',
+        category: 'CREATOR',
+        title: 'New review',
+        body: `${context.actor.fullName} reviewed ${context.story.title}.`,
+        href: `/stories/${storyId}#reviews`,
+      });
+  }
+  return review;
 }
 
 export async function deleteReview(userId: string, storyId: string) {

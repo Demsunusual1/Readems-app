@@ -1,5 +1,6 @@
 import { prisma } from './prisma';
 import { listStories, readableChapterWhere, type StoryCard } from './stories';
+import { notify } from './notifications';
 
 export type PersonSummary = {
   id: string;
@@ -33,6 +34,20 @@ export async function toggleFollow(followerId: string, followingId: string) {
     return false;
   }
   await prisma.follow.create({ data: { followerId, followingId } });
+  const follower = await prisma.user.findUnique({
+    where: { id: followerId },
+    select: { fullName: true, username: true },
+  });
+  if (follower)
+    await notify({
+      userId: followingId,
+      actorId: followerId,
+      kind: 'FOLLOW',
+      category: 'COMMUNITY',
+      title: 'New follower',
+      body: `${follower.fullName} started following you.`,
+      href: `/u/${follower.username}`,
+    });
   return true;
 }
 

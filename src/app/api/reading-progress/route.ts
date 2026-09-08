@@ -13,6 +13,7 @@ import {
   getStory,
 } from '@/lib/stories';
 import { isSameOrigin } from '@/lib/http';
+import { notify } from '@/lib/notifications';
 
 export async function GET(request: Request) {
   const user = await getCurrentUser();
@@ -78,6 +79,14 @@ export async function POST(request: Request) {
     ...position,
     percent: storyPercent(chapterNumbers, position, chapter.paragraphs.length),
   };
+  const alreadyFinished = Boolean(
+    (
+      await prisma.readingProgress.findUnique({
+        where: { userId_storyId: { userId: user.id, storyId } },
+        select: { completedAt: true },
+      })
+    )?.completedAt,
+  );
   try {
     await prisma.readingProgress.upsert({
       where: { userId_storyId: { userId: user.id, storyId } },
@@ -90,6 +99,27 @@ export async function POST(request: Request) {
       // Finishing a story is remembered even if the reader opens it again.
       update: finished ? { ...stored, completedAt: new Date() } : stored,
     });
+    if (finished && !alreadyFinished) {
+      const year = new Date().getFullYear();
+      const [story, booksThisYear] = await Promise.all([
+        getStory(storyId),
+        prisma.readingProgress.count({
+          where: {
+            userId: user.id,
+            completedAt: { gte: new Date(Date.UTC(year, 0, 1)) },
+          },
+        }),
+      ]);
+      if (story)
+        await notify({
+          userId: user.id,
+          kind: 'MILESTONE',
+          category: 'READING',
+          title: 'Reading milestone',
+          body: `You finished ${story.title}. That is ${booksThisYear} ${booksThisYear === 1 ? 'story' : 'stories'} this year.`,
+          href: '/library',
+        });
+    }
     return NextResponse.json(
       { saved: true },
       { headers: { 'Cache-Control': 'private, no-store' } },

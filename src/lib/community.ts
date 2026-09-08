@@ -1,5 +1,26 @@
 import type { Prisma } from '@prisma/client';
 import { prisma } from './prisma';
+import { notify } from './notifications';
+
+async function postAndActor(postId: string, userId: string) {
+  const [post, actor] = await Promise.all([
+    prisma.post.findUnique({
+      where: { id: postId },
+      select: { authorId: true, groupId: true },
+    }),
+    prisma.user.findUnique({
+      where: { id: userId },
+      select: { fullName: true },
+    }),
+  ]);
+  return post && actor
+    ? {
+        post,
+        actor,
+        href: post.groupId ? `/groups/${post.groupId}` : '/community',
+      }
+    : null;
+}
 
 export const postTopics = ['Books', 'Writing', 'Poetry', 'Culture'] as const;
 
@@ -100,6 +121,17 @@ export async function togglePostLike(userId: string, postId: string) {
     return false;
   }
   await prisma.postLike.create({ data: { userId, postId } });
+  const context = await postAndActor(postId, userId);
+  if (context)
+    await notify({
+      userId: context.post.authorId,
+      actorId: userId,
+      kind: 'LIKE',
+      category: 'COMMUNITY',
+      title: 'New like',
+      body: `${context.actor.fullName} liked your post.`,
+      href: context.href,
+    });
   return true;
 }
 
@@ -112,7 +144,21 @@ export async function addPostComment(
   if (!text) throw new Error('Write something before replying.');
   if (text.length > 2000)
     throw new Error('A reply can be up to 2000 characters.');
-  return prisma.postComment.create({ data: { userId, postId, body: text } });
+  const comment = await prisma.postComment.create({
+    data: { userId, postId, body: text },
+  });
+  const context = await postAndActor(postId, userId);
+  if (context)
+    await notify({
+      userId: context.post.authorId,
+      actorId: userId,
+      kind: 'REPLY',
+      category: 'COMMUNITY',
+      title: 'New reply',
+      body: `${context.actor.fullName} replied to your post.`,
+      href: context.href,
+    });
+  return comment;
 }
 
 export async function deletePostComment(userId: string, commentId: string) {

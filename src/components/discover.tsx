@@ -63,9 +63,9 @@ export function Discover({
       <header className="discover-header">
         <Logo tone="dark" />
         <div className="discover-header-actions">
-          <button aria-label="Notifications">
+          <Link href="/notifications" aria-label="Notifications">
             <Bell />
-          </button>
+          </Link>
           <Link href={dashboardHref} aria-label="Open profile">
             <Image
               src="/readems/creator-chinelo-okoye.png"

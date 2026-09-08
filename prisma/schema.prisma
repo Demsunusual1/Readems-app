@@ -44,6 +44,8 @@ model User {
   groupsCreated    Group[]
   groupMemberships GroupMember[]
   eventRsvps       GroupEventRsvp[]
+  notifications    Notification[]    @relation("Recipient")
+  actedOn          Notification[]    @relation("Actor")
 }
 
 model ReadingProgress {
@@ -376,4 +378,40 @@ model GroupEventRsvp {
   createdAt DateTime   @default(now())
 
   @@id([eventId, userId])
+}
+
+enum NotificationKind {
+  FOLLOW
+  CHAPTER
+  COMMENT
+  REPLY
+  LIKE
+  REVIEW
+  GROUP
+  MILESTONE
+  SYSTEM
+}
+
+enum NotificationCategory {
+  READING
+  COMMUNITY
+  CREATOR
+}
+
+model Notification {
+  id        String               @id @default(cuid())
+  userId    String
+  user      User                 @relation("Recipient", fields: [userId], references: [id], onDelete: Cascade)
+  actorId   String?
+  actor     User?                @relation("Actor", fields: [actorId], references: [id], onDelete: SetNull)
+  kind      NotificationKind
+  category  NotificationCategory
+  title     String
+  body      String
+  href      String
+  readAt    DateTime?
+  createdAt DateTime             @default(now())
+
+  @@index([userId, createdAt])
+  @@index([userId, readAt])
 }

@@ -119,7 +119,10 @@ export function ReaderLibrary({
             <Link href="/search" aria-label="Search stories">
               <MagnifyingGlass />
             </Link>
-            <Link href={profileHref} aria-label="Notifications">
+            <Link
+              href={signedIn ? '/notifications' : '/login'}
+              aria-label="Notifications"
+            >
               <Bell />
             </Link>
           </nav>

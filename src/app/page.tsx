@@ -20,6 +20,7 @@ import {
   Star,
 } from '@phosphor-icons/react/dist/ssr';
 import { LandingHeader } from '@/components/landing-header';
+import { countUnread } from '@/lib/notifications';
 import { LandingHero } from '@/components/landing-hero';
 
 const readingList = [
@@ -84,13 +85,14 @@ export default async function HomePage() {
   const dashboard = user
     ? `/${user.role === 'CREATOR' ? 'creator' : 'reader'}/dashboard`
     : undefined;
+  const unread = user ? await countUnread(user.id) : 0;
   const readingHref = dashboard ?? '/signup';
   const writingHref = dashboard ?? '/signup?role=creator';
 
   return (
     <div className="official-landing">
       <div className="landing-hero-shell">
-        <LandingHeader dashboardHref={dashboard} />
+        <LandingHeader dashboardHref={dashboard} unread={unread} />
         <LandingHero
           readingHref={readingHref}
           writingHref={writingHref}
