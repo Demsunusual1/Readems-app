@@ -68,7 +68,7 @@ export default async function CommunityPage({
       <header className="community-hero">
         <div className="community-hero-top">
           <Logo tone="light" />
-          <Link href="/discover" aria-label="Search Readems">
+          <Link href="/search" aria-label="Search Readems">
             Search
           </Link>
         </div>

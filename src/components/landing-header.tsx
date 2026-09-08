@@ -25,7 +25,7 @@ export function LandingHeader({ dashboardHref }: { dashboardHref?: string }) {
           </Link>
         </nav>
         <nav className="landing-mobile-actions" aria-label="Landing shortcuts">
-          <Link href="/discover" aria-label="Search stories">
+          <Link href="/search" aria-label="Search stories">
             <MagnifyingGlass aria-hidden="true" />
           </Link>
           <Link

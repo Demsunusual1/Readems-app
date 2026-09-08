@@ -561,3 +561,31 @@
     height: 3px;
   }
 }
+
+/* Genre tiles carry their real story count */
+.discover-genres a {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.discover-genres a small,
+.discover-regions small,
+.discover-trends small {
+  color: #4a5b7d;
+  font-size: 13px;
+}
+
+.discover-regions a {
+  display: grid;
+  gap: 6px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.discover-region-image {
+  display: block;
+  position: relative;
+}

@@ -116,7 +116,7 @@ export function ReaderLibrary({
         <div className="library-header">
           <Logo tone="light" />
           <nav aria-label="Library utilities">
-            <Link href="/discover" aria-label="Search stories">
+            <Link href="/search" aria-label="Search stories">
               <MagnifyingGlass />
             </Link>
             <Link href={profileHref} aria-label="Notifications">

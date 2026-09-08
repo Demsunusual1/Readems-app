@@ -75,7 +75,7 @@ test('mobile navigation is keyboard accessible', async ({ page }) => {
   await search.focus();
   await expect(search).toBeFocused();
   await page.keyboard.press('Enter');
-  await expect(page).toHaveURL('/discover');
+  await expect(page).toHaveURL('/search');
 
   await page.goBack();
   const notifications = page.getByRole('link', { name: 'Notifications' });

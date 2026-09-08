@@ -199,3 +199,35 @@ export async function getChapterByNumber(
       }
     : null;
 }
+
+/** How many readable stories carry each of the given genres. */
+export async function countStoriesByGenre(genres: string[]) {
+  if (genres.length === 0) return new Map<string, number>();
+  const rows = await prisma.story.groupBy({
+    by: ['genre'],
+    where: { AND: [readableStoryWhere(), { genre: { in: genres } }] },
+    _count: { _all: true },
+  });
+  return new Map(rows.map((row) => [row.genre, row._count._all]));
+}
+
+/** How many readable stories carry each of the given tags. */
+export async function countStoriesByTag(tags: string[]) {
+  const counts = new Map<string, number>();
+  await Promise.all(
+    tags.map(async (tag) => {
+      counts.set(
+        tag,
+        await prisma.story.count({
+          where: {
+            AND: [
+              readableStoryWhere(),
+              { OR: [{ tags: { has: tag } }, { genre: tag }] },
+            ],
+          },
+        }),
+      );
+    }),
+  );
+  return counts;
+}
