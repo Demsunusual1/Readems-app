@@ -382,6 +382,84 @@
   }
 }
 
+/* Final official onboarding constraints — keep last to prevent legacy overrides. */
+.readems-auth .auth-onboarding.auth-onboarding-step-2,
+.readems-auth .auth-onboarding.auth-onboarding-step-3,
+.readems-auth .auth-onboarding.auth-onboarding-step-4 {
+  width: min(100%, 430px);
+  min-height: 100svh;
+  padding-bottom: 66px;
+}
+.readems-auth .onboarding-topbar {
+  min-height: 158px;
+  padding: 24px 26px;
+}
+.readems-auth .signup-card.signup-step-2,
+.readems-auth .signup-card.signup-step-3,
+.readems-auth .signup-card.signup-step-4 {
+  margin: 0;
+  padding: 36px 24px 28px;
+  border-radius: 0;
+}
+.readems-auth .signup-card.signup-step-2 h2,
+.readems-auth .signup-card.signup-step-3 h2,
+.readems-auth .signup-card.signup-step-4 h2 {
+  margin-bottom: 11px;
+  font-size: 2rem;
+}
+.readems-auth .signup-card.signup-step-2 > p:not(.eyebrow),
+.readems-auth .signup-card.signup-step-3 > p:not(.eyebrow),
+.readems-auth .signup-card.signup-step-4 > p:not(.eyebrow) {
+  margin-top: 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+.readems-auth .signup-step-2 .choice-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  max-width: none;
+  margin: 25px 0 0;
+}
+.readems-auth .signup-step-2 .choice {
+  min-height: 218px;
+  gap: 9px;
+  padding: 20px 10px 16px;
+  border-radius: 15px;
+}
+.readems-auth .signup-step-2 .role-artwork {
+  width: 78px;
+  height: 64px;
+}
+.readems-auth .signup-step-2 .choice b {
+  font-size: 1.35rem;
+}
+.readems-auth .signup-step-2 .choice small {
+  max-width: 140px;
+  font-size: 0.67rem;
+  line-height: 1.45;
+}
+.readems-auth .onboarding-note {
+  gap: 13px;
+  min-height: 82px;
+  margin-top: 22px;
+  padding: 12px 16px;
+  border-radius: 12px;
+}
+.readems-auth .signup-step-2 .nav-buttons,
+.readems-auth .signup-step-3 .nav-buttons,
+.readems-auth .signup-step-4 .nav-buttons {
+  grid-template-columns: 100px 1fr;
+  gap: 12px;
+  margin-top: 22px;
+}
+.readems-auth .signup-step-2 .nav-buttons button,
+.readems-auth .signup-step-3 .nav-buttons button,
+.readems-auth .signup-step-4 .nav-buttons button {
+  min-height: 52px;
+  border-radius: 14px;
+  font-size: 0.78rem;
+}
+
 /* Official portrait onboarding proportions */
 .auth-onboarding-step-2,
 .auth-onboarding-step-3,
@@ -1064,4 +1142,81 @@
     grid-template-columns: 92px 1fr;
     gap: 12px;
   }
+}
+
+.readems-auth .auth-onboarding.auth-onboarding-step-2,
+.readems-auth .auth-onboarding.auth-onboarding-step-3,
+.readems-auth .auth-onboarding.auth-onboarding-step-4 {
+  width: min(100%, 430px);
+  min-height: 100svh;
+  padding-bottom: 66px;
+}
+.readems-auth .onboarding-topbar {
+  min-height: 158px;
+  padding: 24px 26px;
+}
+.readems-auth .signup-card.signup-step-2,
+.readems-auth .signup-card.signup-step-3,
+.readems-auth .signup-card.signup-step-4 {
+  margin: 0;
+  padding: 36px 24px 28px;
+  border-radius: 0;
+}
+.readems-auth .signup-card.signup-step-2 h2,
+.readems-auth .signup-card.signup-step-3 h2,
+.readems-auth .signup-card.signup-step-4 h2 {
+  margin-bottom: 11px;
+  font-size: 2rem;
+}
+.readems-auth .signup-card.signup-step-2 > p:not(.eyebrow),
+.readems-auth .signup-card.signup-step-3 > p:not(.eyebrow),
+.readems-auth .signup-card.signup-step-4 > p:not(.eyebrow) {
+  margin-top: 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+.readems-auth .signup-step-2 .choice-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  max-width: none;
+  margin: 25px 0 0;
+}
+.readems-auth .signup-step-2 .choice {
+  min-height: 218px;
+  gap: 9px;
+  padding: 20px 10px 16px;
+  border-radius: 15px;
+}
+.readems-auth .signup-step-2 .role-artwork {
+  width: 78px;
+  height: 64px;
+}
+.readems-auth .signup-step-2 .choice b {
+  font-size: 1.35rem;
+}
+.readems-auth .signup-step-2 .choice small {
+  max-width: 140px;
+  font-size: 0.67rem;
+  line-height: 1.45;
+}
+.readems-auth .onboarding-note {
+  gap: 13px;
+  min-height: 82px;
+  margin-top: 22px;
+  padding: 12px 16px;
+  border-radius: 12px;
+}
+.readems-auth .signup-step-2 .nav-buttons,
+.readems-auth .signup-step-3 .nav-buttons,
+.readems-auth .signup-step-4 .nav-buttons {
+  grid-template-columns: 100px 1fr;
+  gap: 12px;
+  margin-top: 22px;
+}
+.readems-auth .signup-step-2 .nav-buttons button,
+.readems-auth .signup-step-3 .nav-buttons button,
+.readems-auth .signup-step-4 .nav-buttons button {
+  min-height: 52px;
+  border-radius: 14px;
+  font-size: 0.78rem;
 }
