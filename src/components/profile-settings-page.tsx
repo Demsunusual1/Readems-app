@@ -103,7 +103,15 @@ export function ProfileSettingsPage({
     <main className={`profile-settings-page ${dark ? 'dark-theme' : ''}`}>
       <section className="profile-settings-hero">
         <div className="profile-constellation" />
-        <Image src="/readems/logo.png" alt="Readems" width={62} height={62} />
+        <Link
+          className="profile-home"
+          href={
+            user.role === 'CREATOR' ? '/creator/dashboard' : '/reader/dashboard'
+          }
+          aria-label="Readems home"
+        >
+          <Image src="/readems/logo.png" alt="Readems" width={62} height={62} />
+        </Link>
         <h1>Profile &amp; Settings</h1>
         <p>
           Manage your account, preferences,

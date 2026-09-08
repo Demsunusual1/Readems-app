@@ -44,13 +44,13 @@
     112px 78px,
     210px 120px;
 }
-.profile-settings-hero > img,
+.profile-settings-hero > .profile-home,
 .profile-settings-hero h1,
 .profile-settings-hero p {
   position: relative;
   z-index: 1;
 }
-.profile-settings-hero > img {
+.profile-home img {
   border-radius: 12px;
 }
 .profile-settings-hero h1 {
@@ -275,7 +275,7 @@
     min-height: 202px;
     padding: 18px 20px 46px;
   }
-  .profile-settings-hero > img {
+  .profile-home img {
     width: 34px;
     height: 34px;
     border-radius: 8px;

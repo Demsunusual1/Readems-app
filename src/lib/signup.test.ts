@@ -20,6 +20,14 @@ describe('signupSchema', () => {
     expect(
       signupSchema.safeParse({ ...valid, interests: ['Drama'] }).success,
     ).toBe(false));
+  it('allows only reader or creator accounts', () => {
+    expect(signupSchema.safeParse({ ...valid, role: 'CREATOR' }).success).toBe(
+      true,
+    );
+    expect(signupSchema.safeParse({ ...valid, role: 'BOTH' }).success).toBe(
+      false,
+    );
+  });
   it('normalizes identity fields', () => {
     const result = signupSchema.parse({
       ...valid,

@@ -10,7 +10,7 @@ import {
   BookOpen,
   Check,
   CheckCircle,
-  Infinity,
+  GlobeHemisphereWest,
   PenNib,
   ShieldCheck,
   User,
@@ -207,21 +207,7 @@ export function SignupWizard({
       <div className={`auth-onboarding auth-onboarding-step-${step}`}>
         {step >= 2 && step <= 4 && (
           <header className="onboarding-topbar">
-            <Logo tone="light" />
-            <div
-              className="onboarding-progress"
-              aria-label={`Step ${step - 1} of 3`}
-            >
-              {[1, 2, 3].map((item) => (
-                <span
-                  key={item}
-                  className={item <= step - 1 ? 'is-active' : undefined}
-                >
-                  {item}
-                </span>
-              ))}
-              <small>Step {step - 1} of 3</small>
-            </div>
+            <Logo compact tone="light" />
           </header>
         )}
         <ol className="auth-steps" aria-label="Account setup progress">
@@ -247,6 +233,7 @@ export function SignupWizard({
           className={`signup-card signup-step-${step}`}
           aria-label={steps[step]}
         >
+          {step >= 2 && step <= 4 && <StepProgress current={step - 1} />}
           {step === 1 && (
             <form
               onSubmit={(e) => {
@@ -324,11 +311,6 @@ export function SignupWizard({
                       'Creator',
                       'Write your story, share your voice, and build your audience.',
                     ],
-                    [
-                      'BOTH',
-                      'Both',
-                      'Read, write, and connect—your complete creative home.',
-                    ],
                   ] as const
                 ).map(([value, title, copy]) => (
                   <button
@@ -337,13 +319,14 @@ export function SignupWizard({
                     aria-pressed={data.role === value}
                     onClick={() => update('role', value)}
                   >
+                    {data.role === value && (
+                      <Check className="choice-check" weight="bold" />
+                    )}
                     <span>
                       {value === 'READER' ? (
                         <BookOpen aria-hidden="true" />
-                      ) : value === 'CREATOR' ? (
-                        <PenNib aria-hidden="true" />
                       ) : (
-                        <Infinity aria-hidden="true" />
+                        <PenNib aria-hidden="true" />
                       )}
                     </span>
                     <b>{title}</b>
@@ -352,11 +335,14 @@ export function SignupWizard({
                 ))}
               </div>
               <aside className="onboarding-note">
-                <strong>A global community</strong>
-                <span>
-                  Join readers and writers from around the world in a space
-                  built for stories that matter.
-                </span>
+                <GlobeHemisphereWest aria-hidden="true" />
+                <div>
+                  <strong>A global community</strong>
+                  <span>
+                    Join readers and writers from around the world in a space
+                    built for stories that matter.
+                  </span>
+                </div>
               </aside>
               <Nav back={() => setStep(1)} onNext={next} />
             </>
@@ -557,6 +543,24 @@ export function SignupWizard({
         </section>
       </div>
     </AuthShell>
+  );
+}
+
+function StepProgress({ current }: { current: number }) {
+  return (
+    <div className="onboarding-progress" aria-label={`Step ${current} of 3`}>
+      <div>
+        {[1, 2, 3].map((item) => (
+          <span
+            key={item}
+            className={item <= current ? 'is-active' : undefined}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+      <small>Step {current} of 3</small>
+    </div>
   );
 }
 

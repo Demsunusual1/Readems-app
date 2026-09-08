@@ -88,7 +88,9 @@ export function MessagesPage({ role }: { role: string }) {
           <h1>Messages</h1>
           <p>Connect. Create. Be Read.</p>
         </div>
-        <Image src="/readems/logo.png" alt="Readems" width={88} height={88} />
+        <Link className="messages-home" href={home} aria-label="Readems home">
+          <Image src="/readems/logo.png" alt="Readems" width={88} height={88} />
+        </Link>
       </header>
 
       <section className="messages-sheet">

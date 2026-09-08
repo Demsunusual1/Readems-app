@@ -31,7 +31,7 @@ export const signupSchema = z.object({
     .regex(/[a-z]/, 'Add a lowercase letter.')
     .regex(/[A-Z]/, 'Add an uppercase letter.')
     .regex(/[0-9]/, 'Add a number.'),
-  role: z.enum(['READER', 'CREATOR', 'BOTH']),
+  role: z.enum(['READER', 'CREATOR']),
   interests: z
     .array(z.enum(interests))
     .min(3, 'Choose at least 3 interests.')

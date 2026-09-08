@@ -422,7 +422,6 @@
   min-height: 205px;
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
   padding: 38px 54px;
   color: #fff;
   background:
@@ -436,23 +435,48 @@
 }
 .onboarding-progress {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
+  margin-bottom: 26px;
+  color: #172443;
 }
-.onboarding-progress > span {
+.onboarding-progress > div {
+  display: flex;
+  align-items: center;
+}
+.onboarding-progress > div > span {
+  position: relative;
   width: 42px;
   height: 42px;
   display: grid;
   place-items: center;
   border: 1px solid #7c87a0;
   border-radius: 50%;
+  background: #fff;
+  z-index: 1;
 }
-.onboarding-progress > span.is-active {
+.onboarding-progress > div > span:not(:last-child) {
+  margin-right: 72px;
+}
+.onboarding-progress > div > span:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 72px;
+  height: 1px;
+  background: #d9deea;
+}
+.onboarding-progress > div > span.is-active {
   border-color: #1263f3;
+  color: #fff;
   background: #1263f3;
 }
 .onboarding-progress small {
-  margin-left: 8px;
+  color: #9270ea;
+  font-size: 1rem;
+  font-weight: 650;
 }
 .readems-auth .signup-card.signup-step-2,
 .readems-auth .signup-card.signup-step-3,
@@ -487,11 +511,14 @@
 }
 .readems-auth .signup-step-2 .choice-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 600px;
+  margin-inline: auto;
   margin-top: 44px;
 }
 .readems-auth .signup-step-2 .choice {
+  position: relative;
   min-height: 360px;
   display: flex;
   flex-direction: column;
@@ -504,6 +531,17 @@
   color: #071636;
   background: #fff;
   text-align: center;
+}
+.readems-auth .signup-step-2 .choice-check {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 30px;
+  height: 30px;
+  padding: 7px;
+  border-radius: 50%;
+  color: #fff;
+  background: #1263f3;
 }
 .readems-auth .signup-step-2 .choice.selected {
   border: 2px solid #1263f3;
@@ -524,13 +562,27 @@
   line-height: 1.5;
 }
 .onboarding-note {
-  display: grid;
-  gap: 4px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
   margin-top: 36px;
-  padding: 24px 30px 24px 110px;
+  padding: 24px 30px;
   border: 1px solid #e6dffb;
   border-radius: 18px;
   background: linear-gradient(100deg, #f3edff, #fff);
+}
+.onboarding-note > svg {
+  width: 54px;
+  height: 54px;
+  flex: none;
+  padding: 12px;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(145deg, #7650df, #9b78f3);
+}
+.onboarding-note > div {
+  display: grid;
+  gap: 4px;
 }
 .onboarding-note strong {
   font-size: 1.05rem;
@@ -741,15 +793,22 @@
     font-size: 1.15rem;
   }
   .onboarding-progress {
-    gap: 5px;
+    gap: 8px;
+    margin-bottom: 18px;
   }
-  .onboarding-progress > span {
+  .onboarding-progress > div > span {
     width: 26px;
     height: 26px;
     font-size: 0.7rem;
   }
+  .onboarding-progress > div > span:not(:last-child) {
+    margin-right: 48px;
+  }
+  .onboarding-progress > div > span:not(:last-child)::after {
+    width: 48px;
+  }
   .onboarding-progress small {
-    display: none;
+    font-size: 0.78rem;
   }
   .readems-auth .signup-card.signup-step-2,
   .readems-auth .signup-card.signup-step-3,
@@ -773,6 +832,7 @@
     font-size: 0.9rem;
   }
   .readems-auth .signup-step-2 .choice-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
     margin-top: 24px;
   }
@@ -792,9 +852,21 @@
   .readems-auth .signup-step-2 .choice small {
     font-size: 0.68rem;
   }
+  .readems-auth .signup-step-2 .choice-check {
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    padding: 5px;
+  }
   .onboarding-note {
     margin-top: 22px;
     padding: 18px;
+  }
+  .onboarding-note > svg {
+    width: 44px;
+    height: 44px;
+    padding: 10px;
   }
   .readems-auth .signup-step-3 .interest-grid {
     gap: 10px;
