@@ -394,6 +394,10 @@
   min-height: 158px;
   padding: 24px 26px;
 }
+.readems-auth .onboarding-topbar .ui-logo-mark svg {
+  width: 78px;
+  height: 78px;
+}
 .readems-auth .signup-card.signup-step-2,
 .readems-auth .signup-card.signup-step-3,
 .readems-auth .signup-card.signup-step-4 {
@@ -406,6 +410,15 @@
 .readems-auth .signup-card.signup-step-4 h2 {
   margin-bottom: 11px;
   font-size: 2rem;
+}
+.readems-auth .signup-card.signup-step-2 h2::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 2px;
+  margin-top: 13px;
+  border-radius: 99px;
+  background: #9b78f3;
 }
 .readems-auth .signup-card.signup-step-2 > p:not(.eyebrow),
 .readems-auth .signup-card.signup-step-3 > p:not(.eyebrow),
@@ -439,11 +452,27 @@
   line-height: 1.45;
 }
 .readems-auth .onboarding-note {
+  position: relative;
+  overflow: hidden;
   gap: 13px;
   min-height: 82px;
   margin-top: 22px;
   padding: 12px 16px;
   border-radius: 12px;
+}
+.readems-auth .onboarding-note::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  width: 68px;
+  height: 52px;
+  opacity: 0.62;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 52'%3E%3Cpath d='M5 9 25 23 47 8 62 32 39 44 25 23' fill='none' stroke='%239b78f3' stroke-width='1'/%3E%3Ccircle cx='5' cy='9' r='2' fill='%239b78f3'/%3E%3Ccircle cx='25' cy='23' r='2' fill='%239b78f3'/%3E%3Ccircle cx='47' cy='8' r='2' fill='%239b78f3'/%3E%3Ccircle cx='62' cy='32' r='2' fill='%239b78f3'/%3E%3Ccircle cx='39' cy='44' r='2' fill='%239b78f3'/%3E%3C/svg%3E")
+    center/contain no-repeat;
+}
+.readems-auth .onboarding-note > * {
+  position: relative;
+  z-index: 1;
 }
 .readems-auth .signup-step-2 .nav-buttons,
 .readems-auth .signup-step-3 .nav-buttons,
@@ -458,6 +487,81 @@
   min-height: 52px;
   border-radius: 14px;
   font-size: 0.78rem;
+}
+
+/* Definitive official role-screen details. These must remain last. */
+.readems-auth .onboarding-topbar .ui-logo-mark svg {
+  width: 78px;
+  height: 78px;
+}
+
+.readems-auth .signup-card.signup-step-2 h2::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 2px;
+  margin-top: 13px;
+  border-radius: 99px;
+  background: #9b78f3;
+}
+
+.readems-auth .onboarding-note {
+  position: relative;
+  overflow: hidden;
+}
+
+.readems-auth .onboarding-note::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  width: 68px;
+  height: 52px;
+  opacity: 0.62;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 52'%3E%3Cpath d='M5 9 25 23 47 8 62 32 39 44 25 23' fill='none' stroke='%239b78f3' stroke-width='1'/%3E%3Ccircle cx='5' cy='9' r='2' fill='%239b78f3'/%3E%3Ccircle cx='25' cy='23' r='2' fill='%239b78f3'/%3E%3Ccircle cx='47' cy='8' r='2' fill='%239b78f3'/%3E%3Ccircle cx='62' cy='32' r='2' fill='%239b78f3'/%3E%3Ccircle cx='39' cy='44' r='2' fill='%239b78f3'/%3E%3C/svg%3E")
+    center/contain no-repeat;
+}
+
+.readems-auth .onboarding-note > * {
+  position: relative;
+  z-index: 1;
+}
+
+.readems-auth .signup-step-2 .nav-buttons .secondary,
+.readems-auth .signup-step-3 .nav-buttons .secondary,
+.readems-auth .signup-step-4 .nav-buttons .secondary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.readems-auth .nav-buttons .secondary svg {
+  width: 40px;
+  height: 40px;
+  padding: 11px;
+  border: 1px solid #d9deea;
+  border-radius: 50%;
+}
+.readems-auth .signup-step-2 .nav-buttons .secondary,
+.readems-auth .signup-step-3 .nav-buttons .secondary,
+.readems-auth .signup-step-4 .nav-buttons .secondary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.readems-auth .nav-buttons .secondary svg {
+  width: 40px;
+  height: 40px;
+  padding: 11px;
+  border: 1px solid #d9deea;
+  border-radius: 50%;
 }
 
 /* Official portrait onboarding proportions */
