@@ -36,6 +36,8 @@ model User {
   reviewLikes     ReviewLike[]
   comments        Comment[]
   commentLikes    CommentLike[]
+  following       Follow[]          @relation("Following")
+  followers       Follow[]          @relation("Followers")
 }
 
 model ReadingProgress {
@@ -234,4 +236,15 @@ model CommentLike {
   createdAt DateTime @default(now())
 
   @@id([userId, commentId])
+}
+
+model Follow {
+  followerId  String
+  follower    User     @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  followingId String
+  following   User     @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+
+  @@id([followerId, followingId])
+  @@index([followingId])
 }

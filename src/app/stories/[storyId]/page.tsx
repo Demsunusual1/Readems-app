@@ -94,7 +94,10 @@ export default async function StoryPage({
             <span>{story.featured ? 'FEATURED STORY' : 'STORY'}</span>
             <h1>{story.title}</h1>
             <p>
-              by <strong>{story.authorName}</strong>
+              by{' '}
+              <Link href={`/u/${story.authorUsername}`}>
+                <strong>{story.authorName}</strong>
+              </Link>
             </p>
             <div className="details-stats">
               <span>
