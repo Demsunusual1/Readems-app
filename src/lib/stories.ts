@@ -20,6 +20,7 @@ export type StoryCard = {
 };
 
 export type StoryChapter = {
+  id: string;
   number: number;
   title: string;
   paragraphs: string[];
@@ -159,7 +160,13 @@ export async function getPublishedChapters(
   const chapters = await prisma.chapter.findMany({
     where: { storyId, ...readableChapterWhere() },
     orderBy: { number: 'asc' },
-    select: { number: true, title: true, body: true, authorNote: true },
+    select: {
+      id: true,
+      number: true,
+      title: true,
+      body: true,
+      authorNote: true,
+    },
   });
   return chapters.map(({ body, ...chapter }) => ({
     ...chapter,
@@ -174,10 +181,17 @@ export async function getChapterByNumber(
   if (!Number.isInteger(number) || number < 1) return null;
   const chapter = await prisma.chapter.findFirst({
     where: { storyId, number, ...readableChapterWhere() },
-    select: { number: true, title: true, body: true, authorNote: true },
+    select: {
+      id: true,
+      number: true,
+      title: true,
+      body: true,
+      authorNote: true,
+    },
   });
   return chapter
     ? {
+        id: chapter.id,
         number: chapter.number,
         title: chapter.title,
         authorNote: chapter.authorNote,

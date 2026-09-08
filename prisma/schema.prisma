@@ -34,6 +34,8 @@ model User {
   storyLikes      StoryLike[]
   reviews         Review[]
   reviewLikes     ReviewLike[]
+  comments        Comment[]
+  commentLikes    CommentLike[]
 }
 
 model ReadingProgress {
@@ -119,6 +121,8 @@ model Chapter {
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
+  comments Comment[]
+
   @@unique([storyId, number])
   @@index([storyId, status])
 }
@@ -202,4 +206,32 @@ model ReviewLike {
   createdAt DateTime @default(now())
 
   @@id([userId, reviewId])
+}
+
+model Comment {
+  id        String        @id @default(cuid())
+  userId    String
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapterId String
+  chapter   Chapter       @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  parentId  String?
+  parent    Comment?      @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies   Comment[]     @relation("CommentReplies")
+  body      String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  likes     CommentLike[]
+
+  @@index([chapterId, createdAt])
+  @@index([parentId])
+}
+
+model CommentLike {
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  commentId String
+  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([userId, commentId])
 }

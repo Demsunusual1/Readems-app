@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
 import { ChapterReader } from '@/components/chapter-reader';
+import { getCurrentUser } from '@/lib/auth';
+import { getComments } from '@/lib/comments';
 import {
   getChapterByNumber,
   getPublishedChapters,
@@ -35,14 +37,30 @@ export default async function ChapterPage({
   if (!story) notFound();
   const chapter = await getChapterByNumber(story.id, Number(route.chapter));
   if (!chapter) notFound();
-  const chapters = await getPublishedChapters(story.id);
+  const user = await getCurrentUser();
+  const [chapters, comments] = await Promise.all([
+    getPublishedChapters(story.id),
+    getComments(chapter.id, user?.id ?? null),
+  ]);
+
   return (
     <ChapterReader
       key={`${story.id}-${chapter.number}`}
       storyId={story.id}
       storyTitle={story.title}
       chapter={chapter}
+      chapterId={chapter.id}
       total={chapters.length}
+      signedIn={Boolean(user)}
+      comments={comments.map((comment) => ({
+        ...comment,
+        createdAt: comment.createdAt.toISOString(),
+        replies: comment.replies.map((reply) => ({
+          ...reply,
+          createdAt: reply.createdAt.toISOString(),
+          replies: [],
+        })),
+      }))}
     />
   );
 }

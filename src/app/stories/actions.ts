@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { getCurrentUser } from '@/lib/auth';
+import { addComment, deleteComment, toggleCommentLike } from '@/lib/comments';
 import {
   deleteReview,
   saveReview,
@@ -80,6 +81,53 @@ export async function removeReview(
     await deleteReview(user.id, storyId);
     revalidatePath(`/stories/${storyId}`);
     return { ok: true, message: 'Your review was removed.' };
+  } catch (error) {
+    return failure(error);
+  }
+}
+
+export async function postComment(
+  chapterId: string,
+  parentId: string | null,
+  _previous: StoryActionResult | null,
+  formData: FormData,
+): Promise<StoryActionResult> {
+  try {
+    const user = await requireUser();
+    await addComment(
+      user.id,
+      chapterId,
+      String(formData.get('body') ?? ''),
+      parentId ?? undefined,
+    );
+    revalidatePath('/stories', 'layout');
+    return { ok: true };
+  } catch (error) {
+    return failure(error);
+  }
+}
+
+export async function removeComment(
+  commentId: string,
+): Promise<StoryActionResult> {
+  try {
+    const user = await requireUser();
+    await deleteComment(user.id, commentId);
+    revalidatePath('/stories', 'layout');
+    return { ok: true };
+  } catch (error) {
+    return failure(error);
+  }
+}
+
+export async function likeComment(
+  commentId: string,
+): Promise<StoryActionResult> {
+  try {
+    const user = await requireUser();
+    const liked = await toggleCommentLike(user.id, commentId);
+    revalidatePath('/stories', 'layout');
+    return { ok: true, liked };
   } catch (error) {
     return failure(error);
   }

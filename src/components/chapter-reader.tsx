@@ -22,6 +22,7 @@ import {
 } from '@phosphor-icons/react';
 import { Logo } from './ui/logo';
 import { type Chapter, readingMinutes } from '@/lib/chapters';
+import { ChapterComments, type CommentView } from './chapter-comments';
 import './reading.css';
 
 function subscribeView(notify: () => void) {
@@ -41,12 +42,18 @@ export function ChapterReader({
   storyId,
   storyTitle,
   chapter,
+  chapterId,
   total,
+  comments,
+  signedIn,
 }: {
   storyId: string;
   storyTitle: string;
   chapter: Chapter;
+  chapterId: string;
   total: number;
+  comments: CommentView[];
+  signedIn: boolean;
 }) {
   const stored = useSyncExternalStore(subscribeView, readView, () => '{}');
   const [override, setOverride] = useState<{
@@ -322,6 +329,12 @@ export function ChapterReader({
           <Link className="reader-comments-link" href="#comments">
             <ChatCircleDots />
             <span>Comments</span>
+            <small>
+              {comments.reduce(
+                (count, comment) => count + 1 + comment.replies.length,
+                0,
+              )}
+            </small>
           </Link>
           <div>
             {nextNumber <= total ? (
@@ -348,12 +361,11 @@ export function ChapterReader({
         </p>
       </main>
 
-      <section className="reader-comments" id="comments">
-        <div>
-          <h2>Comments</h2>
-          <p>Join the conversation with readers</p>
-        </div>
-      </section>
+      <ChapterComments
+        chapterId={chapterId}
+        comments={comments}
+        signedIn={signedIn}
+      />
     </div>
   );
 }
