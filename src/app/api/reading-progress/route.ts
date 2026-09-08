@@ -1,8 +1,17 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { isReadingPositionValid, progressSchema } from '@/lib/chapters';
-import { getChapterByNumber, getStory } from '@/lib/stories';
+import {
+  isReadingPositionValid,
+  isStoryFinished,
+  progressSchema,
+  storyPercent,
+} from '@/lib/chapters';
+import {
+  getChapterByNumber,
+  getPublishedChapters,
+  getStory,
+} from '@/lib/stories';
 import { isSameOrigin } from '@/lib/http';
 
 export async function GET(request: Request) {
@@ -61,11 +70,25 @@ export async function POST(request: Request) {
       { error: 'Invalid reading position.' },
       { status: 400 },
     );
+  const chapterNumbers = (await getPublishedChapters(storyId)).map(
+    (published) => published.number,
+  );
+  const finished = isStoryFinished(chapterNumbers, position);
+  const stored = {
+    ...position,
+    percent: storyPercent(chapterNumbers, position, chapter.paragraphs.length),
+  };
   try {
     await prisma.readingProgress.upsert({
       where: { userId_storyId: { userId: user.id, storyId } },
-      create: { userId: user.id, storyId, ...position },
-      update: position,
+      create: {
+        userId: user.id,
+        storyId,
+        ...stored,
+        completedAt: finished ? new Date() : null,
+      },
+      // Finishing a story is remembered even if the reader opens it again.
+      update: finished ? { ...stored, completedAt: new Date() } : stored,
     });
     return NextResponse.json(
       { saved: true },

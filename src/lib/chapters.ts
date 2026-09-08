@@ -36,3 +36,30 @@ export function isReadingPositionValid(
   if (position.paragraph >= paragraphCount) return false;
   return !position.completed || position.paragraph === paragraphCount - 1;
 }
+
+/**
+ * How far through a whole story a reader is, as a percentage: the chapters
+ * behind them plus how far into the current one they have read.
+ */
+export function storyPercent(
+  chapterNumbers: number[],
+  position: Pick<ReadingPosition, 'chapter' | 'paragraph' | 'completed'>,
+  paragraphCount: number,
+) {
+  const index = chapterNumbers.indexOf(position.chapter);
+  if (index < 0) return 0;
+  const through = position.completed
+    ? 1
+    : (position.paragraph + 1) / Math.max(1, paragraphCount);
+  return Math.min(
+    100,
+    Math.round(((index + through) / chapterNumbers.length) * 100),
+  );
+}
+
+export function isStoryFinished(
+  chapterNumbers: number[],
+  position: Pick<ReadingPosition, 'chapter' | 'completed'>,
+) {
+  return position.completed && chapterNumbers.at(-1) === position.chapter;
+}

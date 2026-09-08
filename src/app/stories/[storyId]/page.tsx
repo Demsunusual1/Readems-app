@@ -16,6 +16,8 @@ import {
   UsersThree,
 } from '@phosphor-icons/react/dist/ssr';
 import { readingMinutes } from '@/lib/chapters';
+import { getCurrentUser } from '@/lib/auth';
+import { isInLibrary } from '@/lib/library';
 import { getPublishedChapters, getStory, listStories } from '@/lib/stories';
 import { Logo } from '@/components/ui/logo';
 import { StoryProgress } from '@/components/story-progress';
@@ -52,6 +54,8 @@ export default async function StoryPage({
   const similar = (await listStories({ genre: story.genre, limit: 5 })).filter(
     (item) => item.id !== story.id,
   );
+  const user = await getCurrentUser();
+  const savedInLibrary = user ? await isInLibrary(user.id, story.id) : false;
 
   return (
     <div className="story-page">
@@ -104,7 +108,12 @@ export default async function StoryPage({
             </div>
           </div>
         </div>
-        <StoryActions storyId={story.id} canRead={chapters.length > 0} />
+        <StoryActions
+          storyId={story.id}
+          canRead={chapters.length > 0}
+          signedIn={Boolean(user)}
+          savedInLibrary={savedInLibrary}
+        />
       </section>
 
       <main className="details-content">

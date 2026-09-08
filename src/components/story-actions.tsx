@@ -1,17 +1,45 @@
 'use client';
+
 import Link from 'next/link';
-import { BookOpen, BookmarkSimple, Heart } from '@phosphor-icons/react';
-import { useState } from 'react';
+import { BookOpen, BookmarkSimple } from '@phosphor-icons/react';
+import { useState, useTransition } from 'react';
+import { toggleLibraryStory } from '@/app/library/actions';
 
 export function StoryActions({
   storyId,
   canRead,
+  signedIn,
+  savedInLibrary,
 }: {
   storyId: string;
   canRead: boolean;
+  signedIn: boolean;
+  savedInLibrary: boolean;
 }) {
-  const [saved, setSaved] = useState(false);
-  const [liked, setLiked] = useState(false);
+  const [saved, setSaved] = useState(savedInLibrary);
+  const [message, setMessage] = useState('');
+  const [pending, startTransition] = useTransition();
+
+  function toggle() {
+    if (!signedIn) {
+      setMessage('Sign in to keep this story in your library.');
+      return;
+    }
+    startTransition(async () => {
+      const result = await toggleLibraryStory(storyId);
+      if (result.ok) {
+        setSaved(Boolean(result.saved));
+        setMessage(
+          result.saved
+            ? 'Saved to your library.'
+            : 'Removed from your library.',
+        );
+      } else {
+        setMessage(result.message ?? 'That did not work. Try again.');
+      }
+    });
+  }
+
   return (
     <div className="details-actions">
       {canRead && (
@@ -20,18 +48,13 @@ export function StoryActions({
           Start Reading
         </Link>
       )}
-      <button aria-pressed={saved} onClick={() => setSaved(!saved)}>
+      <button aria-pressed={saved} onClick={toggle} disabled={pending}>
         <BookmarkSimple weight={saved ? 'fill' : 'regular'} />
-        {saved ? 'Added to Library' : 'Add to Library'}
+        {saved ? 'In your library' : 'Add to Library'}
       </button>
-      <button
-        className="details-like"
-        aria-label="Like story"
-        aria-pressed={liked}
-        onClick={() => setLiked(!liked)}
-      >
-        <Heart weight={liked ? 'fill' : 'regular'} />
-      </button>
+      <p className="details-action-status" role="status">
+        {message}
+      </p>
     </div>
   );
 }
