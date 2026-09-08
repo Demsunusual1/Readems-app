@@ -36,6 +36,7 @@ jobs:
       - run: npm ci
       - run: npm run db:generate
       - run: npm run db:deploy
+      - run: npm run db:seed
       - run: npm run format
       - run: npm run lint
       - run: npm run typecheck

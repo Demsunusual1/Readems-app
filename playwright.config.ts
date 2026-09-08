@@ -6,7 +6,13 @@ export default defineConfig({
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? 'github' : 'list',
-  use: { baseURL: 'http://127.0.0.1:3000', trace: 'on-first-retry' },
+  use: {
+    baseURL: 'http://127.0.0.1:3000',
+    trace: 'on-first-retry',
+    // Containers commonly cap /dev/shm at 64MB, which crashes the browser
+    // part-way through a run. Chromium falls back to /tmp with this flag.
+    launchOptions: { args: ['--disable-dev-shm-usage'] },
+  },
   webServer: {
     command: process.env.CI
       ? 'npm run start -- --hostname 127.0.0.1'

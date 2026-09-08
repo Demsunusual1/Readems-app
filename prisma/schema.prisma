@@ -27,6 +27,7 @@ model User {
   updatedAt    DateTime  @updatedAt
   sessions     Session[]
   readingProgress ReadingProgress[]
+  stories         Story[]
 }
 
 model ReadingProgress {
@@ -51,4 +52,59 @@ model Session {
 
   @@index([userId])
   @@index([expiresAt])
+}
+
+enum StoryStatus {
+  DRAFT
+  SCHEDULED
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ChapterStatus {
+  DRAFT
+  SCHEDULED
+  PUBLISHED
+}
+
+// The id is the URL slug, so story links stay readable and stable.
+model Story {
+  id           String      @id
+  title        String
+  synopsis     String
+  coverUrl     String
+  genre        String
+  audience     String      @default("General")
+  language     String      @default("English")
+  tags         String[]
+  featured     Boolean     @default(false)
+  status       StoryStatus @default(DRAFT)
+  publishedAt  DateTime?
+  scheduledFor DateTime?
+  authorId     String
+  author       User        @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  chapters     Chapter[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@index([status, publishedAt])
+  @@index([authorId])
+}
+
+model Chapter {
+  id           String        @id @default(cuid())
+  storyId      String
+  story        Story         @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  number       Int
+  title        String
+  body         String
+  authorNote   String?
+  status       ChapterStatus @default(DRAFT)
+  publishedAt  DateTime?
+  scheduledFor DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@unique([storyId, number])
+  @@index([storyId, status])
 }

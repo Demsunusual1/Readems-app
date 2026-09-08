@@ -1,20 +1,20 @@
 import { describe, expect, it } from 'vitest';
 import {
-  getChapter,
-  getChapters,
+  isReadingPositionValid,
   progressSchema,
   readingMinutes,
 } from './chapters';
-describe('sample reading content and positions', () => {
-  it('resolves only available story chapters', () => {
-    expect(getChapters('baobab')).toHaveLength(2);
-    expect(getChapter('baobab', 3)).toBeUndefined();
-    expect(getChapters('unknown')).toHaveLength(0);
-  });
+
+const chapter = {
+  paragraphs: ['A short opening.', 'A second paragraph.', 'A third.'],
+};
+
+describe('reading positions', () => {
   it('estimates a nonzero reading time', () => {
-    expect(readingMinutes(getChapter('baobab', 1)!)).toBeGreaterThan(0);
+    expect(readingMinutes(chapter)).toBeGreaterThan(0);
   });
-  it('accepts bounded positions and completion only at the end', () => {
+
+  it('accepts a well-formed position', () => {
     expect(
       progressSchema.safeParse({
         storyId: 'baobab',
@@ -23,19 +23,14 @@ describe('sample reading content and positions', () => {
         completed: false,
       }).success,
     ).toBe(true);
+  });
+
+  it('rejects impossible positions and client-supplied ownership', () => {
     expect(
       progressSchema.safeParse({
         storyId: 'baobab',
-        chapter: 1,
+        chapter: 0,
         paragraph: 0,
-        completed: true,
-      }).success,
-    ).toBe(false);
-    expect(
-      progressSchema.safeParse({
-        storyId: 'baobab',
-        chapter: 1,
-        paragraph: 999,
         completed: false,
       }).success,
     ).toBe(false);
@@ -43,17 +38,7 @@ describe('sample reading content and positions', () => {
       progressSchema.safeParse({
         storyId: 'baobab',
         chapter: 1,
-        paragraph: 5,
-        completed: true,
-      }).success,
-    ).toBe(true);
-  });
-  it('rejects arbitrary stories and client-supplied ownership', () => {
-    expect(
-      progressSchema.safeParse({
-        storyId: 'missing',
-        chapter: 1,
-        paragraph: 0,
+        paragraph: -1,
         completed: false,
       }).success,
     ).toBe(false);
@@ -66,5 +51,26 @@ describe('sample reading content and positions', () => {
         userId: 'another-user',
       }).success,
     ).toBe(false);
+  });
+
+  it('keeps a position inside the chapter it belongs to', () => {
+    expect(isReadingPositionValid(3, { paragraph: 2, completed: false })).toBe(
+      true,
+    );
+    expect(isReadingPositionValid(3, { paragraph: 3, completed: false })).toBe(
+      false,
+    );
+    expect(isReadingPositionValid(0, { paragraph: 0, completed: false })).toBe(
+      false,
+    );
+  });
+
+  it('allows completion only from the last paragraph', () => {
+    expect(isReadingPositionValid(3, { paragraph: 2, completed: true })).toBe(
+      true,
+    );
+    expect(isReadingPositionValid(3, { paragraph: 1, completed: true })).toBe(
+      false,
+    );
   });
 });
