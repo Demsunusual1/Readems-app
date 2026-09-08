@@ -21,11 +21,12 @@ describe('LandingHeader', () => {
     render(<LandingHeader />);
     expect(
       screen.getByRole('link', { name: 'Search stories' }),
-    ).toHaveAttribute('href', '/discover');
+    ).toHaveAttribute('href', '/search');
     expect(screen.getByRole('link', { name: 'Notifications' })).toHaveAttribute(
       'href',
       '/login',
     );
-    expect(screen.getByLabelText('3 notifications')).toBeInTheDocument();
+    // No unread badge until there is something unread to count.
+    expect(screen.queryByText('3')).not.toBeInTheDocument();
   });
 });

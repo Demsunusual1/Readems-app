@@ -34,7 +34,6 @@ export function LandingHeader({ dashboardHref }: { dashboardHref?: string }) {
             aria-label="Notifications"
           >
             <Bell aria-hidden="true" />
-            <span aria-label="3 notifications">3</span>
           </Link>
           <Link
             className="landing-avatar"
