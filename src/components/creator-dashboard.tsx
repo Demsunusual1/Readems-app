@@ -38,7 +38,7 @@ export function CreatorDashboard({
     <main className="creator-official-shell">
       <section className="creator-official-hero">
         <header className="creator-official-header">
-          <ReademsLogo tone="light" />
+          <ReademsLogo href="/creator/dashboard" tone="light" />
           <div>
             <Link href="/notifications" aria-label="Notifications">
               <Bell />

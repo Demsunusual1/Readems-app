@@ -58,7 +58,7 @@ export function CreatorAnalytics({ avatarUrl }: { avatarUrl: string | null }) {
     <main className="creator-analytics-page">
       <section className="analytics-hero">
         <header>
-          <ReademsLogo tone="light" />
+          <ReademsLogo href="/creator/dashboard" tone="light" />
           <div>
             <Bell />
             <Image src={avatar} alt="" width={50} height={50} unoptimized />

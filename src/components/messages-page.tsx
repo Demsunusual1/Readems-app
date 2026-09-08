@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 import {
   Compass,
   BookOpen,
+  ChatCircle,
   FunnelSimple,
   House,
   MagnifyingGlass,
@@ -179,7 +180,7 @@ export function MessagesPage({ role }: { role: string }) {
         </Link>
         <Link className="active" href="/messages" aria-current="page">
           <b>12</b>
-          <NotePencil />
+          <ChatCircle weight="fill" />
           <span>Messages</span>
         </Link>
         <Link href="/profile-settings">

@@ -73,7 +73,7 @@ export function ReaderDashboard({
   return (
     <main className="official-reader-dashboard">
       <header className="reader-header">
-        <ReademsLogo />
+        <ReademsLogo href="/reader/dashboard" />
         <div>
           <Link href="/discover" aria-label="Search">
             <MagnifyingGlass />

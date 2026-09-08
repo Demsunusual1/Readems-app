@@ -92,7 +92,7 @@ export default async function StoryPage({
           <Link href="/discover" aria-label="Back to Discover">
             <ArrowLeft />
           </Link>
-          <Logo tone="light" />
+          <Logo href={readerMode ? '/reader/dashboard' : '/'} tone="light" />
           <div>
             <button aria-label="Share story">
               <ShareNetwork />

@@ -290,8 +290,8 @@ export function LibraryPage({ role }: { role: string }) {
           <span>Library</span>
         </Link>
         <Link href={readerMode ? '/messages' : '/creator/stories/new'}>
-          <span>{readerMode ? <ChatCircle /> : '✎'}</span>
-          <small>{readerMode ? 'Messages' : 'Write'}</small>
+          {readerMode ? <ChatCircle /> : <span aria-hidden="true">✎</span>}
+          <span>{readerMode ? 'Messages' : 'Write'}</span>
         </Link>
         <Link href="/profile-settings">
           <User />

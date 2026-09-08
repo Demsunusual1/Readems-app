@@ -91,7 +91,9 @@ export function DashboardShell({
   return (
     <main className={`dashboard-shell ${kind}`}>
       <header className="dash-header">
-        <ReademsLogo />
+        <ReademsLogo
+          href={kind === 'creator' ? '/creator/dashboard' : '/reader/dashboard'}
+        />
         {kind === 'reader' && (
           <label className="dash-search">
             <span className="sr-only">Search stories</span>

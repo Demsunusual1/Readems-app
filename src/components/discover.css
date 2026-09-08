@@ -339,22 +339,7 @@
   color: #0866ff;
 }
 .discover-bottom [aria-current] svg {
-  background: #0866ff;
-  color: #fff;
-  border-radius: 50%;
-  padding: 9px;
-  width: 48px;
-  height: 48px;
-}
-.discover-bottom [aria-current]:after {
-  content: '';
-  width: 34px;
-  height: 4px;
-  background: #0866ff;
-  border-radius: 4px;
-}
-.discover-bottom [aria-current] span {
-  display: none;
+  color: #0866ff;
 }
 @media (max-width: 700px) {
   .discover-page {
@@ -548,16 +533,11 @@
     font-size: 0.68rem;
   }
   .discover-bottom svg {
-    width: 23px;
-    height: 23px;
+    width: 21px;
+    height: 21px;
   }
   .discover-bottom [aria-current] svg {
-    width: 37px;
-    height: 37px;
-    padding: 7px;
-  }
-  .discover-bottom [aria-current]:after {
-    width: 25px;
-    height: 3px;
+    width: 21px;
+    height: 21px;
   }
 }

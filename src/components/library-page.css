@@ -406,12 +406,6 @@
 .library-bottom .active {
   color: #075cff;
 }
-.library-bottom a:nth-child(3) > span {
-  font-size: 30px;
-}
-.library-bottom a:nth-child(3) small {
-  font-size: 11px;
-}
 @media (max-width: 700px) {
   .library-page {
     padding-bottom: 61px;
@@ -637,21 +631,11 @@
     height: 58px;
     padding: 4px 5px;
   }
-  .library-bottom a,
-  .library-bottom a:nth-child(3) small {
+  .library-bottom a {
     font-size: 8px;
   }
   .library-bottom svg {
     width: 20px;
     height: 20px;
-  }
-  .library-bottom a:nth-child(3) > span {
-    display: grid;
-    place-items: center;
-    font-size: 22px;
-  }
-  .library-bottom a:nth-child(3) > span svg {
-    width: 21px;
-    height: 21px;
   }
 }

@@ -75,7 +75,7 @@ export function CreatorStories({ avatarUrl }: { avatarUrl: string | null }) {
     <main className="stories-manager">
       <section className="stories-hero">
         <header>
-          <ReademsLogo tone="light" />
+          <ReademsLogo href="/creator/dashboard" tone="light" />
           <div>
             <Link href="/notifications" aria-label="Notifications">
               <Bell />

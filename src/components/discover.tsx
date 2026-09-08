@@ -92,6 +92,7 @@ export function Discover({
 }) {
   const [query, setQuery] = useState('');
   const [mood, setMood] = useState('All Moods');
+  const homeHref = role === 'READER' ? '/reader/dashboard' : dashboardHref;
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const value = query.trim();
@@ -101,7 +102,7 @@ export function Discover({
   return (
     <div className="discover-page">
       <header className="discover-header">
-        <Logo tone="dark" />
+        <Logo href={homeHref} tone="dark" />
         <div className="discover-header-actions">
           <Link href="/notifications" aria-label="Notifications">
             <Bell />

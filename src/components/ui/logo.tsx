@@ -5,15 +5,17 @@ import './logo.css';
 export function Logo({
   compact = false,
   className,
+  href = '/',
   tone = 'dark',
 }: {
   compact?: boolean;
   className?: string;
+  href?: string;
   tone?: 'dark' | 'light';
 }) {
   return (
     <Link
-      href="/"
+      href={href}
       className={cn('ui-logo', className)}
       aria-label="Readems home"
       data-tone={tone}

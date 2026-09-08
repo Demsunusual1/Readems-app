@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import {
   Bell,
+  BookOpen,
   Books,
   ChatCircleDots,
   Compass,
@@ -187,7 +188,7 @@ export function NotificationsPage({ role }: { role: string }) {
               <span>Discover</span>
             </Link>
             <Link href="/library">
-              <Books />
+              <BookOpen />
               <span>Library</span>
             </Link>
             <Link href="/messages">
