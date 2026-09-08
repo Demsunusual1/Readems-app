@@ -7,11 +7,8 @@ import Image from 'next/image';
 import {
   ArrowLeft,
   ArrowRight,
-  BookOpen,
   Check,
   CheckCircle,
-  GlobeHemisphereWest,
-  PenNib,
   ShieldCheck,
   User,
   EnvelopeSimple,
@@ -322,20 +319,14 @@ export function SignupWizard({
                     {data.role === value && (
                       <Check className="choice-check" weight="bold" />
                     )}
-                    <span>
-                      {value === 'READER' ? (
-                        <BookOpen aria-hidden="true" />
-                      ) : (
-                        <PenNib aria-hidden="true" />
-                      )}
-                    </span>
+                    <RoleArtwork role={value} />
                     <b>{title}</b>
                     <small>{copy}</small>
                   </button>
                 ))}
               </div>
               <aside className="onboarding-note">
-                <GlobeHemisphereWest aria-hidden="true" />
+                <CommunityArtwork />
                 <div>
                   <strong>A global community</strong>
                   <span>
@@ -543,6 +534,66 @@ export function SignupWizard({
         </section>
       </div>
     </AuthShell>
+  );
+}
+
+function RoleArtwork({ role }: { role: 'READER' | 'CREATOR' }) {
+  return role === 'READER' ? (
+    <svg className="role-artwork" viewBox="0 0 112 92" aria-hidden="true">
+      <circle cx="56" cy="46" r="38" fill="#f2edff" />
+      <path
+        d="M18 31c14-6 25-4 38 6v39C43 66 32 64 18 69V31Zm76 0c-14-6-25-4-38 6v39c13-10 24-12 38-7V31Z"
+        fill="#fff"
+        stroke="#0f1f3d"
+        strokeWidth="3.5"
+        strokeLinejoin="round"
+      />
+      <path d="M56 38v38" stroke="#0f1f3d" strokeWidth="3" />
+      <path d="m88 13 2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6Z" fill="#8b5cf6" />
+      <circle cx="17" cy="20" r="3" fill="#b7a4f5" />
+    </svg>
+  ) : (
+    <svg className="role-artwork" viewBox="0 0 112 92" aria-hidden="true">
+      <circle cx="56" cy="46" r="39" fill="#eee7ff" />
+      <path d="M76 12C54 23 39 38 35 62c16-5 31-17 41-50Z" fill="#6f4bd8" />
+      <path
+        d="M68 22 29 75M47 54l-13-1M57 42l13-4"
+        stroke="#fff"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M25 78c18 4 42 3 62-3"
+        fill="none"
+        stroke="#7955df"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+      <path d="m91 25 2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6Z" fill="#9b78f3" />
+      <circle cx="18" cy="21" r="3" fill="#b7a4f5" />
+    </svg>
+  );
+}
+
+function CommunityArtwork() {
+  return (
+    <svg className="community-artwork" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="31" fill="#7955df" />
+      <circle
+        cx="32"
+        cy="32"
+        r="19"
+        fill="none"
+        stroke="#fff"
+        strokeWidth="2"
+      />
+      <path
+        d="M13 32h38M32 13c9 10 9 28 0 38M32 13c-9 10-9 28 0 38M18 21c9 5 19 5 28 0M18 43c9-5 19-5 28 0"
+        fill="none"
+        stroke="#fff"
+        strokeWidth="1.6"
+      />
+    </svg>
   );
 }
 
