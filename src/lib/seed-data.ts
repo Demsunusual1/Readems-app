@@ -141,3 +141,44 @@ export const seedStories: SeedStory[] = [
     chapters: [],
   },
 ];
+
+/** Starter groups, created by Readems so the community has somewhere to begin. */
+export const seedGroups = [
+  {
+    id: 'african-voices-collective',
+    name: 'African Voices Collective',
+    tagline: 'A global home for African storytellers and readers.',
+    description:
+      'Share your voice. Discover powerful stories. Celebrate our diverse narratives.',
+    topic: 'Culture',
+  },
+  {
+    id: 'the-writers-sanctuary',
+    name: 'The Writer’s Sanctuary',
+    tagline: 'Honest feedback. Better stories.',
+    description:
+      'Bring a draft, leave with notes. A group for writers who want to be read closely.',
+    topic: 'Craft',
+  },
+  {
+    id: 'poets-collective',
+    name: 'Poets Collective',
+    tagline: 'Lines that linger. Hearts that connect.',
+    description: 'Poems, forms, translations and the talk around them.',
+    topic: 'Genres',
+  },
+  {
+    id: 'book-lovers-club',
+    name: 'Book Lovers Club',
+    tagline: 'Read more. Share more.',
+    description:
+      'What we are reading this month, and what it left us thinking about.',
+    topic: 'Community',
+  },
+];
+
+/** The prompt shown on the community page in the week it belongs to. */
+export const seedPrompt = {
+  title: 'Unwritten Paths',
+  body: 'Write about a choice that changed everything.',
+};

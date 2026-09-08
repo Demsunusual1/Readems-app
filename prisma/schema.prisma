@@ -14,30 +14,36 @@ enum UserRole {
 }
 
 model User {
-  id              String            @id @default(cuid())
-  fullName        String
-  username        String            @unique
-  email           String            @unique
-  passwordHash    String
-  role            UserRole
-  bio             String?
-  avatarUrl       String?
-  interests       String[]
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  sessions        Session[]
-  readingProgress ReadingProgress[]
-  stories         Story[]
-  libraryItems    LibraryItem[]
-  readingLists    ReadingList[]
-  readingGoal     ReadingGoal?
-  storyLikes      StoryLike[]
-  reviews         Review[]
-  reviewLikes     ReviewLike[]
-  comments        Comment[]
-  commentLikes    CommentLike[]
-  following       Follow[]          @relation("Following")
-  followers       Follow[]          @relation("Followers")
+  id               String            @id @default(cuid())
+  fullName         String
+  username         String            @unique
+  email            String            @unique
+  passwordHash     String
+  role             UserRole
+  bio              String?
+  avatarUrl        String?
+  interests        String[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  sessions         Session[]
+  readingProgress  ReadingProgress[]
+  stories          Story[]
+  libraryItems     LibraryItem[]
+  readingLists     ReadingList[]
+  readingGoal      ReadingGoal?
+  storyLikes       StoryLike[]
+  reviews          Review[]
+  reviewLikes      ReviewLike[]
+  comments         Comment[]
+  commentLikes     CommentLike[]
+  following        Follow[]          @relation("Following")
+  followers        Follow[]          @relation("Followers")
+  posts            Post[]
+  postLikes        PostLike[]
+  postComments     PostComment[]
+  groupsCreated    Group[]
+  groupMemberships GroupMember[]
+  eventRsvps       GroupEventRsvp[]
 }
 
 model ReadingProgress {
@@ -102,6 +108,7 @@ model Story {
   progress     ReadingProgress[]
   likes        StoryLike[]
   reviews      Review[]
+  posts        Post[]
   createdAt    DateTime          @default(now())
   updatedAt    DateTime          @updatedAt
 
@@ -247,4 +254,126 @@ model Follow {
 
   @@id([followerId, followingId])
   @@index([followingId])
+}
+
+enum PostKind {
+  THOUGHT
+  SHORT_STORY
+  POEM
+  QUESTION
+}
+
+model Prompt {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  weekOf    DateTime @unique
+  createdAt DateTime @default(now())
+  posts     Post[]
+}
+
+model Post {
+  id        String        @id @default(cuid())
+  authorId  String
+  author    User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  groupId   String?
+  group     Group?        @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  promptId  String?
+  prompt    Prompt?       @relation(fields: [promptId], references: [id], onDelete: SetNull)
+  storyId   String?
+  story     Story?        @relation(fields: [storyId], references: [id], onDelete: SetNull)
+  kind      PostKind      @default(THOUGHT)
+  topic     String?
+  title     String?
+  body      String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  likes     PostLike[]
+  comments  PostComment[]
+
+  @@index([groupId, createdAt])
+  @@index([authorId, createdAt])
+  @@index([topic, createdAt])
+}
+
+model PostLike {
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([userId, postId])
+}
+
+model PostComment {
+  id        String   @id @default(cuid())
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  body      String
+  createdAt DateTime @default(now())
+
+  @@index([postId, createdAt])
+}
+
+enum GroupRole {
+  MEMBER
+  MODERATOR
+  FOUNDER
+}
+
+model Group {
+  id          String        @id
+  name        String
+  tagline     String
+  description String
+  topic       String
+  coverUrl    String?
+  isPublic    Boolean       @default(true)
+  createdById String
+  createdBy   User          @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  createdAt   DateTime      @default(now())
+  members     GroupMember[]
+  posts       Post[]
+  events      GroupEvent[]
+
+  @@index([topic])
+}
+
+model GroupMember {
+  groupId  String
+  group    Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role     GroupRole @default(MEMBER)
+  joinedAt DateTime  @default(now())
+
+  @@id([groupId, userId])
+  @@index([userId])
+}
+
+model GroupEvent {
+  id          String           @id @default(cuid())
+  groupId     String
+  group       Group            @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  startsAt    DateTime
+  createdById String
+  createdAt   DateTime         @default(now())
+  rsvps       GroupEventRsvp[]
+
+  @@index([groupId, startsAt])
+}
+
+model GroupEventRsvp {
+  eventId   String
+  event     GroupEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime   @default(now())
+
+  @@id([eventId, userId])
 }

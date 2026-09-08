@@ -1,5 +1,10 @@
 import { PrismaClient } from '@prisma/client';
-import { editorialAuthor, seedStories } from '../src/lib/seed-data.ts';
+import {
+  editorialAuthor,
+  seedGroups,
+  seedPrompt,
+  seedStories,
+} from '../src/lib/seed-data.ts';
 
 const prisma = new PrismaClient();
 const day = 24 * 60 * 60 * 1000;
@@ -56,10 +61,40 @@ async function main() {
     }
   }
 
+  for (const group of seedGroups) {
+    await prisma.group.upsert({
+      where: { id: group.id },
+      create: {
+        ...group,
+        createdById: editorialAuthor.id,
+        members: { create: { userId: editorialAuthor.id, role: 'FOUNDER' } },
+      },
+      update: {
+        name: group.name,
+        tagline: group.tagline,
+        description: group.description,
+        topic: group.topic,
+      },
+    });
+  }
+
+  // The prompt belongs to the current week, starting on Monday.
+  const now = new Date();
+  const monday = new Date(
+    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
+  );
+  monday.setUTCDate(monday.getUTCDate() - ((monday.getUTCDay() + 6) % 7));
+  await prisma.prompt.upsert({
+    where: { weekOf: monday },
+    create: { ...seedPrompt, weekOf: monday },
+    update: seedPrompt,
+  });
+
   const stories = await prisma.story.count();
   const chapters = await prisma.chapter.count();
+  const groups = await prisma.group.count();
   console.log(
-    `Seeded editorial catalogue: ${stories} stories, ${chapters} chapters.`,
+    `Seeded editorial catalogue: ${stories} stories, ${chapters} chapters, ${groups} groups.`,
   );
 }
 
