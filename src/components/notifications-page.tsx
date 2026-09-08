@@ -7,6 +7,7 @@ import {
   Bell,
   Books,
   ChatCircleDots,
+  Compass,
   EnvelopeSimple,
   FunnelSimple,
   House,
@@ -100,8 +101,7 @@ export function NotificationsPage({ role }: { role: string }) {
     [kind],
   );
   const home = role === 'CREATOR' ? '/creator/dashboard' : '/reader/dashboard';
-  const create =
-    role === 'READER' ? '/profile-settings#account' : '/creator/stories/new';
+  const readerMode = role === 'READER';
 
   return (
     <main className="notifications-page">
@@ -180,18 +180,37 @@ export function NotificationsPage({ role }: { role: string }) {
           <House />
           <span>Home</span>
         </Link>
-        <Link href="/library">
-          <Books />
-          <span>Library</span>
-        </Link>
-        <Link className="create" href={create}>
-          <Plus />
-        </Link>
-        <Link className="active" href="/notifications">
-          <Bell weight="fill" />
-          <i />
-          <span>Notifications</span>
-        </Link>
+        {readerMode ? (
+          <>
+            <Link href="/discover">
+              <Compass />
+              <span>Discover</span>
+            </Link>
+            <Link href="/library">
+              <Books />
+              <span>Library</span>
+            </Link>
+            <Link href="/messages">
+              <ChatCircleDots />
+              <span>Messages</span>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link href="/library">
+              <Books />
+              <span>Library</span>
+            </Link>
+            <Link className="create" href="/creator/stories/new">
+              <Plus />
+            </Link>
+            <Link className="active" href="/notifications">
+              <Bell weight="fill" />
+              <i />
+              <span>Notifications</span>
+            </Link>
+          </>
+        )}
         <Link href="/profile-settings">
           <User />
           <span>Profile</span>

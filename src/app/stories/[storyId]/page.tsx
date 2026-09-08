@@ -6,6 +6,8 @@ import {
   BookOpen,
   BookmarkSimple,
   CaretRight,
+  ChatCircle,
+  Compass,
   Feather,
   Heart,
   House,
@@ -14,6 +16,7 @@ import {
   Translate,
   UsersThree,
   UserCircle,
+  User,
   Eye,
   DotsThree,
 } from '@phosphor-icons/react/dist/ssr';
@@ -22,6 +25,7 @@ import { getChapters, readingMinutes } from '@/lib/chapters';
 import { Logo } from '@/components/ui/logo';
 import { StoryProgress } from '@/components/story-progress';
 import { StoryActions } from '@/components/story-actions';
+import { getCurrentUser } from '@/lib/auth';
 import '@/components/reading.css';
 import '@/components/story-details.css';
 
@@ -70,6 +74,8 @@ export default async function StoryPage({
   params: Promise<{ storyId: string }>;
 }) {
   const { storyId } = await params;
+  const user = await getCurrentUser();
+  const readerMode = user?.role === 'READER';
   const story = catalogue.find((item) => item.id === storyId);
   if (!story) notFound();
   const chapters = getChapters(storyId);
@@ -249,24 +255,24 @@ export default async function StoryPage({
         </section>
       </main>
       <nav className="details-bottom" aria-label="Primary navigation">
-        <Link href="/">
+        <Link href={readerMode ? '/reader/dashboard' : '/'}>
           <House weight="fill" />
           <span>Home</span>
         </Link>
         <Link href="/discover">
-          <Eye />
-          <span>Explore</span>
+          <Compass />
+          <span>Discover</span>
         </Link>
-        <Link href="/reader/dashboard">
+        <Link href={readerMode ? '/library' : '/reader/dashboard'}>
           <BookOpen />
           <span>Library</span>
         </Link>
-        <Link href="/signup?role=creator">
-          <Feather />
-          <span>Write</span>
+        <Link href={readerMode ? '/messages' : '/signup?role=creator'}>
+          {readerMode ? <ChatCircle /> : <Feather />}
+          <span>{readerMode ? 'Messages' : 'Write'}</span>
         </Link>
-        <Link href="/login">
-          <UserCircle />
+        <Link href={readerMode ? '/profile-settings' : '/login'}>
+          {readerMode ? <User /> : <UserCircle />}
           <span>Profile</span>
         </Link>
       </nav>

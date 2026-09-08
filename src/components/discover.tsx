@@ -6,6 +6,7 @@ import {
   Bell,
   BookOpen,
   CaretRight,
+  ChatCircle,
   Compass,
   Feather,
   Heart,
@@ -17,6 +18,7 @@ import {
   SlidersHorizontal,
   Sparkle,
   Star,
+  User,
   UsersThree,
   Crown,
 } from '@phosphor-icons/react';
@@ -81,7 +83,13 @@ const trends = [
   ],
 ] as const;
 
-export function Discover({ dashboardHref }: { dashboardHref: string }) {
+export function Discover({
+  dashboardHref,
+  role,
+}: {
+  dashboardHref: string;
+  role: string | null;
+}) {
   const [query, setQuery] = useState('');
   const [mood, setMood] = useState('All Moods');
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -95,10 +103,13 @@ export function Discover({ dashboardHref }: { dashboardHref: string }) {
       <header className="discover-header">
         <Logo tone="dark" />
         <div className="discover-header-actions">
-          <button aria-label="Notifications">
+          <Link href="/notifications" aria-label="Notifications">
             <Bell />
-          </button>
-          <Link href={dashboardHref} aria-label="Open profile">
+          </Link>
+          <Link
+            href={role === 'READER' ? '/profile-settings' : dashboardHref}
+            aria-label="Open profile"
+          >
             <Image
               src="/readems/creator-chinelo-okoye.png"
               alt=""
@@ -220,7 +231,7 @@ export function Discover({ dashboardHref }: { dashboardHref: string }) {
         </div>
       </main>
       <nav className="discover-bottom" aria-label="Primary navigation">
-        <Link href="/">
+        <Link href={role === 'READER' ? '/reader/dashboard' : '/'}>
           <House />
           <span>Home</span>
         </Link>
@@ -228,18 +239,37 @@ export function Discover({ dashboardHref }: { dashboardHref: string }) {
           <Compass weight="fill" />
           <span>Discover</span>
         </Link>
-        <Link href="/signup?role=creator">
-          <Feather />
-          <span>Write</span>
-        </Link>
-        <Link href="/#community-title">
-          <UsersThree />
-          <span>Community</span>
-        </Link>
-        <Link href={dashboardHref}>
-          <BookOpen />
-          <span>Library</span>
-        </Link>
+        {role === 'READER' ? (
+          <>
+            <Link href="/library">
+              <BookOpen />
+              <span>Library</span>
+            </Link>
+            <Link href="/messages">
+              <ChatCircle />
+              <span>Messages</span>
+            </Link>
+            <Link href="/profile-settings">
+              <User />
+              <span>Profile</span>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link href="/signup?role=creator">
+              <Feather />
+              <span>Write</span>
+            </Link>
+            <Link href="/#community-title">
+              <UsersThree />
+              <span>Community</span>
+            </Link>
+            <Link href={dashboardHref}>
+              <BookOpen />
+              <span>Library</span>
+            </Link>
+          </>
+        )}
       </nav>
     </div>
   );

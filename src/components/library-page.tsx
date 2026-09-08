@@ -73,7 +73,6 @@ export function LibraryPage({ role }: { role: string }) {
   const [inProgressOnly, setInProgressOnly] = useState(false);
   const home = role === 'CREATOR' ? '/creator/dashboard' : '/reader/dashboard';
   const readerMode = role === 'READER';
-  const middleUrl = readerMode ? '/messages' : '/creator/stories/new';
   const visibleBooks = (oldestFirst ? [...books].reverse() : books).filter(
     (book) => {
       const progress = Number.parseInt(book[2]);
@@ -284,15 +283,15 @@ export function LibraryPage({ role }: { role: string }) {
         </Link>
         <Link href="/discover">
           <Compass />
-          <span>Explore</span>
+          <span>Discover</span>
         </Link>
-        <Link href={middleUrl}>
-          <span>{readerMode ? <ChatCircle /> : '✎'}</span>
-          <small>{readerMode ? 'Messages' : 'Write'}</small>
-        </Link>
-        <Link className="active" href="/library">
+        <Link className="active" href="/library" aria-current="page">
           <BookOpen weight="fill" />
           <span>Library</span>
+        </Link>
+        <Link href={readerMode ? '/messages' : '/creator/stories/new'}>
+          <span>{readerMode ? <ChatCircle /> : '✎'}</span>
+          <small>{readerMode ? 'Messages' : 'Write'}</small>
         </Link>
         <Link href="/profile-settings">
           <User />

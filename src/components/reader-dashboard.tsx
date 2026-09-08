@@ -4,6 +4,7 @@ import {
   Bell,
   BookOpen,
   ChatCircle,
+  Compass,
   Eye,
   House,
   MagnifyingGlass,
@@ -81,7 +82,9 @@ export function ReaderDashboard({
             <Bell />
             <i />
           </Link>
-          <Image src={avatar} alt="" width={48} height={48} unoptimized />
+          <Link href="/profile-settings" aria-label="Profile">
+            <Image src={avatar} alt="" width={48} height={48} unoptimized />
+          </Link>
         </div>
       </header>
       <section className="reader-welcome">
@@ -237,24 +240,22 @@ export function ReaderDashboard({
           </div>
         </section>
       </div>
-      <nav className="reader-bottom-nav">
-        <Link className="active" href="/reader/dashboard">
+      <nav className="reader-bottom-nav" aria-label="Primary navigation">
+        <Link className="active" href="/reader/dashboard" aria-current="page">
           <House />
           Home
+        </Link>
+        <Link href="/discover">
+          <Compass />
+          Discover
         </Link>
         <Link href="/library">
           <BookOpen />
           Library
         </Link>
-        <Link className="messages" href="/messages">
-          <span>
-            <ChatCircle />
-          </span>
+        <Link href="/messages">
+          <ChatCircle />
           Messages
-        </Link>
-        <Link href="/discover">
-          <Users />
-          Community
         </Link>
         <Link href="/profile-settings">
           <User />

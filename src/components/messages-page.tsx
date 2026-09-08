@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import {
   Compass,
+  BookOpen,
   FunnelSimple,
   House,
   MagnifyingGlass,
@@ -76,8 +77,7 @@ export function MessagesPage({ role }: { role: string }) {
     [query],
   );
   const home = role === 'CREATOR' ? '/creator/dashboard' : '/reader/dashboard';
-  const write =
-    role === 'READER' ? '/profile-settings#account' : '/creator/stories/new';
+  const readerMode = role === 'READER';
 
   return (
     <main className="messages-page">
@@ -173,11 +173,11 @@ export function MessagesPage({ role }: { role: string }) {
           <Compass />
           <span>Discover</span>
         </Link>
-        <Link href={write}>
-          <NotePencil />
-          <span>Write</span>
+        <Link href={readerMode ? '/library' : '/creator/stories/new'}>
+          {readerMode ? <BookOpen /> : <NotePencil />}
+          <span>{readerMode ? 'Library' : 'Write'}</span>
         </Link>
-        <Link className="active" href="/messages">
+        <Link className="active" href="/messages" aria-current="page">
           <b>12</b>
           <NotePencil />
           <span>Messages</span>
