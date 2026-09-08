@@ -31,6 +31,9 @@ model User {
   libraryItems    LibraryItem[]
   readingLists    ReadingList[]
   readingGoal     ReadingGoal?
+  storyLikes      StoryLike[]
+  reviews         Review[]
+  reviewLikes     ReviewLike[]
 }
 
 model ReadingProgress {
@@ -93,6 +96,8 @@ model Story {
   libraryItems LibraryItem[]
   listItems    ReadingListItem[]
   progress     ReadingProgress[]
+  likes        StoryLike[]
+  reviews      Review[]
   createdAt    DateTime          @default(now())
   updatedAt    DateTime          @updatedAt
 
@@ -160,4 +165,41 @@ model ReadingGoal {
   target    Int      @default(12)
   year      Int
   updatedAt DateTime @updatedAt
+}
+
+model StoryLike {
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  storyId   String
+  story     Story    @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([userId, storyId])
+  @@index([storyId])
+}
+
+model Review {
+  id        String       @id @default(cuid())
+  userId    String
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  storyId   String
+  story     Story        @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  rating    Int
+  body      String?
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  likes     ReviewLike[]
+
+  @@unique([userId, storyId])
+  @@index([storyId, createdAt])
+}
+
+model ReviewLike {
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reviewId  String
+  review    Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([userId, reviewId])
 }

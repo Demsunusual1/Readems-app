@@ -5,12 +5,12 @@ import {
   ArrowLeft,
   BookOpen,
   CaretRight,
-  Clock,
   DotsThree,
   Eye,
   Feather,
   House,
   ShareNetwork,
+  Star,
   Translate,
   UserCircle,
   UsersThree,
@@ -18,6 +18,8 @@ import {
 import { readingMinutes } from '@/lib/chapters';
 import { getCurrentUser } from '@/lib/auth';
 import { isInLibrary } from '@/lib/library';
+import { getReviewByReader, getReviews, getStoryReaction } from '@/lib/reviews';
+import { StoryReviews } from '@/components/story-reviews';
 import { getPublishedChapters, getStory, listStories } from '@/lib/stories';
 import { Logo } from '@/components/ui/logo';
 import { StoryProgress } from '@/components/story-progress';
@@ -55,7 +57,12 @@ export default async function StoryPage({
     (item) => item.id !== story.id,
   );
   const user = await getCurrentUser();
-  const savedInLibrary = user ? await isInLibrary(user.id, story.id) : false;
+  const [savedInLibrary, reaction, reviews, myReview] = await Promise.all([
+    user ? isInLibrary(user.id, story.id) : false,
+    getStoryReaction(story.id, user?.id ?? null),
+    getReviews(story.id, user?.id ?? null),
+    user ? getReviewByReader(user.id, story.id) : null,
+  ]);
 
   return (
     <div className="story-page">
@@ -91,19 +98,26 @@ export default async function StoryPage({
             </p>
             <div className="details-stats">
               <span>
+                <Star weight="fill" />
+                <b>{reaction.rating ?? 'New'}</b>
+                <small>
+                  {reaction.ratingCount === 0
+                    ? 'No ratings yet'
+                    : `(${reaction.ratingCount})`}
+                </small>
+              </span>
+              <span>
+                <Eye />
+                <b>{reaction.readers}</b>
+                <small>{reaction.readers === 1 ? 'Reader' : 'Readers'}</small>
+              </span>
+              <span>
                 <BookOpen />
                 <b>{chapters.length}</b>
-                <small>{chapters.length === 1 ? 'Chapter' : 'Chapters'}</small>
-              </span>
-              <span>
-                <Clock />
-                <b>{minutes || '—'}</b>
-                <small>Minutes</small>
-              </span>
-              <span>
-                <UsersThree />
-                <b>{story.audience}</b>
-                <small>Audience</small>
+                <small>
+                  {chapters.length === 1 ? 'Chapter' : 'Chapters'}
+                  {minutes ? ` · ${minutes} min` : ''}
+                </small>
               </span>
             </div>
           </div>
@@ -113,6 +127,8 @@ export default async function StoryPage({
           canRead={chapters.length > 0}
           signedIn={Boolean(user)}
           savedInLibrary={savedInLibrary}
+          likes={reaction.likes}
+          likedByMe={reaction.liked}
         />
       </section>
 
@@ -181,6 +197,15 @@ export default async function StoryPage({
             <p>This story has no published chapters yet.</p>
           )}
         </section>
+        <StoryReviews
+          storyId={story.id}
+          signedIn={Boolean(user)}
+          myReview={myReview}
+          reviews={reviews.map((review) => ({
+            ...review,
+            createdAt: review.createdAt.toISOString(),
+          }))}
+        />
         {similar.length > 0 && (
           <section className="details-similar">
             <div className="details-heading">
