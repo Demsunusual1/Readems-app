@@ -6,7 +6,11 @@ import {
   discoverRegions,
   discoverTrends,
 } from '@/lib/discover-sections';
-import { countStoriesByGenre, countStoriesByTag } from '@/lib/stories';
+import {
+  countStoriesByGenre,
+  countStoriesByTag,
+  listStories,
+} from '@/lib/stories';
 
 export const metadata: Metadata = {
   title: 'Discover stories | Readems',
@@ -18,17 +22,26 @@ export default async function DiscoverPage() {
   const user = hasSession
     ? await import('@/lib/auth').then(({ getCurrentUser }) => getCurrentUser())
     : null;
-  const [genreCounts, tagCounts] = await Promise.all([
+  const [genreCounts, tagCounts, stories] = await Promise.all([
     countStoriesByGenre([...discoverGenres]),
     countStoriesByTag([
       ...discoverRegions.map((region) => region.tag),
       ...discoverTrends.map((trend) => trend.tag),
     ]),
+    listStories({ limit: 12 }),
   ]);
 
   return (
     <Discover
       counts={Object.fromEntries([...genreCounts, ...tagCounts])}
+      stories={stories.map((story) => ({
+        id: story.id,
+        title: story.title,
+        authorName: story.authorName,
+        coverUrl: story.coverUrl,
+        genre: story.genre,
+        chapterCount: story.chapterCount,
+      }))}
       dashboardHref={
         user
           ? `/${user.role === 'CREATOR' ? 'creator' : 'reader'}/dashboard`

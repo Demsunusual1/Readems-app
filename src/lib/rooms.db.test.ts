@@ -188,10 +188,16 @@ describe('rooms', () => {
     expect(
       (await getRooms({ viewerId: guestId })).map((room) => room.id),
     ).not.toContain(roomId);
+    // A database that has been used for a while holds plenty of rooms, so
+    // ask for enough of them to find this one again.
     expect(
-      (await getRooms({ viewerId: guestId, includeClosed: true })).map(
-        (room) => room.id,
-      ),
+      (
+        await getRooms({
+          viewerId: guestId,
+          includeClosed: true,
+          take: 200,
+        })
+      ).map((room) => room.id),
     ).toContain(roomId);
 
     await expect(joinRoom(strangerId, roomId)).rejects.toThrow();

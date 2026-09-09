@@ -79,7 +79,9 @@ async function reportFirstStory(page: Page) {
   await page.getByRole('button', { name: 'Report this story' }).click();
   await page.getByLabel('What is wrong with this?').selectOption('Spam');
   await page.getByRole('button', { name: 'Send report' }).click();
-  await expect(page.getByRole('status')).toContainText(
+  // The story page has its own status line for saved progress, so look
+  // inside the report control.
+  await expect(page.locator('.report-panel [role="status"]')).toContainText(
     'A moderator will look at this',
   );
   return { url, title };
@@ -136,7 +138,14 @@ test.describe('with an admin account', () => {
       .locator('.admin-report', { hasText: story.title })
       .first();
     await card.getByRole('button', { name: 'Restrict' }).click();
-    await expect(card.getByText(/restricted/i).first()).toBeVisible();
+    // A resolved report leaves the open queue and turns up under Restricted.
+    await expect(
+      page.locator('.admin-report', { hasText: story.title }),
+    ).toHaveCount(0);
+    await page.goto('/admin/moderation?status=RESTRICTED');
+    await expect(
+      page.locator('.admin-report', { hasText: story.title }).first(),
+    ).toBeVisible();
 
     // A reader can no longer open it, and it is gone from Discover.
     await signUp(page);

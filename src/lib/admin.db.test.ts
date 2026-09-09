@@ -91,9 +91,27 @@ describe('handing out roles', () => {
   });
 
   it('refuses to demote the last super admin', async () => {
-    await expect(setAdminRole(superId, superId, 'ADMIN')).rejects.toThrow(
-      /last super admin/i,
-    );
+    // The rule is about the whole platform, so the test has to be the only
+    // super admin while it runs. Any others are stood down and put back.
+    const others = await prisma.user.findMany({
+      where: { adminRole: 'SUPER_ADMIN', id: { not: superId } },
+      select: { id: true },
+    });
+    await prisma.user.updateMany({
+      where: { id: { in: others.map((person) => person.id) } },
+      data: { adminRole: 'ADMIN' },
+    });
+
+    try {
+      await expect(setAdminRole(superId, superId, 'ADMIN')).rejects.toThrow(
+        /last super admin/i,
+      );
+    } finally {
+      await prisma.user.updateMany({
+        where: { id: { in: others.map((person) => person.id) } },
+        data: { adminRole: 'SUPER_ADMIN' },
+      });
+    }
     expect(
       (await prisma.user.findUniqueOrThrow({ where: { id: superId } }))
         .adminRole,

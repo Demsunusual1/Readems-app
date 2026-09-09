@@ -44,12 +44,23 @@ const trendIcons: Record<string, typeof Star> = {
 };
 import './discover.css';
 
+export type DiscoverStory = {
+  id: string;
+  title: string;
+  authorName: string;
+  coverUrl: string;
+  genre: string;
+  chapterCount: number;
+};
+
 export function Discover({
   dashboardHref,
   counts,
+  stories,
 }: {
   dashboardHref: string;
   counts: Record<string, number>;
+  stories: DiscoverStory[];
 }) {
   const [query, setQuery] = useState('');
   const [mood, setMood] = useState('All Moods');
@@ -173,6 +184,31 @@ export function Discover({
                 </button>
               ))}
             </div>
+          </section>
+          <section aria-labelledby="latest-heading">
+            <Heading id="latest-heading">New on Readems</Heading>
+            {stories.length === 0 ? (
+              <p className="discover-empty">
+                Nothing has been published yet. When somebody publishes a
+                chapter it appears here.
+              </p>
+            ) : (
+              <div className="discover-latest">
+                {stories.map((story) => (
+                  <Link href={`/stories/${story.id}`} key={story.id}>
+                    <span className="discover-latest-cover">
+                      <Image src={story.coverUrl} alt="" fill sizes="180px" />
+                    </span>
+                    <strong>{story.title}</strong>
+                    <small>{story.authorName}</small>
+                    <small>
+                      {story.genre} <i>•</i> {story.chapterCount}{' '}
+                      {story.chapterCount === 1 ? 'chapter' : 'chapters'}
+                    </small>
+                  </Link>
+                ))}
+              </div>
+            )}
           </section>
           <section aria-labelledby="trending-heading">
             <Heading id="trending-heading">Trending Categories</Heading>
