@@ -106,7 +106,7 @@ export function Discover({
             <Bell />
           </button>
           <Link
-            href={role === 'CREATOR' ? '/creator/profile' : dashboardHref}
+            href={role === 'CREATOR' ? '/creator/studio' : dashboardHref}
             aria-label="Open profile"
           >
             <Image
