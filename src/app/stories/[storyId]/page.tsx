@@ -5,7 +5,6 @@ import {
   ArrowLeft,
   BookOpen,
   CaretRight,
-  DotsThree,
   Eye,
   Feather,
   House,
@@ -24,6 +23,7 @@ import { getPublishedChapters, getStory, listStories } from '@/lib/stories';
 import { Logo } from '@/components/ui/logo';
 import { StoryProgress } from '@/components/story-progress';
 import { StoryActions } from '@/components/story-actions';
+import { ReportButton } from '@/components/report-button';
 import '@/components/reading.css';
 import '@/components/story-details.css';
 
@@ -76,9 +76,12 @@ export default async function StoryPage({
             <button aria-label="Share story">
               <ShareNetwork />
             </button>
-            <button aria-label="More options">
-              <DotsThree />
-            </button>
+            <ReportButton
+              targetType="STORY"
+              targetId={story.id}
+              signedIn={Boolean(user)}
+              label="Report this story"
+            />
           </div>
         </header>
         <div className="details-hero-inner">

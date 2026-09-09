@@ -114,7 +114,7 @@ export async function toggleCommentLike(userId: string, commentId: string) {
 }
 
 export async function countComments(chapterId: string) {
-  return prisma.comment.count({ where: { chapterId } });
+  return prisma.comment.count({ where: { chapterId, hiddenAt: null } });
 }
 
 export async function getComments(
@@ -128,7 +128,7 @@ export async function getComments(
   const storyAuthorId = chapter?.story.authorId ?? null;
 
   const rows = await prisma.comment.findMany({
-    where: { chapterId },
+    where: { chapterId, hiddenAt: null },
     orderBy: { createdAt: 'asc' },
     include: {
       user: { select: { fullName: true, username: true, avatarUrl: true } },

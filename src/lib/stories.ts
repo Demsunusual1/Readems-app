@@ -41,6 +41,7 @@ export type StoryQuery = {
 // process having to flip a status at the right second.
 export function readableStoryWhere(now = new Date()): Prisma.StoryWhereInput {
   return {
+    hiddenAt: null,
     OR: [
       { status: 'PUBLISHED' },
       { status: 'SCHEDULED', scheduledFor: { lte: now } },
@@ -52,6 +53,7 @@ export function readableChapterWhere(
   now = new Date(),
 ): Prisma.ChapterWhereInput {
   return {
+    hiddenAt: null,
     OR: [
       { status: 'PUBLISHED' },
       { status: 'SCHEDULED', scheduledFor: { lte: now } },

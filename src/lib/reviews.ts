@@ -74,7 +74,7 @@ export async function getStoryReaction(
       ? prisma.storyLike.count({ where: { storyId, userId: viewerId } })
       : Promise.resolve(0),
     prisma.review.aggregate({
-      where: { storyId },
+      where: { storyId, hiddenAt: null },
       _avg: { rating: true },
       _count: { rating: true },
     }),
@@ -135,7 +135,7 @@ export async function getReviews(
   take = 20,
 ): Promise<StoryReview[]> {
   const reviews = await prisma.review.findMany({
-    where: { storyId },
+    where: { storyId, hiddenAt: null },
     orderBy: { createdAt: 'desc' },
     take,
     include: {

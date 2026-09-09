@@ -180,11 +180,14 @@ function postInclude(viewerId: string | null) {
     group: { select: { id: true, name: true } },
     prompt: { select: { title: true } },
     story: { select: { id: true, title: true, coverUrl: true } },
-    _count: { select: { likes: true, comments: true } },
+    _count: {
+      select: { likes: true, comments: { where: { hiddenAt: null } } },
+    },
     likes: viewerId
       ? { where: { userId: viewerId }, select: { userId: true } }
       : (false as const),
     comments: {
+      where: { hiddenAt: null },
       orderBy: { createdAt: 'asc' as const },
       take: 5,
       include: {
@@ -242,6 +245,7 @@ export async function getFeed(options: {
   take?: number;
 }): Promise<CommunityPost[]> {
   const where: Prisma.PostWhereInput = {
+    hiddenAt: null,
     groupId: options.groupId ?? null,
     ...(options.topic ? { topic: options.topic } : {}),
     ...(options.authorId ? { authorId: options.authorId } : {}),
@@ -264,8 +268,8 @@ export async function getFeed(options: {
 }
 
 export async function getPost(postId: string, viewerId: string | null) {
-  const row = await prisma.post.findUnique({
-    where: { id: postId },
+  const row = await prisma.post.findFirst({
+    where: { id: postId, hiddenAt: null },
     include: postInclude(viewerId),
   });
   return row ? toPost(row, viewerId) : null;
