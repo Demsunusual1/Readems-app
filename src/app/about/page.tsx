@@ -3,6 +3,10 @@ import Link from 'next/link';
 import { PageShell } from '@/components/page-shell';
 import { prisma } from '@/lib/prisma';
 
+// The figures on this page are counted when somebody asks for it, so it is
+// not prerendered at build time — a build has no database to count from.
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'About Readems',
   description: 'Every voice deserves a reader.',

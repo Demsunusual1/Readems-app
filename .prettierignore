@@ -5,3 +5,6 @@ playwright-report/
 test-results/
 package-lock.json
 src/generated/prisma/
+
+# Next writes this file on every build, in its own style.
+next-env.d.ts
