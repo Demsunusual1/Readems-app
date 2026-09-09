@@ -16,5 +16,47 @@ services:
       timeout: 5s
       retries: 10
 
+  # The full stack, for running Readems the way it is deployed. Start it with
+  # `docker compose --profile app up --build`; plain `docker compose up -d`
+  # brings up only the database, which is what local development needs.
+  migrate:
+    profiles: ['app']
+    build:
+      context: .
+      target: migrator
+    environment:
+      DATABASE_URL: postgresql://readems:readems@postgres:5432/readems?schema=public
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: 'no'
+
+  app:
+    profiles: ['app']
+    build:
+      context: .
+      target: runner
+    environment:
+      DATABASE_URL: postgresql://readems:readems@postgres:5432/readems?schema=public
+      NODE_ENV: production
+    ports:
+      - '3000:3000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
 volumes:
   postgres_data:

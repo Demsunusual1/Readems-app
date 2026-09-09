@@ -47,9 +47,32 @@ Postgres container before running `npm test`.
 | `npm run db:deploy`   | Apply committed migrations.               |
 | `npm run db:seed`     | Load the editorial sample catalogue.      |
 
+## Running it the way it is deployed
+
+```bash
+docker compose --profile app up --build
+```
+
+That builds the app image, applies migrations, loads the editorial catalogue,
+and serves Readems on [http://localhost:3000](http://localhost:3000) from a
+container talking to Postgres over the compose network — the same shape as a
+deployment. Plain `docker compose up -d` starts only the database, which is
+what local development wants.
+
+To drive that running stack with the browser suite instead of starting one:
+
+```bash
+E2E_BASE_URL=http://127.0.0.1:3000 npm run test:e2e
+```
+
 ## Quality and CI
 
-`npm run check` runs formatting, linting, type checking, and unit tests. GitHub Actions repeats those checks, builds the app, and runs Playwright against a PostgreSQL service container. The workflow has read-only repository permissions and uses npm dependency caching.
+`npm run check` runs formatting, linting, type checking, and the unit and
+database tests. GitHub Actions repeats those checks, builds the app, and runs
+Playwright twice: once against a PostgreSQL service container, and once
+against the whole stack in Docker, so the image that would be deployed is the
+one the browser drives. The workflow has read-only repository permissions and
+uses npm dependency caching.
 
 ## Security and accessibility
 
