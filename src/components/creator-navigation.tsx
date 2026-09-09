@@ -23,7 +23,7 @@ const items = [
   {
     id: 'studio',
     label: 'Studio',
-    href: '/creator/dashboard',
+    href: '/creator/studio',
     Icon: SquaresFour,
   },
 ] as const;
