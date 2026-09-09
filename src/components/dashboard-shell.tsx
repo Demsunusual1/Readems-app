@@ -20,76 +20,62 @@ import { BottomNavigation } from './ui/bottom-navigation';
 import { Input } from './ui/input';
 import { Sidebar, type NavigationItem } from './ui/sidebar';
 
-const readerNav = [
-  'Home',
-  'Explore',
-  'Library',
-  'Reading Lists',
-  'Following',
-  'Notifications',
-  'Messages',
-  'Settings',
-];
-const creatorNav = [
-  'Dashboard',
-  'My Stories',
-  'Chapters',
-  'Analytics',
-  'Earnings',
-  'Followers',
-  'Messages',
-  'Settings',
+type NavigationEntry = {
+  label: string;
+  icon: typeof House;
+  // A page that exists, or a section of this dashboard. Nothing points at a
+  // route that has not been built.
+  href: (username: string) => string;
+};
+
+const readerNav: NavigationEntry[] = [
+  { label: 'Home', icon: House, href: () => '/reader/dashboard' },
+  { label: 'Explore', icon: Compass, href: () => '/discover' },
+  { label: 'Library', icon: Books, href: () => '/library' },
+  { label: 'Reading Lists', icon: ListBullets, href: () => '/library' },
+  { label: 'Following', icon: Users, href: (name) => `/u/${name}` },
+  { label: 'Notifications', icon: Bell, href: () => '/notifications' },
+  { label: 'Community', icon: ChatCircle, href: () => '/community' },
+  { label: 'Settings', icon: Gear, href: () => '/settings' },
 ];
 
-const readerIcons = [
-  House,
-  Compass,
-  Books,
-  ListBullets,
-  Users,
-  Bell,
-  ChatCircle,
-  Gear,
-];
-const creatorIcons = [
-  House,
-  BookOpen,
-  PenNib,
-  ChartLineUp,
-  CurrencyDollar,
-  Users,
-  ChatCircle,
-  Gear,
+const creatorNav: NavigationEntry[] = [
+  { label: 'Dashboard', icon: House, href: () => '/creator/dashboard' },
+  { label: 'My Stories', icon: BookOpen, href: () => '/creator/stories' },
+  { label: 'Chapters', icon: PenNib, href: () => '/creator/stories' },
+  { label: 'Analytics', icon: ChartLineUp, href: () => '/creator/analytics' },
+  {
+    label: 'Earnings',
+    icon: CurrencyDollar,
+    href: () => '/creator/dashboard#earnings',
+  },
+  { label: 'Followers', icon: Users, href: (name) => `/u/${name}` },
+  { label: 'Community', icon: ChatCircle, href: () => '/community' },
+  { label: 'Settings', icon: Gear, href: () => '/settings' },
 ];
 
 export function DashboardShell({
   kind,
   name,
+  username,
   avatarUrl,
+  unread = 0,
   children,
 }: {
   kind: 'reader' | 'creator';
   name: string;
+  username: string;
   avatarUrl: string | null;
+  unread?: number;
   children: React.ReactNode;
 }) {
-  const navigation = kind === 'reader' ? readerNav : creatorNav;
-  const icons = kind === 'reader' ? readerIcons : creatorIcons;
-  const navigationItems: NavigationItem[] = navigation.map((item, index) => {
-    const Icon = icons[index];
-    return {
-      label: item,
-      href:
-        index === 0
-          ? `/${kind}/dashboard`
-          : kind === 'reader' && item === 'Explore'
-            ? '/discover'
-            : kind === 'reader' && item === 'Library'
-              ? '/library'
-              : `#${item.toLowerCase().replaceAll(' ', '-')}`,
-      icon: <Icon weight={index === 0 ? 'fill' : 'regular'} />,
-    };
-  });
+  const navigationItems: NavigationItem[] = (
+    kind === 'reader' ? readerNav : creatorNav
+  ).map((entry, index) => ({
+    label: entry.label,
+    href: entry.href(username),
+    icon: <entry.icon weight={index === 0 ? 'fill' : 'regular'} />,
+  }));
   return (
     <main className={`dashboard-shell ${kind}`}>
       <header className="dash-header">
@@ -105,18 +91,25 @@ export function DashboardShell({
           </label>
         )}
         <div className="dash-account">
-          <Link href="#notifications" aria-label="Notifications">
+          <Link
+            href="/notifications"
+            aria-label={
+              unread > 0 ? `Notifications, ${unread} unread` : 'Notifications'
+            }
+          >
             <Bell aria-hidden="true" />
-            <i />
+            {unread > 0 && <i />}
           </Link>
-          <span
+          <Link
+            href={`/u/${username}`}
             className="avatar"
+            aria-label="Your profile"
             style={
               avatarUrl ? { backgroundImage: `url(${avatarUrl})` } : undefined
             }
           >
             {!avatarUrl && name.charAt(0)}
-          </span>
+          </Link>
         </div>
       </header>
       <div className="dashboard-layout">
