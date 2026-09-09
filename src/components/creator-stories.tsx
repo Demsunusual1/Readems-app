@@ -3,20 +3,18 @@ import Link from 'next/link';
 import {
   Bell,
   BookOpen,
-  Books,
   ChatCircle,
   Clock,
   Eye,
   Funnel,
-  House,
   MagnifyingGlass,
   Note,
   Plus,
   SortAscending,
-  User,
 } from '@phosphor-icons/react/dist/ssr';
 import { ReademsLogo } from './readems-logo';
 import './creator-stories.css';
+import { CreatorNavigation } from './creator-navigation';
 
 const stories = [
   {
@@ -161,30 +159,7 @@ export function CreatorStories({ avatarUrl }: { avatarUrl: string | null }) {
           ))}
         </div>
       </section>
-      <nav className="stories-bottom-nav" aria-label="Creator navigation">
-        <Link href="/">
-          <House />
-          Home
-        </Link>
-        <Link className="active" href="/creator/stories">
-          <Books />
-          My Stories
-        </Link>
-        <Link className="create" href="/creator/stories/new">
-          <span>
-            <Plus />
-          </span>
-          Create
-        </Link>
-        <Link href="/messages">
-          <ChatCircle />
-          Messages
-        </Link>
-        <Link href="#profile">
-          <User />
-          Profile
-        </Link>
-      </nav>
+      <CreatorNavigation active="stories" />
     </main>
   );
 }
