@@ -36,6 +36,7 @@ jobs:
       - run: npm ci
       - run: npm run db:generate
       - run: npm run db:deploy
+      - run: npm run db:seed
       - run: npm run format
       - run: npm run lint
       - run: npm run typecheck
@@ -49,3 +50,45 @@ jobs:
           name: landing-browser-results
           path: test-results/
           retention-days: 7
+
+  container:
+    name: Docker end to end
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # The whole stack the way it is deployed: the app in its own container,
+      # talking to Postgres over the compose network, with migrations and the
+      # editorial seed applied by the migrate service before it starts.
+      - name: Start the stack
+        env:
+          READEMS_ADMIN_EMAILS: admin@example.com
+        run: docker compose --profile app up -d --build --wait
+
+      - name: Show what is running
+        if: always()
+        run: docker compose ps
+
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Drive the container with the browser suite
+        env:
+          E2E_BASE_URL: http://127.0.0.1:3000
+          DATABASE_URL: postgresql://readems:readems@localhost:5432/readems?schema=public
+          # The same list the container was started with, so the tests that
+          # need an admin can make one instead of skipping.
+          READEMS_ADMIN_EMAILS: admin@example.com
+        run: npm run test:e2e
+
+      - name: Application logs
+        if: failure()
+        run: docker compose --profile app logs --no-color --tail 200
+
+      - name: Stop the stack
+        if: always()
+        run: docker compose --profile app down -v

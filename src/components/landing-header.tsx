@@ -3,8 +3,15 @@ import Link from 'next/link';
 import { Bell, MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
 import { Logo } from './ui/logo';
 
-export function LandingHeader({ dashboardHref }: { dashboardHref?: string }) {
+export function LandingHeader({
+  dashboardHref,
+  unread = 0,
+}: {
+  dashboardHref?: string;
+  unread?: number;
+}) {
   const accountHref = dashboardHref ?? '/login';
+  const bellHref = dashboardHref ? '/notifications' : '/login';
 
   return (
     <header className="landing-header" id="top">
@@ -25,16 +32,20 @@ export function LandingHeader({ dashboardHref }: { dashboardHref?: string }) {
           </Link>
         </nav>
         <nav className="landing-mobile-actions" aria-label="Landing shortcuts">
-          <Link href="/discover" aria-label="Search stories">
+          <Link href="/search" aria-label="Search stories">
             <MagnifyingGlass aria-hidden="true" />
           </Link>
           <Link
             className="landing-notifications"
-            href={accountHref}
+            href={bellHref}
             aria-label="Notifications"
           >
             <Bell aria-hidden="true" />
-            <span aria-label="3 notifications">3</span>
+            {unread > 0 && (
+              <span aria-label={`${unread} unread notifications`}>
+                {unread > 9 ? '9+' : unread}
+              </span>
+            )}
           </Link>
           <Link
             className="landing-avatar"

@@ -1,7 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react';
 import {
   ArrowLeft,
   ArrowRight,
@@ -16,6 +22,7 @@ import {
 } from '@phosphor-icons/react';
 import { Logo } from './ui/logo';
 import { type Chapter, readingMinutes } from '@/lib/chapters';
+import { ChapterComments, type CommentView } from './chapter-comments';
 import './reading.css';
 
 function subscribeView(notify: () => void) {
@@ -35,12 +42,21 @@ export function ChapterReader({
   storyId,
   storyTitle,
   chapter,
+  chapterId,
   total,
+  comments,
+  signedIn,
+  defaultNight = false,
 }: {
   storyId: string;
   storyTitle: string;
   chapter: Chapter;
+  chapterId: string;
   total: number;
+  comments: CommentView[];
+  signedIn: boolean;
+  /** The reading theme saved on the account, used until this device says otherwise. */
+  defaultNight?: boolean;
 }) {
   const stored = useSyncExternalStore(subscribeView, readView, () => '{}');
   const [override, setOverride] = useState<{
@@ -51,8 +67,11 @@ export function ChapterReader({
   const [listening, setListening] = useState(false);
   const [message, setMessage] = useState('');
   const [saving, setSaving] = useState(false);
+  const [reached, setReached] = useState(0);
   const body = useRef<HTMLDivElement>(null);
-  const pending = useRef(false);
+  const pending = useRef<Promise<void>>(Promise.resolve());
+  const furthest = useRef(0);
+  const lastSaved = useRef(-1);
 
   let settings: { size?: number; night?: boolean } = {};
   try {
@@ -64,7 +83,8 @@ export function ChapterReader({
     (settings.size && [16, 18, 20, 22].includes(settings.size)
       ? settings.size
       : 18);
-  const night = override?.night ?? settings.night === true;
+  const night = override?.night ?? settings.night ?? defaultNight;
+  const lastParagraph = chapter.paragraphs.length - 1;
 
   useEffect(
     () => () => {
@@ -72,6 +92,36 @@ export function ChapterReader({
     },
     [],
   );
+
+  // The furthest paragraph the reader has actually seen, remembered as they
+  // scroll. Reading the position at the moment the bookmark is pressed would
+  // record the top of the page instead, because pressing a control in the
+  // header scrolls back up to it.
+  useEffect(() => {
+    function update() {
+      const paragraphs = Array.from(
+        body.current?.querySelectorAll<HTMLElement>('[data-paragraph]') ?? [],
+      );
+      const seen = paragraphs
+        .filter(
+          (paragraph) =>
+            paragraph.getBoundingClientRect().top < window.innerHeight - 40,
+        )
+        .at(-1);
+      const index = Number(seen?.dataset.paragraph ?? 0);
+      if (index > furthest.current) {
+        furthest.current = index;
+        setReached(index);
+      }
+    }
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, [chapter.number]);
 
   function preference(nextSize: number, nextNight: boolean) {
     setOverride({ size: nextSize, night: nextNight });
@@ -108,45 +158,67 @@ export function ChapterReader({
     setListening(true);
   }
 
-  async function save() {
-    if (pending.current) return;
-    pending.current = true;
-    setSaving(true);
-    setMessage('Saving your place…');
-    const paragraphs = Array.from(
-      body.current?.querySelectorAll<HTMLElement>('[data-paragraph]') ?? [],
-    );
-    const visible = paragraphs
-      .filter((paragraph) => paragraph.getBoundingClientRect().top <= 180)
-      .at(-1);
-    const paragraph = Number(visible?.dataset.paragraph ?? 0);
-    try {
-      const response = await fetch('/api/reading-progress', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          storyId,
-          chapter: chapter.number,
-          paragraph,
-          completed: false,
-        }),
-      });
-      if (response.status === 401) {
-        setMessage('Sign in to save your reading progress.');
-        return;
+  const runSave = useCallback(
+    async (announce: boolean) => {
+      const paragraph = furthest.current;
+      if (!announce && paragraph <= lastSaved.current) return;
+      if (announce) {
+        setSaving(true);
+        setMessage('Saving your place…');
       }
-      if (!response.ok) throw new Error();
-      setMessage('Your place is saved.');
-    } catch {
-      setMessage('Could not save your place. Please try again.');
-    } finally {
-      pending.current = false;
-      setSaving(false);
-    }
-  }
+      try {
+        const response = await fetch('/api/reading-progress', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            storyId,
+            chapter: chapter.number,
+            paragraph,
+            completed: paragraph === lastParagraph,
+          }),
+        });
+        if (response.status === 401) {
+          if (announce) setMessage('Sign in to save your reading progress.');
+          lastSaved.current = lastParagraph;
+          return;
+        }
+        if (!response.ok) throw new Error();
+        lastSaved.current = paragraph;
+        if (announce) setMessage('Your place is saved.');
+      } catch {
+        if (announce)
+          setMessage('Could not save your place. Please try again.');
+      } finally {
+        if (announce) setSaving(false);
+      }
+    },
+    [chapter.number, lastParagraph, storyId],
+  );
+
+  // One save at a time, in order, so a background save cannot swallow the
+  // bookmark press that a reader is waiting on.
+  const save = useCallback(
+    (announce: boolean) => {
+      pending.current = pending.current.then(() => runSave(announce));
+      return pending.current;
+    },
+    [runSave],
+  );
+
+  // Progress is kept without asking: the reader can still press the bookmark,
+  // which reports success or the need to sign in.
+  useEffect(() => {
+    if (reached === 0) return;
+    const timer = setTimeout(() => void save(false), 1500);
+    return () => clearTimeout(timer);
+  }, [reached, save]);
 
   const previousNumber = chapter.number - 1;
   const nextNumber = chapter.number + 1;
+  const percent = Math.round(((reached + 1) / chapter.paragraphs.length) * 100);
+  const remaining = readingMinutes({
+    paragraphs: chapter.paragraphs.slice(reached),
+  });
 
   return (
     <div
@@ -162,7 +234,7 @@ export function ChapterReader({
             <button
               aria-label="Save my place"
               title="Save my place"
-              onClick={save}
+              onClick={() => void save(true)}
               disabled={saving}
             >
               <BookmarkSimple
@@ -179,11 +251,11 @@ export function ChapterReader({
           <p>{storyTitle}</p>
           <h1>Chapter {chapter.number}</h1>
           <h2>{chapter.title}</h2>
-          <div className="reader-progress" aria-label="58% complete">
-            <span />
+          <div className="reader-progress" aria-label={`${percent}% complete`}>
+            <span style={{ width: `${percent}%` }} />
           </div>
           <p className="reader-progress-label">
-            58% complete <i>•</i> {readingMinutes(chapter)} min left
+            {percent}% complete <i>•</i> {remaining} min left
           </p>
           <Feather className="reader-hero-feather" weight="thin" />
         </div>
@@ -202,18 +274,17 @@ export function ChapterReader({
           ))}
         </div>
 
-        <aside className="reader-note">
-          <span>
-            <Feather weight="duotone" />
-          </span>
-          <div>
-            <strong>Author’s Note</strong>
-            <p>
-              This chapter was inspired by childhood journeys and the places
-              that hold our unspoken stories.
-            </p>
-          </div>
-        </aside>
+        {chapter.authorNote && (
+          <aside className="reader-note">
+            <span>
+              <Feather weight="duotone" />
+            </span>
+            <div>
+              <strong>Author’s Note</strong>
+              <p>{chapter.authorNote}</p>
+            </div>
+          </aside>
+        )}
 
         <div className="reader-controls" aria-label="Reading preferences">
           <button onClick={cycleTextSize}>
@@ -261,7 +332,12 @@ export function ChapterReader({
           <Link className="reader-comments-link" href="#comments">
             <ChatCircleDots />
             <span>Comments</span>
-            <small>24</small>
+            <small>
+              {comments.reduce(
+                (count, comment) => count + 1 + comment.replies.length,
+                0,
+              )}
+            </small>
           </Link>
           <div>
             {nextNumber <= total ? (
@@ -288,17 +364,11 @@ export function ChapterReader({
         </p>
       </main>
 
-      <section className="reader-comments" id="comments">
-        <div>
-          <h2>
-            Comments <span>24</span>
-          </h2>
-          <p>Join the conversation with readers</p>
-        </div>
-        <Link href="#comments">
-          View all <ArrowRight />
-        </Link>
-      </section>
+      <ChapterComments
+        chapterId={chapterId}
+        comments={comments}
+        signedIn={signedIn}
+      />
     </div>
   );
 }

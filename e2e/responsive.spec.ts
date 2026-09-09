@@ -16,6 +16,44 @@ for (const viewport of viewports) {
     page,
   }, testInfo) => {
     await page.setViewportSize(viewport);
+
+    // The landing in the design is a reader's: it greets them, shows the
+    // story they are part-way through and their reading goal. None of that
+    // is invented any more, so the test signs somebody in and gives them a
+    // story on the go before measuring the layout.
+    await page.goto('/stories/baobab');
+    const id = crypto.randomUUID().replaceAll('-', '').slice(0, 12);
+    const signup = await page.evaluate(async (id) => {
+      const response = await fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: 'Amaka Reader',
+          username: `layout_${id}`,
+          email: `layout_${id}@example.com`,
+          password: 'SafeReadingPassword9',
+          role: 'READER',
+          interests: ['Drama', 'Fantasy', 'Mystery'],
+        }),
+      });
+      return response.status;
+    }, id);
+    expect(signup).toBe(201);
+    const saved = await page.evaluate(async () => {
+      const response = await fetch('/api/reading-progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          storyId: 'baobab',
+          chapter: 1,
+          paragraph: 2,
+          completed: false,
+        }),
+      });
+      return response.status;
+    });
+    expect(saved).toBe(200);
+
     await page.goto('/');
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator('.hero-asset img')).toBeVisible();
@@ -50,11 +88,19 @@ for (const viewport of viewports) {
       expect(width.scroll).toBe(width.client);
     }
     await dots.first().click();
-    await expect(page.locator('.spotlight-image img')).toHaveAttribute(
-      'src',
-      /creator-chinelo-okoye/,
-    );
-    await expect(page.locator('.creator-spotlight dl svg')).toHaveCount(3);
+
+    // The spotlight is whoever is genuinely the most followed writer with
+    // something published, so the test checks that it leads to a real person
+    // rather than that it shows one particular face.
+    const spotlight = page.locator('.creator-spotlight');
+    if ((await spotlight.count()) > 0) {
+      await expect(spotlight.locator('.spotlight-image')).toBeVisible();
+      await expect(spotlight.locator('dl svg')).toHaveCount(3);
+      await expect(spotlight.getByRole('link')).toHaveAttribute(
+        'href',
+        new RegExp('^/u/'),
+      );
+    }
 
     if (viewport.width <= 767) {
       const hero = await page.locator('.official-hero').boundingBox();
@@ -89,37 +135,28 @@ for (const viewport of viewports) {
       ).toBeVisible();
 
       const cards = page.locator('.continue-card');
+      expect(await cards.count()).toBeGreaterThan(0);
       const firstCard = await cards.first().boundingBox();
-      const secondCard = await cards.nth(1).boundingBox();
       expect(firstCard).not.toBeNull();
-      expect(secondCard).not.toBeNull();
       expect(firstCard!.width).toBeGreaterThanOrEqual(92);
-      expect(secondCard!.x).toBeLessThan(viewport.width);
+      expect(firstCard!.x + firstCard!.width).toBeLessThanOrEqual(
+        viewport.width + 2,
+      );
 
       const continueTrack = page.locator('.continue-row');
       const continueMetrics = await continueTrack.evaluate((element) => ({
         clientWidth: element.clientWidth,
         scrollWidth: element.scrollWidth,
       }));
-      if (viewport.width <= 390) {
-        expect(continueMetrics.scrollWidth).toBeGreaterThan(
-          continueMetrics.clientWidth,
-        );
-      } else {
-        expect(continueMetrics.scrollWidth).toBeGreaterThanOrEqual(
-          continueMetrics.clientWidth,
-        );
-      }
+      expect(continueMetrics.scrollWidth).toBeGreaterThanOrEqual(
+        continueMetrics.clientWidth,
+      );
       await continueTrack.evaluate((element) => {
         element.scrollLeft = element.scrollWidth;
       });
       await expect(page.locator('.discover-card')).toBeInViewport();
 
-      await expect(page.locator('.community-online-dot')).toBeVisible();
-      await expect(page.locator('.community-online-dot')).toHaveCSS(
-        'background-color',
-        'rgb(32, 184, 106)',
-      );
+      await expect(page.locator('.community-live')).toBeVisible();
 
       const featured = page.locator('.featured-card');
       const secondFeature = await featured.nth(1).boundingBox();

@@ -8,7 +8,7 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
     page.getByRole('heading', { name: 'Stories that stay with you' }),
   ).toBeVisible();
   await expect(
-    page.getByRole('heading', { name: 'Featured Serial' }),
+    page.getByRole('heading', { name: 'Featured Stories' }),
   ).toBeVisible();
   await expect(page.locator('.testimonial')).toHaveCount(0);
   await expect(page.locator('.official-footer')).toHaveCount(0);
@@ -55,7 +55,7 @@ test('a reader can complete signup from the landing page', async ({ page }) => {
   await page.getByRole('button', { name: /Go to my dashboard/ }).click();
   await expect(page).toHaveURL('/reader/dashboard');
   await expect(
-    page.getByRole('heading', { name: /Good morning, Kemi!/ }),
+    page.getByRole('heading', { name: /Welcome back, Kemi/ }),
   ).toBeVisible();
   await page.context().clearCookies();
   await page.goto('/login');
@@ -75,7 +75,7 @@ test('mobile navigation is keyboard accessible', async ({ page }) => {
   await search.focus();
   await expect(search).toBeFocused();
   await page.keyboard.press('Enter');
-  await expect(page).toHaveURL('/discover');
+  await expect(page).toHaveURL('/search');
 
   await page.goBack();
   const notifications = page.getByRole('link', { name: 'Notifications' });

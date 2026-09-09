@@ -1,0 +1,122 @@
+.written-page {
+  min-height: 100vh;
+  color: #07193b;
+  background: #f5f7fc;
+}
+
+.written-hero {
+  padding: 24px max(20px, calc((100% - 860px) / 2)) 40px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 82% 12%, rgb(135 86 232 / 40%), transparent 55%),
+    linear-gradient(124deg, #030d24, #0a1740 58%, #150f3a);
+}
+
+.written-eyebrow {
+  margin: 24px 0 0;
+  color: #b79bff;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.written-hero h1 {
+  margin: 8px 0 0;
+  font-size: clamp(30px, 6vw, 48px);
+  font-family: var(--font-display, 'Lora Variable', serif);
+  line-height: 1.12;
+}
+
+.written-intro {
+  max-width: 60ch;
+  margin: 14px 0 0;
+  color: #c3cfec;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.written-main {
+  display: grid;
+  gap: 18px;
+  padding: 26px max(20px, calc((100% - 860px) / 2)) 40px;
+}
+
+.written-main section,
+.written-main details {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #e4eaf5;
+  border-radius: 20px;
+}
+
+.written-main h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.written-main h3 {
+  margin: 18px 0 6px;
+  font-size: 17px;
+}
+
+.written-main p,
+.written-main li {
+  color: #26355a;
+  line-height: 1.65;
+}
+
+.written-main ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
+.written-main summary {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.written-main details p {
+  margin: 10px 0 0;
+}
+
+.written-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.written-cards article {
+  padding: 18px;
+  background: #fff;
+  border: 1px solid #e4eaf5;
+  border-radius: 18px;
+}
+
+.written-cards h3 {
+  margin: 0 0 6px;
+}
+
+.written-footer {
+  padding: 26px max(20px, calc((100% - 860px) / 2)) 40px;
+  color: #c3cfec;
+  background: #05102c;
+}
+
+.written-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 12px;
+}
+
+.written-footer a {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.written-footer p {
+  margin: 0;
+  font-size: 14px;
+}

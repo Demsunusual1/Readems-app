@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 test('reader preferences, chapters and account-only save prompt work', async ({
   page,
 }) => {
@@ -20,6 +20,27 @@ test('reader preferences, chapters and account-only save prompt work', async ({
     page.getByRole('heading', { name: 'The House Beyond the Path' }),
   ).toBeVisible();
 });
+// The session cookie is Secure in production, and Playwright's API request
+// context will not send a Secure cookie over http. Signed-in calls therefore
+// go through the page, which is also how a reader actually makes them.
+async function callApi(
+  page: Page,
+  path: string,
+  body?: unknown,
+): Promise<{ status: number; json: unknown }> {
+  return page.evaluate(
+    async ([path, body]) => {
+      const response = await fetch(path as string, {
+        method: body ? 'POST' : 'GET',
+        headers: body ? { 'Content-Type': 'application/json' } : undefined,
+        body: body ? JSON.stringify(body) : undefined,
+      });
+      return { status: response.status, json: await response.json() };
+    },
+    [path, body] as const,
+  );
+}
+
 test('reading progress persists and is isolated by authenticated account', async ({
   page,
   browser,
@@ -27,27 +48,39 @@ test('reading progress persists and is isolated by authenticated account', async
   await page.goto('/stories/baobab/chapters/1');
   const origin = new URL(page.url()).origin;
   const id = crypto.randomUUID().replaceAll('-', '').slice(0, 12);
-  const signup = await page.request.post('/api/signup', {
-    data: {
-      fullName: 'Reading Test',
-      username: `reader_${id}`,
-      email: `reader_${id}@example.com`,
-      password: 'SafeReadingPassword9',
-      role: 'READER',
-      interests: ['Drama', 'Fantasy', 'Mystery'],
-    },
+  const signup = await callApi(page, '/api/signup', {
+    fullName: 'Reading Test',
+    username: `reader_${id}`,
+    email: `reader_${id}@example.com`,
+    password: 'SafeReadingPassword9',
+    role: 'READER',
+    interests: ['Drama', 'Fantasy', 'Mystery'],
   });
-  expect(signup.status()).toBe(201);
+  expect(signup.status).toBe(201);
+
   const badOrigin = await page.request.post('/api/reading-progress', {
     headers: { Origin: 'https://example.com' },
     data: { storyId: 'baobab', chapter: 1, paragraph: 0, completed: false },
   });
   expect(badOrigin.status()).toBe(403);
-  const invalid = await page.request.post('/api/reading-progress', {
-    headers: { Origin: origin },
-    data: { storyId: 'baobab', chapter: 1, paragraph: 999, completed: false },
+
+  const invalid = await callApi(page, '/api/reading-progress', {
+    storyId: 'baobab',
+    chapter: 1,
+    paragraph: 999,
+    completed: false,
   });
-  expect(invalid.status()).toBe(400);
+  expect(invalid.status).toBe(400);
+
+  const unknownStory = await callApi(page, '/api/reading-progress', {
+    storyId: 'no-such-story',
+    chapter: 1,
+    paragraph: 0,
+    completed: false,
+  });
+  expect(unknownStory.status).toBe(400);
+
+  await page.reload();
   await page.locator('#paragraph-5').scrollIntoViewIfNeeded();
   await page.getByRole('button', { name: 'Save my place' }).click();
   await expect(page.getByRole('status')).toHaveText('Your place is saved.');
@@ -55,25 +88,27 @@ test('reading progress persists and is isolated by authenticated account', async
   await expect(
     page.getByRole('link', { name: 'Resume reading' }),
   ).toHaveAttribute('href', '/stories/baobab/chapters/1#paragraph-5');
+
   const second = await browser.newContext({ baseURL: origin });
-  const other = await second.request.post('/api/signup', {
-    data: {
-      fullName: 'Other Reader',
-      username: `other_${id}`,
-      email: `other_${id}@example.com`,
-      password: 'SafeReadingPassword9',
-      role: 'READER',
-      interests: ['Drama', 'Fantasy', 'Mystery'],
-    },
+  const otherPage = await second.newPage();
+  await otherPage.goto('/stories/baobab');
+  const other = await callApi(otherPage, '/api/signup', {
+    fullName: 'Other Reader',
+    username: `other_${id}`,
+    email: `other_${id}@example.com`,
+    password: 'SafeReadingPassword9',
+    role: 'READER',
+    interests: ['Drama', 'Fantasy', 'Mystery'],
   });
-  expect(other.status()).toBe(201);
-  expect(
-    await (
-      await second.request.get('/api/reading-progress?storyId=baobab')
-    ).json(),
-  ).toEqual({ progress: null });
+  expect(other.status).toBe(201);
+  const otherProgress = await callApi(
+    otherPage,
+    '/api/reading-progress?storyId=baobab',
+  );
+  expect(otherProgress.json).toEqual({ progress: null });
   await second.close();
 });
+
 for (const width of [320, 390, 768, 1440]) {
   test(`reading screens fit ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });

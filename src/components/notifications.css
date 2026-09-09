@@ -1,0 +1,142 @@
+.notifications-page {
+  min-height: 100vh;
+  padding-bottom: 92px;
+  color: #07193b;
+  background: #f5f7fc;
+}
+
+.notifications-hero {
+  padding: 24px max(20px, calc((100% - 900px) / 2)) 34px;
+  color: #fff;
+  background: linear-gradient(122deg, #001431, #0a1740 60%, #150f3a);
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.notifications-hero h1 {
+  margin: 22px 0 6px;
+  font-size: clamp(28px, 6vw, 40px);
+  font-family: var(--font-display, 'Lora Variable', serif);
+}
+
+.notifications-hero p {
+  margin: 0;
+  color: #c3cfec;
+}
+
+.notifications-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 16px max(20px, calc((100% - 900px) / 2));
+  overflow-x: auto;
+}
+
+.notifications-tabs a {
+  min-height: 42px;
+  padding: 9px 18px;
+  color: #0b5cff;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  background: #eaf1ff;
+  border-radius: 999px;
+}
+
+.notifications-tabs a.is-active {
+  color: #fff;
+  background: #0b5cff;
+}
+
+.notifications-main {
+  padding: 0 max(20px, calc((100% - 900px) / 2)) 40px;
+}
+
+.notifications-empty {
+  padding: 22px;
+  color: #4a5b7d;
+  background: #fff;
+  border: 1px solid #e4eaf5;
+  border-radius: 18px;
+}
+
+.notifications-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  color: #4a5b7d;
+}
+
+.notifications-actions button {
+  color: #0b5cff;
+  font: inherit;
+  font-weight: 700;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.notifications-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.notifications-list a {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 16px;
+  color: inherit;
+  text-decoration: none;
+  background: #fff;
+  border: 1px solid #e4eaf5;
+  border-radius: 18px;
+}
+
+.notifications-list li.is-unread a {
+  background: #f6f9ff;
+  border-color: #cfdcfa;
+}
+
+.notification-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: #0b5cff;
+  background: #eaf1ff;
+  border-radius: 14px;
+}
+
+.notification-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.notifications-list strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.notifications-list span > span {
+  color: #4a5b7d;
+  line-height: 1.5;
+}
+
+.notifications-list small {
+  margin-left: auto;
+  color: #6b7a99;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.notification-dot {
+  width: 10px;
+  height: 10px;
+  background: #0b5cff;
+  border-radius: 999px;
+}

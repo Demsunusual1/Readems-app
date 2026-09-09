@@ -1,6 +1,9 @@
 # Readems
 
-Production-ready technical foundation for Readems. Product features and authentication are intentionally out of scope.
+Readems is a place to read stories, publish them, and belong to a community
+of readers and writers. This repository holds the whole product: the reading
+and writing experience, the community around it, and the tools that keep it
+running.
 
 ## Prerequisites
 
@@ -16,6 +19,7 @@ docker compose up -d
 npm install
 npm run db:generate
 npm run db:migrate
+npm run db:seed
 npm run dev
 ```
 
@@ -23,7 +27,10 @@ Open [http://localhost:3000](http://localhost:3000). The database is local-only 
 
 ## Environment variables
 
-`DATABASE_URL` is required and validated on server startup. Keep real values in `.env`; `.env.example` contains a local-development-only placeholder.
+`DATABASE_URL` is required and validated on server startup. Keep real values in
+`.env`; `.env.example` contains a local-development-only placeholder. The
+database-backed tests (`*.db.test.ts`) read the same variable, so start the
+Postgres container before running `npm test`.
 
 ## Commands
 
@@ -32,16 +39,40 @@ Open [http://localhost:3000](http://localhost:3000). The database is local-only 
 | `npm run format`      | Check Prettier formatting.                |
 | `npm run lint`        | Run ESLint.                               |
 | `npm run typecheck`   | Run strict TypeScript checking.           |
-| `npm test`            | Run unit and component tests.             |
+| `npm test`            | Run unit, component and database tests.   |
 | `npm run build`       | Create a production build.                |
 | `npm run test:e2e`    | Run the Playwright smoke test.            |
 | `npm run db:generate` | Generate Prisma Client.                   |
 | `npm run db:migrate`  | Create and apply a development migration. |
 | `npm run db:deploy`   | Apply committed migrations.               |
+| `npm run db:seed`     | Load the editorial sample catalogue.      |
+
+## Running it the way it is deployed
+
+```bash
+docker compose --profile app up --build
+```
+
+That builds the app image, applies migrations, loads the editorial catalogue,
+and serves Readems on [http://localhost:3000](http://localhost:3000) from a
+container talking to Postgres over the compose network — the same shape as a
+deployment. Plain `docker compose up -d` starts only the database, which is
+what local development wants.
+
+To drive that running stack with the browser suite instead of starting one:
+
+```bash
+E2E_BASE_URL=http://127.0.0.1:3000 npm run test:e2e
+```
 
 ## Quality and CI
 
-`npm run check` runs formatting, linting, type checking, and unit tests. GitHub Actions repeats those checks, builds the app, and runs Playwright against a PostgreSQL service container. The workflow has read-only repository permissions and uses npm dependency caching.
+`npm run check` runs formatting, linting, type checking, and the unit and
+database tests. GitHub Actions repeats those checks, builds the app, and runs
+Playwright twice: once against a PostgreSQL service container, and once
+against the whole stack in Docker, so the image that would be deployed is the
+one the browser drives. The workflow has read-only repository permissions and
+uses npm dependency caching.
 
 ## Security and accessibility
 

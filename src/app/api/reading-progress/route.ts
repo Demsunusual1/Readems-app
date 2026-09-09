@@ -1,7 +1,19 @@
 import { NextResponse } from 'next/server';
 import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { progressSchema, getChapters } from '@/lib/chapters';
+import {
+  isReadingPositionValid,
+  isStoryFinished,
+  progressSchema,
+  storyPercent,
+} from '@/lib/chapters';
+import {
+  getChapterByNumber,
+  getPublishedChapters,
+  getStory,
+} from '@/lib/stories';
+import { isSameOrigin } from '@/lib/http';
+import { notify } from '@/lib/notifications';
 
 export async function GET(request: Request) {
   const user = await getCurrentUser();
@@ -11,7 +23,7 @@ export async function GET(request: Request) {
       { status: 401 },
     );
   const storyId = new URL(request.url).searchParams.get('storyId') ?? '';
-  if (!getChapters(storyId).length)
+  if (!(await getStory(storyId)))
     return NextResponse.json({ error: 'Story not found.' }, { status: 404 });
   try {
     const progress = await prisma.readingProgress.findUnique({
@@ -29,8 +41,9 @@ export async function GET(request: Request) {
     );
   }
 }
+
 export async function POST(request: Request) {
-  if (request.headers.get('origin') !== new URL(request.url).origin)
+  if (!isSameOrigin(request))
     return NextResponse.json(
       { error: 'Invalid request origin.' },
       { status: 403 },
@@ -52,12 +65,61 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   const { storyId, ...position } = parsed.data;
+  const chapter = await getChapterByNumber(storyId, position.chapter);
+  if (!chapter || !isReadingPositionValid(chapter.paragraphs.length, position))
+    return NextResponse.json(
+      { error: 'Invalid reading position.' },
+      { status: 400 },
+    );
+  const chapterNumbers = (await getPublishedChapters(storyId)).map(
+    (published) => published.number,
+  );
+  const finished = isStoryFinished(chapterNumbers, position);
+  const stored = {
+    ...position,
+    percent: storyPercent(chapterNumbers, position, chapter.paragraphs.length),
+  };
+  const alreadyFinished = Boolean(
+    (
+      await prisma.readingProgress.findUnique({
+        where: { userId_storyId: { userId: user.id, storyId } },
+        select: { completedAt: true },
+      })
+    )?.completedAt,
+  );
   try {
     await prisma.readingProgress.upsert({
       where: { userId_storyId: { userId: user.id, storyId } },
-      create: { userId: user.id, storyId, ...position },
-      update: position,
+      create: {
+        userId: user.id,
+        storyId,
+        ...stored,
+        completedAt: finished ? new Date() : null,
+      },
+      // Finishing a story is remembered even if the reader opens it again.
+      update: finished ? { ...stored, completedAt: new Date() } : stored,
     });
+    if (finished && !alreadyFinished) {
+      const year = new Date().getFullYear();
+      const [story, booksThisYear] = await Promise.all([
+        getStory(storyId),
+        prisma.readingProgress.count({
+          where: {
+            userId: user.id,
+            completedAt: { gte: new Date(Date.UTC(year, 0, 1)) },
+          },
+        }),
+      ]);
+      if (story)
+        await notify({
+          userId: user.id,
+          kind: 'MILESTONE',
+          category: 'READING',
+          title: 'Reading milestone',
+          body: `You finished ${story.title}. That is ${booksThisYear} ${booksThisYear === 1 ? 'story' : 'stories'} this year.`,
+          href: '/library',
+        });
+    }
     return NextResponse.json(
       { saved: true },
       { headers: { 'Cache-Control': 'private, no-store' } },

@@ -21,83 +21,62 @@ import {
   Crown,
 } from '@phosphor-icons/react';
 import { Logo } from './ui/logo';
+import {
+  discoverGenres,
+  discoverRegions,
+  discoverTrends,
+  storyCountLabel,
+} from '@/lib/discover-sections';
+
+const genreIcons: Record<string, typeof MaskHappy> = {
+  Drama: MaskHappy,
+  Romance: Heart,
+  Fantasy: Sparkle,
+  Mystery: MagnifyingGlass,
+  'Sci-Fi': Planet,
+  Poetry: Feather,
+};
+
+const trendIcons: Record<string, typeof Star> = {
+  'Coming of Age': Star,
+  'Family & Relationships': UsersThree,
+  'Legends & Mythology': Crown,
+};
 import './discover.css';
 
-const genres = [
-  ['Drama', MaskHappy],
-  ['Romance', Heart],
-  ['Fantasy', Sparkle],
-  ['Mystery', MagnifyingGlass],
-  ['Sci-Fi', Planet],
-  ['Poetry', Feather],
-] as const;
-const regions = [
-  [
-    'African Folktales',
-    'Timeless tales from across Africa',
-    '312 stories',
-    '/readems/featured-beneath-the-baobab-tree.png',
-  ],
-  [
-    'Nigerian Stories',
-    'Legends, myths & stories from Nigeria',
-    '248 stories',
-    '/readems/cover-shadows-of-the-drum.png',
-  ],
-  [
-    'American Folktales',
-    'Classic stories from Native traditions',
-    '196 stories',
-    '/readems/featured-when-stars-learn-to-bloom.png',
-  ],
-  [
-    'World Folktales',
-    'Stories that transcend borders',
-    '428 stories',
-    '/readems/featured-archivist-of-salt.png',
-  ],
-] as const;
-const trends = [
-  [
-    'Coming of Age',
-    '1.2K stories',
-    'Journeys of growth, identity, and self-discovery.',
-    Star,
-    'purple',
-  ],
-  [
-    'Family & Relationships',
-    '1.8K stories',
-    'Love, bonds, and the people who shape us.',
-    UsersThree,
-    'plum',
-  ],
-  [
-    'Legends & Mythology',
-    '2.3K stories',
-    'Timeless myths and legends from around the world.',
-    Crown,
-    'gold',
-  ],
-] as const;
+export type DiscoverStory = {
+  id: string;
+  title: string;
+  authorName: string;
+  coverUrl: string;
+  genre: string;
+  chapterCount: number;
+};
 
-export function Discover({ dashboardHref }: { dashboardHref: string }) {
+export function Discover({
+  dashboardHref,
+  counts,
+  stories,
+}: {
+  dashboardHref: string;
+  counts: Record<string, number>;
+  stories: DiscoverStory[];
+}) {
   const [query, setQuery] = useState('');
   const [mood, setMood] = useState('All Moods');
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const value = query.trim();
-    if (value)
-      window.location.href = `/discover?search=${encodeURIComponent(value)}`;
+    if (value) window.location.href = `/search?q=${encodeURIComponent(value)}`;
   }
   return (
     <div className="discover-page">
       <header className="discover-header">
         <Logo tone="dark" />
         <div className="discover-header-actions">
-          <button aria-label="Notifications">
+          <Link href="/notifications" aria-label="Notifications">
             <Bell />
-          </button>
+          </Link>
           <Link href={dashboardHref} aria-label="Open profile">
             <Image
               src="/readems/creator-chinelo-okoye.png"
@@ -150,29 +129,39 @@ export function Discover({ dashboardHref }: { dashboardHref: string }) {
           <section aria-labelledby="genre-heading">
             <Heading id="genre-heading">Browse by Genre</Heading>
             <div className="discover-genres">
-              {genres.map(([label, Icon]) => (
-                <button key={label} onClick={() => setQuery(label)}>
-                  <span>
-                    <Icon />
-                  </span>
-                  {label}
-                </button>
-              ))}
+              {discoverGenres.map((label) => {
+                const Icon = genreIcons[label];
+                return (
+                  <Link
+                    key={label}
+                    href={`/search?q=${encodeURIComponent(label)}`}
+                  >
+                    <span>
+                      <Icon />
+                    </span>
+                    {label}
+                    <small>{storyCountLabel(counts, label)}</small>
+                  </Link>
+                );
+              })}
             </div>
           </section>
           <section aria-labelledby="regional-heading">
             <Heading id="regional-heading">Regional Folktales</Heading>
             <div className="discover-regions">
-              {regions.map(([title, copy, count, image]) => (
-                <article key={title}>
-                  <div className="discover-region-image">
-                    <Image src={image} alt="" fill sizes="210px" />
+              {discoverRegions.map((region) => (
+                <Link
+                  key={region.tag}
+                  href={`/search?q=${encodeURIComponent(region.tag)}`}
+                >
+                  <span className="discover-region-image">
+                    <Image src={region.image} alt="" fill sizes="210px" />
                     <MapPin weight="fill" />
-                  </div>
-                  <h3>{title}</h3>
-                  <p>{copy}</p>
-                  <small>{count}</small>
-                </article>
+                  </span>
+                  <h3>{region.tag}</h3>
+                  <p>{region.copy}</p>
+                  <small>{storyCountLabel(counts, region.tag)}</small>
+                </Link>
               ))}
             </div>
           </section>
@@ -196,25 +185,50 @@ export function Discover({ dashboardHref }: { dashboardHref: string }) {
               ))}
             </div>
           </section>
+          <section aria-labelledby="latest-heading">
+            <Heading id="latest-heading">New on Readems</Heading>
+            {stories.length === 0 ? (
+              <p className="discover-empty">
+                Nothing has been published yet. When somebody publishes a
+                chapter it appears here.
+              </p>
+            ) : (
+              <div className="discover-latest">
+                {stories.map((story) => (
+                  <Link href={`/stories/${story.id}`} key={story.id}>
+                    <span className="discover-latest-cover">
+                      <Image src={story.coverUrl} alt="" fill sizes="180px" />
+                    </span>
+                    <strong>{story.title}</strong>
+                    <small>{story.authorName}</small>
+                    <small>
+                      {story.genre} <i>•</i> {story.chapterCount}{' '}
+                      {story.chapterCount === 1 ? 'chapter' : 'chapters'}
+                    </small>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </section>
           <section aria-labelledby="trending-heading">
             <Heading id="trending-heading">Trending Categories</Heading>
             <div className="discover-trends">
-              {trends.map(([title, count, copy, Icon, tone]) => (
-                <Link
-                  href={`/discover?category=${encodeURIComponent(title)}`}
-                  key={title}
-                >
-                  <span className={`discover-trend-icon ${tone}`}>
-                    <Icon />
-                  </span>
-                  <span>
-                    <strong>{title}</strong>
-                    <small>{count}</small>
-                  </span>
-                  <p>{copy}</p>
-                  <CaretRight />
-                </Link>
-              ))}
+              {discoverTrends.map(({ tag, copy, tone }) => {
+                const Icon = trendIcons[tag];
+                return (
+                  <Link href={`/search?q=${encodeURIComponent(tag)}`} key={tag}>
+                    <span className={`discover-trend-icon ${tone}`}>
+                      <Icon />
+                    </span>
+                    <span>
+                      <strong>{tag}</strong>
+                      <small>{storyCountLabel(counts, tag)}</small>
+                    </span>
+                    <p>{copy}</p>
+                    <CaretRight />
+                  </Link>
+                );
+              })}
             </div>
           </section>
         </div>
@@ -248,7 +262,7 @@ function Heading({ id, children }: { id: string; children: string }) {
   return (
     <div className="discover-section-heading">
       <h2 id={id}>{children}</h2>
-      <Link href="/discover">
+      <Link href={`/search?q=${encodeURIComponent(children)}`}>
         View all <CaretRight />
       </Link>
     </div>

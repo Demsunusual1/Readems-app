@@ -3673,3 +3673,226 @@ canvas {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Dashboards and landing sections that now render real rows. Covers are real
+   artwork, so the placeholder glyph on .dash-cover is switched off wherever
+   there is a picture to show. */
+.dash-cover.has-art:after {
+  content: none;
+}
+.dash-cover img {
+  object-fit: cover;
+}
+.dash-cover b {
+  z-index: 2;
+}
+.reading-card h3 a,
+.story-row h3 a,
+.chapter-row b a,
+.trending-list a,
+.activity-list a,
+.featured-card h3 a,
+.continue-card h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+.reading-card h3 a:hover,
+.story-row h3 a:hover,
+.trending-list a:hover,
+.featured-card h3 a:hover,
+.continue-card h3 a:hover {
+  text-decoration: underline;
+}
+.dash-account .avatar {
+  text-decoration: none;
+}
+.dash-streak {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.6rem 0 0;
+  padding: 0.5rem 0.9rem;
+  border-radius: 99px;
+  background: #fff3e0;
+  color: #92400e;
+  font-size: 0.95rem;
+}
+.dash-streak strong {
+  font-weight: 800;
+}
+.dash-streak.is-empty {
+  background: #eef1f6;
+  color: #41547a;
+}
+.dash-empty {
+  margin: 0.6rem 0;
+  padding: 1rem;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  color: #41547a;
+}
+.chips a {
+  display: inline-block;
+  padding: 0.55rem 1.5rem;
+  border-radius: 99px;
+  background: #edf4ff;
+  color: #1450bd;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.trending-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.trending-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.trending-cover {
+  flex: none;
+  width: 64px;
+  height: 86px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.trending-list span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-weight: 700;
+}
+.trending-list small {
+  color: #52647f;
+  font-weight: 400;
+}
+.community-banner-link {
+  display: inline-block;
+  margin-top: 0.9rem;
+  padding: 0.7rem 1.1rem;
+  border-radius: 10px;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+.pulse-stats {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+}
+.pulse-stats div {
+  display: grid;
+  grid-template-columns: 24px auto 1fr;
+  align-items: center;
+  gap: 0.6rem;
+}
+.pulse-stats dt {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+.pulse-stats dd {
+  margin: 0;
+  color: #41547a;
+  font-size: 0.9rem;
+}
+.story-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.story-metrics span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.chapter-row + .chapter-row {
+  margin-top: 0.6rem;
+}
+a.add-chapter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  text-decoration: none;
+}
+.audience-activity {
+  margin-top: 1rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: 14px;
+  background: #0d1b3b;
+  color: #fff;
+}
+.audience-activity h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+.audience-window {
+  margin: 0.2rem 0 1rem;
+  color: #a9bbdd;
+  font-size: 0.9rem;
+}
+.audience-activity dl {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin: 0;
+}
+.audience-activity dl div {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  align-items: center;
+  gap: 0.4rem 0.5rem;
+}
+.audience-activity dt {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+.audience-activity dd {
+  grid-column: 2;
+  margin: 0;
+  color: #a9bbdd;
+  font-size: 0.85rem;
+}
+.continue-empty {
+  align-self: center;
+  margin: 0;
+  color: #41547a;
+}
+.activity-initial {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  flex: none;
+  border-radius: 50%;
+  background: #163d48;
+  color: #fff;
+  font-weight: 800;
+}
+a.reading-goal {
+  text-decoration: none;
+}
+
+@media (max-width: 760px) {
+  .trending-list,
+  .pulse-stats {
+    grid-template-columns: 1fr;
+  }
+  .audience-activity dl {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.spotlight-initial {
+  display: grid;
+  place-items: center;
+  background: #1b2c56;
+  color: #fff;
+  font-size: 2.4rem;
+  font-weight: 800;
+}

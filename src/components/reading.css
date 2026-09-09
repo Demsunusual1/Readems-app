@@ -687,3 +687,144 @@
     height: 14px;
   }
 }
+
+/* Reader comments */
+
+.reader-comments {
+  display: grid;
+  gap: 16px;
+  margin: 0 auto;
+  padding: 24px max(20px, calc((100% - 760px) / 2)) 60px;
+}
+
+.comment-form {
+  display: grid;
+  gap: 8px;
+}
+
+.comment-form label {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.comment-form > div {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.comment-form textarea {
+  flex: 1;
+  padding: 12px 14px;
+  font: inherit;
+  background: #fff;
+  border: 1px solid #dfe5f0;
+  border-radius: 14px;
+  resize: vertical;
+}
+
+.comment-form button {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  color: #fff;
+  background: #0b5cff;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.comment-form [role='alert'] {
+  color: #c93445;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.comment-signin a {
+  color: #0b5cff;
+  font-weight: 700;
+}
+
+.comment-list,
+.comment-replies {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.comment-replies {
+  margin: 12px 0 0 52px;
+}
+
+.comment-list article {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  background: #fff;
+  border: 1px solid #e4eaf5;
+  border-radius: 16px;
+}
+
+.comment-avatar {
+  flex: none;
+  border-radius: 999px;
+}
+
+.comment-head {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.comment-head small {
+  color: #6b7a99;
+}
+
+.comment-body {
+  margin: 4px 0 8px;
+  line-height: 1.55;
+}
+
+.comment-list footer {
+  display: flex;
+  gap: 8px;
+}
+
+.comment-list footer button {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  min-height: 36px;
+  padding: 4px 12px;
+  color: #4a5b7d;
+  font: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.comment-list footer button[aria-pressed='true'] {
+  color: #c93445;
+}
+
+.comment-list footer .comment-delete {
+  color: #c93445;
+}
+
+.comment-list footer button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.reader-night .comment-list article,
+.reader-night .comment-form textarea {
+  color: #e9eefc;
+  background: #101c34;
+  border-color: #24334f;
+}
