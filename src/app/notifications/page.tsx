@@ -11,6 +11,7 @@ import { getCurrentUser } from '@/lib/auth';
 import { getNotifications } from '@/lib/notifications';
 import { NotificationList } from '@/components/notification-list';
 import { Logo } from '@/components/ui/logo';
+import '@/components/community.css';
 import '@/components/notifications.css';
 
 export const metadata: Metadata = {

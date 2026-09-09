@@ -125,7 +125,9 @@ export async function getGroups(options: {
           }
         : {}),
     },
-    orderBy: { createdAt: 'desc' },
+    // The groups worth seeing first are the ones people are actually in; a
+    // database that has been running a while is mostly quiet groups.
+    orderBy: [{ members: { _count: 'desc' } }, { createdAt: 'desc' }],
     take: options.take ?? 30,
     include: {
       _count: { select: { members: true } },

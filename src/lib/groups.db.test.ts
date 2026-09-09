@@ -84,6 +84,23 @@ describe('groups', () => {
     expect(all.find((group) => group.id === groupId)?.isMember).toBe(true);
   });
 
+  it('puts the groups people have joined at the top of the list', async () => {
+    // A database that has been running a while has plenty of quiet groups in
+    // it; the ones worth showing first are the ones people are in.
+    const quiet = await createGroup(outsiderId, {
+      name: `Quiet Corner ${Date.now()}`,
+      tagline: 'Nobody has joined this one.',
+      description: 'A group with only its founder.',
+      topic: 'Community',
+    });
+
+    const listed = await getGroups({ viewerId: memberId });
+    const busy = listed.findIndex((group) => group.id === groupId);
+    const empty = listed.findIndex((group) => group.id === quiet.id);
+    expect(busy).toBeGreaterThanOrEqual(0);
+    expect(empty).toBeGreaterThan(busy);
+  });
+
   it('keeps group posts out of the public feed', async () => {
     const post = await createPost(memberId, {
       body: 'A note for the group only.',

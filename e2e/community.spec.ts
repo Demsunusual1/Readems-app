@@ -70,6 +70,10 @@ test('a guest reads the community but is asked to sign in to post', async ({
 test('a member joins a group and posts in it', async ({ page }) => {
   await signUp(page, 'Kwame Group', '/groups');
 
+  // Find it rather than assuming it is near the top: the list is ordered by
+  // how many people are in each group.
+  await page.getByLabel('Search groups by name or topic').fill('Poets');
+  await page.getByRole('button', { name: 'Search' }).click();
   await page.getByRole('link', { name: /Poets Collective/ }).click();
   await expect(
     page.getByRole('heading', { name: 'Poets Collective' }),

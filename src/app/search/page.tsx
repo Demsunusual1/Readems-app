@@ -16,6 +16,7 @@ import { FollowButton } from '@/components/follow-button';
 import { JoinGroupButton } from '@/components/join-group-button';
 import { RecentSearches } from '@/components/recent-searches';
 import { Logo } from '@/components/ui/logo';
+import '@/components/community.css';
 import '@/components/search.css';
 
 export const metadata: Metadata = {
