@@ -14,17 +14,17 @@ enum UserRole {
 }
 
 model User {
-  id               String            @id @default(cuid())
+  id               String               @id @default(cuid())
   fullName         String
-  username         String            @unique
-  email            String            @unique
+  username         String               @unique
+  email            String               @unique
   passwordHash     String
   role             UserRole
   bio              String?
   avatarUrl        String?
   interests        String[]
-  createdAt        DateTime          @default(now())
-  updatedAt        DateTime          @updatedAt
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
   sessions         Session[]
   readingProgress  ReadingProgress[]
   stories          Story[]
@@ -36,19 +36,32 @@ model User {
   reviewLikes      ReviewLike[]
   comments         Comment[]
   commentLikes     CommentLike[]
-  following        Follow[]          @relation("Following")
-  followers        Follow[]          @relation("Followers")
+  following        Follow[]             @relation("Following")
+  followers        Follow[]             @relation("Followers")
   posts            Post[]
   postLikes        PostLike[]
   postComments     PostComment[]
   groupsCreated    Group[]
   groupMemberships GroupMember[]
   eventRsvps       GroupEventRsvp[]
-  notifications    Notification[]    @relation("Recipient")
-  actedOn          Notification[]    @relation("Actor")
+  notifications    Notification[]       @relation("Recipient")
+  actedOn          Notification[]       @relation("Actor")
   settings         UserSettings?
-  blocking         Block[]           @relation("Blocker")
-  blockedBy        Block[]           @relation("Blocked")
+  blocking         Block[]              @relation("Blocker")
+  blockedBy        Block[]              @relation("Blocked")
+  adminRole        AdminRole            @default(NONE)
+  accountStatus    AccountStatus        @default(ACTIVE)
+  suspendedAt      DateTime?
+  conversations    ConversationMember[]
+  messagesSent     Message[]
+  roomsHosted      Room[]
+  roomsJoined      RoomParticipant[]
+  roomMessages     RoomMessage[]
+  roomReactions    RoomReaction[]
+  reportsMade      Report[]             @relation("Reporter")
+  reportsAssigned  Report[]             @relation("Assignee")
+  reportsResolved  Report[]             @relation("Resolver")
+  dealsCreated     BrandDeal[]          @relation("DealCreator")
 }
 
 model ReadingProgress {
@@ -106,6 +119,7 @@ model Story {
   status       StoryStatus       @default(DRAFT)
   publishedAt  DateTime?
   scheduledFor DateTime?
+  hiddenAt     DateTime?
   authorId     String
   author       User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
   chapters     Chapter[]
@@ -133,6 +147,7 @@ model Chapter {
   status       ChapterStatus @default(DRAFT)
   publishedAt  DateTime?
   scheduledFor DateTime?
+  hiddenAt     DateTime?
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
 
@@ -205,6 +220,7 @@ model Review {
   story     Story        @relation(fields: [storyId], references: [id], onDelete: Cascade)
   rating    Int
   body      String?
+  hiddenAt  DateTime?
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
   likes     ReviewLike[]
@@ -233,6 +249,7 @@ model Comment {
   parent    Comment?      @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
   replies   Comment[]     @relation("CommentReplies")
   body      String
+  hiddenAt  DateTime?
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
   likes     CommentLike[]
@@ -292,6 +309,7 @@ model Post {
   topic     String?
   title     String?
   body      String
+  hiddenAt  DateTime?
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
   likes     PostLike[]
@@ -313,13 +331,14 @@ model PostLike {
 }
 
 model PostComment {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   postId    String
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   body      String
-  createdAt DateTime @default(now())
+  hiddenAt  DateTime?
+  createdAt DateTime  @default(now())
 
   @@index([postId, createdAt])
 }
@@ -441,4 +460,171 @@ model Block {
 
   @@id([blockerId, blockedId])
   @@index([blockedId])
+}
+
+model Conversation {
+  id           String               @id @default(cuid())
+  isGroup      Boolean              @default(false)
+  title        String?
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  participants ConversationMember[]
+  messages     Message[]
+}
+
+model ConversationMember {
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  joinedAt       DateTime     @default(now())
+  lastReadAt     DateTime?
+
+  @@id([conversationId, userId])
+  @@index([userId])
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  senderId       String
+  sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  body           String
+  createdAt      DateTime     @default(now())
+
+  @@index([conversationId, createdAt])
+}
+
+model Room {
+  id           String            @id
+  title        String
+  tagline      String
+  description  String
+  coverUrl     String?
+  hostId       String
+  host         User              @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  isLive       Boolean           @default(true)
+  createdAt    DateTime          @default(now())
+  messages     RoomMessage[]
+  participants RoomParticipant[]
+  reactions    RoomReaction[]
+}
+
+model RoomParticipant {
+  roomId     String
+  room       Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  joinedAt   DateTime @default(now())
+  handRaised Boolean  @default(false)
+  onStage    Boolean  @default(false)
+
+  @@id([roomId, userId])
+  @@index([userId])
+}
+
+model RoomMessage {
+  id        String   @id @default(cuid())
+  roomId    String
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  body      String
+  createdAt DateTime @default(now())
+
+  @@index([roomId, createdAt])
+}
+
+model RoomReaction {
+  roomId    String
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  kind      String
+  createdAt DateTime @default(now())
+
+  @@id([roomId, userId, kind])
+}
+
+enum AdminRole {
+  NONE
+  MODERATOR
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum AccountStatus {
+  ACTIVE
+  SUSPENDED
+}
+
+enum ReportTarget {
+  STORY
+  CHAPTER
+  COMMENT
+  POST
+  POST_COMMENT
+  REVIEW
+  USER
+}
+
+enum ReportStatus {
+  OPEN
+  APPROVED
+  RESTRICTED
+  REMOVED
+}
+
+enum ReportPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model Report {
+  id           String         @id @default(cuid())
+  reporterId   String?
+  reporter     User?          @relation("Reporter", fields: [reporterId], references: [id], onDelete: SetNull)
+  targetType   ReportTarget
+  targetId     String
+  reason       String
+  details      String?
+  status       ReportStatus   @default(OPEN)
+  priority     ReportPriority @default(MEDIUM)
+  assignedToId String?
+  assignedTo   User?          @relation("Assignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+  resolvedById String?
+  resolvedBy   User?          @relation("Resolver", fields: [resolvedById], references: [id], onDelete: SetNull)
+  resolvedAt   DateTime?
+  createdAt    DateTime       @default(now())
+
+  @@index([status, createdAt])
+  @@index([targetType, targetId])
+}
+
+enum DealStatus {
+  DRAFT
+  PENDING
+  LIVE
+  COMPLETED
+}
+
+model BrandDeal {
+  id           String     @id @default(cuid())
+  name         String
+  sponsor      String
+  category     String
+  region       String
+  status       DealStatus @default(DRAFT)
+  valueCents   Int        @default(0)
+  creatorSlots Int        @default(0)
+  startsAt     DateTime?
+  endsAt       DateTime?
+  createdById  String?
+  createdBy    User?      @relation("DealCreator", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([status, createdAt])
 }
