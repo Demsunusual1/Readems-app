@@ -1,19 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import {
-  Compass,
   FunnelSimple,
-  House,
   MagnifyingGlass,
-  NotePencil,
   PencilSimple,
-  User,
   UsersThree,
 } from '@phosphor-icons/react';
 import './messages-page.css';
+import { ReaderNavigation } from './reader-navigation';
 
 type Tab = 'Inbox' | 'Groups' | 'Creators' | 'Requests';
 
@@ -162,29 +158,9 @@ export function MessagesPage({ role }: { role: string }) {
       <button className="compose-message" aria-label="Compose message">
         <PencilSimple />
       </button>
-      <nav className="messages-bottom" aria-label="Primary navigation">
-        <Link href={home}>
-          <House />
-          <span>Home</span>
-        </Link>
-        <Link href="/discover">
-          <Compass />
-          <span>Discover</span>
-        </Link>
-        <Link href="/creator/stories/new">
-          <NotePencil />
-          <span>Write</span>
-        </Link>
-        <Link className="active" href="/messages">
-          <b>12</b>
-          <NotePencil />
-          <span>Messages</span>
-        </Link>
-        <Link href="#profile">
-          <User />
-          <span>Profile</span>
-        </Link>
-      </nav>
+      {home === '/reader/dashboard' ? (
+        <ReaderNavigation active="messages" />
+      ) : null}
     </main>
   );
 }
