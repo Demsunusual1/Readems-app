@@ -48,6 +48,9 @@ export default async function SearchPage({
           <Logo tone="light" />
           <Link href="/discover">Cancel</Link>
         </div>
+        {/* The design gives this screen no title of its own; a heading still
+            has to exist for anybody navigating by them. */}
+        <h1 className="sr-only">Search Readems</h1>
         <form role="search" action="/search" className="search-field">
           <label className="sr-only" htmlFor="search-input">
             Search stories, creators, groups and posts
