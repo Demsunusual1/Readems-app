@@ -4,20 +4,18 @@ import {
   Bank,
   Bell,
   BookOpen,
-  Books,
   CalendarBlank,
   CaretDown,
-  ChartBar,
   CurrencyDollar,
   Export,
   GlobeHemisphereWest,
   Heart,
-  List,
   Percent,
   Users,
 } from '@phosphor-icons/react/dist/ssr';
 import { ReademsLogo } from './readems-logo';
 import './creator-analytics.css';
+import { CreatorNavigation } from './creator-navigation';
 
 const metrics = [
   ['Reads', '245.8K', '↑ 12.4%', BookOpen],
@@ -233,38 +231,7 @@ export function CreatorAnalytics({ avatarUrl }: { avatarUrl: string | null }) {
           />
         </section>
       </div>
-      <nav className="creator-bottom-nav" aria-label="Creator navigation">
-        <Link href="/creator/dashboard">
-          <span>
-            <ChartBar />
-          </span>
-          Dashboard
-        </Link>
-        <Link href="/creator/stories">
-          <span>
-            <Books />
-          </span>
-          My Stories
-        </Link>
-        <Link className="active" href="/creator/analytics">
-          <span>
-            <ChartBar weight="fill" />
-          </span>
-          Analytics
-        </Link>
-        <Link href="#earnings">
-          <span>
-            <CurrencyDollar />
-          </span>
-          Earnings
-        </Link>
-        <Link href="#more">
-          <span>
-            <List />
-          </span>
-          More
-        </Link>
-      </nav>
+      <CreatorNavigation active="studio" />
     </main>
   );
 }
