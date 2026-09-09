@@ -2,17 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {
   Bell,
-  BookOpen,
   ChatCircle,
   Eye,
-  House,
   MagnifyingGlass,
-  Plus,
-  User,
   Users,
 } from '@phosphor-icons/react/dist/ssr';
 import { ReademsLogo } from './readems-logo';
 import './reader-dashboard.css';
+import { ReaderNavigation } from './reader-navigation';
 
 const recommendations = [
   [
@@ -228,30 +225,7 @@ export function ReaderDashboard({
           </div>
         </section>
       </div>
-      <nav className="reader-bottom-nav">
-        <Link className="active" href="/reader/dashboard">
-          <House />
-          Home
-        </Link>
-        <Link href="#library">
-          <BookOpen />
-          Library
-        </Link>
-        <Link className="create" href="#create">
-          <span>
-            <Plus />
-          </span>
-          Create
-        </Link>
-        <Link href="#community">
-          <Users />
-          Community
-        </Link>
-        <Link href="#profile">
-          <User />
-          Profile
-        </Link>
-      </nav>
+      <ReaderNavigation active="home" />
     </main>
   );
 }
