@@ -39,7 +39,6 @@ function renderLibrary(
 ) {
   return render(
     <ReaderLibrary
-      profileHref="/reader/dashboard"
       signedIn
       shelf={{
         current: [story({})],

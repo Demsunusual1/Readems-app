@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { dashboardForRole, getCurrentUser } from '@/lib/auth';
+import { getCurrentUser } from '@/lib/auth';
 import { goalPace } from '@/lib/goal';
 import { getReadingGoal, getReadingLists, getShelf } from '@/lib/library';
 import { ReaderLibrary, type ShelfStory } from '@/components/reader-library';
@@ -26,7 +26,6 @@ export default async function LibraryPage() {
   if (!user)
     return (
       <ReaderLibrary
-        profileHref="/login"
         signedIn={false}
         shelf={{ current: [], saved: [], completed: [] }}
         lists={[]}
@@ -47,7 +46,6 @@ export default async function LibraryPage() {
 
   return (
     <ReaderLibrary
-      profileHref={dashboardForRole(user.role)}
       signedIn
       shelf={{
         current: shelf.current.map(toShelfStory),

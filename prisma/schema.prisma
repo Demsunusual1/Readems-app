@@ -46,6 +46,9 @@ model User {
   eventRsvps       GroupEventRsvp[]
   notifications    Notification[]    @relation("Recipient")
   actedOn          Notification[]    @relation("Actor")
+  settings         UserSettings?
+  blocking         Block[]           @relation("Blocker")
+  blockedBy        Block[]           @relation("Blocked")
 }
 
 model ReadingProgress {
@@ -415,4 +418,27 @@ model Notification {
 
   @@index([userId, createdAt])
   @@index([userId, readAt])
+}
+
+model UserSettings {
+  userId              String   @id
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  theme               String   @default("system")
+  language            String   @default("English")
+  country             String?
+  emailNotifications  Boolean  @default(true)
+  profilePublic       Boolean  @default(true)
+  showReadingActivity Boolean  @default(false)
+  updatedAt           DateTime @updatedAt
+}
+
+model Block {
+  blockerId String
+  blocker   User     @relation("Blocker", fields: [blockerId], references: [id], onDelete: Cascade)
+  blockedId String
+  blocked   User     @relation("Blocked", fields: [blockedId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@id([blockerId, blockedId])
+  @@index([blockedId])
 }

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { ChapterReader } from '@/components/chapter-reader';
 import { getCurrentUser } from '@/lib/auth';
 import { getComments } from '@/lib/comments';
+import { getSettings } from '@/lib/settings';
 import {
   getChapterByNumber,
   getPublishedChapters,
@@ -38,9 +39,10 @@ export default async function ChapterPage({
   const chapter = await getChapterByNumber(story.id, Number(route.chapter));
   if (!chapter) notFound();
   const user = await getCurrentUser();
-  const [chapters, comments] = await Promise.all([
+  const [chapters, comments, settings] = await Promise.all([
     getPublishedChapters(story.id),
     getComments(chapter.id, user?.id ?? null),
+    user ? getSettings(user.id) : null,
   ]);
 
   return (
@@ -52,6 +54,7 @@ export default async function ChapterPage({
       chapterId={chapter.id}
       total={chapters.length}
       signedIn={Boolean(user)}
+      defaultNight={settings?.theme === 'dark'}
       comments={comments.map((comment) => ({
         ...comment,
         createdAt: comment.createdAt.toISOString(),

@@ -76,13 +76,11 @@ function resumeHref(story: ShelfStory) {
 }
 
 export function ReaderLibrary({
-  profileHref,
   signedIn,
   shelf,
   lists,
   goal,
 }: {
-  profileHref: string;
   signedIn: boolean;
   shelf: {
     current: ShelfStory[];
@@ -440,7 +438,7 @@ export function ReaderLibrary({
           <BookOpen weight="fill" />
           <span>Library</span>
         </Link>
-        <Link href={profileHref}>
+        <Link href={signedIn ? '/settings' : '/login'}>
           <UserCircle />
           <span>Profile</span>
         </Link>

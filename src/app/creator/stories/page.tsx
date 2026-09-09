@@ -158,7 +158,7 @@ export default async function MyStoriesPage({
           <ChartLineUp />
           <span>Analytics</span>
         </Link>
-        <Link href="/creator/dashboard">
+        <Link href="/settings">
           <UserCircle />
           <span>Profile</span>
         </Link>

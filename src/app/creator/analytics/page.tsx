@@ -183,7 +183,7 @@ export default async function AnalyticsPage({
           <ChartLineUp weight="fill" />
           <span>Analytics</span>
         </Link>
-        <Link href="/creator/dashboard">
+        <Link href="/settings">
           <UserCircle />
           <span>Profile</span>
         </Link>

@@ -46,6 +46,7 @@ export function ChapterReader({
   total,
   comments,
   signedIn,
+  defaultNight = false,
 }: {
   storyId: string;
   storyTitle: string;
@@ -54,6 +55,8 @@ export function ChapterReader({
   total: number;
   comments: CommentView[];
   signedIn: boolean;
+  /** The reading theme saved on the account, used until this device says otherwise. */
+  defaultNight?: boolean;
 }) {
   const stored = useSyncExternalStore(subscribeView, readView, () => '{}');
   const [override, setOverride] = useState<{
@@ -80,7 +83,7 @@ export function ChapterReader({
     (settings.size && [16, 18, 20, 22].includes(settings.size)
       ? settings.size
       : 18);
-  const night = override?.night ?? settings.night === true;
+  const night = override?.night ?? settings.night ?? defaultNight;
   const lastParagraph = chapter.paragraphs.length - 1;
 
   useEffect(

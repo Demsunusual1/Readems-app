@@ -1,0 +1,206 @@
+.settings-page {
+  min-height: 100vh;
+  color: #07193b;
+  background: #f5f7fc;
+}
+
+.settings-hero {
+  padding: 24px max(20px, calc((100% - 900px) / 2)) 36px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 84% 10%, rgb(135 86 232 / 42%), transparent 55%),
+    linear-gradient(122deg, #05102c, #101a44 60%, #1a1146);
+}
+
+.settings-hero h1 {
+  margin: 22px 0 6px;
+  font-size: clamp(28px, 6vw, 42px);
+  font-family: var(--font-display, 'Lora Variable', serif);
+}
+
+.settings-hero p {
+  margin: 0;
+  color: #c3cfec;
+}
+
+.settings-main {
+  display: grid;
+  gap: 16px;
+  padding: 22px max(20px, calc((100% - 900px) / 2)) 60px;
+}
+
+.settings-identity {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  padding: 18px;
+  background: #fff;
+  border: 1px solid #e4eaf5;
+  border-radius: 20px;
+}
+
+.settings-identity > div {
+  flex: 1;
+  min-width: 180px;
+}
+
+.settings-avatar {
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.settings-identity strong {
+  display: block;
+  font-size: 20px;
+}
+
+.settings-identity small {
+  color: #4a5b7d;
+}
+
+.settings-role {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 12px;
+  color: #0b5cff;
+  font-weight: 700;
+  font-size: 13px;
+  background: #eaf1ff;
+  border-radius: 999px;
+}
+
+.settings-identity a {
+  color: #0b5cff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.settings-card {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #e4eaf5;
+  border-radius: 20px;
+}
+
+.settings-card h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+
+.settings-card h3 {
+  margin: 22px 0 8px;
+  font-size: 16px;
+}
+
+.settings-card > p {
+  margin: 0 0 12px;
+  color: #4a5b7d;
+}
+
+.settings-card form {
+  display: grid;
+  gap: 8px;
+}
+
+.settings-card label {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.settings-card input,
+.settings-card textarea,
+.settings-card select {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  background: #f7f9fd;
+  border: 1px solid #dfe5f0;
+  border-radius: 14px;
+}
+
+.settings-toggle {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 500 !important;
+}
+
+.settings-toggle input {
+  width: 20px;
+  height: 20px;
+}
+
+.settings-hint {
+  margin: 0;
+  color: #6b7a99;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.settings-card button {
+  justify-self: start;
+  min-height: 46px;
+  padding: 10px 22px;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  background: #0b5cff;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.settings-card [role='status'] {
+  color: #0d7a4f;
+  font-weight: 600;
+}
+
+.settings-card [role='status'].error {
+  color: #c93445;
+}
+
+.settings-sessions,
+.settings-blocked {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+
+.settings-sessions li,
+.settings-blocked li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: #f7f9fd;
+  border-radius: 14px;
+}
+
+.settings-sessions small {
+  display: block;
+  color: #6b7a99;
+}
+
+.settings-sessions button,
+.settings-blocked button {
+  min-height: 40px;
+  padding: 8px 16px;
+  color: #c93445;
+  background: #fdeef0;
+}
+
+.settings-logout button {
+  width: 100%;
+  min-height: 52px;
+  color: #c93445;
+  font: inherit;
+  font-weight: 700;
+  background: #fdeef0;
+  border: 1px solid #f6d3d8;
+  border-radius: 18px;
+  cursor: pointer;
+}

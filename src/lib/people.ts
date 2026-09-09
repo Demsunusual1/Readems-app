@@ -1,6 +1,7 @@
 import { prisma } from './prisma';
 import { listStories, readableChapterWhere, type StoryCard } from './stories';
 import { notify } from './notifications';
+import { isBlockedBetween } from './settings';
 
 export type PersonSummary = {
   id: string;
@@ -18,12 +19,15 @@ export type Profile = PersonSummary & {
   joinedAt: Date;
   following: number;
   isMe: boolean;
+  showsReadingActivity: boolean;
   stories: StoryCard[];
 };
 
 export async function toggleFollow(followerId: string, followingId: string) {
   if (followerId === followingId)
     throw new Error('You cannot follow yourself.');
+  if (await isBlockedBetween(followerId, followingId))
+    throw new Error('You cannot follow this person.');
   const existing = await prisma.follow.findUnique({
     where: { followerId_followingId: { followerId, followingId } },
   });
@@ -135,10 +139,13 @@ export async function getProfile(
       ...personSelect,
       role: true,
       createdAt: true,
+      settings: { select: { profilePublic: true, showReadingActivity: true } },
       _count: { select: { followers: true, following: true, stories: true } },
     },
   });
   if (!person) return null;
+  const isMe = viewerId === person.id;
+  if (person.settings && !person.settings.profilePublic && !isMe) return null;
   const stories = await listStories({ authorId: person.id, limit: 12 });
   const following = await followedIds(viewerId, [person.id]);
   return {
@@ -154,7 +161,8 @@ export async function getProfile(
     stories,
     storyCount: person._count.stories,
     isFollowing: following.has(person.id),
-    isMe: viewerId === person.id,
+    isMe,
+    showsReadingActivity: person.settings?.showReadingActivity ?? false,
   };
 }
 
