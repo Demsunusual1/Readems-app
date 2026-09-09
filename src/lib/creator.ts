@@ -377,17 +377,19 @@ export async function getMyStory(userId: string, storyId: string) {
     audience: story.audience,
     tags: story.tags,
     scheduledFor: story.scheduledFor,
-    chapters: story.chapters.map((chapter): CreatorChapter => ({
-      id: chapter.id,
-      number: chapter.number,
-      title: chapter.title,
-      body: chapter.body,
-      status: chapter.status,
-      publishedAt: chapter.publishedAt,
-      scheduledFor: chapter.scheduledFor,
-      updatedAt: chapter.updatedAt,
-      words: countWords(chapter.body),
-    })),
+    chapters: story.chapters.map(
+      (chapter): CreatorChapter => ({
+        id: chapter.id,
+        number: chapter.number,
+        title: chapter.title,
+        body: chapter.body,
+        status: chapter.status,
+        publishedAt: chapter.publishedAt,
+        scheduledFor: chapter.scheduledFor,
+        updatedAt: chapter.updatedAt,
+        words: countWords(chapter.body),
+      }),
+    ),
   };
 }
 

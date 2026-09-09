@@ -52,7 +52,9 @@ export async function updatePreferences(
     const user = await requireUser();
     await saveSettings(user.id, {
       theme: String(formData.get('theme') ?? 'system') as
-        'system' | 'light' | 'dark',
+        | 'system'
+        | 'light'
+        | 'dark',
       language: String(formData.get('language') ?? 'English'),
       emailNotifications: formData.get('emailNotifications') === 'on',
       profilePublic: formData.get('profilePublic') === 'on',
