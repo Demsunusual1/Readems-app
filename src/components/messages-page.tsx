@@ -11,6 +11,7 @@ import {
 import './messages-page.css';
 import { ReaderNavigation } from './reader-navigation';
 import { CreatorNavigation } from './creator-navigation';
+import { CreatorPlatformNavigation } from './creator-platform-navigation';
 
 type Tab = 'Inbox' | 'Groups' | 'Creators' | 'Requests';
 
@@ -62,7 +63,13 @@ const activeReaders = [
   ['Liam T.', 'daniel'],
 ] as const;
 
-export function MessagesPage({ role }: { role: string }) {
+export function MessagesPage({
+  role,
+  platform = false,
+}: {
+  role: string;
+  platform?: boolean;
+}) {
   const [tab, setTab] = useState<Tab>('Inbox');
   const [query, setQuery] = useState('');
   const filtered = useMemo(
@@ -161,6 +168,8 @@ export function MessagesPage({ role }: { role: string }) {
       </button>
       {home === '/reader/dashboard' ? (
         <ReaderNavigation active="messages" />
+      ) : platform ? (
+        <CreatorPlatformNavigation active="messages" />
       ) : (
         <CreatorNavigation active="messages" />
       )}

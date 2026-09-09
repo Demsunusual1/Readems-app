@@ -14,6 +14,7 @@ export default async function DiscoverPage() {
     : null;
   return (
     <Discover
+      role={user?.role}
       dashboardHref={
         user
           ? `/${user.role === 'CREATOR' ? 'creator' : 'reader'}/dashboard`
