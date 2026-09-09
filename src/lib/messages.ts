@@ -279,9 +279,17 @@ export async function markConversationRead(
   userId: string,
   conversationId: string,
 ) {
+  // Read up to the newest message, taking that time from the message rather
+  // than from this machine's clock: unread is counted by comparing the two, and
+  // a clock a moment behind the database would leave a message unread for good.
+  const newest = await prisma.message.findFirst({
+    where: { conversationId },
+    orderBy: { createdAt: 'desc' },
+    select: { createdAt: true },
+  });
   await prisma.conversationMember.updateMany({
     where: { conversationId, userId },
-    data: { lastReadAt: new Date() },
+    data: { lastReadAt: newest?.createdAt ?? new Date() },
   });
 }
 

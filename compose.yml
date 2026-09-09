@@ -39,6 +39,9 @@ services:
     environment:
       DATABASE_URL: postgresql://readems:readems@postgres:5432/readems?schema=public
       NODE_ENV: production
+      # Whoever is listed here becomes a super admin when they sign in. Empty
+      # by default, so a deployment has to say who runs it.
+      READEMS_ADMIN_EMAILS: ${READEMS_ADMIN_EMAILS:-}
     ports:
       - '3000:3000'
     depends_on:

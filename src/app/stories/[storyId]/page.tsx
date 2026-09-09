@@ -16,7 +16,9 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import { readingMinutes } from '@/lib/chapters';
 import { getCurrentUser } from '@/lib/auth';
-import { isInLibrary } from '@/lib/library';
+import { getReadingLists, isInLibrary } from '@/lib/library';
+import { prisma } from '@/lib/prisma';
+import { StoryLists } from '@/components/story-lists';
 import { getReviewByReader, getReviews, getStoryReaction } from '@/lib/reviews';
 import { StoryReviews } from '@/components/story-reviews';
 import { getPublishedChapters, getStory, listStories } from '@/lib/stories';
@@ -57,12 +59,21 @@ export default async function StoryPage({
     (item) => item.id !== story.id,
   );
   const user = await getCurrentUser();
-  const [savedInLibrary, reaction, reviews, myReview] = await Promise.all([
-    user ? isInLibrary(user.id, story.id) : false,
-    getStoryReaction(story.id, user?.id ?? null),
-    getReviews(story.id, user?.id ?? null),
-    user ? getReviewByReader(user.id, story.id) : null,
-  ]);
+  const [savedInLibrary, reaction, reviews, myReview, lists, inLists] =
+    await Promise.all([
+      user ? isInLibrary(user.id, story.id) : false,
+      getStoryReaction(story.id, user?.id ?? null),
+      getReviews(story.id, user?.id ?? null),
+      user ? getReviewByReader(user.id, story.id) : null,
+      user ? getReadingLists(user.id) : [],
+      user
+        ? prisma.readingListItem.findMany({
+            where: { storyId: story.id, list: { userId: user.id } },
+            select: { listId: true },
+          })
+        : [],
+    ]);
+  const listIds = new Set(inLists.map((item) => item.listId));
 
   return (
     <div className="story-page">
@@ -166,6 +177,16 @@ export default async function StoryPage({
               ))}
             </div>
           </section>
+        )}
+        {user && (
+          <StoryLists
+            storyId={story.id}
+            lists={lists.map((list) => ({
+              id: list.id,
+              title: list.title,
+              holdsStory: listIds.has(list.id),
+            }))}
+          />
         )}
         {chapters.length > 0 && <StoryProgress storyId={story.id} />}
         <section className="details-chapters" aria-labelledby="chapter-list">

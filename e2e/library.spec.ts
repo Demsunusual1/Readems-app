@@ -93,3 +93,31 @@ test('finishing a chapter moves a story from current to completed', async ({
   ).toBeVisible();
   await expect(page.getByText('1', { exact: true }).first()).toBeVisible();
 });
+
+test('a story can be put into a reading list and taken out again', async ({
+  page,
+}) => {
+  await signUp(page);
+  await page.goto('/library');
+  await page.getByRole('button', { name: /New List/ }).click();
+  await page.getByLabel('List name').fill('Weekend Reading');
+  await page.getByRole('button', { name: 'Create list' }).click();
+  await expect(page.getByText('Weekend Reading')).toBeVisible();
+
+  await page.goto('/stories/baobab');
+  await page.getByRole('button', { name: 'Add to a reading list' }).click();
+  await page.getByRole('checkbox', { name: 'Weekend Reading' }).check();
+  await expect(page.getByText('Added to Weekend Reading.')).toBeVisible();
+
+  await page.goto('/library');
+  await expect(page.getByText('1 story')).toBeVisible();
+  await page.getByRole('link', { name: /Weekend Reading/ }).click();
+  await expect(
+    page.getByRole('link', { name: /Beneath the Baobab Tree/ }),
+  ).toBeVisible();
+
+  await page
+    .getByRole('button', { name: /Remove Beneath the Baobab Tree/ })
+    .click();
+  await expect(page.getByText(/Nothing here yet/)).toBeVisible();
+});

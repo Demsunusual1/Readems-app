@@ -147,6 +147,27 @@ describe('the inbox', () => {
     expect(inbox[0].unread).toBe(0);
   });
 
+  it('clears the count even when a message is timed ahead of the reader', async () => {
+    // Message times come from the database and the reading time came from the
+    // application, so a clock a moment behind used to leave a message unread
+    // for good. Reading is recorded against the messages themselves instead.
+    const ahead = await prisma.message.create({
+      data: {
+        conversationId,
+        senderId: niaId,
+        body: 'Sent by a clock that runs fast.',
+        createdAt: new Date(Date.now() + 5_000),
+      },
+    });
+
+    try {
+      await markConversationRead(kwameId, conversationId);
+      expect(await countUnreadMessages(kwameId)).toBe(0);
+    } finally {
+      await prisma.message.delete({ where: { id: ahead.id } });
+    }
+  });
+
   it('shows a conversation with nothing said in it yet', async () => {
     const inbox = await getConversations(strangerId);
     const quiet = inbox.find((item) => item.id === quietConversationId);

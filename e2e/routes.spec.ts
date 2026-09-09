@@ -101,7 +101,12 @@ test('every page a creator can open, opens', async ({ page }) => {
 
 test('the admin area is shut to everybody else', async ({ page }) => {
   await signUp(page, 'BOTH');
-  for (const route of ['/admin', '/admin/users', '/admin/moderation', '/admin/deals']) {
+  for (const route of [
+    '/admin',
+    '/admin/users',
+    '/admin/moderation',
+    '/admin/deals',
+  ]) {
     const response = await page.goto(route);
     const status = response?.status() ?? 0;
     const url = page.url();

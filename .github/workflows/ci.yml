@@ -66,6 +66,8 @@ jobs:
       # talking to Postgres over the compose network, with migrations and the
       # editorial seed applied by the migrate service before it starts.
       - name: Start the stack
+        env:
+          READEMS_ADMIN_EMAILS: admin@example.com
         run: docker compose --profile app up -d --build --wait
 
       - name: Show what is running
@@ -78,6 +80,9 @@ jobs:
         env:
           E2E_BASE_URL: http://127.0.0.1:3000
           DATABASE_URL: postgresql://readems:readems@localhost:5432/readems?schema=public
+          # The same list the container was started with, so the tests that
+          # need an admin can make one instead of skipping.
+          READEMS_ADMIN_EMAILS: admin@example.com
         run: npm run test:e2e
 
       - name: Application logs
