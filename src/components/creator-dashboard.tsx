@@ -2,17 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {
   Bell,
-  Books,
   CalendarBlank,
   CaretDown,
   CaretRight,
-  ChartBar,
   ChatCircle,
   CurrencyDollar,
   Eye,
   FileText,
   Heart,
-  List,
   Plus,
   ShareNetwork,
   Sparkle,
@@ -20,6 +17,7 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import { ReademsLogo } from './readems-logo';
 import './creator-dashboard.css';
+import { CreatorNavigation } from './creator-navigation';
 
 const schedule = [
   ['Chapter 12: Crossroads', 'May 14, 2024 · 9:00 AM'],
@@ -220,38 +218,7 @@ export function CreatorDashboard({
           </div>
         </section>
       </div>
-      <nav className="creator-bottom-nav" aria-label="Creator navigation">
-        <Link className="active" href="/creator/dashboard">
-          <span>
-            <ChartBar weight="fill" />
-          </span>
-          Dashboard
-        </Link>
-        <Link href="/creator/stories">
-          <span>
-            <Books />
-          </span>
-          Stories
-        </Link>
-        <Link href="/creator/analytics">
-          <span>
-            <ChartBar />
-          </span>
-          Analytics
-        </Link>
-        <Link href="#earnings">
-          <span>
-            <CurrencyDollar />
-          </span>
-          Earnings
-        </Link>
-        <Link href="#more">
-          <span>
-            <List />
-          </span>
-          More
-        </Link>
-      </nav>
+      <CreatorNavigation active="studio" />
     </main>
   );
 }
