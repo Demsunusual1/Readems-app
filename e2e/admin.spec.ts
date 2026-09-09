@@ -171,3 +171,72 @@ test.describe('with an admin account', () => {
 // src/lib/admin.db.test.ts ("restricts a comment so readers stop seeing it"):
 // the report control was added to the story page only, so a browser has no way
 // to file a report against a comment yet.
+
+test.describe('managing accounts', () => {
+  test.skip(
+    !adminEmail,
+    'Set READEMS_ADMIN_EMAILS on the process that starts the app to run these.',
+  );
+
+  test('an admin promotes somebody, and the promotion sticks', async ({
+    page,
+  }) => {
+    const person = await signUp(page);
+
+    await becomeAdmin(page);
+    await page.goto(`/admin/users?query=${person.username}`);
+    const row = page.locator('.admin-user', { hasText: person.username });
+    await expect(row).toBeVisible();
+
+    await row.getByLabel(/Admin role for/).selectOption({ label: 'Moderator' });
+    await expect(row.getByText('Role updated.')).toBeVisible();
+
+    // It is the account that changed, not the page: look it up again.
+    await page.goto(`/admin/users?query=${person.username}`);
+    await expect(
+      page
+        .locator('.admin-user', { hasText: person.username })
+        .getByLabel(/Admin role for/),
+    ).toHaveValue('MODERATOR');
+  });
+
+  test('a suspended account cannot sign in until it is restored', async ({
+    page,
+  }) => {
+    const person = await signUp(page);
+
+    await becomeAdmin(page);
+    await page.goto(`/admin/users?query=${person.username}`);
+    const row = page.locator('.admin-user', { hasText: person.username });
+    await row.getByRole('button', { name: 'Suspend' }).click();
+    await expect(row.locator('.admin-tag-bad')).toHaveText('Suspended');
+
+    // The suspended reader is turned away at the door.
+    const refused = await page.evaluate(
+      async (account) => {
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(account),
+        });
+        return response.status;
+      },
+      { email: person.email, password },
+    );
+    expect(refused).toBeGreaterThanOrEqual(400);
+
+    await page.goto(`/admin/users?query=${person.username}`);
+    await page
+      .locator('.admin-user', { hasText: person.username })
+      .getByRole('button', { name: 'Restore' })
+      .click();
+    await expect(
+      page
+        .locator('.admin-user', { hasText: person.username })
+        .locator('.admin-tag')
+        .first(),
+    ).toHaveText('Active');
+
+    await signIn(page, person.email);
+  });
+});

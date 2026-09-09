@@ -111,3 +111,40 @@ test('a member starts a group and it opens on its own page', async ({
     page.getByRole('button', { name: `Leave ${name}` }),
   ).toBeVisible();
 });
+
+test('a group schedules an event and members say they are going', async ({
+  page,
+}) => {
+  await signUp(page, 'Ife Organiser', '/groups');
+  const name = `Dawn Readers ${Date.now()}`;
+
+  await page.getByRole('button', { name: /Create a Group/ }).click();
+  await page.getByLabel('Name', { exact: true }).fill(name);
+  await page.getByLabel('One line about it').fill('We read at first light.');
+  await page.getByLabel('Description').fill('Early mornings, long books.');
+  await page.getByRole('button', { name: 'Create group' }).click();
+  await expect(page.getByRole('heading', { name })).toBeVisible();
+
+  const title = `Chapter One Together ${Date.now()}`;
+  await page
+    .locator('.group-events')
+    .getByRole('button', { name: 'Schedule' })
+    .click();
+  await page.getByLabel('Title').fill(title);
+  await page.getByLabel('Description').fill('We read the opening aloud.');
+  await page.getByLabel('Starts').fill('2027-03-04T18:30');
+  await page.getByRole('button', { name: 'Schedule event' }).click();
+
+  const event = page.locator('li', { hasText: title }).first();
+  await expect(event).toBeVisible();
+  await expect(event).toContainText('0 people going');
+
+  await event.getByRole('button', { name: 'RSVP' }).click();
+  await expect(event.getByRole('button', { name: 'Going' })).toBeVisible();
+  await expect(event).toContainText('1 person going');
+
+  // Saying it again takes the name off the list.
+  await event.getByRole('button', { name: 'Going' }).click();
+  await expect(event.getByRole('button', { name: 'RSVP' })).toBeVisible();
+  await expect(event).toContainText('0 people going');
+});

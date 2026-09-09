@@ -98,6 +98,27 @@ describe('writing a story', () => {
     expect(mine.published.map((item) => item.id)).toContain(storyId);
   });
 
+  it('counts a story with a chapter waiting to go out as scheduled', async () => {
+    // A published story with a chapter queued for later is work in the
+    // pipeline, and the writer's shelf is where they look for it.
+    const later = await createChapter(creatorId, storyId, {
+      title: 'The Platform at Dawn',
+      body: 'The first train had not come yet.',
+    });
+    await publishChapter(
+      creatorId,
+      later.id,
+      new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    );
+
+    try {
+      const mine = await getMyStories(creatorId);
+      expect(mine.scheduled.map((item) => item.id)).toContain(storyId);
+    } finally {
+      await prisma.chapter.delete({ where: { id: later.id } });
+    }
+  });
+
   it('tells the writer’s followers about a published chapter', async () => {
     const second = await createChapter(creatorId, storyId, {
       title: 'The Confession',

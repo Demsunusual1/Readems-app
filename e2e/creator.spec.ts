@@ -99,3 +99,50 @@ test('analytics reports only what has been measured', async ({ page }) => {
     page.getByText(/does not track where a reader came from/),
   ).toBeVisible();
 });
+
+test('a chapter scheduled for later stays out of the story until then', async ({
+  page,
+}) => {
+  await signUpCreator(page);
+  const title = `The Long Wait ${Date.now()}`;
+
+  await page.goto('/creator/stories/new');
+  await page.getByLabel('Title').fill(title);
+  await page.getByLabel('Synopsis').fill('A story told one dawn at a time.');
+  await page.getByLabel('Genre').selectOption('Drama');
+  await page.getByRole('button', { name: 'Create story' }).click();
+  await expect(page.getByRole('heading', { name: title })).toBeVisible();
+
+  // One chapter readers can have now, so the story itself is published.
+  await page.getByLabel('New chapter title').fill('First Light');
+  await page.getByRole('button', { name: 'Add chapter' }).click();
+  await page.getByLabel('Chapter', { exact: true }).fill('The sun came up.');
+  await page.getByRole('button', { name: 'Publish chapter' }).click();
+  await expect(page.getByRole('status')).toContainText('Published');
+
+  // And one held back for a date that has not arrived.
+  await page.goto('/creator/stories');
+  await page.getByRole('link', { name: new RegExp(title) }).click();
+  await page.getByLabel('New chapter title').fill('Second Light');
+  await page.getByRole('button', { name: 'Add chapter' }).click();
+  await page
+    .getByLabel('Chapter', { exact: true })
+    .fill('The second morning was colder.');
+  await page.getByLabel('Schedule for').fill('2030-01-01T09:00');
+  await page.getByRole('button', { name: 'Schedule' }).click();
+  await expect(page.getByRole('status')).toContainText('Scheduled');
+
+  // The reader sees the first chapter and no sign of the second.
+  await page.goto('/creator/stories');
+  await page.getByRole('link', { name: new RegExp(title) }).click();
+  await page.getByRole('link', { name: 'View as a reader' }).click();
+  await expect(page.getByRole('heading', { name: title })).toBeVisible();
+  await expect(page.getByText('1 chapter')).toBeVisible();
+  await expect(page.getByText('Second Light')).toHaveCount(0);
+
+  // The writer's own shelf counts it as scheduled.
+  await page.goto('/creator/stories?tab=Scheduled');
+  await expect(
+    page.getByRole('link', { name: new RegExp(title) }),
+  ).toBeVisible();
+});

@@ -350,6 +350,18 @@ export async function getMyStories(userId: string) {
       );
   }
 
+  // A published story with a chapter queued for later is still work waiting
+  // to go out, and the shelf is where the writer looks for it.
+  const queued = new Set(
+    (
+      await prisma.chapter.findMany({
+        where: { story: { authorId: userId }, status: 'SCHEDULED' },
+        select: { storyId: true },
+        distinct: ['storyId'],
+      })
+    ).map((chapter) => chapter.storyId),
+  );
+
   const shaped = stories.map((story) => ({
     ...toCreatorStory(story),
     comments: commentsByStory.get(story.id) ?? 0,
@@ -359,7 +371,9 @@ export async function getMyStories(userId: string) {
     all: shaped,
     published: shaped.filter((story) => story.status === 'PUBLISHED'),
     drafts: shaped.filter((story) => story.status === 'DRAFT'),
-    scheduled: shaped.filter((story) => story.status === 'SCHEDULED'),
+    scheduled: shaped.filter(
+      (story) => story.status === 'SCHEDULED' || queued.has(story.id),
+    ),
   };
 }
 
