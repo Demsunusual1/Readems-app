@@ -18,6 +18,7 @@ import {
   removePost,
   replyToPost,
 } from '@/app/community/actions';
+import { ReportButton } from './report-button';
 
 export type FeedPost = {
   id: string;
@@ -230,6 +231,14 @@ export function CommunityFeed({
               >
                 <ChatCircle /> {post.comments}
               </button>
+              {!post.mine && (
+                <ReportButton
+                  targetType="POST"
+                  targetId={post.id}
+                  signedIn={signedIn}
+                  label={`Report ${post.author.name}’s post`}
+                />
+              )}
               {post.mine && (
                 <button
                   type="button"

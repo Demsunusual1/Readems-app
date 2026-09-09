@@ -72,6 +72,19 @@ describe('account settings', () => {
     expect(person.bio).toBe('Reader, sometimes writer.');
   });
 
+  it('refuses a profile picture Readems could not show', async () => {
+    await expect(
+      saveProfile(personId, { avatarUrl: 'https://example.com/face.png' }),
+    ).rejects.toThrow();
+    await saveProfile(personId, {
+      avatarUrl: 'data:image/png;base64,iVBORw0KGgo=',
+    });
+    expect(
+      (await prisma.user.findUniqueOrThrow({ where: { id: personId } }))
+        .avatarUrl,
+    ).toContain('data:image/png');
+  });
+
   it('hides a private profile from everybody else', async () => {
     await saveSettings(personId, { profilePublic: false });
     const person = await prisma.user.findUniqueOrThrow({

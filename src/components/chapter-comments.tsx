@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Heart, PaperPlaneRight, UserCircle } from '@phosphor-icons/react';
 import { relativeTime } from '@/lib/time';
 import { likeComment, postComment, removeComment } from '@/app/stories/actions';
+import { ReportButton } from './report-button';
 
 export type CommentView = {
   id: string;
@@ -122,6 +123,14 @@ function Comment({
               <button type="button" onClick={() => setReplying(!replying)}>
                 Reply
               </button>
+            )}
+            {!comment.mine && (
+              <ReportButton
+                targetType="COMMENT"
+                targetId={comment.id}
+                signedIn={signedIn}
+                label={`Report ${comment.author.name}’s comment`}
+              />
             )}
             {comment.canRemove && (
               <button

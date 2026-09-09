@@ -37,15 +37,18 @@ export const signupSchema = z.object({
     .min(3, 'Choose at least 3 interests.')
     .max(interests.length),
   bio: z.string().trim().max(240).optional(),
+  // Only pictures Readems can actually show: the one the wizard encodes, or
+  // one that ships with the app. A remote address would render as a broken
+  // image, because the optimiser refuses hosts it was not configured for.
   avatarUrl: z
     .string()
     .max(500_000)
     .refine(
       (value) =>
         value === '' ||
-        /^https?:\/\//.test(value) ||
-        /^data:image\/(jpeg|png|webp);base64,/.test(value),
-      'Choose a valid profile image.',
+        /^data:image\/(jpeg|png|webp);base64,/.test(value) ||
+        /^\/readems\/[\w.-]+\.(png|jpg|jpeg|webp)$/.test(value),
+      'Choose a picture from your device.',
     )
     .optional(),
 });

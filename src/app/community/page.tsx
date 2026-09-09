@@ -15,10 +15,12 @@ import {
   type CommunityPost,
 } from '@/lib/community';
 import { getGroups } from '@/lib/groups';
+import { getFeaturedRooms } from '@/lib/rooms';
 import { prisma } from '@/lib/prisma';
 import { CommunityFeed, Composer } from '@/components/community-feed';
 import { Logo } from '@/components/ui/logo';
 import { JoinGroupButton } from '@/components/join-group-button';
+import '@/components/rooms.css';
 import '@/components/community.css';
 
 export const metadata: Metadata = {
@@ -51,7 +53,7 @@ export default async function CommunityPage({
     : 'For You';
   const user = await getCurrentUser();
 
-  const [posts, prompt, groups, members] = await Promise.all([
+  const [posts, prompt, groups, rooms, members] = await Promise.all([
     getFeed({
       viewerId: user?.id ?? null,
       following: active === 'Following',
@@ -60,6 +62,7 @@ export default async function CommunityPage({
     }),
     getCurrentPrompt(),
     getGroups({ viewerId: user?.id ?? null, take: 4 }),
+    getFeaturedRooms({ viewerId: user?.id ?? null, take: 4 }),
     prisma.user.count(),
   ]);
 
@@ -137,6 +140,33 @@ export default async function CommunityPage({
               )}
             </section>
           )}
+
+          <section className="community-groups">
+            <div>
+              <h2>Rooms</h2>
+              <Link href="/community/rooms">View all</Link>
+            </div>
+            {rooms.length === 0 ? (
+              <p className="feed-empty">
+                No rooms are open.{' '}
+                <Link href="/community/rooms">Start one</Link>.
+              </p>
+            ) : (
+              <ul>
+                {rooms.map((room) => (
+                  <li key={room.id}>
+                    <Link href={`/community/rooms/${room.id}`}>
+                      <strong>{room.title}</strong>
+                      <small>
+                        {room.people} {room.people === 1 ? 'person' : 'people'}{' '}
+                        <i>•</i> {room.tagline}
+                      </small>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
 
           <section className="community-groups">
             <div>

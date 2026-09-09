@@ -88,6 +88,16 @@ export async function saveProfile(
   const bio = input.bio?.trim();
   if (bio !== undefined && bio.length > 240)
     throw new Error('A bio can be up to 240 characters.');
+  // The same rule as signing up: a picture Readems can show, rather than an
+  // address on another server that would render as a broken image.
+  if (
+    input.avatarUrl !== undefined &&
+    input.avatarUrl !== null &&
+    input.avatarUrl !== '' &&
+    !/^data:image\/(jpeg|png|webp);base64,/.test(input.avatarUrl) &&
+    !/^\/readems\/[\w.-]+\.(png|jpg|jpeg|webp)$/.test(input.avatarUrl)
+  )
+    throw new Error('Choose a picture from your device.');
   return prisma.user.update({
     where: { id: userId },
     data: {
