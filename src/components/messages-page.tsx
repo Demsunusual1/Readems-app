@@ -10,6 +10,7 @@ import {
 } from '@phosphor-icons/react';
 import './messages-page.css';
 import { ReaderNavigation } from './reader-navigation';
+import { CreatorNavigation } from './creator-navigation';
 
 type Tab = 'Inbox' | 'Groups' | 'Creators' | 'Requests';
 
@@ -160,7 +161,9 @@ export function MessagesPage({ role }: { role: string }) {
       </button>
       {home === '/reader/dashboard' ? (
         <ReaderNavigation active="messages" />
-      ) : null}
+      ) : (
+        <CreatorNavigation active="messages" />
+      )}
     </main>
   );
 }
