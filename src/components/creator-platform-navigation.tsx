@@ -14,7 +14,7 @@ const items = [
   ['discover', 'Discover', '/discover', Compass],
   ['community', 'Community', '/community', UsersThree],
   ['messages', 'Messages', '/messages?from=platform', ChatCircleDots],
-  ['profile', 'Profile', '/creator/profile', User],
+  ['profile', 'Profile', '/creator/studio', User],
 ] as const;
 
 export function CreatorPlatformNavigation({ active }: { active: Destination }) {
