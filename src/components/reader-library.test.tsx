@@ -6,7 +6,7 @@ afterEach(cleanup);
 
 describe('ReaderLibrary', () => {
   it('renders the official library sections and navigation', () => {
-    render(<ReaderLibrary profileHref="/login" />);
+    render(<ReaderLibrary />);
 
     expect(
       screen.getByRole('heading', { name: 'My Library' }),
@@ -26,7 +26,7 @@ describe('ReaderLibrary', () => {
   });
 
   it('switches to downloads from the official offline card', () => {
-    render(<ReaderLibrary profileHref="/login" />);
+    render(<ReaderLibrary />);
 
     fireEvent.click(screen.getByRole('button', { name: 'View Downloads' }));
 

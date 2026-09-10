@@ -18,6 +18,10 @@ export async function POST(request: Request) {
       { error: 'The email or password is incorrect.' },
       { status: 401 },
     );
-  await createSession(user.id);
+  await createSession(
+    user.id,
+    undefined,
+    new URL(request.url).protocol === 'https:',
+  );
   return NextResponse.json({ dashboard: dashboardForRole(user.role) });
 }
