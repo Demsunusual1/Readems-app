@@ -16,7 +16,8 @@
   backdrop-filter: blur(14px);
 }
 
-.reader-navigation a {
+.reader-navigation a,
+.reader-navigation__disabled {
   display: flex;
   min-width: 0;
   min-height: 48px;
@@ -26,6 +27,11 @@
   gap: 3px;
   color: #64748b;
   text-decoration: none;
+}
+
+.reader-navigation__disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .reader-navigation svg {

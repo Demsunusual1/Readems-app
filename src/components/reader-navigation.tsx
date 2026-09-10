@@ -27,13 +27,13 @@ const items = [
   {
     id: 'community',
     label: 'Community',
-    href: '/reader/dashboard#community',
+    href: '/community',
     Icon: UsersThree,
   },
   {
     id: 'profile',
     label: 'Profile',
-    href: '/reader/dashboard#profile',
+    href: null,
     Icon: User,
   },
 ] as const;
@@ -43,12 +43,8 @@ export function ReaderNavigation({ active }: { active: ReaderDestination }) {
     <nav className="reader-navigation" aria-label="Reader navigation">
       {items.map(({ id, label, href, Icon }) => {
         const isActive = active === id;
-        return (
-          <Link
-            key={id}
-            href={href}
-            aria-current={isActive ? 'page' : undefined}
-          >
+        const content = (
+          <>
             <span
               className={
                 id === 'messages' ? 'reader-navigation__primary' : undefined
@@ -57,6 +53,29 @@ export function ReaderNavigation({ active }: { active: ReaderDestination }) {
               <Icon weight={isActive ? 'fill' : 'regular'} />
             </span>
             <small>{label}</small>
+          </>
+        );
+
+        if (!href) {
+          return (
+            <span
+              key={id}
+              className="reader-navigation__disabled"
+              aria-disabled="true"
+              title="Reader profile is not available yet"
+            >
+              {content}
+            </span>
+          );
+        }
+
+        return (
+          <Link
+            key={id}
+            href={href}
+            aria-current={isActive ? 'page' : undefined}
+          >
+            {content}
           </Link>
         );
       })}
