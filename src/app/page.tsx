@@ -22,6 +22,7 @@ import {
 import { LandingHeader } from '@/components/landing-header';
 import { LandingHero } from '@/components/landing-hero';
 import { CreatorPlatformNavigation } from '@/components/creator-platform-navigation';
+import { ReaderNavigation } from '@/components/reader-navigation';
 
 const readingList = [
   [
@@ -357,6 +358,8 @@ export default async function HomePage() {
       </main>
       {user?.role === 'CREATOR' ? (
         <CreatorPlatformNavigation active="home" />
+      ) : user?.role === 'READER' ? (
+        <ReaderNavigation active="home" />
       ) : (
         <nav className="landing-bottom-nav" aria-label="Mobile navigation">
           <Link className="is-active" href="/" aria-current="page">

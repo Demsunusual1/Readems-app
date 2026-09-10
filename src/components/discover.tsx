@@ -23,6 +23,7 @@ import {
 import { Logo } from './ui/logo';
 import './discover.css';
 import { CreatorPlatformNavigation } from './creator-platform-navigation';
+import { ReaderNavigation } from './reader-navigation';
 
 const genres = [
   ['Drama', MaskHappy],
@@ -231,6 +232,8 @@ export function Discover({
       </main>
       {role === 'CREATOR' ? (
         <CreatorPlatformNavigation active="discover" />
+      ) : role === 'READER' ? (
+        <ReaderNavigation active="discover" />
       ) : (
         <nav className="discover-bottom" aria-label="Primary navigation">
           <Link href="/">

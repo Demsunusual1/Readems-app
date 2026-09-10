@@ -208,7 +208,7 @@ export function ReaderDashboard({
               <br />
               and connect with readers worldwide.
             </span>
-            <Link href="#community">Explore Community ›</Link>
+            <Link href="/community">Explore Community ›</Link>
           </div>
           <div>
             <b>

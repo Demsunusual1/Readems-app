@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ChatCircle, UsersThree } from '@phosphor-icons/react/dist/ssr';
 import { CreatorPlatformNavigation } from '@/components/creator-platform-navigation';
+import { ReaderNavigation } from '@/components/reader-navigation';
 import { getCurrentUser } from '@/lib/auth';
 export default async function Page() {
   const user = await getCurrentUser();
@@ -33,6 +34,8 @@ export default async function Page() {
       </section>
       {user?.role === 'CREATOR' ? (
         <CreatorPlatformNavigation active="community" />
+      ) : user?.role === 'READER' ? (
+        <ReaderNavigation active="community" />
       ) : null}
     </main>
   );
