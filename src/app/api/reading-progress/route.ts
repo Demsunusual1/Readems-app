@@ -30,7 +30,20 @@ export async function GET(request: Request) {
   }
 }
 export async function POST(request: Request) {
-  if (request.headers.get('origin') !== new URL(request.url).origin)
+  const origin = request.headers.get('origin');
+  const requestOrigin = new URL(request.url);
+  let originUrl: URL | null = null;
+  try {
+    originUrl = origin ? new URL(origin) : null;
+  } catch {
+    originUrl = null;
+  }
+  const bothLocal =
+    originUrl &&
+    ['localhost', '127.0.0.1'].includes(originUrl.hostname) &&
+    ['localhost', '127.0.0.1'].includes(requestOrigin.hostname) &&
+    originUrl.port === requestOrigin.port;
+  if (origin !== requestOrigin.origin && !bothLocal)
     return NextResponse.json(
       { error: 'Invalid request origin.' },
       { status: 403 },

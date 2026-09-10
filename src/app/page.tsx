@@ -21,6 +21,8 @@ import {
 } from '@phosphor-icons/react/dist/ssr';
 import { LandingHeader } from '@/components/landing-header';
 import { LandingHero } from '@/components/landing-hero';
+import { CreatorPlatformNavigation } from '@/components/creator-platform-navigation';
+import { ReaderNavigation } from '@/components/reader-navigation';
 
 const readingList = [
   [
@@ -354,28 +356,34 @@ export default async function HomePage() {
           </div>
         </section>
       </main>
-      <nav className="landing-bottom-nav" aria-label="Mobile navigation">
-        <Link className="is-active" href="/" aria-current="page">
-          <House aria-hidden="true" />
-          <span>Home</span>
-        </Link>
-        <Link href="/library">
-          <BookOpenText aria-hidden="true" />
-          <span>Library</span>
-        </Link>
-        <Link className="landing-create-link" href={writingHref}>
-          <Feather aria-hidden="true" />
-          <span className="sr-only">Start writing</span>
-        </Link>
-        <Link href="/#community-title">
-          <UsersThree aria-hidden="true" />
-          <span>Community</span>
-        </Link>
-        <Link href={dashboard ?? '/login'}>
-          <User aria-hidden="true" />
-          <span>Profile</span>
-        </Link>
-      </nav>
+      {user?.role === 'CREATOR' ? (
+        <CreatorPlatformNavigation active="home" />
+      ) : user?.role === 'READER' ? (
+        <ReaderNavigation active="home" />
+      ) : (
+        <nav className="landing-bottom-nav" aria-label="Mobile navigation">
+          <Link className="is-active" href="/" aria-current="page">
+            <House aria-hidden="true" />
+            <span>Home</span>
+          </Link>
+          <Link href="/library">
+            <BookOpenText aria-hidden="true" />
+            <span>Library</span>
+          </Link>
+          <Link className="landing-create-link" href={writingHref}>
+            <Feather aria-hidden="true" />
+            <span className="sr-only">Start writing</span>
+          </Link>
+          <Link href="/#community-title">
+            <UsersThree aria-hidden="true" />
+            <span>Community</span>
+          </Link>
+          <Link href={dashboard ?? '/login'}>
+            <User aria-hidden="true" />
+            <span>Profile</span>
+          </Link>
+        </nav>
+      )}
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import { ReaderLibrary } from '@/components/reader-library';
 
 export const metadata: Metadata = {
@@ -8,18 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default async function LibraryPage() {
-  const hasSession = (await cookies()).has('readems_session');
-  const user = hasSession
-    ? await import('@/lib/auth').then(({ getCurrentUser }) => getCurrentUser())
-    : null;
-
-  return (
-    <ReaderLibrary
-      profileHref={
-        user
-          ? `/${user.role === 'CREATOR' ? 'creator' : 'reader'}/dashboard`
-          : '/login'
-      }
-    />
-  );
+  return <ReaderLibrary />;
 }

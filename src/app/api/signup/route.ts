@@ -22,7 +22,11 @@ export async function POST(request: Request) {
           passwordHash,
         },
       });
-      await createSession(created.id, transaction);
+      await createSession(
+        created.id,
+        transaction,
+        new URL(request.url).protocol === 'https:',
+      );
       return created;
     });
     return NextResponse.json(

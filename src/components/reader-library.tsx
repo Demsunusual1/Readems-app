@@ -10,19 +10,17 @@ import {
   CaretDown,
   CaretRight,
   CheckCircle,
-  Compass,
   DownloadSimple,
   Feather,
   Globe,
-  House,
   LockSimple,
   MagnifyingGlass,
   Plus,
   SlidersHorizontal,
   Sparkle,
-  UserCircle,
 } from '@phosphor-icons/react';
 import { Logo } from './ui/logo';
+import { ReaderNavigation } from './reader-navigation';
 import './reader-library.css';
 
 const tabs = [
@@ -86,7 +84,7 @@ const lists = [
   },
 ] as const;
 
-export function ReaderLibrary({ profileHref }: { profileHref: string }) {
+export function ReaderLibrary() {
   const [activeTab, setActiveTab] =
     useState<(typeof tabs)[number][0]>('Current');
 
@@ -260,28 +258,7 @@ export function ReaderLibrary({ profileHref }: { profileHref: string }) {
         </aside>
       </main>
 
-      <nav className="library-bottom-nav" aria-label="Primary navigation">
-        <Link href="/">
-          <House />
-          <span>Home</span>
-        </Link>
-        <Link href="/discover">
-          <Compass />
-          <span>Explore</span>
-        </Link>
-        <Link href="/signup?role=creator">
-          <Feather />
-          <span>Write</span>
-        </Link>
-        <Link href="/library" aria-current="page">
-          <BookOpen weight="fill" />
-          <span>Library</span>
-        </Link>
-        <Link href={profileHref}>
-          <UserCircle />
-          <span>Profile</span>
-        </Link>
-      </nav>
+      <ReaderNavigation active="library" />
     </div>
   );
 }

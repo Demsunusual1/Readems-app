@@ -22,6 +22,8 @@ import {
 } from '@phosphor-icons/react';
 import { Logo } from './ui/logo';
 import './discover.css';
+import { CreatorPlatformNavigation } from './creator-platform-navigation';
+import { ReaderNavigation } from './reader-navigation';
 
 const genres = [
   ['Drama', MaskHappy],
@@ -81,7 +83,13 @@ const trends = [
   ],
 ] as const;
 
-export function Discover({ dashboardHref }: { dashboardHref: string }) {
+export function Discover({
+  dashboardHref,
+  role,
+}: {
+  dashboardHref: string;
+  role?: string;
+}) {
   const [query, setQuery] = useState('');
   const [mood, setMood] = useState('All Moods');
   function submit(event: FormEvent<HTMLFormElement>) {
@@ -98,7 +106,10 @@ export function Discover({ dashboardHref }: { dashboardHref: string }) {
           <button aria-label="Notifications">
             <Bell />
           </button>
-          <Link href={dashboardHref} aria-label="Open profile">
+          <Link
+            href={role === 'CREATOR' ? '/creator/studio' : dashboardHref}
+            aria-label="Open profile"
+          >
             <Image
               src="/readems/creator-chinelo-okoye.png"
               alt=""
@@ -219,28 +230,34 @@ export function Discover({ dashboardHref }: { dashboardHref: string }) {
           </section>
         </div>
       </main>
-      <nav className="discover-bottom" aria-label="Primary navigation">
-        <Link href="/">
-          <House />
-          <span>Home</span>
-        </Link>
-        <Link href="/discover" aria-current="page">
-          <Compass weight="fill" />
-          <span>Discover</span>
-        </Link>
-        <Link href="/signup?role=creator">
-          <Feather />
-          <span>Write</span>
-        </Link>
-        <Link href="/#community-title">
-          <UsersThree />
-          <span>Community</span>
-        </Link>
-        <Link href="/library">
-          <BookOpen />
-          <span>Library</span>
-        </Link>
-      </nav>
+      {role === 'CREATOR' ? (
+        <CreatorPlatformNavigation active="discover" />
+      ) : role === 'READER' ? (
+        <ReaderNavigation active="discover" />
+      ) : (
+        <nav className="discover-bottom" aria-label="Primary navigation">
+          <Link href="/">
+            <House />
+            <span>Home</span>
+          </Link>
+          <Link href="/discover" aria-current="page">
+            <Compass weight="fill" />
+            <span>Discover</span>
+          </Link>
+          <Link href="/signup?role=creator">
+            <Feather />
+            <span>Write</span>
+          </Link>
+          <Link href="/#community-title">
+            <UsersThree />
+            <span>Community</span>
+          </Link>
+          <Link href="/library">
+            <BookOpen />
+            <span>Library</span>
+          </Link>
+        </nav>
+      )}
     </div>
   );
 }
